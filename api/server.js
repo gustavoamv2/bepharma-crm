@@ -613,6 +613,18 @@ app.post('/api/zadarma/call', requireAuth, async (req, res) => {
   }
 })
 
+// Diagnóstico: muestra si las env vars de Zadarma están configuradas
+app.get('/api/zadarma/config', requireAuth, (req, res) => {
+  const key = process.env.ZADARMA_API_KEY
+  const secret = process.env.ZADARMA_API_SECRET
+  res.json({
+    hasKey: !!key,
+    keyPreview: key ? key.substring(0, 6) + '...' : '(no configurado)',
+    hasSecret: !!secret,
+    secretPreview: secret ? secret.substring(0, 6) + '...' : '(no configurado)',
+  })
+})
+
 // Diagnóstico: verifica credenciales Zadarma (sin hacer llamadas)
 app.get('/api/zadarma/test', requireAuth, async (req, res) => {
   try {
