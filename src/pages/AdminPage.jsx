@@ -164,13 +164,12 @@ export default function AdminPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {(users || []).map(u => {
                 const f = emailForm[u.username] || {}
-                const cmd = f.user && f.pass
-                  ? `echo "${f.user}" | vercel env add EMAIL_USER_${u.username.toUpperCase()} production --force\necho "${f.pass}" | vercel env add EMAIL_PASS_${u.username.toUpperCase()} production --force`
-                  : null
+                const isOpen = showEmailCmd === u.username
+                const cmd = `echo "${f.user || 'CORREO@empresa.com'}" | vercel env add EMAIL_USER_${u.username.toUpperCase()} production --force\necho "${f.pass || 'CONTRASENA'}" | vercel env add EMAIL_PASS_${u.username.toUpperCase()} production --force`
                 return (
                   <div key={u.username} style={{ border: '1px solid #e2e8f0', borderRadius: 8, padding: 12 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                      <div style={{ minWidth: 120 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr 1fr auto', gap: 10, alignItems: 'center' }}>
+                      <div>
                         <div style={{ fontWeight: 600, fontSize: 13 }}>{u.name}</div>
                         <div style={{ fontSize: 11, color: '#6b778c' }}>@{u.username}</div>
                       </div>
@@ -179,33 +178,32 @@ export default function AdminPage() {
                         placeholder="correo@empresa.com"
                         value={f.user || ''}
                         onChange={e => setEmailField(u.username, 'user', e.target.value)}
-                        style={{ flex: 1, minWidth: 180, padding: '5px 8px', border: '1px solid #dfe1e6', borderRadius: 5, fontSize: 13 }}
+                        style={{ padding: '6px 8px', border: '1px solid #dfe1e6', borderRadius: 5, fontSize: 13 }}
                       />
                       <input
                         type="password"
                         placeholder="Contraseña Outlook"
                         value={f.pass || ''}
                         onChange={e => setEmailField(u.username, 'pass', e.target.value)}
-                        style={{ flex: 1, minWidth: 160, padding: '5px 8px', border: '1px solid #dfe1e6', borderRadius: 5, fontSize: 13 }}
+                        style={{ padding: '6px 8px', border: '1px solid #dfe1e6', borderRadius: 5, fontSize: 13 }}
                       />
                       <button
                         className="btn btn-primary btn-sm"
-                        disabled={!cmd}
-                        onClick={() => setShowEmailCmd(showEmailCmd === u.username ? null : u.username)}
+                        onClick={() => setShowEmailCmd(isOpen ? null : u.username)}
                       >
-                        Generar comando
+                        {isOpen ? 'Ocultar' : 'Ver comando'}
                       </button>
                     </div>
-                    {showEmailCmd === u.username && cmd && (
+                    {isOpen && (
                       <div style={{ marginTop: 10, background: '#0d1e2e', borderRadius: 6, padding: '10px 14px' }}>
                         <div style={{ fontSize: 11, color: '#90caf9', marginBottom: 6 }}>Ejecuta en PowerShell (carpeta bepharma-crm):</div>
                         <pre style={{ color: '#66bb6a', fontSize: 12, margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{cmd}</pre>
                         <button
                           className="btn btn-ghost btn-sm"
                           style={{ marginTop: 8, color: '#90caf9' }}
-                          onClick={() => { navigator.clipboard.writeText(cmd); addToast('Comando copiado', 'success') }}
+                          onClick={() => { navigator.clipboard.writeText(cmd.replace(/\\n/g, '\n')); addToast('Copiado', 'success') }}
                         >
-                          📋 Copiar
+                          📋 Copiar comandos
                         </button>
                       </div>
                     )}

@@ -586,8 +586,11 @@ function md5(str) {
 
 async function zadarmaRequest(method, params = {}) {
   const sign = zadarmaSign(method, params)
-  // sign va SOLO en el header Authorization, no en el query string
-  const qs = new URLSearchParams(params).toString()
+  // El query string debe tener las mismas claves ORDENADAS que se usaron para firmar
+  const sortedKeys = Object.keys(params).sort()
+  const qs = sortedKeys
+    .map(k => `${k}=${encodeURIComponent(String(params[k])).replace(/%20/g, '+')}`)
+    .join('&')
   const r = await axios.get(`https://api.zadarma.com${method}?${qs}`, {
     headers: { Authorization: `${process.env.ZADARMA_API_KEY}:${sign}` }
   })
@@ -601,7 +604,27 @@ app.post('/api/zadarma/call', requireAuth, async (req, res) => {
     const data = await zadarmaRequest('/v1/request/callback/', { from, to, predicted })
     res.json(data)
   } catch (e) {
-    res.status(500).json({ error: e.message })
+    const zadErr = e.response?.data
+    res.status(500).json({
+      error: e.message,
+      zadarma: zadErr || null,
+      status: e.response?.status || null
+    })
+  }
+})
+
+// Diagnóstico: verifica credenciales Zadarma (sin hacer llamadas)
+app.get('/api/zadarma/test', requireAuth, async (req, res) => {
+  try {
+    const data = await zadarmaRequest('/v1/info/balance/', {})
+    res.json({ ok: true, balance: data })
+  } catch (e) {
+    res.status(500).json({
+      ok: false,
+      error: e.message,
+      zadarma: e.response?.data || null,
+      status: e.response?.status || null
+    })
   }
 })
 

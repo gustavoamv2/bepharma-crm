@@ -35,7 +35,7 @@ if (-not $gitOk) {
 Write-Host "`n[2/3] Commit y push..." -ForegroundColor Yellow
 git add -A
 git status --short
-git commit -m "feat: fix llamadas Zadarma (sipExtension en JWT), pipeline empresas dashboard, company search en contacto"
+git commit -m "fix: zadarma query string sorted to match signature + error details + test endpoint"
 git branch -M main
 git push -u origin main
 
