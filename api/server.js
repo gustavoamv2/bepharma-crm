@@ -652,8 +652,7 @@ app.post('/api/apollo/people/search', requireAuth, async (req, res) => {
     if (title)             body.person_titles = [title]
     if (email)             body.q_email_status = ['verified', 'likely']
 
-    // Intentar mixed_people/search (disponible en más planes que people/search)
-    const r = await apollo.post('/mixed_people/search', body)
+    const r = await apollo.post('/people/search', body)
     res.json(r.data)
   } catch (e) {
     const errData = e.response?.data
