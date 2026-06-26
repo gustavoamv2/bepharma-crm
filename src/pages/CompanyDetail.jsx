@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useQuery, useQueryClient } from 'react-query'
 import { format } from 'date-fns'
@@ -11,6 +11,60 @@ import EmailComposer from '../components/EmailComposer'
 import RecordModal, { DeleteButton } from '../components/RecordModal'
 import ActivityBar from '../components/ActivityBar'
 import CreateTaskModal from '../components/CreateTaskModal'
+
+const COMPANY_STAGES = [
+  { key: 'nueva',           label: '🆕 Nueva' },
+  { key: 'depuracion',      label: '🧹 Depuración' },
+  { key: 'enriquecimiento', label: '💎 Enriquecimiento' },
+  { key: 'calificada',      label: '✅ Calificada' },
+  { key: 'contactada',      label: '📞 Contactada' },
+  { key: 'seguimiento',     label: '🔁 Seguimiento' },
+  { key: 'confirmada',      label: '🏆 Confirmada' },
+  { key: 'descartada',      label: '❌ Descartada' },
+]
+
+function StageSelector({ companyId, currentStage, onUpdated }) {
+  const [saving, setSaving] = useState(false)
+  const [value, setValue] = useState(currentStage || '')
+
+  const handleChange = async (e) => {
+    const newStage = e.target.value
+    setValue(newStage)
+    setSaving(true)
+    try {
+      await hubspot.updateCompany(companyId, { bp_etapa_empresa: newStage })
+      onUpdated?.()
+    } catch (err) {
+      console.error('Error actualizando etapa:', err)
+      setValue(currentStage || '') // revert on error
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const current = COMPANY_STAGES.find(s => s.key === value)
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      <select
+        value={value}
+        onChange={handleChange}
+        disabled={saving}
+        style={{
+          padding: '5px 10px', borderRadius: 6, border: '1px solid #dfe1e6',
+          background: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+          color: '#172b4d', outline: 'none'
+        }}
+      >
+        <option value="">— Sin etapa —</option>
+        {COMPANY_STAGES.map(s => (
+          <option key={s.key} value={s.key}>{s.label}</option>
+        ))}
+      </select>
+      {saving && <span style={{ fontSize: 11, color: '#6b778c' }}>Guardando…</span>}
+    </div>
+  )
+}
 
 const safeFmt = (v) => {
   if (!v) return '—'
@@ -74,6 +128,15 @@ export default function CompanyDetail() {
                 </div>
               </div>
               <div className="card-body">
+                {/* Selector de etapa BePharma */}
+                <div style={{ marginBottom: 16, padding: '10px 14px', background: '#f4f5f7', borderRadius: 8, display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: '#6b778c', whiteSpace: 'nowrap' }}>Etapa BePharma:</span>
+                  <StageSelector
+                    companyId={id}
+                    currentStage={p.bp_etapa_empresa}
+                    onUpdated={() => qc.invalidateQueries(['company', id])}
+                  />
+                </div>
                 <div className="props-grid">
                   <Prop label="Dominio" value={p.domain} />
                   <Prop label="Teléfono" value={p.phone} />

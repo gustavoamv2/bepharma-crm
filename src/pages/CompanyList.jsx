@@ -80,9 +80,9 @@ export default function CompanyList() {
                   <thead>
                     <tr>
                       <th>Empresa</th>
+                      <th>Etapa</th>
                       <th>Ciudad</th>
                       <th>Teléfono</th>
-                      <th>Industria</th>
                       <th>Creada</th>
                     </tr>
                   </thead>
@@ -90,9 +90,14 @@ export default function CompanyList() {
                     {companies.map(c => (
                       <tr key={c.id} className="clickable" onClick={() => nav(`/companies/${c.id}`)}>
                         <td style={{ fontWeight: 500 }}>{c.properties.name || '(sin nombre)'}</td>
+                        <td>
+                          {c.properties.bp_etapa_empresa
+                            ? <span style={{ fontSize: 11, fontWeight: 600 }}>{STAGE_LABELS[c.properties.bp_etapa_empresa] || c.properties.bp_etapa_empresa}</span>
+                            : <span style={{ color: '#adb5bd', fontSize: 11 }}>—</span>
+                          }
+                        </td>
                         <td>{c.properties.city || '—'}</td>
                         <td>{c.properties.phone || '—'}</td>
-                        <td>{c.properties.industry || '—'}</td>
                         <td>{fmt(c.properties.createdate)}</td>
                       </tr>
                     ))}

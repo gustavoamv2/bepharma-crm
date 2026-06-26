@@ -571,8 +571,12 @@ app.get('/api/hubspot/tasks/pending', requireAuth, async (req, res) => {
 // ZADARMA
 // ──────────────────────────────────────────────────────────────────────────────
 function zadarmaSign(method, params) {
-  const sorted = Object.keys(params).sort().map(k => `${k}=${params[k]}`).join('&')
-  const str = method + sorted + md5(sorted)
+  // Replicar http_build_query de PHP: keys ordenadas, valores URL-encoded
+  const sortedKeys = Object.keys(params).sort()
+  const paramStr = sortedKeys
+    .map(k => `${k}=${encodeURIComponent(String(params[k])).replace(/%20/g, '+')}`)
+    .join('&')
+  const str = method + paramStr + md5(paramStr)
   return crypto.createHmac('sha1', process.env.ZADARMA_API_SECRET).update(str).digest('base64')
 }
 function md5(str) {
@@ -630,43 +634,47 @@ app.get('/api/zadarma/sip', async (req, res) => {
 // APOLLO.IO
 // ──────────────────────────────────────────────────────────────────────────────
 const apollo = axios.create({
-  baseURL: 'https://api.apollo.io',
-  headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }
+  baseURL: 'https://api.apollo.io/v1',
+  headers: {
+    'X-Api-Key': process.env.APOLLO_API_KEY,
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache'
+  }
 })
 
-// Buscar personas en Apollo (v1 con api_key como param — compatible con todos los planes)
+// Buscar personas en Apollo
 app.post('/api/apollo/people/search', requireAuth, async (req, res) => {
   try {
     const { name, organization_name, title, email, page = 1 } = req.body
-    const body = {
-      api_key: process.env.APOLLO_API_KEY,
-      page,
-      per_page: 25,
-    }
+    const body = { page, per_page: 25 }
     if (name)              body.q_keywords = name
     if (organization_name) body.organization_name = organization_name
     if (title)             body.person_titles = [title]
-    if (email)             body.q_email = email
+    if (email)             body.q_email_status = ['verified', 'likely']
 
-    const r = await apollo.post('/api/v1/mixed_people/search', body)
-    // mixed_people/search devuelve { people: [...] } igual que people/search
+    // Intentar mixed_people/search (disponible en más planes que people/search)
+    const r = await apollo.post('/mixed_people/search', body)
     res.json(r.data)
   } catch (e) {
     const errData = e.response?.data
-    const msg = typeof errData === 'object' ? errData?.error || JSON.stringify(errData) : e.message
-    res.status(e.response?.status || 500).json({ error: msg })
+    const errMsg = errData?.error || errData?.message || e.message
+    // Si es restricción de plan, dar mensaje claro
+    if (typeof errMsg === 'string' && (errMsg.includes('not accessible') || errMsg.includes('plan'))) {
+      return res.status(403).json({ error: 'Tu plan de Apollo no incluye búsqueda de personas. Actualiza en apollo.io o usa RocketReach.' })
+    }
+    res.status(e.response?.status || 500).json({ error: typeof errMsg === 'string' ? errMsg : JSON.stringify(errMsg) })
   }
 })
 
 // Enriquecer contacto con email
 app.post('/api/apollo/enrich', requireAuth, async (req, res) => {
   try {
-    const r = await apollo.post('/api/v1/people/match', { api_key: process.env.APOLLO_API_KEY, ...req.body })
+    const r = await apollo.post('/people/match', req.body)
     res.json(r.data)
   } catch (e) {
     const errData = e.response?.data
-    const msg = typeof errData === 'object' ? errData?.error || JSON.stringify(errData) : e.message
-    res.status(e.response?.status || 500).json({ error: msg })
+    const msg = errData?.error || errData?.message || e.message
+    res.status(e.response?.status || 500).json({ error: typeof msg === 'string' ? msg : JSON.stringify(msg) })
   }
 })
 
