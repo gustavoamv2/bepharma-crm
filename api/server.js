@@ -657,11 +657,14 @@ app.get('/api/zadarma/sip', async (req, res) => {
 // ──────────────────────────────────────────────────────────────────────────────
 // APOLLO.IO
 // ──────────────────────────────────────────────────────────────────────────────
+// Docs: https://docs.apollo.io/reference/people-api-search
+// • Base URL: https://api.apollo.io/api/v1  (incluye /api/)
+// • Endpoint mixed_people/api_search: parámetros van en QUERY STRING (in: query), no en body
+// • Requiere "master API key" en Apollo Settings → API Keys
 const apollo = axios.create({
-  baseURL: 'https://api.apollo.io/v1',
+  baseURL: 'https://api.apollo.io/api/v1',
   headers: {
-    'X-Api-Key': process.env.APOLLO_API_KEY,
-    'Content-Type': 'application/json',
+    'x-api-key': process.env.APOLLO_API_KEY,
     'Cache-Control': 'no-cache'
   }
 })
@@ -669,20 +672,26 @@ const apollo = axios.create({
 // Buscar personas en Apollo
 app.post('/api/apollo/people/search', requireAuth, async (req, res) => {
   try {
-    const { name, organization_name, title, email, page = 1 } = req.body
-    const body = { page, per_page: 25 }
-    if (name)              body.q_keywords = name
-    if (organization_name) body.organization_name = organization_name
-    if (title)             body.person_titles = [title]
-    if (email)             body.q_email_status = ['verified', 'likely']
+    const { name, organization_name, title, location, page = 1 } = req.body
+    // Params van en query string (no en body) según OpenAPI spec
+    const params = { page, per_page: 25 }
+    if (name)              params.q_keywords = name
+    if (organization_name) params['q_organization_domains_list[]'] = organization_name
+    if (title)             params['person_titles[]'] = title
+    if (location)          params['person_locations[]'] = location
 
-    const r = await apollo.post('/mixed_people/api_search', body)
+    const r = await apollo.post('/mixed_people/api_search', null, { params })
     res.json(r.data)
   } catch (e) {
     const errData = e.response?.data
     const errMsg = errData?.error || errData?.message || e.message
+    // 403 con API_INACCESSIBLE = necesita master API key en Apollo
+    const hint = errData?.error_code === 'API_INACCESSIBLE'
+      ? 'Necesitas una "master API key" en Apollo → Settings → API Keys'
+      : undefined
     res.status(e.response?.status || 500).json({
       error: typeof errMsg === 'string' ? errMsg : JSON.stringify(errMsg),
+      hint,
       _debug: { status: e.response?.status, data: errData }
     })
   }
@@ -713,22 +722,25 @@ app.post('/api/apollo/organizations/search', async (req, res) => {
 // ──────────────────────────────────────────────────────────────────────────────
 // ROCKETREACH
 // ──────────────────────────────────────────────────────────────────────────────
+// Docs: https://docs.rocketreach.co/reference/people-search-api
+// • Base URL: https://api.rocketreach.co/api/v2  (incluye /api/)
+// • Endpoint: /person/search
+// • Campos correctos: employer (no current_employer), geo (no location)
 const rr = axios.create({
-  baseURL: 'https://api.rocketreach.co/v2',
-  headers: { 'Api-Key': process.env.ROCKETREACH_API_KEY }
+  baseURL: 'https://api.rocketreach.co/api/v2',
+  headers: { 'Api-Key': process.env.ROCKETREACH_API_KEY, 'Content-Type': 'application/json' }
 })
 
 // Buscar persona en RocketReach
 app.post('/api/rocketreach/search', requireAuth, async (req, res) => {
   try {
     const { name, current_employer, title, location } = req.body
-    // RocketReach v2 espera arrays para name y current_employer
     const query = {}
-    if (name)             query.name             = [name]
-    if (current_employer) query.current_employer = [current_employer]
-    if (title)            query.current_title    = [title]
-    if (location)         query.location         = [location]
-    const r = await rr.post('/api/search', { query, start: 1, pageSize: 25 })
+    if (name)             query.name          = [name]
+    if (current_employer) query.employer       = [current_employer]  // ← "employer", no "current_employer"
+    if (title)            query.current_title  = [title]
+    if (location)         query.geo            = [location]          // ← "geo", no "location"
+    const r = await rr.post('/person/search', { query, start: 1, page_size: 25 })
     res.json(r.data)
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
