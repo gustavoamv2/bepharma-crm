@@ -69,8 +69,15 @@ export const rocketreach = {
 
 // ── Admin ─────────────────────────────────────────────────────────────────────
 export const admin = {
-  getUsers:  ()                           => api.get('/admin/users').then(r => r.data),
-  updateSip: (username, sipExtension)     => api.patch(`/admin/users/${username}/sip`, { sipExtension }).then(r => r.data),
+  getUsers:    ()                               => api.get('/admin/users').then(r => r.data),
+  updateSip:   (username, sipExtension)         => api.patch(`/admin/users/${username}/sip`, { sipExtension }).then(r => r.data),
+  updateEmail: (username, emailUser, emailPass) => api.patch(`/admin/users/${username}/email`, { emailUser, emailPass }).then(r => r.data),
+}
+
+// ── Email ─────────────────────────────────────────────────────────────────────
+export const emailApi = {
+  verify:    ()                         => api.get('/email/verify').then(r => r.data),
+  saveConfig:(emailUser, emailPass)     => api.patch('/email/config', { emailUser, emailPass }).then(r => r.data),
 }
 
 // ── Reports ───────────────────────────────────────────────────────────────────

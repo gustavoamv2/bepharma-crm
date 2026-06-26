@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
-import { Settings, Phone, User, Check, AlertTriangle } from 'lucide-react'
+import { Settings, Phone, User, Check, AlertTriangle, Mail } from 'lucide-react'
 import { admin } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useToast } from '../hooks/useToast'
@@ -25,7 +25,10 @@ export default function AdminPage() {
   const { addToast } = useToast()
   const qc = useQueryClient()
   const [editingUser, setEditingUser] = useState(null)
+  const [editingEmail, setEditingEmail] = useState(null)
   const [sipValue, setSipValue] = useState('')
+  const [emailUserValue, setEmailUserValue] = useState('')
+  const [emailPassValue, setEmailPassValue] = useState('')
   const [saving, setSaving] = useState(false)
 
   const { data: users, isLoading } = useQuery('admin-users', admin.getUsers)
@@ -55,6 +58,28 @@ export default function AdminPage() {
       setEditingUser(null)
     } catch (e) {
       addToast('Error al guardar', 'error')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const startEditEmail = (u) => {
+    setEditingEmail(u.username)
+    setEmailUserValue(u.emailUser || '')
+    setEmailPassValue('')
+  }
+
+  const saveEmail = async (username) => {
+    if (!emailUserValue) return addToast('Ingresa el correo', 'error')
+    if (!emailPassValue) return addToast('Ingresa la contraseña', 'error')
+    setSaving(true)
+    try {
+      await admin.updateEmail(username, emailUserValue, emailPassValue)
+      qc.invalidateQueries('admin-users')
+      addToast('Correo configurado', 'success')
+      setEditingEmail(null)
+    } catch (e) {
+      addToast('Error al guardar correo', 'error')
     } finally {
       setSaving(false)
     }
@@ -132,6 +157,90 @@ export default function AdminPage() {
                           ) : (
                             <button className="btn btn-ghost btn-sm" onClick={() => startEdit(u)}>
                               Editar ext.
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+
+        {/* Correo por usuario */}
+        <div className="card" style={{ marginBottom: 24 }}>
+          <div className="card-header">
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Mail size={15} style={{ color: '#42a5f5' }} /> Configuración de Correo por Usuario
+            </h2>
+            <span style={{ fontSize: 11, color: '#6b778c' }}>Outlook / Office 365 · smtp.office365.com:587</span>
+          </div>
+          {isLoading ? (
+            <div className="loading">Cargando usuarios…</div>
+          ) : (
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Usuario</th>
+                    <th>Correo configurado</th>
+                    <th>Contraseña</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(users || []).map(u => {
+                    const isEdit = editingEmail === u.username
+                    return (
+                      <tr key={u.username}>
+                        <td>
+                          <div style={{ fontWeight: 600 }}>{u.name}</div>
+                          <div style={{ fontSize: 11, color: '#6b778c' }}>@{u.username}</div>
+                        </td>
+                        <td>
+                          {isEdit ? (
+                            <input
+                              type="email"
+                              value={emailUserValue}
+                              onChange={e => setEmailUserValue(e.target.value)}
+                              placeholder="usuario@tissue.cmpc.cl"
+                              style={{ width: 220, padding: '4px 8px', border: '1px solid #42a5f5', borderRadius: 4, fontSize: 13 }}
+                              autoFocus
+                            />
+                          ) : (
+                            <span style={{ color: u.emailUser ? '#172b4d' : '#adb5bd', fontSize: 13 }}>
+                              {u.emailUser || '— sin configurar —'}
+                            </span>
+                          )}
+                        </td>
+                        <td>
+                          {isEdit ? (
+                            <input
+                              type="password"
+                              value={emailPassValue}
+                              onChange={e => setEmailPassValue(e.target.value)}
+                              placeholder="Contraseña de Outlook"
+                              style={{ width: 180, padding: '4px 8px', border: '1px solid #42a5f5', borderRadius: 4, fontSize: 13 }}
+                            />
+                          ) : (
+                            <span style={{ color: u.emailUser ? '#00875a' : '#adb5bd', fontSize: 12 }}>
+                              {u.emailUser ? '●●●●●●●●' : '—'}
+                            </span>
+                          )}
+                        </td>
+                        <td>
+                          {isEdit ? (
+                            <div style={{ display: 'flex', gap: 6 }}>
+                              <button className="btn btn-primary btn-sm" onClick={() => saveEmail(u.username)} disabled={saving}>
+                                <Check size={12} /> {saving ? '…' : 'Guardar'}
+                              </button>
+                              <button className="btn btn-ghost btn-sm" onClick={() => setEditingEmail(null)}>×</button>
+                            </div>
+                          ) : (
+                            <button className="btn btn-ghost btn-sm" onClick={() => startEditEmail(u)}>
+                              {u.emailUser ? 'Cambiar' : 'Configurar'}
                             </button>
                           )}
                         </td>

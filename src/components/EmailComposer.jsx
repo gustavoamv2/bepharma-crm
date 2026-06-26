@@ -23,9 +23,11 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', con
   const [sending, setSending] = useState(false)
   const [smtpOk, setSmtpOk] = useState(null)
 
-  // Verificar SMTP al abrir
+  // Verificar SMTP al abrir (requiere token)
   useEffect(() => {
-    axios.get('/api/email/verify')
+    axios.get('/api/email/verify', {
+      headers: { Authorization: `Bearer ${sessionStorage.getItem('bp_token')}` }
+    })
       .then(r => setSmtpOk(r.data.ok))
       .catch(() => setSmtpOk(false))
   }, [])
@@ -79,7 +81,7 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', con
         {/* Alerta SMTP */}
         {smtpOk === false && (
           <div style={{ padding: '10px 18px', background: '#fffae6', borderBottom: '1px solid #ffe58f', fontSize: 12, color: '#8a6914' }}>
-            ⚠️ El servidor de email no está configurado. Agrega <code>EMAIL_USER</code> y <code>EMAIL_PASS</code> en tu archivo <code>.env</code> y reinicia el servidor.
+            ⚠️ Tu correo no está configurado. Pide al administrador que configure tus credenciales en <strong>Admin → Usuarios → Email</strong>.
           </div>
         )}
 

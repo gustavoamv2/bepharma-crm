@@ -378,7 +378,8 @@ app.get('/api/admin/users', requireAuth, async (req, res) => {
     name: u.name,
     role: u.role,
     ownerId: u.ownerId,
-    sipExtension: u.sipExtension || ''
+    sipExtension: u.sipExtension || '',
+    emailUser: u.emailUser || ''   // no exponemos emailPass
   }))
   res.json(safe)
 })
@@ -722,18 +723,70 @@ app.post('/api/rocketreach/lookup', async (req, res) => {
 })
 
 // ──────────────────────────────────────────────────────────────────────────────
-// EMAIL
+// EMAIL — credenciales por usuario
 // ──────────────────────────────────────────────────────────────────────────────
-const mailer = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.office365.com',
-  port: parseInt(process.env.SMTP_PORT || '587'),
-  secure: false,          // STARTTLS en puerto 587
-  requireTLS: true,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  tls: { ciphers: 'SSLv3' }
+function getUserMailer(username) {
+  const fs = require('fs'), path = require('path')
+  const users = JSON.parse(fs.readFileSync(path.join(__dirname, 'users.json'), 'utf8'))
+  const u = users[username]
+  if (!u?.emailUser || !u?.emailPass) return null
+  return nodemailer.createTransport({
+    host: process.env.SMTP_HOST || 'smtp.office365.com',
+    port: parseInt(process.env.SMTP_PORT || '587'),
+    secure: false,
+    requireTLS: true,
+    auth: { user: u.emailUser, pass: u.emailPass },
+    tls: { ciphers: 'SSLv3' }
+  })
+}
+
+// Verificar config SMTP del usuario autenticado
+app.get('/api/email/verify', requireAuth, async (req, res) => {
+  const mailer = getUserMailer(req.user.username)
+  if (!mailer) return res.json({ ok: false, error: 'no_config' })
+  try {
+    await mailer.verify()
+    const users = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'users.json'), 'utf8'))
+    res.json({ ok: true, user: users[req.user.username]?.emailUser })
+  } catch (e) {
+    res.json({ ok: false, error: e.message })
+  }
+})
+
+// Guardar credenciales de email del usuario autenticado
+app.patch('/api/email/config', requireAuth, async (req, res) => {
+  try {
+    const fs = require('fs'), path = require('path')
+    const { emailUser, emailPass } = req.body
+    if (!emailUser || !emailPass) return res.status(400).json({ error: 'Faltan emailUser y emailPass' })
+    const usersPath = path.join(__dirname, 'users.json')
+    const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'))
+    if (!users[req.user.username]) return res.status(404).json({ error: 'Usuario no encontrado' })
+    users[req.user.username].emailUser = emailUser
+    users[req.user.username].emailPass = emailPass
+    fs.writeFileSync(usersPath, JSON.stringify(users, null, 2))
+    res.json({ success: true })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// Admin: guardar credenciales de email de otro usuario (solo supervisores)
+app.patch('/api/admin/users/:username/email', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  try {
+    const fs = require('fs'), path = require('path')
+    const { emailUser, emailPass } = req.body
+    const usersPath = path.join(__dirname, 'users.json')
+    const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'))
+    if (!users[req.params.username]) return res.status(404).json({ error: 'Usuario no encontrado' })
+    if (emailUser !== undefined) users[req.params.username].emailUser = emailUser
+    if (emailPass !== undefined) users[req.params.username].emailPass = emailPass
+    fs.writeFileSync(usersPath, JSON.stringify(users, null, 2))
+    res.json({ success: true })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
 })
 
 // Enviar email + registrar en HubSpot como engagement
@@ -744,60 +797,48 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
       return res.status(400).json({ error: 'Faltan campos: to, subject, body' })
     }
 
+    const mailer = getUserMailer(req.user.username)
+    if (!mailer) {
+      return res.status(400).json({ error: 'no_config' })
+    }
+
+    const fs = require('fs'), path = require('path')
+    const users = JSON.parse(fs.readFileSync(path.join(__dirname, 'users.json'), 'utf8'))
+    const emailUser = users[req.user.username]?.emailUser
+
     // 1. Enviar email vía SMTP
     const info = await mailer.sendMail({
-      from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
+      from: `${req.user.name} <${emailUser}>`,
       to,
       subject,
       text: body,
       html: body.replace(/\n/g, '<br>')
     })
 
-    // 2. Registrar como engagement en HubSpot (aparece en el timeline)
-    const associations = []
-    if (contactId) associations.push({ id: contactId, type: 'email_to_contact' })
-    if (dealId) associations.push({ id: dealId, type: 'email_to_deal' })
-    if (companyId) associations.push({ id: companyId, type: 'email_to_company' })
-
+    // 2. Registrar como engagement en HubSpot
     try {
       await hs.post('/engagements/v1/engagements', {
-        engagement: {
-          active: true,
-          type: 'EMAIL',
-          timestamp: Date.now()
-        },
+        engagement: { active: true, type: 'EMAIL', timestamp: Date.now() },
         associations: {
           contactIds: contactId ? [Number(contactId)] : [],
           dealIds: dealId ? [Number(dealId)] : [],
           companyIds: companyId ? [Number(companyId)] : []
         },
         metadata: {
-          from: { email: process.env.EMAIL_USER, firstName: 'BePharma', lastName: 'CRM' },
+          from: { email: emailUser, firstName: req.user.name },
           to: [{ email: to }],
-          subject,
-          text: body,
+          subject, text: body,
           html: body.replace(/\n/g, '<br>'),
           status: 'SENT'
         }
       })
     } catch (hsErr) {
-      // Si falla el log en HubSpot, no bloqueamos — el email ya se envió
       console.warn('HubSpot email log error:', hsErr.response?.data || hsErr.message)
     }
 
     res.json({ success: true, messageId: info.messageId })
   } catch (e) {
     res.status(500).json({ error: e.message })
-  }
-})
-
-// Verificar configuración SMTP
-app.get('/api/email/verify', async (req, res) => {
-  try {
-    await mailer.verify()
-    res.json({ ok: true, user: process.env.EMAIL_USER })
-  } catch (e) {
-    res.status(500).json({ ok: false, error: e.message })
   }
 })
 
