@@ -657,11 +657,10 @@ app.post('/api/apollo/people/search', requireAuth, async (req, res) => {
   } catch (e) {
     const errData = e.response?.data
     const errMsg = errData?.error || errData?.message || e.message
-    // Si es restricción de plan, dar mensaje claro
-    if (typeof errMsg === 'string' && (errMsg.includes('not accessible') || errMsg.includes('plan'))) {
-      return res.status(403).json({ error: 'Tu plan de Apollo no incluye búsqueda de personas. Actualiza en apollo.io o usa RocketReach.' })
-    }
-    res.status(e.response?.status || 500).json({ error: typeof errMsg === 'string' ? errMsg : JSON.stringify(errMsg) })
+    res.status(e.response?.status || 500).json({
+      error: typeof errMsg === 'string' ? errMsg : JSON.stringify(errMsg),
+      _debug: { status: e.response?.status, data: errData }
+    })
   }
 })
 
