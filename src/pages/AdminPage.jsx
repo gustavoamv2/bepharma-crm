@@ -25,11 +25,10 @@ export default function AdminPage() {
   const { addToast } = useToast()
   const qc = useQueryClient()
   const [editingUser, setEditingUser] = useState(null)
-  const [editingEmail, setEditingEmail] = useState(null)
+  const [emailForm, setEmailForm] = useState({})   // { username: { user, pass } }
   const [sipValue, setSipValue] = useState('')
-  const [emailUserValue, setEmailUserValue] = useState('')
-  const [emailPassValue, setEmailPassValue] = useState('')
   const [saving, setSaving] = useState(false)
+  const [showEmailCmd, setShowEmailCmd] = useState(null)
 
   const { data: users, isLoading } = useQuery('admin-users', admin.getUsers)
 
@@ -63,27 +62,8 @@ export default function AdminPage() {
     }
   }
 
-  const startEditEmail = (u) => {
-    setEditingEmail(u.username)
-    setEmailUserValue(u.emailUser || '')
-    setEmailPassValue('')
-  }
-
-  const saveEmail = async (username) => {
-    if (!emailUserValue) return addToast('Ingresa el correo', 'error')
-    if (!emailPassValue) return addToast('Ingresa la contraseña', 'error')
-    setSaving(true)
-    try {
-      await admin.updateEmail(username, emailUserValue, emailPassValue)
-      qc.invalidateQueries('admin-users')
-      addToast('Correo configurado', 'success')
-      setEditingEmail(null)
-    } catch (e) {
-      addToast('Error al guardar correo', 'error')
-    } finally {
-      setSaving(false)
-    }
-  }
+  const setEmailField = (username, field, value) =>
+    setEmailForm(f => ({ ...f, [username]: { ...(f[username] || {}), [field]: value } }))
 
   return (
     <>
@@ -177,80 +157,66 @@ export default function AdminPage() {
             </h2>
             <span style={{ fontSize: 11, color: '#6b778c' }}>Outlook / Office 365 · smtp.office365.com:587</span>
           </div>
-          {isLoading ? (
-            <div className="loading">Cargando usuarios…</div>
-          ) : (
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Usuario</th>
-                    <th>Correo configurado</th>
-                    <th>Contraseña</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(users || []).map(u => {
-                    const isEdit = editingEmail === u.username
-                    return (
-                      <tr key={u.username}>
-                        <td>
-                          <div style={{ fontWeight: 600 }}>{u.name}</div>
-                          <div style={{ fontSize: 11, color: '#6b778c' }}>@{u.username}</div>
-                        </td>
-                        <td>
-                          {isEdit ? (
-                            <input
-                              type="email"
-                              value={emailUserValue}
-                              onChange={e => setEmailUserValue(e.target.value)}
-                              placeholder="usuario@tissue.cmpc.cl"
-                              style={{ width: 220, padding: '4px 8px', border: '1px solid #42a5f5', borderRadius: 4, fontSize: 13 }}
-                              autoFocus
-                            />
-                          ) : (
-                            <span style={{ color: u.emailUser ? '#172b4d' : '#adb5bd', fontSize: 13 }}>
-                              {u.emailUser || '— sin configurar —'}
-                            </span>
-                          )}
-                        </td>
-                        <td>
-                          {isEdit ? (
-                            <input
-                              type="password"
-                              value={emailPassValue}
-                              onChange={e => setEmailPassValue(e.target.value)}
-                              placeholder="Contraseña de Outlook"
-                              style={{ width: 180, padding: '4px 8px', border: '1px solid #42a5f5', borderRadius: 4, fontSize: 13 }}
-                            />
-                          ) : (
-                            <span style={{ color: u.emailUser ? '#00875a' : '#adb5bd', fontSize: 12 }}>
-                              {u.emailUser ? '●●●●●●●●' : '—'}
-                            </span>
-                          )}
-                        </td>
-                        <td>
-                          {isEdit ? (
-                            <div style={{ display: 'flex', gap: 6 }}>
-                              <button className="btn btn-primary btn-sm" onClick={() => saveEmail(u.username)} disabled={saving}>
-                                <Check size={12} /> {saving ? '…' : 'Guardar'}
-                              </button>
-                              <button className="btn btn-ghost btn-sm" onClick={() => setEditingEmail(null)}>×</button>
-                            </div>
-                          ) : (
-                            <button className="btn btn-ghost btn-sm" onClick={() => startEditEmail(u)}>
-                              {u.emailUser ? 'Cambiar' : 'Configurar'}
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
+          <div className="card-body">
+            <p style={{ fontSize: 12, color: '#6b778c', marginBottom: 14 }}>
+              Ingresa el correo y contraseña de cada usuario. Copia el comando generado y ejecútalo en PowerShell desde la carpeta <code>bepharma-crm</code> para configurarlo en Vercel.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {(users || []).map(u => {
+                const f = emailForm[u.username] || {}
+                const cmd = f.user && f.pass
+                  ? `echo "${f.user}" | vercel env add EMAIL_USER_${u.username.toUpperCase()} production --force\necho "${f.pass}" | vercel env add EMAIL_PASS_${u.username.toUpperCase()} production --force`
+                  : null
+                return (
+                  <div key={u.username} style={{ border: '1px solid #e2e8f0', borderRadius: 8, padding: 12 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                      <div style={{ minWidth: 120 }}>
+                        <div style={{ fontWeight: 600, fontSize: 13 }}>{u.name}</div>
+                        <div style={{ fontSize: 11, color: '#6b778c' }}>@{u.username}</div>
+                      </div>
+                      <input
+                        type="email"
+                        placeholder="correo@empresa.com"
+                        value={f.user || ''}
+                        onChange={e => setEmailField(u.username, 'user', e.target.value)}
+                        style={{ flex: 1, minWidth: 180, padding: '5px 8px', border: '1px solid #dfe1e6', borderRadius: 5, fontSize: 13 }}
+                      />
+                      <input
+                        type="password"
+                        placeholder="Contraseña Outlook"
+                        value={f.pass || ''}
+                        onChange={e => setEmailField(u.username, 'pass', e.target.value)}
+                        style={{ flex: 1, minWidth: 160, padding: '5px 8px', border: '1px solid #dfe1e6', borderRadius: 5, fontSize: 13 }}
+                      />
+                      <button
+                        className="btn btn-primary btn-sm"
+                        disabled={!cmd}
+                        onClick={() => setShowEmailCmd(showEmailCmd === u.username ? null : u.username)}
+                      >
+                        Generar comando
+                      </button>
+                    </div>
+                    {showEmailCmd === u.username && cmd && (
+                      <div style={{ marginTop: 10, background: '#0d1e2e', borderRadius: 6, padding: '10px 14px' }}>
+                        <div style={{ fontSize: 11, color: '#90caf9', marginBottom: 6 }}>Ejecuta en PowerShell (carpeta bepharma-crm):</div>
+                        <pre style={{ color: '#66bb6a', fontSize: 12, margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{cmd}</pre>
+                        <button
+                          className="btn btn-ghost btn-sm"
+                          style={{ marginTop: 8, color: '#90caf9' }}
+                          onClick={() => { navigator.clipboard.writeText(cmd); addToast('Comando copiado', 'success') }}
+                        >
+                          📋 Copiar
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
             </div>
-          )}
+            <div style={{ marginTop: 16, background: '#e3f2fd', borderRadius: 6, padding: '10px 14px', fontSize: 12, color: '#0d47a1' }}>
+              <strong>Después de ejecutar los comandos</strong>, corre <code>.\DEPLOY.ps1</code> para que el nuevo deploy tome las variables.
+            </div>
+          </div>
         </div>
 
         {/* Instrucciones de integración Zadarma */}

@@ -726,67 +726,48 @@ app.post('/api/rocketreach/lookup', async (req, res) => {
 // EMAIL — credenciales por usuario
 // ──────────────────────────────────────────────────────────────────────────────
 function getUserMailer(username) {
-  const fs = require('fs'), path = require('path')
-  const users = JSON.parse(fs.readFileSync(path.join(__dirname, 'users.json'), 'utf8'))
-  const u = users[username]
-  if (!u?.emailUser || !u?.emailPass) return null
+  const key = username.toUpperCase()
+  const emailUser = process.env[`EMAIL_USER_${key}`]
+  const emailPass = process.env[`EMAIL_PASS_${key}`]
+  if (!emailUser || !emailPass) return null
   return nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.office365.com',
     port: parseInt(process.env.SMTP_PORT || '587'),
     secure: false,
     requireTLS: true,
-    auth: { user: u.emailUser, pass: u.emailPass },
+    auth: { user: emailUser, pass: emailPass },
     tls: { ciphers: 'SSLv3' }
   })
 }
 
+function getUserEmail(username) {
+  return process.env[`EMAIL_USER_${username.toUpperCase()}`] || null
+}
+
 // Verificar config SMTP del usuario autenticado
 app.get('/api/email/verify', requireAuth, async (req, res) => {
+  const emailUser = getUserEmail(req.user.username)
+  if (!emailUser) return res.json({ ok: false, error: 'no_config' })
   const mailer = getUserMailer(req.user.username)
-  if (!mailer) return res.json({ ok: false, error: 'no_config' })
   try {
     await mailer.verify()
-    const users = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'users.json'), 'utf8'))
-    res.json({ ok: true, user: users[req.user.username]?.emailUser })
+    res.json({ ok: true, user: emailUser })
   } catch (e) {
     res.json({ ok: false, error: e.message })
   }
 })
 
-// Guardar credenciales de email del usuario autenticado
-app.patch('/api/email/config', requireAuth, async (req, res) => {
-  try {
-    const fs = require('fs'), path = require('path')
-    const { emailUser, emailPass } = req.body
-    if (!emailUser || !emailPass) return res.status(400).json({ error: 'Faltan emailUser y emailPass' })
-    const usersPath = path.join(__dirname, 'users.json')
-    const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'))
-    if (!users[req.user.username]) return res.status(404).json({ error: 'Usuario no encontrado' })
-    users[req.user.username].emailUser = emailUser
-    users[req.user.username].emailPass = emailPass
-    fs.writeFileSync(usersPath, JSON.stringify(users, null, 2))
-    res.json({ success: true })
-  } catch (e) {
-    res.status(500).json({ error: e.message })
-  }
-})
-
-// Admin: guardar credenciales de email de otro usuario (solo supervisores)
-app.patch('/api/admin/users/:username/email', requireAuth, async (req, res) => {
+// Admin: lista de usuarios con estado de email configurado
+app.get('/api/admin/email-status', requireAuth, async (req, res) => {
   if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
-  try {
-    const fs = require('fs'), path = require('path')
-    const { emailUser, emailPass } = req.body
-    const usersPath = path.join(__dirname, 'users.json')
-    const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'))
-    if (!users[req.params.username]) return res.status(404).json({ error: 'Usuario no encontrado' })
-    if (emailUser !== undefined) users[req.params.username].emailUser = emailUser
-    if (emailPass !== undefined) users[req.params.username].emailPass = emailPass
-    fs.writeFileSync(usersPath, JSON.stringify(users, null, 2))
-    res.json({ success: true })
-  } catch (e) {
-    res.status(500).json({ error: e.message })
-  }
+  const users = require('./users.json')
+  const status = Object.keys(users).map(username => ({
+    username,
+    name: users[username].name,
+    emailUser: getUserEmail(username) || '',
+    configured: !!getUserEmail(username)
+  }))
+  res.json(status)
 })
 
 // Enviar email + registrar en HubSpot como engagement
@@ -802,9 +783,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
       return res.status(400).json({ error: 'no_config' })
     }
 
-    const fs = require('fs'), path = require('path')
-    const users = JSON.parse(fs.readFileSync(path.join(__dirname, 'users.json'), 'utf8'))
-    const emailUser = users[req.user.username]?.emailUser
+    const emailUser = getUserEmail(req.user.username)
 
     // 1. Enviar email vía SMTP
     const info = await mailer.sendMail({
