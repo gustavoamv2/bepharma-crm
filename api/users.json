@@ -1,0 +1,43 @@
+{
+  "roberto": {
+    "name": "Roberto Martínez",
+    "role": "supervisor",
+    "ownerId": "93615311",
+    "password": "$2b$10$TvrZQsd.jXovyrDSqGt8he09SgSMXUtUwBHuqwSjokmsQFrA/in1i"
+  },
+  "yesenia": {
+    "name": "Yesenia Nieto",
+    "role": "supervisor",
+    "ownerId": "93621022",
+    "sipExtension": "104",
+    "password": "$2b$10$IfG2rF.hQDEbe5.KRDeoounh4Gxl.bTzXsTKkNneFGlDiCmTl9dx2"
+  },
+  "angel": {
+    "name": "Angel",
+    "role": "operator",
+    "ownerId": "93771980",
+    "sipExtension": "101",
+    "password": "$2b$10$lRb6JoYogV43li4bGhWFRe51nqDtc6bT.w7BDcwz7Sy8IUB85vR8y"
+  },
+  "gracie": {
+    "name": "Gracie",
+    "role": "operator",
+    "ownerId": "93771979",
+    "sipExtension": "103",
+    "password": "$2b$10$yT7WbRLnExi2LRcLrXpTKOZqfA06zldkLk2oEf85oizwizJev4GYu"
+  },
+  "carlos": {
+    "name": "Carlos",
+    "role": "operator",
+    "ownerId": "93771981",
+    "sipExtension": "100",
+    "password": "$2b$10$Y.vmS9o9agCdF6xsx.sjluUiXZV8BZ8K6Eyir887bmWRIiwBi2evK"
+  },
+  "sara": {
+    "name": "Sara",
+    "role": "operator",
+    "ownerId": "73112880",
+    "sipExtension": "102",
+    "password": "$2b$10$WxoV7QlUnYkr3KX31elVhuPq7ncLX4vUV2dej7OOgSK1E2ZQ2gOgu"
+  }
+}

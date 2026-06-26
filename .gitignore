@@ -1,0 +1,27 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno — NUNCA subir al repo
+.env
+.env.local
+.env.*.local
+
+# Build de producción
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Editor
+.DS_Store
+.vscode/settings.json
+*.swp
+*.swo
+
+# Vercel
+.vercel/
+
+.vercel

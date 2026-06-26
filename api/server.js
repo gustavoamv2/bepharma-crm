@@ -1,0 +1,1212 @@
+require('dotenv').config()
+const express = require('express')
+const cors = require('cors')
+const axios = require('axios')
+const crypto = require('crypto')
+const nodemailer = require('nodemailer')
+const { login, requireAuth, applyOwnerFilter } = require('./auth')
+
+const app = express()
+app.use(cors())
+app.use(express.json())
+
+const PORT = process.env.PORT || 3001
+
+// ──────────────────────────────────────────────────────────────────────────────
+// AUTH
+// ──────────────────────────────────────────────────────────────────────────────
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    const { username, password } = req.body
+    if (!username || !password) return res.status(400).json({ error: 'Faltan credenciales' })
+    const result = await login(username, password)
+    res.json(result)
+  } catch (e) {
+    res.status(401).json({ error: e.message })
+  }
+})
+
+app.get('/api/auth/me', requireAuth, (req, res) => {
+  res.json({ user: req.user })
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// HUBSPOT
+// ──────────────────────────────────────────────────────────────────────────────
+const hs = axios.create({
+  baseURL: 'https://api.hubapi.com',
+  headers: { Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}` }
+})
+
+// Deals – búsqueda con filtros BePharma
+app.post('/api/hubspot/deals/search', requireAuth, async (req, res) => {
+  try {
+    const { filters = [], sorts = [], limit = 50, after, properties } = req.body
+    const defaultProperties = [
+      'dealname', 'dealstage', 'amount', 'closedate', 'createdate',
+      'hubspot_owner_id', 'hs_lastmodifieddate', 'hs_next_step',
+      'bp_zona', 'bp_estado_prospeccion', 'bp_tipo_evento',
+      'notes_last_updated', 'hs_num_associated_contacts'
+    ]
+    const filterGroups = applyOwnerFilter(req, filters.length ? [{ filters }] : [])
+    const r = await hs.post('/crm/v3/objects/deals/search', {
+      filterGroups,
+      sorts,
+      limit,
+      after,
+      properties: properties || defaultProperties
+    })
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// Deal – detalle
+app.get('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
+  try {
+    const r = await hs.get(`/crm/v3/objects/deals/${req.params.id}`, {
+      params: {
+        properties: [
+          'dealname','dealstage','amount','closedate','createdate','hubspot_owner_id',
+          'bp_zona','bp_estado_prospeccion','bp_tipo_evento','hs_next_step',
+          'notes_last_updated','description'
+        ].join(','),
+        associations: 'contacts,companies,notes,calls,tasks'
+      }
+    })
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// Empresas – búsqueda
+app.post('/api/hubspot/companies/search', requireAuth, async (req, res) => {
+  try {
+    const { filters = [], sorts = [], limit = 50, after, properties: customProps } = req.body
+    const filterGroups = applyOwnerFilter(req, filters.length ? [{ filters }] : [])
+    const defaultProps = [
+      'name','domain','industry','city','country','phone',
+      'createdate','hs_lastmodifieddate','hubspot_owner_id',
+      'numberofemployees','annualrevenue','lifecyclestage',
+      'bp_etapa_empresa','description'
+    ]
+    const r = await hs.post('/crm/v3/objects/companies/search', {
+      filterGroups,
+      sorts,
+      limit,
+      after,
+      properties: customProps || defaultProps
+    })
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// Empresa – detalle (con nombres de contactos y deals)
+app.get('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
+  try {
+    const r = await hs.get(`/crm/v3/objects/companies/${req.params.id}`, {
+      params: {
+        properties: 'name,domain,industry,city,country,phone,numberofemployees,annualrevenue,lifecyclestage,createdate,hubspot_owner_id,description,bp_etapa_empresa',
+        associations: 'contacts,deals,notes'
+      }
+    })
+    const company = r.data
+
+    // Enriquecer contactos con nombre y email
+    const contactIds = [...new Set((company.associations?.contacts?.results || []).map(c => c.id))]
+    const dealIds    = [...new Set((company.associations?.deals?.results || []).map(d => d.id))]
+
+    const [contacts, deals] = await Promise.all([
+      contactIds.length
+        ? Promise.all(contactIds.slice(0, 10).map(cid =>
+            hs.get(`/crm/v3/objects/contacts/${cid}`, {
+              params: { properties: 'firstname,lastname,email,jobtitle' }
+            }).then(r => r.data).catch(() => ({ id: cid, properties: {} }))
+          ))
+        : [],
+      dealIds.length
+        ? Promise.all(dealIds.slice(0, 10).map(did =>
+            hs.get(`/crm/v3/objects/deals/${did}`, {
+              params: { properties: 'dealname,dealstage,amount' }
+            }).then(r => r.data).catch(() => ({ id: did, properties: {} }))
+          ))
+        : []
+    ])
+
+    // Reemplazar la lista de asociaciones con los objetos enriquecidos
+    if (company.associations?.contacts) {
+      company.associations.contacts.results = contacts
+    }
+    if (company.associations?.deals) {
+      company.associations.deals.results = deals
+    }
+
+    res.json(company)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// Contactos – búsqueda
+app.post('/api/hubspot/contacts/search', requireAuth, async (req, res) => {
+  try {
+    const { filters = [], sorts = [], limit = 50, after } = req.body
+    const filterGroups = applyOwnerFilter(req, filters.length ? [{ filters }] : [])
+    const r = await hs.post('/crm/v3/objects/contacts/search', {
+      filterGroups,
+      sorts,
+      limit,
+      after,
+      properties: [
+        'firstname','lastname','email','phone','jobtitle',
+        'company','createdate','hs_lastmodifieddate','hubspot_owner_id'
+      ]
+    })
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// Contacto – detalle
+app.get('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
+  try {
+    const r = await hs.get(`/crm/v3/objects/contacts/${req.params.id}`, {
+      params: {
+        properties: 'firstname,lastname,email,phone,jobtitle,company,createdate,hubspot_owner_id',
+        associations: 'companies,deals,notes,calls'
+      }
+    })
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// Propietarios (usuarios HubSpot)
+app.get('/api/hubspot/owners', requireAuth, async (req, res) => {
+  try {
+    const r = await hs.get('/crm/v3/owners')
+    res.json(r.data)
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// Actividades (notas, llamadas, reuniones, emails, tareas) via CRM v3 associations
+app.get('/api/hubspot/engagements/:objectType/:objectId', requireAuth, async (req, res) => {
+  const { objectType, objectId } = req.params
+  const propMap = {
+    notes:    ['hs_note_body', 'hs_createdate'],
+    calls:    ['hs_call_body', 'hs_call_duration', 'hs_createdate', 'hs_call_status', 'hs_call_direction'],
+    meetings: ['hs_meeting_title', 'hs_meeting_body', 'hs_meeting_start_time', 'hs_createdate'],
+    emails:   ['hs_email_subject', 'hs_email_text', 'hs_createdate'],
+    tasks:    ['hs_task_subject', 'hs_task_body', 'hs_createdate', 'hs_task_status']
+  }
+  const typeLabel = { notes: 'NOTE', calls: 'CALL', meetings: 'MEETING', emails: 'EMAIL', tasks: 'TASK' }
+  const allItems = []
+
+  await Promise.all(Object.keys(propMap).map(async (engType) => {
+    try {
+      const assocR = await hs.get(`/crm/v3/objects/${objectType}/${objectId}/associations/${engType}`)
+      const ids = (assocR.data.results || []).map(r => r.id).slice(0, 15)
+      if (!ids.length) return
+      const details = await Promise.all(ids.map(id =>
+        hs.get(`/crm/v3/objects/${engType}/${id}`, {
+          params: { properties: propMap[engType].join(',') }
+        }).catch(() => null)
+      ))
+      details.filter(Boolean).forEach(d => {
+        const p = d.data.properties
+        allItems.push({
+          id: d.data.id,
+          type: typeLabel[engType],
+          createdAt: p.hs_createdate || p.hs_meeting_start_time || null,
+          body: p.hs_note_body || p.hs_call_body || p.hs_meeting_body || p.hs_email_text || p.hs_task_body || '',
+          title: p.hs_meeting_title || p.hs_email_subject || p.hs_task_subject || '',
+          durationMs: p.hs_call_duration || null
+        })
+      })
+    } catch { /* skip */ }
+  }))
+
+  allItems.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
+  res.json({ results: allItems })
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// CRUD DEALS
+// ──────────────────────────────────────────────────────────────────────────────
+app.post('/api/hubspot/deals', requireAuth, async (req, res) => {
+  try {
+    const props = { ...req.body }
+    if (!props.hubspot_owner_id) props.hubspot_owner_id = req.user.ownerId
+    const r = await hs.post('/crm/v3/objects/deals', { properties: props })
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+app.patch('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
+  try {
+    const r = await hs.patch(`/crm/v3/objects/deals/${req.params.id}`, { properties: req.body })
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+app.delete('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
+  try {
+    await hs.delete(`/crm/v3/objects/deals/${req.params.id}`)
+    res.json({ success: true })
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// CRUD COMPANIES
+// ──────────────────────────────────────────────────────────────────────────────
+app.post('/api/hubspot/companies', requireAuth, async (req, res) => {
+  try {
+    const r = await hs.post('/crm/v3/objects/companies', { properties: req.body })
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+app.patch('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
+  try {
+    const r = await hs.patch(`/crm/v3/objects/companies/${req.params.id}`, { properties: req.body })
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+app.delete('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
+  try {
+    await hs.delete(`/crm/v3/objects/companies/${req.params.id}`)
+    res.json({ success: true })
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// CRUD CONTACTS
+// ──────────────────────────────────────────────────────────────────────────────
+app.patch('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
+  try {
+    const r = await hs.patch(`/crm/v3/objects/contacts/${req.params.id}`, { properties: req.body })
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+app.delete('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
+  try {
+    await hs.delete(`/crm/v3/objects/contacts/${req.params.id}`)
+    res.json({ success: true })
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// CHARTS — datos para gráficas del dashboard
+// ──────────────────────────────────────────────────────────────────────────────
+app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
+  const fg = (baseFilters) => applyOwnerFilter(req, [{ filters: baseFilters }])
+  const safe = async (filters) => {
+    try {
+      const r = await hs.post('/crm/v3/objects/deals/search', {
+        filterGroups: fg(filters), limit: 1, properties: ['dealname']
+      })
+      return r.data.total || 0
+    } catch { return 0 }
+  }
+
+  const STAGES = [
+    { key: 'appointmentscheduled', label: 'Agendada' },
+    { key: 'qualifiedtobuy',       label: 'Calificado' },
+    { key: 'presentationscheduled',label: 'Presentación' },
+    { key: 'decisionmakerboughtin',label: 'DM Aprobó' },
+    { key: 'contractsent',         label: 'Contrato' },
+    { key: 'closedwon',            label: 'Ganado' },
+    { key: 'closedlost',           label: 'Perdido' },
+  ]
+
+  const now = new Date()
+  const months = [0,1,2,3,4,5].map(i => {
+    const d = new Date(now.getFullYear(), now.getMonth() - (5-i), 1)
+    return {
+      label: d.toLocaleString('es-MX', { month: 'short' }),
+      start: d.toISOString(),
+      end: new Date(d.getFullYear(), d.getMonth() + 1, 1).toISOString()
+    }
+  })
+
+  const [stageCounts, monthlyCounts] = await Promise.all([
+    Promise.all(STAGES.map(s => safe([{ propertyName: 'dealstage', operator: 'EQ', value: s.key }]))),
+    Promise.all(months.map(m => safe([
+      { propertyName: 'createdate', operator: 'GTE', value: m.start },
+      { propertyName: 'createdate', operator: 'LT',  value: m.end }
+    ])))
+  ])
+
+  res.json({
+    byStage: STAGES.map((s, i) => ({ ...s, count: stageCounts[i] })),
+    byMonth: months.map((m, i) => ({ label: m.label, count: monthlyCounts[i] }))
+  })
+})
+
+// Admin – lista usuarios con config Zadarma
+app.get('/api/admin/users', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  const users = require('./users.json')
+  const safe = Object.entries(users).map(([username, u]) => ({
+    username,
+    name: u.name,
+    role: u.role,
+    ownerId: u.ownerId,
+    sipExtension: u.sipExtension || ''
+  }))
+  res.json(safe)
+})
+
+// Admin – actualizar extensión SIP de un usuario
+app.patch('/api/admin/users/:username/sip', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  try {
+    const fs = require('fs')
+    const path = require('path')
+    const usersPath = path.join(__dirname, 'users.json')
+    const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'))
+    if (!users[req.params.username]) return res.status(404).json({ error: 'Usuario no encontrado' })
+    users[req.params.username].sipExtension = req.body.sipExtension || ''
+    fs.writeFileSync(usersPath, JSON.stringify(users, null, 2))
+    res.json({ success: true })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// Búsqueda rápida de empresas por nombre (para el campo empresa en crear contacto)
+app.get('/api/hubspot/companies/quick-search', requireAuth, async (req, res) => {
+  try {
+    const q = (req.query.q || '').trim()
+    if (!q) return res.json({ results: [] })
+    const r = await hs.post('/crm/v3/objects/companies/search', {
+      filterGroups: [{ filters: [{ propertyName: 'name', operator: 'CONTAINS_TOKEN', value: q }] }],
+      properties: ['name', 'domain', 'city'],
+      limit: 10
+    })
+    res.json({ results: r.data.results || [] })
+  } catch (e) {
+    res.json({ results: [] })
+  }
+})
+
+// Métricas de empresas por etapa (pipeline Kanban)
+app.get('/api/hubspot/companies/pipeline-metrics', requireAuth, async (req, res) => {
+  try {
+    const STAGES = ['nueva', 'depuracion', 'enriquecimiento', 'calificada', 'contactada', 'seguimiento', 'confirmada', 'descartada']
+    const counts = await Promise.all(STAGES.map(stage =>
+      hs.post('/crm/v3/objects/companies/search', {
+        filterGroups: [{ filters: [{ propertyName: 'bp_etapa_empresa', operator: 'EQ', value: stage }] }],
+        limit: 1, properties: ['name']
+      }).then(r => r.data.total || 0).catch(() => 0)
+    ))
+    const byStage = Object.fromEntries(STAGES.map((s, i) => [s, counts[i]]))
+    const total = counts.reduce((a, b) => a + b, 0)
+    res.json({ byStage, total })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// Crear contacto en HubSpot y opcionalmente asociarlo a una empresa
+app.post('/api/hubspot/contacts', requireAuth, async (req, res) => {
+  try {
+    const { _companyId, ...properties } = req.body
+    const r = await hs.post('/crm/v3/objects/contacts', { properties })
+    const contactId = r.data.id
+    // Si viene un company ID, crear la asociación
+    if (_companyId && contactId) {
+      try {
+        await hs.put(`/crm/v3/objects/contacts/${contactId}/associations/companies/${_companyId}/contact_to_company`)
+      } catch (assocErr) {
+        console.warn('[contacts] Error asociando empresa:', assocErr.message)
+      }
+    }
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data?.message || e.message })
+  }
+})
+
+// Métricas del dashboard (filtradas por owner para operadores)
+app.get('/api/hubspot/metrics', requireAuth, async (req, res) => {
+  try {
+    const now = new Date()
+    const minus72h = new Date(now - 72 * 60 * 60 * 1000).toISOString()
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString()
+
+    const fg = (baseFilters) => applyOwnerFilter(req, [{ filters: baseFilters }])
+
+    // Cada query es independiente — si una falla devuelve 0 sin matar el resto
+    const safeCount = async (filters) => {
+      try {
+        const r = await hs.post('/crm/v3/objects/deals/search', {
+          filterGroups: fg(filters), limit: 1, properties: ['dealname']
+        })
+        return r.data.total || 0
+      } catch (err) {
+        console.error('[metrics] query error:', err.response?.data || err.message)
+        return 0
+      }
+    }
+
+    const [sinActividad72h, nuevosEsteMes, sinProximoContacto, callbacksVencidos, confirmadasEsteMes] = await Promise.all([
+      safeCount([
+        { propertyName: 'hs_lastmodifieddate', operator: 'LT', value: minus72h },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedwon' },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedlost' }
+      ]),
+      safeCount([
+        { propertyName: 'createdate', operator: 'GTE', value: startOfMonth }
+      ]),
+      safeCount([
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedwon' },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedlost' },
+        { propertyName: 'notes_next_activity_date', operator: 'NOT_HAS_PROPERTY' }
+      ]),
+      safeCount([
+        { propertyName: 'closedate', operator: 'LT', value: now.toISOString() },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedwon' },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedlost' }
+      ]),
+      safeCount([
+        { propertyName: 'dealstage', operator: 'EQ', value: 'closedwon' },
+        { propertyName: 'createdate', operator: 'GTE', value: startOfMonth }
+      ])
+    ])
+
+    res.json({ sinActividad72h, nuevosEsteMes, sinProximoContacto, callbacksVencidos, confirmadasEsteMes })
+  } catch (e) {
+    console.error('[metrics] fatal:', e.message)
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// Tareas pendientes del usuario actual — incluye asociaciones para navegar al hacer clic
+app.get('/api/hubspot/tasks/pending', requireAuth, async (req, res) => {
+  try {
+    const ownerFilter = req.user.role === 'operator'
+      ? [{ propertyName: 'hubspot_owner_id', operator: 'EQ', value: req.user.ownerId }]
+      : []
+
+    const r = await hs.post('/crm/v3/objects/tasks/search', {
+      filterGroups: [{
+        filters: [
+          { propertyName: 'hs_task_status', operator: 'EQ', value: 'NOT_STARTED' },
+          ...ownerFilter
+        ]
+      }],
+      sorts: [{ propertyName: 'hs_timestamp', direction: 'ASCENDING' }],
+      limit: 20,
+      properties: ['hs_task_subject', 'hs_task_body', 'hs_timestamp', 'hs_task_priority', 'hs_task_status', 'hubspot_owner_id']
+    })
+
+    const tasks = r.data.results || []
+
+    // Enriquecer cada tarea con su primera asociación (deal, contact o company)
+    const enriched = await Promise.all(tasks.map(async (task) => {
+      try {
+        // Busca asociaciones: primero deals, luego contacts, luego companies
+        for (const [assocType, path] of [['deals', 'deals'], ['contacts', 'contacts'], ['companies', 'companies']]) {
+          const assocR = await hs.get(`/crm/v3/objects/tasks/${task.id}/associations/${assocType}`)
+          const ids = assocR.data.results || []
+          if (ids.length > 0) {
+            const firstId = ids[0].id
+            // Obtener nombre del objeto asociado
+            const propMap = {
+              deals: 'dealname',
+              contacts: 'firstname,lastname',
+              companies: 'name'
+            }
+            const objR = await hs.get(`/crm/v3/objects/${assocType}/${firstId}`, {
+              params: { properties: propMap[assocType] }
+            })
+            const p = objR.data.properties
+            const name = assocType === 'contacts'
+              ? [p.firstname, p.lastname].filter(Boolean).join(' ') || `Contacto #${firstId}`
+              : p[propMap[assocType].split(',')[0]] || `#${firstId}`
+            return {
+              ...task,
+              _assoc: { type: assocType, id: firstId, name }
+            }
+          }
+        }
+      } catch { /* sin asociación */ }
+      return task
+    }))
+
+    res.json({ ...r.data, results: enriched })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// ZADARMA
+// ──────────────────────────────────────────────────────────────────────────────
+function zadarmaSign(method, params) {
+  const sorted = Object.keys(params).sort().map(k => `${k}=${params[k]}`).join('&')
+  const str = method + sorted + md5(sorted)
+  return crypto.createHmac('sha1', process.env.ZADARMA_API_SECRET).update(str).digest('base64')
+}
+function md5(str) {
+  return crypto.createHash('md5').update(str).digest('hex')
+}
+
+async function zadarmaRequest(method, params = {}) {
+  const sign = zadarmaSign(method, params)
+  // sign va SOLO en el header Authorization, no en el query string
+  const qs = new URLSearchParams(params).toString()
+  const r = await axios.get(`https://api.zadarma.com${method}?${qs}`, {
+    headers: { Authorization: `${process.env.ZADARMA_API_KEY}:${sign}` }
+  })
+  return r.data
+}
+
+// Iniciar llamada click-to-call
+app.post('/api/zadarma/call', requireAuth, async (req, res) => {
+  try {
+    const { from, to, predicted = 0 } = req.body
+    const data = await zadarmaRequest('/v1/request/callback/', { from, to, predicted })
+    res.json(data)
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// Historial de llamadas
+app.get('/api/zadarma/calls', requireAuth, async (req, res) => {
+  try {
+    const { start, end, skip = 0, limit = 20, type = 'all' } = req.query
+    const now = new Date()
+    const data = await zadarmaRequest('/v1/statistics/', {
+      start: start || new Date(now - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0,10),
+      end: end || now.toISOString().slice(0,10),
+      skip, limit, type
+    })
+    res.json(data)
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// Estado de la línea / extensiones
+app.get('/api/zadarma/sip', async (req, res) => {
+  try {
+    const data = await zadarmaRequest('/v1/sip/')
+    res.json(data)
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// APOLLO.IO
+// ──────────────────────────────────────────────────────────────────────────────
+const apollo = axios.create({
+  baseURL: 'https://api.apollo.io',
+  headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }
+})
+
+// Buscar personas en Apollo (v1 con api_key como param — compatible con todos los planes)
+app.post('/api/apollo/people/search', requireAuth, async (req, res) => {
+  try {
+    const { name, organization_name, title, email, page = 1 } = req.body
+    const body = {
+      api_key: process.env.APOLLO_API_KEY,
+      page,
+      per_page: 25,
+    }
+    if (name)              body.q_keywords = name
+    if (organization_name) body.organization_name = organization_name
+    if (title)             body.person_titles = [title]
+    if (email)             body.q_email = email
+
+    const r = await apollo.post('/api/v1/mixed_people/search', body)
+    // mixed_people/search devuelve { people: [...] } igual que people/search
+    res.json(r.data)
+  } catch (e) {
+    const errData = e.response?.data
+    const msg = typeof errData === 'object' ? errData?.error || JSON.stringify(errData) : e.message
+    res.status(e.response?.status || 500).json({ error: msg })
+  }
+})
+
+// Enriquecer contacto con email
+app.post('/api/apollo/enrich', requireAuth, async (req, res) => {
+  try {
+    const r = await apollo.post('/api/v1/people/match', { api_key: process.env.APOLLO_API_KEY, ...req.body })
+    res.json(r.data)
+  } catch (e) {
+    const errData = e.response?.data
+    const msg = typeof errData === 'object' ? errData?.error || JSON.stringify(errData) : e.message
+    res.status(e.response?.status || 500).json({ error: msg })
+  }
+})
+
+// Buscar empresas en Apollo
+app.post('/api/apollo/organizations/search', async (req, res) => {
+  try {
+    const r = await apollo.post('/accounts/search', req.body)
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// ROCKETREACH
+// ──────────────────────────────────────────────────────────────────────────────
+const rr = axios.create({
+  baseURL: 'https://api.rocketreach.co/v2',
+  headers: { 'Api-Key': process.env.ROCKETREACH_API_KEY }
+})
+
+// Buscar persona en RocketReach
+app.post('/api/rocketreach/search', requireAuth, async (req, res) => {
+  try {
+    const { name, current_employer, title, location } = req.body
+    // RocketReach v2 espera arrays para name y current_employer
+    const query = {}
+    if (name)             query.name             = [name]
+    if (current_employer) query.current_employer = [current_employer]
+    if (title)            query.current_title    = [title]
+    if (location)         query.location         = [location]
+    const r = await rr.post('/api/search', { query, start: 1, pageSize: 25 })
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// Lookup de contacto (obtiene emails y teléfonos)
+app.post('/api/rocketreach/lookup', async (req, res) => {
+  try {
+    const r = await rr.get('/api/lookupProfile', { params: req.body })
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// EMAIL
+// ──────────────────────────────────────────────────────────────────────────────
+const mailer = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || 'smtp.office365.com',
+  port: parseInt(process.env.SMTP_PORT || '587'),
+  secure: false,          // STARTTLS en puerto 587
+  requireTLS: true,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  },
+  tls: { ciphers: 'SSLv3' }
+})
+
+// Enviar email + registrar en HubSpot como engagement
+app.post('/api/email/send', requireAuth, async (req, res) => {
+  try {
+    const { to, subject, body, contactId, dealId, companyId } = req.body
+    if (!to || !subject || !body) {
+      return res.status(400).json({ error: 'Faltan campos: to, subject, body' })
+    }
+
+    // 1. Enviar email vía SMTP
+    const info = await mailer.sendMail({
+      from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
+      to,
+      subject,
+      text: body,
+      html: body.replace(/\n/g, '<br>')
+    })
+
+    // 2. Registrar como engagement en HubSpot (aparece en el timeline)
+    const associations = []
+    if (contactId) associations.push({ id: contactId, type: 'email_to_contact' })
+    if (dealId) associations.push({ id: dealId, type: 'email_to_deal' })
+    if (companyId) associations.push({ id: companyId, type: 'email_to_company' })
+
+    try {
+      await hs.post('/engagements/v1/engagements', {
+        engagement: {
+          active: true,
+          type: 'EMAIL',
+          timestamp: Date.now()
+        },
+        associations: {
+          contactIds: contactId ? [Number(contactId)] : [],
+          dealIds: dealId ? [Number(dealId)] : [],
+          companyIds: companyId ? [Number(companyId)] : []
+        },
+        metadata: {
+          from: { email: process.env.EMAIL_USER, firstName: 'BePharma', lastName: 'CRM' },
+          to: [{ email: to }],
+          subject,
+          text: body,
+          html: body.replace(/\n/g, '<br>'),
+          status: 'SENT'
+        }
+      })
+    } catch (hsErr) {
+      // Si falla el log en HubSpot, no bloqueamos — el email ya se envió
+      console.warn('HubSpot email log error:', hsErr.response?.data || hsErr.message)
+    }
+
+    res.json({ success: true, messageId: info.messageId })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// Verificar configuración SMTP
+app.get('/api/email/verify', async (req, res) => {
+  try {
+    await mailer.verify()
+    res.json({ ok: true, user: process.env.EMAIL_USER })
+  } catch (e) {
+    res.status(500).json({ ok: false, error: e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// NOTAS — crear nota y asociar al objeto
+// ──────────────────────────────────────────────────────────────────────────────
+app.post('/api/hubspot/notes', requireAuth, async (req, res) => {
+  try {
+    const { objectType, objectId, body, noteType = 'NOTE' } = req.body
+    if (!objectType || !objectId || !body) {
+      return res.status(400).json({ error: 'Faltan campos: objectType, objectId, body' })
+    }
+    const assocTypeMap = {
+      deals: 'note_to_deal',
+      contacts: 'note_to_contact',
+      companies: 'note_to_company'
+    }
+    const noteBody = noteType !== 'NOTE' ? `[${noteType}] ${body}` : body
+    const r = await hs.post('/crm/v3/objects/notes', {
+      properties: {
+        hs_note_body: noteBody,
+        hs_timestamp: new Date().toISOString(),
+        hubspot_owner_id: req.user.ownerId
+      }
+    })
+    const noteId = r.data.id
+    try {
+      await hs.put(`/crm/v3/objects/notes/${noteId}/associations/${objectType}/${objectId}/${assocTypeMap[objectType] || 'note_to_deal'}`)
+    } catch (assocErr) {
+      console.warn('[notes] association error:', assocErr.message)
+    }
+    res.json(r.data)
+  } catch (e) {
+    console.error('[notes] error:', e.response?.data || e.message)
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// LLAMADAS — registrar llamada manual como engagement
+// ──────────────────────────────────────────────────────────────────────────────
+app.post('/api/hubspot/calls/log', requireAuth, async (req, res) => {
+  try {
+    const { objectType, objectId, outcome = 'CONNECTED', durationSeconds = 0, notes = '', phoneNumber = '' } = req.body
+    const assocTypeMap = {
+      deals: 'call_to_deal',
+      contacts: 'call_to_contact',
+      companies: 'call_to_company'
+    }
+    const r = await hs.post('/crm/v3/objects/calls', {
+      properties: {
+        hs_call_body: notes,
+        hs_call_duration: String(durationSeconds * 1000),
+        hs_call_status: 'COMPLETED',
+        hs_call_outcome: outcome,
+        hs_timestamp: new Date().toISOString(),
+        hubspot_owner_id: req.user.ownerId,
+        hs_call_to_number: phoneNumber
+      }
+    })
+    const callId = r.data.id
+    if (objectType && objectId) {
+      try {
+        await hs.put(`/crm/v3/objects/calls/${callId}/associations/${objectType}/${objectId}/${assocTypeMap[objectType] || 'call_to_deal'}`)
+      } catch (assocErr) {
+        console.warn('[calls] association error:', assocErr.message)
+      }
+    }
+    res.json(r.data)
+  } catch (e) {
+    console.error('[calls/log] error:', e.response?.data || e.message)
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// TAREAS — crear tarea en HubSpot (supervisores pueden asignar a otros)
+// ──────────────────────────────────────────────────────────────────────────────
+app.post('/api/hubspot/tasks', requireAuth, async (req, res) => {
+  try {
+    const { subject, body = '', dueDate, priority = 'MEDIUM', assignedOwnerId, associatedObjectType, associatedObjectId } = req.body
+    if (!subject || !dueDate) {
+      return res.status(400).json({ error: 'Faltan campos: subject, dueDate' })
+    }
+    const ownerId = req.user.role === 'supervisor'
+      ? (assignedOwnerId || req.user.ownerId)
+      : req.user.ownerId
+    const r = await hs.post('/crm/v3/objects/tasks', {
+      properties: {
+        hs_task_subject: subject,
+        hs_task_body: body,
+        hs_timestamp: new Date(dueDate).toISOString(),
+        hs_task_priority: priority,
+        hs_task_status: 'NOT_STARTED',
+        hubspot_owner_id: ownerId
+      }
+    })
+    const taskId = r.data.id
+    if (associatedObjectType && associatedObjectId) {
+      const assocTypeMap = {
+        deals: 'task_to_deal',
+        contacts: 'task_to_contact',
+        companies: 'task_to_company'
+      }
+      try {
+        await hs.put(`/crm/v3/objects/tasks/${taskId}/associations/${associatedObjectType}/${associatedObjectId}/${assocTypeMap[associatedObjectType] || 'task_to_deal'}`)
+      } catch (assocErr) {
+        console.warn('[tasks] association error:', assocErr.message)
+      }
+    }
+    res.json(r.data)
+  } catch (e) {
+    console.error('[tasks] error:', e.response?.data || e.message)
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// REPORTES — actividad por operador, últimos N días (solo supervisores)
+// ──────────────────────────────────────────────────────────────────────────────
+app.get('/api/reports/activity', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  try {
+    const days = parseInt(req.query.days || '30')
+    const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString()
+    const OWNERS = {
+      '93615311': 'Roberto',
+      '93621022': 'Yesenia',
+      '93771980': 'Angel',
+      '93771979': 'Gracie',
+      '93771981': 'Carlos',
+      '73112880': 'Sara'
+    }
+    const ownerIds = Object.keys(OWNERS)
+
+    const countEngByOwner = async (engType) => {
+      const results = await Promise.all(ownerIds.map(ownerId =>
+        hs.post(`/crm/v3/objects/${engType}/search`, {
+          filterGroups: [{
+            filters: [
+              { propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerId },
+              { propertyName: 'hs_createdate', operator: 'GTE', value: since }
+            ]
+          }],
+          limit: 1, properties: ['hs_createdate']
+        }).then(r => [ownerId, r.data.total || 0])
+          .catch(() => [ownerId, 0])
+      ))
+      return Object.fromEntries(results)
+    }
+
+    const countDealsByOwner = () => Promise.all(ownerIds.map(ownerId =>
+      hs.post('/crm/v3/objects/deals/search', {
+        filterGroups: [{
+          filters: [
+            { propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerId },
+            { propertyName: 'dealstage', operator: 'NEQ', value: 'closedwon' },
+            { propertyName: 'dealstage', operator: 'NEQ', value: 'closedlost' }
+          ]
+        }],
+        limit: 1, properties: ['dealname']
+      }).then(r => [ownerId, r.data.total || 0])
+        .catch(() => [ownerId, 0])
+    )).then(results => Object.fromEntries(results))
+
+    const [callsByOwner, notesByOwner, dealsByOwner] = await Promise.all([
+      countEngByOwner('calls'),
+      countEngByOwner('notes'),
+      countDealsByOwner()
+    ])
+
+    const owners = ownerIds.map(ownerId => ({
+      ownerId,
+      name: OWNERS[ownerId],
+      calls: callsByOwner[ownerId] || 0,
+      notes: notesByOwner[ownerId] || 0,
+      activeDeals: dealsByOwner[ownerId] || 0
+    }))
+
+    res.json({ owners, period: days })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// REPORTES — historial de llamadas de un operador
+// ──────────────────────────────────────────────────────────────────────────────
+app.get('/api/reports/calls', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  try {
+    const { ownerId, days = 30 } = req.query
+    const since = new Date(Date.now() - Number(days) * 24 * 60 * 60 * 1000).toISOString()
+    const filters = [{ propertyName: 'hs_createdate', operator: 'GTE', value: since }]
+    if (ownerId) filters.push({ propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerId })
+    const r = await hs.post('/crm/v3/objects/calls/search', {
+      filterGroups: [{ filters }],
+      properties: ['hs_call_body', 'hs_call_duration', 'hs_call_status', 'hs_call_recording_url', 'hs_timestamp', 'hs_call_title', 'hubspot_owner_id'],
+      sorts: [{ propertyName: 'hs_timestamp', direction: 'DESCENDING' }],
+      limit: 50
+    })
+    res.json({ results: r.data.results || [], total: r.data.total || 0 })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// REPORTES — historial de notas de un operador
+// ──────────────────────────────────────────────────────────────────────────────
+app.get('/api/reports/notes', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  try {
+    const { ownerId, days = 30 } = req.query
+    const since = new Date(Date.now() - Number(days) * 24 * 60 * 60 * 1000).toISOString()
+    const filters = [{ propertyName: 'hs_createdate', operator: 'GTE', value: since }]
+    if (ownerId) filters.push({ propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerId })
+    const r = await hs.post('/crm/v3/objects/notes/search', {
+      filterGroups: [{ filters }],
+      properties: ['hs_note_body', 'hs_timestamp', 'hubspot_owner_id'],
+      sorts: [{ propertyName: 'hs_timestamp', direction: 'DESCENDING' }],
+      limit: 50
+    })
+    res.json({ results: r.data.results || [], total: r.data.total || 0 })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// BULK STAGE UPDATE — etapa de múltiples empresas a la vez
+// ──────────────────────────────────────────────────────────────────────────────
+app.patch('/api/hubspot/companies/bulk-stage', requireAuth, async (req, res) => {
+  try {
+    const { ids, stage } = req.body
+    if (!ids?.length || !stage) return res.status(400).json({ error: 'Faltan ids o stage' })
+    const results = await Promise.allSettled(
+      ids.map(id => hs.patch(`/crm/v3/objects/companies/${id}`, { properties: { bp_etapa_empresa: stage } }))
+    )
+    res.json({
+      succeeded: results.filter(r => r.status === 'fulfilled').length,
+      failed: results.filter(r => r.status === 'rejected').length,
+      total: ids.length
+    })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// WEBHOOK ZADARMA — Make.com → BePharma (sin requireAuth)
+// Payload Make.com "Watch call end": caller_id, called_did, duration, status,
+//   sip, call_id_with_rec, pbx_call_id, record, call_start, call_end, internal
+// ──────────────────────────────────────────────────────────────────────────────
+app.post('/api/webhooks/zadarma-call-end', async (req, res) => {
+  try {
+    const {
+      sip,              // extensión SIP del agente (ej: "100")
+      caller_id,        // número que inicia la llamada
+      called_did,       // número destino
+      duration,         // segundos
+      status,           // answered / not_answered / busy / cancel
+      record,           // URL grabación (si está habilitado)
+      call_id_with_rec, // ID único de llamada
+      pbx_call_id,
+      call_start,
+      call_end,
+      internal,         // "1" = llamada interna
+      disposition,      // campo adicional opcional
+    } = req.body
+
+    // Saltar llamadas internas
+    if (internal === '1' || internal === 1) {
+      return res.json({ success: true, skipped: 'llamada interna' })
+    }
+
+    // ── Mapear extensión SIP → HubSpot owner ID ─────────────────────────────
+    const fs = require('fs')
+    const path = require('path')
+    let hubspotOwnerId = null
+    try {
+      const usersData = JSON.parse(fs.readFileSync(path.join(__dirname, 'users.json'), 'utf8'))
+      const match = Object.values(usersData).find(u => u.sipExtension && u.sipExtension.toString() === (sip || '').toString())
+      if (match) hubspotOwnerId = match.ownerId
+    } catch (e) { /* ignore */ }
+
+    // ── Buscar contacto en HubSpot por número de teléfono ───────────────────
+    // En llamadas salientes: called_did es el número del prospecto
+    const prospectPhone = (internal === '0' || !internal) ? (called_did || caller_id) : null
+    let contactId = null
+    let dealId = null
+    if (prospectPhone) {
+      try {
+        const searchR = await hs.post('/crm/v3/objects/contacts/search', {
+          filterGroups: [{
+            filters: [{
+              propertyName: 'phone',
+              operator: 'CONTAINS_TOKEN',
+              value: prospectPhone.replace(/\D/g, '').slice(-8) // últimos 8 dígitos
+            }]
+          }],
+          properties: ['firstname', 'lastname', 'phone'],
+          limit: 1
+        })
+        if (searchR.data.results.length > 0) {
+          contactId = searchR.data.results[0].id
+          // Intentar encontrar negocio asociado al contacto
+          try {
+            const assocR = await hs.get(`/crm/v3/objects/contacts/${contactId}/associations/deals`)
+            if (assocR.data.results.length > 0) dealId = assocR.data.results[0].id
+          } catch { /* ignore */ }
+        }
+      } catch (e) {
+        console.warn('[webhook] Phone search error:', e.message)
+      }
+    }
+
+    // ── Construir texto del engagement ──────────────────────────────────────
+    const durMin = Math.floor(Number(duration || 0) / 60)
+    const durSec = Number(duration || 0) % 60
+    const durStr = durMin > 0 ? `${durMin}m ${durSec}s` : `${durSec}s`
+    const statusLabel = {
+      answered: '✅ Contestada', not_answered: '❌ No contestada',
+      busy: '🔴 Ocupado', cancel: '⚪ Cancelada'
+    }[status] || status || 'N/A'
+
+    let callBody = `📞 Llamada Zadarma — ${statusLabel}\n` +
+      `Extensión: ${sip || 'N/A'}  |  Destino: ${called_did || caller_id || 'N/A'}\n` +
+      `Duración: ${durStr}`
+
+    if (record) callBody += `\n🔊 Grabación: ${record}`
+    if (call_id_with_rec) callBody += `\nID: ${call_id_with_rec}`
+    if (disposition) callBody += `\nResultado: ${disposition}`
+
+    // ── Generar resumen AI si la llamada fue contestada y duró > 30s ────────
+    if (process.env.ANTHROPIC_API_KEY && status === 'answered' && Number(duration) > 30) {
+      try {
+        const claudeRes = await axios.post('https://api.anthropic.com/v1/messages', {
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 200,
+          system: 'Eres un asistente de CRM farmacéutico. Genera un resumen breve en español de una llamada de ventas para el timeline del CRM. Máximo 3 oraciones, sé conciso y profesional.',
+          messages: [{
+            role: 'user',
+            content: `Llamada de ventas farmacéutica. Duración: ${durStr}. Estado: ${statusLabel}. Extensión SIP: ${sip}. Número contactado: ${called_did || caller_id}.${disposition ? ` Resultado: ${disposition}.` : ''}`
+          }]
+        }, {
+          headers: {
+            'x-api-key': process.env.ANTHROPIC_API_KEY,
+            'anthropic-version': '2023-06-01',
+            'Content-Type': 'application/json'
+          }
+        })
+        const aiSummary = claudeRes.data?.content?.[0]?.text
+        if (aiSummary) callBody += `\n\n🤖 Resumen IA: ${aiSummary}`
+      } catch (claudeErr) {
+        console.warn('[webhook] Claude error:', claudeErr.message)
+      }
+    }
+
+    // ── Crear engagement de tipo CALL en HubSpot ────────────────────────────
+    const callProps = {
+      hs_call_body: callBody,
+      hs_call_duration: String(Number(duration || 0) * 1000), // ms
+      hs_call_status: status === 'answered' ? 'COMPLETED' : 'NO_ANSWER',
+      hs_call_direction: 'OUTBOUND',
+      hs_timestamp: call_start ? new Date(call_start).toISOString() : new Date().toISOString(),
+      hs_call_title: `Llamada Zadarma — ${statusLabel}`,
+    }
+    if (hubspotOwnerId) callProps.hubspot_owner_id = hubspotOwnerId
+    if (record) callProps.hs_call_recording_url = record
+
+    const callR = await hs.post('/crm/v3/objects/calls', { properties: callProps })
+    const callEngId = callR.data.id
+
+    // ── Asociar el engagement al contacto y negocio encontrados ────────────
+    if (contactId) {
+      try { await hs.put(`/crm/v3/objects/calls/${callEngId}/associations/contacts/${contactId}/call_to_contact`) } catch {}
+    }
+    if (dealId) {
+      try { await hs.put(`/crm/v3/objects/calls/${callEngId}/associations/deals/${dealId}/call_to_deal`) } catch {}
+    }
+
+    console.log(`[webhook/zadarma] Call logged: ${callEngId} | sip=${sip} | status=${status} | duration=${duration}s | contact=${contactId || 'none'}`)
+    res.json({ success: true, callEngId, contactId, dealId })
+  } catch (e) {
+    console.error('[webhook/zadarma] error:', e.message)
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// NOTIFICACIONES — tareas pendientes del usuario actual (últimos 7 días)
+// ──────────────────────────────────────────────────────────────────────────────
+app.get('/api/hubspot/notifications', requireAuth, async (req, res) => {
+  try {
+    const r = await hs.post('/crm/v3/objects/tasks/search', {
+      filterGroups: [{
+        filters: [
+          { propertyName: 'hs_task_status', operator: 'EQ', value: 'NOT_STARTED' },
+          { propertyName: 'hubspot_owner_id', operator: 'EQ', value: req.user.ownerId }
+        ]
+      }],
+      sorts: [{ propertyName: 'hs_timestamp', direction: 'ASCENDING' }],
+      limit: 20,
+      properties: ['hs_task_subject', 'hs_task_body', 'hs_timestamp', 'hs_task_priority', 'hubspot_owner_id']
+    })
+    res.json({ count: r.data.total || 0, results: r.data.results || [] })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// En desarrollo escucha en el puerto; en Vercel se exporta como función serverless
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => console.log(`BePharma API server → http://localhost:${PORT}`))
+}
+module.exports = app
