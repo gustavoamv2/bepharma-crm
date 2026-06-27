@@ -1202,15 +1202,34 @@ app.post('/api/hubspot/calls/log', requireAuth, async (req, res) => {
       contacts: 'call_to_contact',
       companies: 'call_to_company'
     }
+    const outcomeLabel = {
+      CONNECTED: 'Contesto',
+      NO_ANSWER: 'No contesto',
+      LEFT_VOICEMAIL: 'Buzon de voz',
+      BUSY: 'Ocupado',
+      WRONG_NUMBER: 'Numero equivocado',
+    }[outcome] || outcome
+    const seconds = Math.max(0, Number(durationSeconds || 0))
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    const durationLabel = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`
+    const callBody = [
+      'Registro manual de llamada',
+      `Resultado: ${outcomeLabel}`,
+      `Duracion: ${durationLabel}`,
+      `Numero marcado: ${phoneNumber || 'N/A'}`,
+      notes ? `Notas: ${notes}` : 'Notas: N/A',
+    ].join('\n')
     const r = await hs.post('/crm/v3/objects/calls', {
       properties: {
-        hs_call_body: notes,
-        hs_call_duration: String(durationSeconds * 1000),
+        hs_call_body: callBody,
+        hs_call_duration: String(seconds * 1000),
         hs_call_status: 'COMPLETED',
         hs_call_outcome: outcome,
         hs_timestamp: new Date().toISOString(),
         hubspot_owner_id: req.user.ownerId,
-        hs_call_to_number: phoneNumber
+        hs_call_to_number: phoneNumber,
+        hs_call_title: `Llamada - ${outcomeLabel}`,
       }
     })
     const callId = r.data.id

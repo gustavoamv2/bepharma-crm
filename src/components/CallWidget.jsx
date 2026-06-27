@@ -1,18 +1,32 @@
 import React, { useState } from 'react'
 import { Phone, Clock } from 'lucide-react'
 import { useQuery } from 'react-query'
-import { zadarma } from '../hooks/useApi'
+import { hubspot, zadarma } from '../hooks/useApi'
 import { useToast } from '../hooks/useToast'
 import { useAuth } from '../contexts/AuthContext'
 import { format, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 
-export default function CallWidget({ phone, contactName }) {
+const CALL_OUTCOMES = [
+  { value: 'CONNECTED', label: 'Contesto' },
+  { value: 'NO_ANSWER', label: 'No contesto' },
+  { value: 'LEFT_VOICEMAIL', label: 'Buzon de voz' },
+  { value: 'BUSY', label: 'Ocupado' },
+  { value: 'WRONG_NUMBER', label: 'Numero equivocado' },
+]
+
+export default function CallWidget({ phone, contactName, objectType, objectId, onActivityLogged }) {
   const { addToast: toast } = useToast()
   const { user } = useAuth()
   const [to, setTo] = useState(phone || '')
   const [calling, setCalling] = useState(false)
   const [callStatus, setCallStatus] = useState('')
+  const [showLogForm, setShowLogForm] = useState(false)
+  const [savingLog, setSavingLog] = useState(false)
+  const [callStartedAt, setCallStartedAt] = useState(null)
+  const [callOutcome, setCallOutcome] = useState('CONNECTED')
+  const [callDuration, setCallDuration] = useState('')
+  const [callNotes, setCallNotes] = useState('')
 
   const { data: callHistory } = useQuery(
     ['zadarma-calls'],
@@ -33,6 +47,8 @@ export default function CallWidget({ phone, contactName }) {
       const result = await zadarma.call(from, to)
       const message = result?.message || `Solicitud enviada a la extension ${from}. Contesta para conectar con ${contactName || to}.`
       setCallStatus(message)
+      setCallStartedAt(Date.now())
+      setShowLogForm(!!objectType && !!objectId)
       toast(message, 'success')
     } catch (e) {
       const data = e.response?.data
@@ -41,6 +57,38 @@ export default function CallWidget({ phone, contactName }) {
       toast('Error al iniciar llamada: ' + msg, 'error')
     } finally {
       setCalling(false)
+    }
+  }
+
+  const useElapsedDuration = () => {
+    if (!callStartedAt) return
+    const elapsed = Math.max(0, Math.round((Date.now() - callStartedAt) / 1000))
+    setCallDuration(String(elapsed))
+  }
+
+  const saveManualCall = async () => {
+    if (!objectType || !objectId) return toast('No hay registro asociado para guardar la llamada', 'error')
+    setSavingLog(true)
+    try {
+      await hubspot.logCall({
+        objectType,
+        objectId,
+        outcome: callOutcome,
+        durationSeconds: callDuration ? parseInt(callDuration, 10) : 0,
+        phoneNumber: to.trim(),
+        notes: callNotes.trim(),
+      })
+      toast('Llamada registrada en HubSpot', 'success')
+      setShowLogForm(false)
+      setCallNotes('')
+      setCallDuration('')
+      setCallOutcome('CONNECTED')
+      onActivityLogged?.()
+    } catch (e) {
+      const msg = e.response?.data?.error || e.message || 'Error al registrar llamada'
+      toast('Error al registrar llamada: ' + msg, 'error')
+    } finally {
+      setSavingLog(false)
     }
   }
 
@@ -63,6 +111,62 @@ export default function CallWidget({ phone, contactName }) {
       {callStatus && (
         <div style={{ marginTop: 10, fontSize: 12, lineHeight: 1.4, color: '#b0bec5' }}>
           {callStatus}
+        </div>
+      )}
+
+      {showLogForm && (
+        <div className="call-log-form">
+          <div className="form-group">
+            <label>Resultado</label>
+            <select value={callOutcome} onChange={e => setCallOutcome(e.target.value)}>
+              {CALL_OUTCOMES.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label>Duracion (seg)</label>
+            <div className="call-duration-row">
+              <input
+                type="number"
+                min="0"
+                placeholder="ej: 120"
+                value={callDuration}
+                onChange={e => setCallDuration(e.target.value)}
+              />
+              <button type="button" className="btn btn-ghost btn-sm" onClick={useElapsedDuration}>
+                Usar tiempo
+              </button>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label>Numero marcado</label>
+            <input
+              type="tel"
+              value={to}
+              onChange={e => setTo(e.target.value)}
+              placeholder="+52 55 0000 0000"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Notas de la llamada</label>
+            <textarea
+              rows={3}
+              placeholder="Que se converso, proximo paso, objeciones o contexto relevante."
+              value={callNotes}
+              onChange={e => setCallNotes(e.target.value)}
+            />
+          </div>
+
+          <div className="call-log-actions">
+            <button type="button" className="btn btn-ghost btn-sm" onClick={() => setShowLogForm(false)}>
+              Cerrar
+            </button>
+            <button type="button" className="btn btn-primary btn-sm" onClick={saveManualCall} disabled={savingLog}>
+              {savingLog ? 'Guardando...' : 'Guardar llamada'}
+            </button>
+          </div>
         </div>
       )}
 

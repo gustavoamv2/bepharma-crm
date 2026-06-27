@@ -142,7 +142,13 @@ export default function ContactDetail() {
           </div>
 
           <div className="detail-side">
-            <CallWidget phone={p.phone} contactName={fullName} />
+            <CallWidget
+              phone={p.phone}
+              contactName={fullName}
+              objectType="contacts"
+              objectId={id}
+              onActivityLogged={() => qc.invalidateQueries(['engagements-contact', id])}
+            />
 
             <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, padding: 16 }}>
               <h3 style={{ fontSize: 13, fontWeight: 600, color: '#0077b5', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>

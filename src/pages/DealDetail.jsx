@@ -146,7 +146,12 @@ export default function DealDetail() {
           </div>
 
           <div className="detail-side">
-            <CallWidget contactName={p.dealname} />
+            <CallWidget
+              contactName={p.dealname}
+              objectType="deals"
+              objectId={id}
+              onActivityLogged={() => qc.invalidateQueries(['engagements-deal', id])}
+            />
           </div>
         </div>
       </div>

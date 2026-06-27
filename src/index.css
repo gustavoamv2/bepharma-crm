@@ -138,6 +138,16 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
 .call-phone-input { display: flex; gap: 8px; }
 .call-phone-input input { background: #1a2d42; border-color: #2a3f5f; color: #fff; }
 .call-phone-input input::placeholder { color: #546e7a; }
+.call-log-form { margin-top: 14px; padding-top: 14px; border-top: 1px solid #1a2d42; }
+.call-log-form .form-group { margin-bottom: 10px; }
+.call-log-form label { color: #90caf9; font-size: 11px; }
+.call-log-form input,
+.call-log-form select,
+.call-log-form textarea { background: #1a2d42; border-color: #2a3f5f; color: #fff; }
+.call-log-form textarea::placeholder,
+.call-log-form input::placeholder { color: #78909c; }
+.call-duration-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+.call-log-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
 
 /* Apollo/RocketReach panel */
 .search-panel { display: flex; flex-direction: column; gap: 8px; }

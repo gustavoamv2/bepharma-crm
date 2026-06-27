@@ -210,7 +210,13 @@ export default function CompanyDetail() {
           </div>
 
           <div className="detail-side">
-            <CallWidget phone={p.phone} contactName={p.name} />
+            <CallWidget
+              phone={p.phone}
+              contactName={p.name}
+              objectType="companies"
+              objectId={id}
+              onActivityLogged={() => qc.invalidateQueries(['engagements-company', id])}
+            />
           </div>
         </div>
       </div>
