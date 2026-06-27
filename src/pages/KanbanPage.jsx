@@ -256,10 +256,10 @@ export default function KanbanPage() {
     moveToStage(active.id, toStage)
   }
 
-  // Filtrar y agrupar
+  // Filtrar y agrupar — búsqueda por nombre de empresa
   const filtered = deals.filter(d => {
-    const name = (d.properties.dealname || d._companyName || '').toLowerCase()
-    const matchSearch = !search || name.includes(search.toLowerCase())
+    const companyName = (d._companyName || '').toLowerCase()
+    const matchSearch = !search || companyName.includes(search.toLowerCase())
     const matchOwner = !ownerFilter || d.properties.hubspot_owner_id === ownerFilter
     return matchSearch && matchOwner
   })
@@ -278,7 +278,7 @@ export default function KanbanPage() {
       {/* Barra de filtros propia — fuera del Topbar para tener ancho completo */}
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', padding: '8px 16px', borderBottom: '1px solid #e8edf2', background: 'var(--sidebar-bg, #f4f5f7)' }}>
         <input
-          placeholder="Filtrar eventos..."
+          placeholder="Buscar empresa..."
           value={search}
           onChange={e => setSearch(e.target.value)}
           style={{ minWidth: 200, flex: '1 1 200px', padding: '6px 10px', fontSize: 13, borderRadius: 6, border: '1px solid #d8e0ea', background: '#fff' }}
