@@ -335,9 +335,11 @@ app.get('/api/pipeline/deals', requireAuth, async (req, res) => {
     const allDeals = []
     let after
 
-    // Hasta 500 eventos (10 páginas x 50) — carga completa del pipeline
+    // Hasta 500 eventos (10 páginas x 50) — delay entre páginas para evitar 429
     const MAX_PAGES = 10
+    const sleep = (ms) => new Promise(r => setTimeout(r, ms))
     for (let page = 0; page < MAX_PAGES; page++) {
+      if (page > 0) await sleep(300) // 300ms entre páginas → ~3 req/seg < límite HubSpot
       const filterGroups = applyOwnerFilter(req, [{ filters: [activeEventFilter()] }])
       const r = await hs.post('/crm/v3/objects/deals/search', {
         filterGroups,

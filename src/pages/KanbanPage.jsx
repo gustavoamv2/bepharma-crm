@@ -273,37 +273,35 @@ export default function KanbanPage() {
 
   return (
     <>
-      <Topbar
-        title="Pipeline de Eventos"
-        action={
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-            <input
-              placeholder="Filtrar eventos..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              style={{ width: 190, padding: '5px 10px', fontSize: 13, borderRadius: 6, border: '1px solid #d8e0ea' }}
-            />
-            {isSupervisor && (
-              <select
-                value={ownerFilter}
-                onChange={e => setOwnerFilter(e.target.value)}
-                style={{ padding: '5px 8px', fontSize: 13, borderRadius: 6, border: '1px solid #d8e0ea' }}
-              >
-                <option value="">Todos los operadores</option>
-                {Object.entries(OWNER_NAMES).map(([id, name]) => (
-                  <option key={id} value={id}>{name}</option>
-                ))}
-              </select>
-            )}
-            <span style={{ fontSize: 12, color: '#5d6b7a', whiteSpace: 'nowrap' }}>
-              {filtered.length} eventos
-            </span>
-          </div>
-        }
-      />
+      <Topbar title="Pipeline de Eventos" />
+
+      {/* Barra de filtros propia — fuera del Topbar para tener ancho completo */}
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', padding: '8px 16px', borderBottom: '1px solid #e8edf2', background: 'var(--sidebar-bg, #f4f5f7)' }}>
+        <input
+          placeholder="Filtrar eventos..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          style={{ minWidth: 200, flex: '1 1 200px', padding: '6px 10px', fontSize: 13, borderRadius: 6, border: '1px solid #d8e0ea', background: '#fff' }}
+        />
+        {isSupervisor && (
+          <select
+            value={ownerFilter}
+            onChange={e => setOwnerFilter(e.target.value)}
+            style={{ padding: '6px 10px', fontSize: 13, borderRadius: 6, border: '1px solid #d8e0ea', background: '#fff' }}
+          >
+            <option value="">Todos los operadores</option>
+            {Object.entries(OWNER_NAMES).map(([id, name]) => (
+              <option key={id} value={id}>{name}</option>
+            ))}
+          </select>
+        )}
+        <span style={{ fontSize: 12, color: '#5d6b7a', whiteSpace: 'nowrap', marginLeft: 'auto' }}>
+          {loading ? 'Cargando…' : `${filtered.length} eventos`}
+        </span>
+      </div>
 
       {error && (
-        <div className="content">
+        <div style={{ margin: '12px 16px' }}>
           <div className="error-msg">Error al cargar eventos: {error}</div>
         </div>
       )}
