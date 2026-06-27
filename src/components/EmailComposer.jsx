@@ -3,16 +3,26 @@ import { X, Send, Mail } from 'lucide-react'
 import axios from 'axios'
 import { useToast } from '../hooks/useToast'
 
-// Estilos del modal (inline para no depender del CSS global)
 const overlay = {
-  position: 'fixed', inset: 0, background: 'rgba(0,0,0,.45)',
-  zIndex: 500, display: 'flex', alignItems: 'center', justifyContent: 'center',
-  padding: 20
+  position: 'fixed',
+  inset: 0,
+  background: 'rgba(0,0,0,.45)',
+  zIndex: 500,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 20,
 }
+
 const modal = {
-  background: '#fff', borderRadius: 10, width: '100%', maxWidth: 620,
-  boxShadow: '0 20px 60px rgba(0,0,0,.25)', display: 'flex', flexDirection: 'column',
-  maxHeight: '90vh'
+  background: '#fff',
+  borderRadius: 10,
+  width: '100%',
+  maxWidth: 620,
+  boxShadow: '0 20px 60px rgba(0,0,0,.25)',
+  display: 'flex',
+  flexDirection: 'column',
+  maxHeight: '90vh',
 }
 
 export default function EmailComposer({ defaultTo = '', defaultSubject = '', contactId, dealId, companyId, onClose }) {
@@ -22,20 +32,32 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', con
   const [body, setBody] = useState('')
   const [sending, setSending] = useState(false)
   const [smtpOk, setSmtpOk] = useState(null)
+  const [smtpError, setSmtpError] = useState('')
 
-  // Verificar SMTP al abrir (requiere token)
   useEffect(() => {
     axios.get('/api/email/verify', {
-      headers: { Authorization: `Bearer ${sessionStorage.getItem('bp_token')}` }
+      headers: { Authorization: `Bearer ${sessionStorage.getItem('bp_token')}` },
     })
-      .then(r => setSmtpOk(r.data.ok))
-      .catch(() => setSmtpOk(false))
+      .then(r => {
+        setSmtpOk(r.data.ok)
+        setSmtpError(r.data.error || '')
+      })
+      .catch(e => {
+        setSmtpOk(false)
+        setSmtpError(e.response?.data?.error || e.message || 'No se pudo verificar el correo')
+      })
   }, [])
+
+  useEffect(() => {
+    const handler = (e) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [onClose])
 
   const handleSend = async () => {
     if (!to.trim()) return toast('Ingresa el destinatario', 'error')
     if (!subject.trim()) return toast('Ingresa el asunto', 'error')
-    if (!body.trim()) return toast('El cuerpo del email no puede estar vacío', 'error')
+    if (!body.trim()) return toast('El cuerpo del email no puede estar vacio', 'error')
 
     setSending(true)
     try {
@@ -45,9 +67,9 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', con
         body: body.trim(),
         contactId,
         dealId,
-        companyId
+        companyId,
       })
-      toast('✉️ Email enviado y registrado en HubSpot', 'success')
+      toast('Email enviado y registrado en HubSpot', 'success')
       onClose()
     } catch (e) {
       const msg = e.response?.data?.error || e.message
@@ -57,17 +79,9 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', con
     }
   }
 
-  // Cerrar con Escape
-  useEffect(() => {
-    const handler = (e) => { if (e.key === 'Escape') onClose() }
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  }, [onClose])
-
   return (
     <div style={overlay} onClick={e => e.target === e.currentTarget && onClose()}>
       <div style={modal}>
-        {/* Header */}
         <div style={{ padding: '14px 18px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600, fontSize: 14 }}>
             <Mail size={16} color="#0052cc" />
@@ -78,16 +92,17 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', con
           </button>
         </div>
 
-        {/* Alerta SMTP */}
         {smtpOk === false && (
           <div style={{ padding: '10px 18px', background: '#fffae6', borderBottom: '1px solid #ffe58f', fontSize: 12, color: '#8a6914' }}>
-            ⚠️ Tu correo no está configurado. Pide al administrador que configure tus credenciales en <strong>Admin → Usuarios → Email</strong>.
+            {smtpError === 'no_config' ? (
+              <>Tu correo no esta configurado. Pide al administrador que configure tus credenciales en <strong>Admin &gt; Usuarios &gt; Email</strong>.</>
+            ) : (
+              <>Microsoft 365 rechazo la conexion SMTP: <strong>{smtpError || 'verifica SMTP AUTH y credenciales'}</strong></>
+            )}
           </div>
         )}
 
-        {/* Cuerpo del formulario */}
         <div style={{ flex: 1, overflow: 'auto', padding: 18, display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {/* Para */}
           <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: 8, gap: 10 }}>
             <span style={{ fontSize: 12, color: '#6b778c', fontWeight: 600, minWidth: 50 }}>Para</span>
             <input
@@ -98,7 +113,6 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', con
             />
           </div>
 
-          {/* Asunto */}
           <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: 8, gap: 10 }}>
             <span style={{ fontSize: 12, color: '#6b778c', fontWeight: 600, minWidth: 50 }}>Asunto</span>
             <input
@@ -109,26 +123,30 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', con
             />
           </div>
 
-          {/* Cuerpo */}
           <textarea
             value={body}
             onChange={e => setBody(e.target.value)}
-            placeholder="Escribe tu mensaje aquí…"
+            placeholder="Escribe tu mensaje aqui..."
             rows={10}
             style={{
-              border: 'none', outline: 'none', resize: 'vertical', fontSize: 13,
-              fontFamily: 'inherit', lineHeight: 1.6, color: '#172b4d',
-              minHeight: 200, padding: 0
+              border: 'none',
+              outline: 'none',
+              resize: 'vertical',
+              fontSize: 13,
+              fontFamily: 'inherit',
+              lineHeight: 1.6,
+              color: '#172b4d',
+              minHeight: 200,
+              padding: 0,
             }}
           />
         </div>
 
-        {/* Footer */}
         <div style={{ padding: '12px 18px', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#f8fafc' }}>
           <span style={{ fontSize: 11, color: '#6b778c' }}>
             {contactId || dealId || companyId
-              ? '✓ Se registrará en el timeline de HubSpot'
-              : 'No asociado a ningún registro de HubSpot'}
+              ? 'Se registrara en el timeline de HubSpot'
+              : 'No asociado a ningun registro de HubSpot'}
           </span>
           <div style={{ display: 'flex', gap: 8 }}>
             <button className="btn btn-ghost btn-sm" onClick={onClose}>Cancelar</button>
@@ -139,7 +157,7 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', con
               style={{ display: 'flex', alignItems: 'center', gap: 6 }}
             >
               <Send size={13} />
-              {sending ? 'Enviando…' : 'Enviar'}
+              {sending ? 'Enviando...' : 'Enviar'}
             </button>
           </div>
         </div>
