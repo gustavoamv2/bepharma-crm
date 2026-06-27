@@ -99,7 +99,8 @@ export default function CompanyDetail() {
   const { data: company, isLoading, error } = useQuery(['company', id], () => hubspot.getCompany(id))
 
   if (isLoading) return <><Topbar title="Empresa" back /><div className="content"><div className="loading">Cargando…</div></div></>
-  if (error) return <><Topbar title="Empresa" back /><div className="content"><div className="error-msg">{error.message}</div></div></>
+  if (error) return <><Topbar title="Empresa" back /><div className="content"><div className="error-msg">{typeof error.message === 'string' ? error.message : 'Error al cargar la empresa'}</div></div></>
+  if (!company?.properties) return <><Topbar title="Empresa" back /><div className="content"><div className="error-msg">No se pudo cargar la empresa (ID: {id})</div></div></>
 
   const p = company.properties
   const contacts = company.associations?.contacts?.results || []

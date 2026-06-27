@@ -38,7 +38,7 @@ export default function ContactDetail() {
   const { data: contact, isLoading, error } = useQuery(['contact', id], () => hubspot.getContact(id))
 
   if (isLoading) return <><Topbar title="Contacto" back /><div className="content"><div className="loading">Cargando…</div></div></>
-  if (error) return <><Topbar title="Contacto" back /><div className="content"><div className="error-msg">{error.message}</div></div></>
+  if (error) return <><Topbar title="Contacto" back /><div className="content"><div className="error-msg">{typeof error.message === 'string' ? error.message : 'Error al cargar el contacto'}</div></div></>
 
   const p = contact.properties
   const fullName = [p.firstname, p.lastname].filter(Boolean).join(' ') || 'Contacto'

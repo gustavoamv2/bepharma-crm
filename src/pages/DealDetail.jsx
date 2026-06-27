@@ -46,7 +46,7 @@ export default function DealDetail() {
   )
 
   if (isLoading) return <><Topbar title="Evento" back /><div className="content"><div className="loading">Cargando…</div></div></>
-  if (error) return <><Topbar title="Evento" back /><div className="content"><div className="error-msg">{error.message}</div></div></>
+  if (error) return <><Topbar title="Evento" back /><div className="content"><div className="error-msg">{typeof error.message === 'string' ? error.message : 'Error al cargar el evento'}</div></div></>
 
   const p = deal.properties
   const contacts = deal.associations?.contacts?.results || []
