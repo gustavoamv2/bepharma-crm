@@ -35,6 +35,25 @@ const CALL_STATUS_LABEL = {
   NO_ANSWER: { text: 'No contestada', color: '#de350b' },
   BUSY:      { text: 'Ocupado',       color: '#ff8b00' },
   CANCELED:  { text: 'Cancelada',     color: '#6b778c' },
+  QUEUED:    { text: 'En cola',       color: '#6b778c' },
+  FAILED:    { text: 'Fallida',       color: '#de350b' },
+  RINGING:   { text: 'Timbrando',     color: '#ff8b00' },
+  IN_PROGRESS: { text: 'En curso',    color: '#0052cc' },
+}
+
+// Limpia HTML y filtra mensajes internos de Zadarma/sistema
+function cleanCallBody(raw) {
+  if (!raw) return ''
+  return raw
+    .replace(/<[^>]+>/g, ' ')          // strip HTML tags
+    .replace(/Your app hash for widget[^,]*/gi, '')
+    .replace(/Ваш внутренний номер[^\n]*/gi, '')
+    .replace(/Ваш пароль[^\n]*/gi, '')
+    .replace(/Установить расширение[^\n]*/gi, '')
+    .replace(/notas:\s*/gi, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
 }
 
 const safeFmt = (val) => {
@@ -109,12 +128,14 @@ function CallsModal({ owner, days, onClose }) {
       )}
       {calls.map((c) => {
         const p = c.properties
+        if (p.hs_call_status === 'QUEUED') return null  // ignorar llamadas en cola sin contenido
         const statusInfo = CALL_STATUS_LABEL[p.hs_call_status] || { text: p.hs_call_status || 'N/A', color: '#6b778c' }
         const durMs = Number(p.hs_call_duration || 0)
         const durSec = Math.round(durMs / 1000)
         const durStr = durSec >= 60 ? `${Math.floor(durSec / 60)}m ${durSec % 60}s` : `${durSec}s`
         const hasRecording = !!p.hs_call_recording_url
         const isExpanded = playing === c.id
+        const body = cleanCallBody(p.hs_call_body)
         return (
           <div key={c.id} style={{
             marginBottom: 12, padding: 14, background: '#0a1929',
@@ -127,12 +148,12 @@ function CallsModal({ owner, days, onClose }) {
               </div>
               <span style={{ fontSize: 11, color: '#546e7a' }}>{safeFmt(p.hs_timestamp)}</span>
             </div>
-            {p.hs_call_body && (
+            {body && (
               <div style={{
                 fontSize: 12, color: '#b0bec5', lineHeight: 1.6,
                 whiteSpace: 'pre-wrap', maxHeight: isExpanded ? 'none' : 80, overflow: 'hidden',
               }}>
-                {p.hs_call_body}
+                {body}
               </div>
             )}
             {hasRecording && (
@@ -185,7 +206,7 @@ function NotesModal({ owner, days, onClose }) {
               <span style={{ fontSize: 11, color: '#546e7a' }}>{safeFmt(p.hs_timestamp)}</span>
             </div>
             <div style={{ fontSize: 12, color: '#b0bec5', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
-              {p.hs_note_body ? p.hs_note_body.replace(/<[^>]+>/g, '').trim() || '(sin contenido)' : '(sin contenido)'}
+              {cleanCallBody(p.hs_note_body) || '(sin contenido)'}
             </div>
           </div>
         )

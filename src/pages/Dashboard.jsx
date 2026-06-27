@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { AlertTriangle, TrendingUp, Calendar, PhoneCall, CheckSquare, Users, Clock, BarChart2, Eye } from 'lucide-react'
 import { format } from 'date-fns'
@@ -179,6 +179,7 @@ const ASSOC_PATHS = { deals: '/deals', contacts: '/contacts', companies: '/compa
 export default function Dashboard() {
   const nav = useNavigate()
   const { user } = useAuth()
+  const qc = useQueryClient()
 
   // Toggle supervisor/operador para usuarios con rol supervisor (Yesenia, Roberto)
   const [viewAsOperator, setViewAsOperator] = useState(
@@ -189,6 +190,10 @@ export default function Dashboard() {
     setViewAsOperator(next)
     if (next) sessionStorage.setItem('bp_view_mode', 'operator')
     else sessionStorage.removeItem('bp_view_mode')
+    // Invalida caché para que los gráficos y métricas se refresquen con la nueva vista
+    qc.invalidateQueries(['metrics'])
+    qc.invalidateQueries(['charts'])
+    qc.invalidateQueries(['tasks-pending'])
   }
   const isSupervisor = user?.role === 'supervisor' && !viewAsOperator
   const canToggle = user?.role === 'supervisor'
