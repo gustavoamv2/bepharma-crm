@@ -26,17 +26,21 @@ const COMPANY_STAGES = [
 function StageSelector({ companyId, currentStage, onUpdated }) {
   const [saving, setSaving] = useState(false)
   const [value, setValue] = useState(currentStage || '')
+  const [errorMsg, setErrorMsg] = useState(null)
 
   const handleChange = async (e) => {
     const newStage = e.target.value
     setValue(newStage)
     setSaving(true)
+    setErrorMsg(null)
     try {
       await hubspot.updateCompany(companyId, { bp_etapa_empresa: newStage })
       onUpdated?.()
     } catch (err) {
-      console.error('Error actualizando etapa:', err)
-      setValue(currentStage || '') // revert on error
+      const d = err.response?.data
+      const msg = d?.message || d?.error || err.message || 'Error al guardar'
+      setErrorMsg(msg)
+      setValue(currentStage || '')
     } finally {
       setSaving(false)
     }
@@ -45,23 +49,26 @@ function StageSelector({ companyId, currentStage, onUpdated }) {
   const current = COMPANY_STAGES.find(s => s.key === value)
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-      <select
-        value={value}
-        onChange={handleChange}
-        disabled={saving}
-        style={{
-          padding: '5px 10px', borderRadius: 6, border: '1px solid #dfe1e6',
-          background: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer',
-          color: '#172b4d', outline: 'none'
-        }}
-      >
-        <option value="">— Sin etapa —</option>
-        {COMPANY_STAGES.map(s => (
-          <option key={s.key} value={s.key}>{s.label}</option>
-        ))}
-      </select>
-      {saving && <span style={{ fontSize: 11, color: '#6b778c' }}>Guardando…</span>}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <select
+          value={value}
+          onChange={handleChange}
+          disabled={saving}
+          style={{
+            padding: '5px 10px', borderRadius: 6, border: '1px solid #dfe1e6',
+            background: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+            color: '#172b4d', outline: 'none'
+          }}
+        >
+          <option value="">— Sin etapa —</option>
+          {COMPANY_STAGES.map(s => (
+            <option key={s.key} value={s.key}>{s.label}</option>
+          ))}
+        </select>
+        {saving && <span style={{ fontSize: 11, color: '#6b778c' }}>Guardando…</span>}
+      </div>
+      {errorMsg && <div style={{ fontSize: 11, color: '#b91c1c' }}>{errorMsg}</div>}
     </div>
   )
 }
