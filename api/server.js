@@ -123,11 +123,11 @@ app.get('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
   }
 })
 
-// Empresas – búsqueda
+// Empresas – búsqueda (sin filtro de owner: las empresas son registros compartidos)
 app.post('/api/hubspot/companies/search', requireAuth, async (req, res) => {
   try {
     const { filters = [], sorts = [], limit = 50, after, properties: customProps } = req.body
-    const filterGroups = applyOwnerFilter(req, filters.length ? [{ filters }] : [])
+    const filterGroups = filters.length ? [{ filters }] : []
     const r = await hs.post('/crm/v3/objects/companies/search', {
       filterGroups,
       sorts,
