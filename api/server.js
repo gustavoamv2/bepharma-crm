@@ -775,6 +775,23 @@ async function zadarmaRequest(method, params = {}) {
   return r.data
 }
 
+function cleanZadarmaPhone(value) {
+  const raw = String(value || '').trim()
+  const cleaned = raw.replace(/[^\d+]/g, '')
+  if (!cleaned) return ''
+  if (cleaned.startsWith('00')) return `+${cleaned.slice(2)}`
+  if (cleaned.startsWith('+')) return `+${cleaned.slice(1).replace(/\D/g, '')}`
+  return cleaned.replace(/\D/g, '')
+}
+
+function cleanZadarmaFrom(value) {
+  return String(value || '').trim().replace(/\D/g, '')
+}
+
+function isZadarmaOnline(value) {
+  return String(value).toLowerCase() === 'true' || value === true || value === 1 || value === '1'
+}
+
 function zadarmaErrorPayload(e, fallback = 'Error de Zadarma') {
   const status = e.response?.status || 500
   const zadarma = e.response?.data || null
@@ -796,9 +813,58 @@ function zadarmaErrorPayload(e, fallback = 'Error de Zadarma') {
 // Iniciar llamada click-to-call
 app.post('/api/zadarma/call', requireAuth, async (req, res) => {
   try {
-    const { from, to, predicted = 0 } = req.body
-    const data = await zadarmaRequest('/v1/request/callback/', { from, to, predicted })
-    res.json(data)
+    const from = cleanZadarmaFrom(req.body.from)
+    const to = cleanZadarmaPhone(req.body.to)
+    const predicted = Number(req.body.predicted || 0)
+
+    if (!from) return res.status(400).json({ error: 'Tu usuario no tiene extension SIP/PBX configurada.' })
+    if (!/^\d{3,20}$/.test(from)) return res.status(400).json({ error: 'La extension SIP/PBX no es valida.', details: `Valor recibido: ${req.body.from || ''}` })
+    if (!to || !/^\+?\d{7,15}$/.test(to)) return res.status(400).json({ error: 'Numero destino no valido.', details: 'Usa formato internacional, por ejemplo +525500000000.' })
+
+    let extensionStatus = null
+    if (/^\d{3}$/.test(from)) {
+      try {
+        extensionStatus = await zadarmaRequest(`/v1/pbx/internal/${from}/status/`, {})
+        if (extensionStatus?.status === 'success' && !isZadarmaOnline(extensionStatus.is_online)) {
+          return res.status(409).json({
+            error: `La extension ${from} no esta conectada en Zadarma.`,
+            details: 'Abre el softphone/app de Zadarma con esa extension y espera a que aparezca online. Luego intenta llamar de nuevo.',
+            zadarma: extensionStatus,
+          })
+        }
+      } catch (statusError) {
+        const remoteStatus = statusError.response?.status
+        if (remoteStatus === 404 || remoteStatus === 400) {
+          return res.status(400).json({
+            error: `La extension ${from} no existe o no esta disponible en la centralita Zadarma.`,
+            details: 'Revisa la extension asignada al usuario en Administracion > Telefonia.',
+            zadarma: statusError.response?.data || null,
+          })
+        }
+        console.warn('[zadarma/call] No se pudo verificar estado PBX:', statusError.response?.data || statusError.message)
+      }
+    }
+
+    const params = { from, to }
+    if (predicted) params.predicted = predicted
+    const data = await zadarmaRequest('/v1/request/callback/', params)
+    if (data?.status && data.status !== 'success') {
+      return res.status(502).json({
+        error: 'Zadarma no acepto el callback.',
+        details: data.message || data.error || 'Respuesta inesperada de Zadarma.',
+        zadarma: data,
+      })
+    }
+
+    res.json({
+      ok: true,
+      status: data?.status || 'success',
+      message: `Callback enviado a la extension ${from}. Contesta esa llamada para conectar con ${to}.`,
+      from,
+      to,
+      zadarma: data,
+      extensionStatus,
+    })
   } catch (e) {
     const payload = zadarmaErrorPayload(e, 'No se pudo iniciar la llamada')
     res.status(payload.httpStatus).json(payload.body)

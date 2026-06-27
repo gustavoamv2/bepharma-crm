@@ -12,6 +12,7 @@ export default function CallWidget({ phone, contactName }) {
   const { user } = useAuth()
   const [to, setTo] = useState(phone || '')
   const [calling, setCalling] = useState(false)
+  const [callStatus, setCallStatus] = useState('')
 
   const { data: callHistory } = useQuery(
     ['zadarma-calls'],
@@ -20,16 +21,23 @@ export default function CallWidget({ phone, contactName }) {
   )
 
   const handleCall = async () => {
-    if (!to) return toast('Ingresa un número de teléfono', 'error')
+    if (!to) return toast('Ingresa un numero de telefono', 'error')
+
     const from = user?.sipExtension
-    if (!from) return toast('Tu usuario no tiene extensión SIP configurada. Pide al supervisor que la configure en Admin.', 'error')
+    if (!from) return toast('Tu usuario no tiene extension SIP configurada. Pide al supervisor que la configure en Admin.', 'error')
+
     setCalling(true)
+    setCallStatus('')
+
     try {
-      await zadarma.call(from, to)
-      toast(`Llamando a ${contactName || to}…`, 'success')
+      const result = await zadarma.call(from, to)
+      const message = result?.message || `Solicitud enviada a la extension ${from}. Contesta para conectar con ${contactName || to}.`
+      setCallStatus(message)
+      toast(message, 'success')
     } catch (e) {
       const data = e.response?.data
       const msg = [data?.error, data?.details].filter(Boolean).join(' - ') || e.message
+      setCallStatus(msg)
       toast('Error al iniciar llamada: ' + msg, 'error')
     } finally {
       setCalling(false)
@@ -48,9 +56,15 @@ export default function CallWidget({ phone, contactName }) {
           placeholder="+52 55 0000 0000"
         />
         <button className="btn btn-call" onClick={handleCall} disabled={calling}>
-          {calling ? '…' : 'Llamar'}
+          {calling ? '...' : 'Llamar'}
         </button>
       </div>
+
+      {callStatus && (
+        <div style={{ marginTop: 10, fontSize: 12, lineHeight: 1.4, color: '#b0bec5' }}>
+          {callStatus}
+        </div>
+      )}
 
       {calls.length > 0 && (
         <div style={{ marginTop: 14 }}>
@@ -59,8 +73,8 @@ export default function CallWidget({ phone, contactName }) {
           </div>
           {calls.slice(0, 5).map((c, i) => (
             <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #1a2d42', fontSize: 12 }}>
-              <span style={{ color: '#b0bec5' }}>{c.destination || c.pbx_call_id || '—'}</span>
-              <span style={{ color: '#546e7a' }}>{c.callstart ? format(parseISO(c.callstart), 'dd MMM HH:mm', { locale: es }) : '—'}</span>
+              <span style={{ color: '#b0bec5' }}>{c.destination || c.pbx_call_id || '-'}</span>
+              <span style={{ color: '#546e7a' }}>{c.callstart ? format(parseISO(c.callstart), 'dd MMM HH:mm', { locale: es }) : '-'}</span>
             </div>
           ))}
         </div>
