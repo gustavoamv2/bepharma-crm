@@ -859,13 +859,46 @@ const apollo = axios.create({
 // Buscar personas en Apollo
 app.post('/api/apollo/people/search', requireAuth, async (req, res) => {
   try {
-    const { name, organization_name, title, location, page = 1 } = req.body
-    // Params van en query string (no en body) según OpenAPI spec
+    const { name, organization_name, organization_domain, title, titles, location, page = 1 } = req.body
+    const clean = (v) => String(v || '').trim()
+    const domain = clean(organization_domain || organization_name).replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0]
+    const looksLikeDomain = /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(domain)
+    const titleList = Array.isArray(titles)
+      ? titles.map(clean).filter(Boolean)
+      : clean(title).split(',').map(t => t.trim()).filter(Boolean)
+
+    // Params van en query string (no en body) según OpenAPI spec.
+    // Importante: q_organization_domains_list[] solo acepta dominios, no nombres de empresa.
     const params = { page, per_page: 25 }
-    if (name)              params.q_keywords = name
-    if (organization_name) params['q_organization_domains_list[]'] = organization_name
-    if (title)             params['person_titles[]'] = title
-    if (location)          params['person_locations[]'] = location
+    if (name) params.q_keywords = name
+    if (looksLikeDomain) params['q_organization_domains_list[]'] = domain
+    if (titleList.length) {
+      params['person_titles[]'] = titleList
+      params.include_similar_titles = false
+    }
+    if (location) params['person_locations[]'] = location
+
+    // Si el usuario dio nombre de empresa, buscar primero organizaciones y usar organization_ids[].
+    if (!looksLikeDomain && organization_name) {
+      try {
+        const orgR = await apollo.post('/mixed_companies/search', null, {
+          params: {
+            q_organization_name: organization_name,
+            page: 1,
+            per_page: 5,
+          }
+        })
+        const ids = (orgR.data.organizations || orgR.data.accounts || [])
+          .map(o => o.id || o.organization_id)
+          .filter(Boolean)
+          .slice(0, 5)
+        if (ids.length) params['organization_ids[]'] = ids
+        else params.q_keywords = [params.q_keywords, organization_name].filter(Boolean).join(' ')
+      } catch (orgErr) {
+        console.warn('[apollo] organization lookup failed:', orgErr.response?.data || orgErr.message)
+        params.q_keywords = [params.q_keywords, organization_name].filter(Boolean).join(' ')
+      }
+    }
 
     const r = await apollo.post('/mixed_people/api_search', null, { params })
     res.json(r.data)
@@ -922,10 +955,11 @@ const rr = axios.create({
 app.post('/api/rocketreach/search', requireAuth, async (req, res) => {
   try {
     const { name, current_employer, title, location } = req.body
+    const titleList = String(title || '').split(',').map(t => t.trim()).filter(Boolean)
     const query = {}
     if (name)             query.name          = [name]
     if (current_employer) query.employer       = [current_employer]  // ← "employer", no "current_employer"
-    if (title)            query.current_title  = [title]
+    if (titleList.length) query.current_title  = titleList
     if (location)         query.geo            = [location]          // ← "geo", no "location"
     const r = await rr.post('/person/search', { query, start: 1, page_size: 25 })
     res.json(r.data)
