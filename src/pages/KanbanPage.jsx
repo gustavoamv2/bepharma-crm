@@ -226,7 +226,11 @@ export default function KanbanPage() {
       setDeals(all => all.map(d =>
         d.id === dealId ? prev : d
       ))
-      alert(e.response?.data?.error || 'No se pudo mover el evento. Intenta de nuevo.')
+      const errData = e.response?.data
+      const msg = typeof errData?.error === 'string'
+        ? errData.error
+        : errData?.message || e.message || 'No se pudo mover el evento. Intenta de nuevo.'
+      alert(msg)
     }
   }, [deals])
 

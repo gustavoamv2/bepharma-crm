@@ -370,7 +370,8 @@ app.patch('/api/pipeline/deals/:id/stage', requireAuth, async (req, res) => {
     })
     res.json(r.data)
   } catch (e) {
-    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+    const hsMsg = e.response?.data?.message || e.response?.data?.error || e.message
+    res.status(e.response?.status || 500).json({ error: typeof hsMsg === 'string' ? hsMsg : JSON.stringify(hsMsg) })
   }
 })
 
