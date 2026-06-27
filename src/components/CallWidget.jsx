@@ -28,7 +28,9 @@ export default function CallWidget({ phone, contactName }) {
       await zadarma.call(from, to)
       toast(`Llamando a ${contactName || to}…`, 'success')
     } catch (e) {
-      toast('Error al iniciar llamada: ' + (e.response?.data?.error || e.message), 'error')
+      const data = e.response?.data
+      const msg = [data?.error, data?.details].filter(Boolean).join(' - ') || e.message
+      toast('Error al iniciar llamada: ' + msg, 'error')
     } finally {
       setCalling(false)
     }

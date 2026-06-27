@@ -772,6 +772,24 @@ async function zadarmaRequest(method, params = {}) {
   return r.data
 }
 
+function zadarmaErrorPayload(e, fallback = 'Error de Zadarma') {
+  const status = e.response?.status || 500
+  const zadarma = e.response?.data || null
+  const remoteMessage = zadarma?.message || zadarma?.error || e.message
+  const isAuthError = status === 401 || /not authorized/i.test(String(remoteMessage || ''))
+  return {
+    httpStatus: isAuthError ? 401 : 500,
+    body: {
+      error: isAuthError
+        ? 'Zadarma no autorizo la solicitud. Revisa ZADARMA_API_KEY y ZADARMA_API_SECRET en Vercel.'
+        : fallback,
+      details: remoteMessage,
+      zadarma,
+      status,
+    }
+  }
+}
+
 // Iniciar llamada click-to-call
 app.post('/api/zadarma/call', requireAuth, async (req, res) => {
   try {
@@ -779,12 +797,8 @@ app.post('/api/zadarma/call', requireAuth, async (req, res) => {
     const data = await zadarmaRequest('/v1/request/callback/', { from, to, predicted })
     res.json(data)
   } catch (e) {
-    const zadErr = e.response?.data
-    res.status(500).json({
-      error: e.message,
-      zadarma: zadErr || null,
-      status: e.response?.status || null
-    })
+    const payload = zadarmaErrorPayload(e, 'No se pudo iniciar la llamada')
+    res.status(payload.httpStatus).json(payload.body)
   }
 })
 
@@ -806,12 +820,8 @@ app.get('/api/zadarma/test', requireAuth, async (req, res) => {
     const data = await zadarmaRequest('/v1/info/balance/', {})
     res.json({ ok: true, balance: data })
   } catch (e) {
-    res.status(500).json({
-      ok: false,
-      error: e.message,
-      zadarma: e.response?.data || null,
-      status: e.response?.status || null
-    })
+    const payload = zadarmaErrorPayload(e, 'No se pudo validar Zadarma')
+    res.status(payload.httpStatus).json({ ok: false, ...payload.body })
   }
 })
 
