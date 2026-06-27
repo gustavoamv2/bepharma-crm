@@ -207,8 +207,8 @@ export default function Dashboard() {
   const metricCards = [
     {
       key: 'sinActividad72h',
-      label: isSupervisor ? 'Sin actividad +72h' : 'Sin actividad +72h',
-      sublabel: 'bp_ultima_actividad_operador',
+      label: 'Sin actividad +72h',
+      sublabel: 'Ultima actividad hace mas de 3 dias',
       icon: AlertTriangle, cls: 'metric-danger',
       filter: { filters: [
         { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
@@ -220,7 +220,7 @@ export default function Dashboard() {
     {
       key: 'callbacksVencidos',
       label: isSupervisor ? 'Callbacks vencidos' : 'Mis callbacks vencidos',
-      sublabel: 'Proximo contacto pasado',
+      sublabel: 'Fecha de proximo contacto vencida',
       icon: PhoneCall, cls: 'metric-danger',
       filter: { filters: [
         { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
@@ -232,7 +232,7 @@ export default function Dashboard() {
     {
       key: 'sinProximoContacto',
       label: 'Sin proximo contacto',
-      sublabel: 'Sin fecha agendada',
+      sublabel: 'Sin fecha de seguimiento agendada',
       icon: Calendar, cls: 'metric-warning',
       filter: { filters: [
         { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
@@ -244,7 +244,7 @@ export default function Dashboard() {
     {
       key: 'confirmadasBePharma',
       label: isSupervisor ? 'Confirmadas BePharma' : 'Mis confirmadas',
-      sublabel: 'Evento activo BEPH-2026-09',
+      sublabel: `Confirmadas en ${ACTIVE_EVENT}`,
       icon: CheckSquare, cls: 'metric-success',
       filter: { filters: [
         { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
@@ -254,7 +254,7 @@ export default function Dashboard() {
     ...(isSupervisor ? [{
       key: 'nuevosEsteMes',
       label: 'Nuevos este mes',
-      sublabel: 'Evento activo',
+      sublabel: `Creados en ${ACTIVE_EVENT} este mes`,
       icon: TrendingUp, cls: 'metric-primary',
       filter: { filters: [
         { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },

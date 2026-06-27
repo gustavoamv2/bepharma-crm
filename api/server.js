@@ -196,7 +196,27 @@ app.get('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
         associations: 'companies,deals,notes,calls',
       },
     })
-    res.json(r.data)
+    const contact = r.data
+
+    // Deduplicar empresas por ID y enriquecer con nombres
+    const rawCompanies = contact.associations?.companies?.results || []
+    const uniqueCompanyIds = [...new Set(rawCompanies.map(c => String(c.id)))]
+    if (uniqueCompanyIds.length > 0) {
+      try {
+        const cr = await hs.post('/crm/v3/objects/companies/batch/read', {
+          inputs: uniqueCompanyIds.map(id => ({ id })),
+          properties: ['name', 'domain'],
+        })
+        const byId = Object.fromEntries((cr.data.results || []).map(c => [c.id, c]))
+        contact.associations.companies.results = uniqueCompanyIds
+          .map(id => byId[id])
+          .filter(Boolean)
+      } catch { /* mantener IDs originales deduplicados */
+        contact.associations.companies.results = uniqueCompanyIds.map(id => ({ id }))
+      }
+    }
+
+    res.json(contact)
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
   }
@@ -280,27 +300,40 @@ app.get('/api/pipeline/deals', requireAuth, async (req, res) => {
     }
     const truncated = !!after  // true si aun quedan paginas sin cargar (>500)
 
-    // Obtener primera empresa asociada a cada deal (paralelo)
+    // Obtener asociaciones empresa-deal en una sola llamada batch (v4)
+    // Evita N llamadas paralelas individuales que causan 429
     const companyIdByDeal = {}
-    await Promise.all(allDeals.map(async (deal) => {
+    if (allDeals.length > 0) {
       try {
-        const r = await hs.get(`/crm/v3/objects/deals/${deal.id}/associations/companies`)
-        const first = r.data.results?.[0]?.id
-        if (first) companyIdByDeal[deal.id] = first
-      } catch { /* sin empresa */ }
-    }))
+        const BATCH_SIZE = 100
+        for (let i = 0; i < allDeals.length; i += BATCH_SIZE) {
+          const chunk = allDeals.slice(i, i + BATCH_SIZE)
+          const r = await hs.post('/crm/v4/associations/deals/companies/batch/read', {
+            inputs: chunk.map(d => ({ id: d.id })),
+          })
+          ;(r.data.results || []).forEach(row => {
+            const first = row.to?.[0]?.toObjectId
+            if (first) companyIdByDeal[row.from.id] = String(first)
+          })
+        }
+      } catch { /* sin empresas */ }
+    }
 
     // Batch read de nombres de empresa para IDs únicos
     const uniqueCompanyIds = [...new Set(Object.values(companyIdByDeal))]
     const companyNames = {}
     if (uniqueCompanyIds.length > 0) {
-      try {
-        const r = await hs.post('/crm/v3/objects/companies/batch/read', {
-          inputs: uniqueCompanyIds.map(id => ({ id })),
-          properties: ['name'],
-        })
-        ;(r.data.results || []).forEach(c => { companyNames[c.id] = c.properties.name || '' })
-      } catch { /* sin nombres */ }
+      const BATCH_SIZE = 100
+      for (let i = 0; i < uniqueCompanyIds.length; i += BATCH_SIZE) {
+        const chunk = uniqueCompanyIds.slice(i, i + BATCH_SIZE)
+        try {
+          const r = await hs.post('/crm/v3/objects/companies/batch/read', {
+            inputs: chunk.map(id => ({ id })),
+            properties: ['name'],
+          })
+          ;(r.data.results || []).forEach(c => { companyNames[c.id] = c.properties.name || '' })
+        } catch { /* sin nombres */ }
+      }
     }
 
     // Merge: agregar companyId y companyName a cada deal
