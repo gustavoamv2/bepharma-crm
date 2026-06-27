@@ -309,7 +309,7 @@ export default function RecordModal({ type, record, onClose, onSaved }) {
         if (type === 'deal')    result = await hubspot.createDeal(props)
         if (type === 'company') result = await hubspot.createCompany(props)
         if (type === 'contact') result = await hubspot.createContact(props)
-        addToast(`${TITLES[type]} creado en HubSpot`, 'success')
+        addToast(`${TITLES[type]} creado · puede tardar ~1 min en aparecer en búsquedas`, 'success')
       }
       onSaved?.(result)
       onClose()
