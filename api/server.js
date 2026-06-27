@@ -663,7 +663,7 @@ app.get('/api/hubspot/metrics', requireAuth, async (req, res) => {
       ]),
       // Confirmadas BePharma
       safeCount([
-        { propertyName: 'dealstage', operator: 'EQ', value: 'confirmada_bepharma' },
+        { propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: 'confirmada' },
       ]),
       // Participa en otro evento (bp_decision_participacion, no bp_estado_prospeccion)
       safeCount([
@@ -690,7 +690,8 @@ app.get('/api/hubspot/metrics', requireAuth, async (req, res) => {
 // Tareas pendientes del usuario actual — incluye asociaciones para navegar al hacer clic
 app.get('/api/hubspot/tasks/pending', requireAuth, async (req, res) => {
   try {
-    const ownerFilter = req.user.role === 'operator'
+    const actAsOperator = req.user.role === 'operator' || req.headers['x-view-mode'] === 'operator'
+    const ownerFilter = actAsOperator
       ? [{ propertyName: 'hubspot_owner_id', operator: 'EQ', value: req.user.ownerId }]
       : []
 

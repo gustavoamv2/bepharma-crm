@@ -187,13 +187,13 @@ export default function Dashboard() {
   )
   const toggleView = () => {
     const next = !viewAsOperator
-    setViewAsOperator(next)
     if (next) sessionStorage.setItem('bp_view_mode', 'operator')
     else sessionStorage.removeItem('bp_view_mode')
-    // Invalida caché para que los gráficos y métricas se refresquen con la nueva vista
-    qc.invalidateQueries(['metrics'])
-    qc.invalidateQueries(['charts'])
-    qc.invalidateQueries(['tasks-pending'])
+    // Elimina cache para forzar refetch con la nueva vista al renderizar
+    qc.removeQueries(['metrics'])
+    qc.removeQueries(['charts'])
+    qc.removeQueries(['tasks-pending'])
+    setViewAsOperator(next)
   }
   const isSupervisor = user?.role === 'supervisor' && !viewAsOperator
   const canToggle = user?.role === 'supervisor'
