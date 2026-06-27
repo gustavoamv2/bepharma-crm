@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
+import { useQueryClient } from 'react-query'
 import { X, Search } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import { useToast } from '../hooks/useToast'
@@ -342,9 +343,27 @@ export default function RecordModal({ type, record, onClose, onSaved }) {
 // ── Botón de eliminar ──────────────────────────────────────────────────────────
 export function DeleteButton({ type, id, name, onDeleted }) {
   const { addToast } = useToast()
+  const qc = useQueryClient()
   const [confirm, setConfirm] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const TITLES = { deal: 'evento', company: 'empresa', contact: 'contacto' }
+
+  const refreshAfterDelete = async () => {
+    const listKey = type === 'deal' ? 'deals' : type === 'company' ? 'companies' : 'contacts'
+    const detailKey = type === 'deal' ? 'deal' : type === 'company' ? 'company' : 'contact'
+
+    qc.removeQueries([detailKey, id], { exact: true })
+    qc.removeQueries(listKey)
+    qc.removeQueries(['pipeline-deals'])
+
+    await Promise.all([
+      qc.invalidateQueries(listKey),
+      qc.invalidateQueries('metrics'),
+      qc.invalidateQueries('charts'),
+      qc.invalidateQueries('reports-bp-summary'),
+      qc.invalidateQueries(['pipeline-deals']),
+    ])
+  }
 
   const doDelete = async () => {
     setDeleting(true)
@@ -352,6 +371,7 @@ export function DeleteButton({ type, id, name, onDeleted }) {
       if (type === 'deal')    await hubspot.deleteDeal(id)
       if (type === 'company') await hubspot.deleteCompany(id)
       if (type === 'contact') await hubspot.deleteContact(id)
+      await refreshAfterDelete()
       addToast(`${TITLES[type]} eliminado`, 'success')
       onDeleted?.()
     } catch (err) {
