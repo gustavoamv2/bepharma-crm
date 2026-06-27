@@ -753,7 +753,10 @@ function zadarmaSign(method, params) {
     .map(k => `${k}=${encodeURIComponent(String(params[k])).replace(/%20/g, '+')}`)
     .join('&')
   const str = method + paramStr + md5(paramStr)
-  return crypto.createHmac('sha1', process.env.ZADARMA_API_SECRET).update(str).digest('base64')
+  // Zadarma's PHP example uses base64_encode(hash_hmac(...)) where hash_hmac
+  // returns a hex string by default. Match that exactly instead of base64 raw bytes.
+  const hmacHex = crypto.createHmac('sha1', process.env.ZADARMA_API_SECRET).update(str).digest('hex')
+  return Buffer.from(hmacHex).toString('base64')
 }
 function md5(str) {
   return crypto.createHash('md5').update(str).digest('hex')
