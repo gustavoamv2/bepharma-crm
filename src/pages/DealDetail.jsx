@@ -3,8 +3,9 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useQuery, useQueryClient } from 'react-query'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { ExternalLink, Mail, Pencil } from 'lucide-react'
+import { ExternalLink, Mail, Pencil, Flag } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
+import { useAuth } from '../contexts/AuthContext'
 import Topbar from '../components/Topbar'
 import DealStageBadge from '../components/DealStageBadge'
 import CallWidget from '../components/CallWidget'
@@ -29,10 +30,37 @@ function Prop({ label, value }) {
   )
 }
 
+const ALERTA_CYCLE = { '': 'alerta_amarilla', alerta_amarilla: 'alerta_roja', alerta_roja: '' }
+const ALERTA_COLORS = { alerta_roja: '#b91c1c', alerta_amarilla: '#b45309' }
+
+function AlertToggle({ dealId, current, onUpdated }) {
+  const [saving, setSaving] = useState(false)
+  const next = ALERTA_CYCLE[current || ''] ?? ''
+  const handleClick = async () => {
+    setSaving(true)
+    try { await hubspot.updateDeal(dealId, { bp_estado_alerta: next }); onUpdated() }
+    finally { setSaving(false) }
+  }
+  const color = current ? ALERTA_COLORS[current] : '#d1d5db'
+  const title = current === 'alerta_roja' ? 'Quitar alerta'
+    : current === 'alerta_amarilla' ? 'Subir a alerta roja'
+    : 'Levantar alerta amarilla'
+  return (
+    <button onClick={handleClick} disabled={saving} title={title}
+      className="btn btn-ghost btn-sm"
+      style={{ display: 'flex', alignItems: 'center', gap: 5, opacity: saving ? 0.5 : 1 }}>
+      <Flag size={13} fill={current ? color : 'none'} color={color} />
+      {current === 'alerta_roja' ? 'Alerta roja' : current === 'alerta_amarilla' ? 'Alerta amarilla' : 'Alerta'}
+    </button>
+  )
+}
+
 export default function DealDetail() {
   const { id } = useParams()
   const nav = useNavigate()
   const qc = useQueryClient()
+  const { user } = useAuth()
+  const isSupervisor = user?.role === 'supervisor'
   const [tab, setTab]             = useState('info')
   const [showEmail, setShowEmail] = useState(false)
   const [showEdit, setShowEdit]   = useState(false)
@@ -79,6 +107,13 @@ export default function DealDetail() {
                   <button className="btn btn-ghost btn-sm" onClick={() => setShowEdit(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                     <Pencil size={13} /> Editar
                   </button>
+                  {isSupervisor && (
+                    <AlertToggle
+                      dealId={id}
+                      current={p.bp_estado_alerta}
+                      onUpdated={() => qc.invalidateQueries(['deal', id])}
+                    />
+                  )}
                   <DeleteButton type="deal" id={id} name={p.dealname} onDeleted={() => nav('/deals')} />
                 </div>
               </div>

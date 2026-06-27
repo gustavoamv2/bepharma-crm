@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Plus, AlertTriangle, Calendar } from 'lucide-react'
+import { Plus, AlertTriangle, Calendar, Flag } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import { useAuth } from '../contexts/AuthContext'
 import Topbar from '../components/Topbar'
@@ -57,6 +57,45 @@ function formatBpDate(val) {
 const ALERTA_COLORS = {
   alerta_roja:    '#b91c1c',
   alerta_amarilla:'#b45309',
+}
+
+// Ciclo: sin alerta → amarilla → roja → sin alerta
+const ALERTA_CYCLE = { '': 'alerta_amarilla', alerta_amarilla: 'alerta_roja', alerta_roja: '' }
+
+function AlertToggle({ dealId, current, onUpdated }) {
+  const [saving, setSaving] = useState(false)
+  const next = ALERTA_CYCLE[current || ''] ?? ''
+
+  const handleClick = async (e) => {
+    e.stopPropagation()
+    setSaving(true)
+    try {
+      await hubspot.updateDeal(dealId, { bp_estado_alerta: next })
+      onUpdated()
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const color = current ? ALERTA_COLORS[current] : '#d1d5db'
+  const title = current === 'alerta_roja' ? 'Quitar alerta'
+    : current === 'alerta_amarilla' ? 'Subir a alerta roja'
+    : 'Levantar alerta amarilla'
+
+  return (
+    <button
+      onClick={handleClick}
+      disabled={saving}
+      title={title}
+      style={{
+        background: 'none', border: 'none', cursor: saving ? 'wait' : 'pointer',
+        padding: '2px 4px', borderRadius: 4, display: 'flex', alignItems: 'center',
+        opacity: saving ? 0.5 : 1,
+      }}
+    >
+      <Flag size={14} fill={current ? color : 'none'} color={color} />
+    </button>
+  )
 }
 
 export default function DealList() {
@@ -174,6 +213,7 @@ export default function DealList() {
                       <th>Proximo contacto</th>
                       <th>Ult. actividad</th>
                       <th>Alerta</th>
+                      {isSupervisor && <th style={{ width: 36 }}></th>}
                     </tr>
                   </thead>
                   <tbody>
@@ -200,6 +240,15 @@ export default function DealList() {
                               </span>
                             )}
                           </td>
+                          {isSupervisor && (
+                            <td onClick={e => e.stopPropagation()} style={{ textAlign: 'center' }}>
+                              <AlertToggle
+                                dealId={d.id}
+                                current={alert}
+                                onUpdated={() => qc.invalidateQueries(['deals'])}
+                              />
+                            </td>
+                          )}
                         </tr>
                       )
                     })}
