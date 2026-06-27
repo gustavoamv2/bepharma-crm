@@ -15,6 +15,12 @@ const CALL_OUTCOMES = [
   { value: 'WRONG_NUMBER', label: 'Numero equivocado' },
 ]
 
+function toErrorText(value) {
+  if (!value) return ''
+  if (typeof value === 'string') return value
+  return value.message || value.error || JSON.stringify(value)
+}
+
 export default function CallWidget({ phone, contactName, objectType, objectId, onActivityLogged }) {
   const { addToast: toast } = useToast()
   const { user } = useAuth()
@@ -52,7 +58,9 @@ export default function CallWidget({ phone, contactName, objectType, objectId, o
       toast(message, 'success')
     } catch (e) {
       const data = e.response?.data
-      const msg = [data?.error, data?.details].filter(Boolean).join(' - ') || e.message
+      const msg = [toErrorText(data?.error), toErrorText(data?.details)]
+        .filter(Boolean)
+        .join(' - ') || e.message
       setCallStatus(msg)
       toast('Error al iniciar llamada: ' + msg, 'error')
     } finally {
@@ -85,7 +93,10 @@ export default function CallWidget({ phone, contactName, objectType, objectId, o
       setCallOutcome('CONNECTED')
       onActivityLogged?.()
     } catch (e) {
-      const msg = e.response?.data?.error || e.message || 'Error al registrar llamada'
+      const data = e.response?.data
+      const msg = [toErrorText(data?.error), toErrorText(data?.details)]
+        .filter(Boolean)
+        .join(' - ') || e.message || 'Error al registrar llamada'
       toast('Error al registrar llamada: ' + msg, 'error')
     } finally {
       setSavingLog(false)

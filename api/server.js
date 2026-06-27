@@ -792,6 +792,13 @@ function isZadarmaOnline(value) {
   return String(value).toLowerCase() === 'true' || value === true || value === 1 || value === '1'
 }
 
+function readableApiError(error) {
+  const data = error.response?.data
+  if (!data) return error.message || 'Error desconocido'
+  if (typeof data === 'string') return data
+  return data.message || data.error || JSON.stringify(data)
+}
+
 function zadarmaErrorPayload(e, fallback = 'Error de Zadarma') {
   const status = e.response?.status || 500
   const zadarma = e.response?.data || null
@@ -1225,7 +1232,6 @@ app.post('/api/hubspot/calls/log', requireAuth, async (req, res) => {
         hs_call_body: callBody,
         hs_call_duration: String(seconds * 1000),
         hs_call_status: 'COMPLETED',
-        hs_call_outcome: outcome,
         hs_timestamp: new Date().toISOString(),
         hubspot_owner_id: req.user.ownerId,
         hs_call_to_number: phoneNumber,
@@ -1243,7 +1249,10 @@ app.post('/api/hubspot/calls/log', requireAuth, async (req, res) => {
     res.json(r.data)
   } catch (e) {
     console.error('[calls/log] error:', e.response?.data || e.message)
-    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+    res.status(e.response?.status || 500).json({
+      error: readableApiError(e),
+      details: e.response?.data || null,
+    })
   }
 })
 
