@@ -141,6 +141,40 @@ app.post('/api/hubspot/companies/search', requireAuth, async (req, res) => {
   }
 })
 
+// Búsqueda rápida de empresas por nombre (DEBE ir antes de /:id)
+app.get('/api/hubspot/companies/quick-search', requireAuth, async (req, res) => {
+  try {
+    const q = (req.query.q || '').trim()
+    if (!q) return res.json({ results: [] })
+    const r = await hs.post('/crm/v3/objects/companies/search', {
+      filterGroups: [{ filters: [{ propertyName: 'name', operator: 'CONTAINS_TOKEN', value: q }] }],
+      properties: ['name', 'domain', 'city'],
+      limit: 10
+    })
+    res.json({ results: r.data.results || [] })
+  } catch (e) {
+    res.json({ results: [] })
+  }
+})
+
+// Métricas de empresas por etapa (DEBE ir antes de /:id)
+app.get('/api/hubspot/companies/pipeline-metrics', requireAuth, async (req, res) => {
+  try {
+    const STAGES = ['nueva', 'depuracion', 'enriquecimiento', 'calificada', 'contactada', 'seguimiento', 'confirmada', 'descartada']
+    const counts = await Promise.all(STAGES.map(stage =>
+      hs.post('/crm/v3/objects/companies/search', {
+        filterGroups: [{ filters: [{ propertyName: 'bp_etapa_empresa', operator: 'EQ', value: stage }] }],
+        limit: 1, properties: ['name']
+      }).then(r => r.data.total || 0).catch(() => 0)
+    ))
+    const byStage = Object.fromEntries(STAGES.map((s, i) => [s, counts[i]]))
+    const total = counts.reduce((a, b) => a + b, 0)
+    res.json({ byStage, total })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
 // Empresa – detalle (con nombres de contactos y deals)
 app.get('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
   try {
@@ -546,39 +580,6 @@ app.patch('/api/admin/users/:username/sip', requireAuth, async (req, res) => {
   }
 })
 
-// Búsqueda rápida de empresas por nombre (para el campo empresa en crear contacto)
-app.get('/api/hubspot/companies/quick-search', requireAuth, async (req, res) => {
-  try {
-    const q = (req.query.q || '').trim()
-    if (!q) return res.json({ results: [] })
-    const r = await hs.post('/crm/v3/objects/companies/search', {
-      filterGroups: [{ filters: [{ propertyName: 'name', operator: 'CONTAINS_TOKEN', value: q }] }],
-      properties: ['name', 'domain', 'city'],
-      limit: 10
-    })
-    res.json({ results: r.data.results || [] })
-  } catch (e) {
-    res.json({ results: [] })
-  }
-})
-
-// Métricas de empresas por etapa (pipeline Kanban)
-app.get('/api/hubspot/companies/pipeline-metrics', requireAuth, async (req, res) => {
-  try {
-    const STAGES = ['nueva', 'depuracion', 'enriquecimiento', 'calificada', 'contactada', 'seguimiento', 'confirmada', 'descartada']
-    const counts = await Promise.all(STAGES.map(stage =>
-      hs.post('/crm/v3/objects/companies/search', {
-        filterGroups: [{ filters: [{ propertyName: 'bp_etapa_empresa', operator: 'EQ', value: stage }] }],
-        limit: 1, properties: ['name']
-      }).then(r => r.data.total || 0).catch(() => 0)
-    ))
-    const byStage = Object.fromEntries(STAGES.map((s, i) => [s, counts[i]]))
-    const total = counts.reduce((a, b) => a + b, 0)
-    res.json({ byStage, total })
-  } catch (e) {
-    res.status(500).json({ error: e.message })
-  }
-})
 
 // Crear contacto en HubSpot y opcionalmente asociarlo a una empresa
 app.post('/api/hubspot/contacts', requireAuth, async (req, res) => {
