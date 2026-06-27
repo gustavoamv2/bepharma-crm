@@ -1,59 +1,107 @@
 import React, { useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { format, parseISO } from 'date-fns'
-import { es } from 'date-fns/locale'
-import { Plus } from 'lucide-react'
+import { Plus, AlertTriangle, Calendar } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
+import { useAuth } from '../contexts/AuthContext'
 import Topbar from '../components/Topbar'
 import DealStageBadge from '../components/DealStageBadge'
 import RecordModal from '../components/RecordModal'
 
-const fmt = (v) => v ? format(parseISO(v), 'dd MMM yy', { locale: es }) : '—'
-const money = (v) => v ? `$${Number(v).toLocaleString('es-MX')}` : '—'
+const ACTIVE_EVENT = 'BEPH-2026-09'
 
-const STAGES_OPTIONS = [
+const STAGE_OPTIONS = [
   { value: '', label: 'Todas las etapas' },
-  { value: 'appointmentscheduled', label: 'Cita agendada' },
-  { value: 'qualifiedtobuy', label: 'Calificado' },
-  { value: 'presentationscheduled', label: 'Presentación' },
-  { value: 'decisionmakerboughtin', label: 'Decision maker' },
-  { value: 'contractsent', label: 'Contrato enviado' },
-  { value: 'closedwon', label: 'Ganado' },
-  { value: 'closedlost', label: 'Perdido' },
+  { value: 'nueva_empresa',       label: 'Nueva empresa' },
+  { value: 'en_depuracion',       label: 'En depuracion' },
+  { value: 'en_enriquecimiento',  label: 'En enriquecimiento' },
+  { value: 'contacto_enviado',    label: 'Contacto enviado' },
+  { value: 'en_seguimiento',      label: 'En seguimiento' },
+  { value: 'confirmada_bepharma', label: 'Confirmada BePharma' },
+  { value: 'no_participa',        label: 'No participa' },
 ]
+
+const ESTADO_OPTIONS = [
+  { value: '', label: 'Todos los estados' },
+  { value: 'nueva',              label: 'Nueva' },
+  { value: 'en_depuracion',      label: 'En depuracion' },
+  { value: 'en_enriquecimiento', label: 'En enriquecimiento' },
+  { value: 'contacto_enviado',   label: 'Contacto enviado' },
+  { value: 'en_seguimiento',     label: 'En seguimiento' },
+  { value: 'confirmada',         label: 'Confirmada' },
+  { value: 'no_participa',       label: 'No participa' },
+]
+
+const ALERTA_OPTIONS = [
+  { value: '', label: 'Todas las alertas' },
+  { value: 'alerta_roja',     label: 'Alerta roja' },
+  { value: 'alerta_amarilla', label: 'Alerta amarilla' },
+]
+
+const OWNER_NAMES = {
+  '93615311': 'Roberto',
+  '93621022': 'Yesenia',
+  '93771980': 'Angel',
+  '93771979': 'Gracie',
+  '93771981': 'Carlos',
+  '73112880': 'Sara',
+}
+
+function formatBpDate(val) {
+  if (!val) return '—'
+  const n = Number(val)
+  const d = isNaN(n) || n < 1e10 ? new Date(val) : new Date(n)
+  if (isNaN(d.getTime())) return '—'
+  return d.toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: '2-digit' })
+}
+
+const ALERTA_COLORS = {
+  alerta_roja:    '#b91c1c',
+  alerta_amarilla:'#b45309',
+}
 
 export default function DealList() {
   const nav = useNavigate()
   const qc = useQueryClient()
   const location = useLocation()
+  const { user } = useAuth()
+  const isSupervisor = user?.role === 'supervisor'
+
   const preFilter = location.state?.filter || null
 
   const [search, setSearch] = useState('')
   const [stage, setStage] = useState('')
-  const [zona, setZona] = useState('')
+  const [estado, setEstado] = useState('')
+  const [alerta, setAlerta] = useState('')
+  const [ownerFilter, setOwnerFilter] = useState('')
   const [after, setAfter] = useState(null)
   const [history, setHistory] = useState([])
   const [showCreate, setShowCreate] = useState(false)
 
+  const resetPage = () => { setAfter(null); setHistory([]) }
+
   const buildFilters = () => {
-    const filters = []
-    if (preFilter && !stage) {
+    const filters = [
+      { propertyName: 'bp_evento_codigo', operator: 'EQ', value: ACTIVE_EVENT },
+    ]
+    if (preFilter && !stage && !estado) {
       filters.push(...(preFilter.filters || []))
     }
-    if (stage) filters.push({ propertyName: 'dealstage', operator: 'EQ', value: stage })
-    if (zona) filters.push({ propertyName: 'bp_zona', operator: 'EQ', value: zona })
-    if (search) filters.push({ propertyName: 'dealname', operator: 'CONTAINS_TOKEN', value: search })
+    if (stage)       filters.push({ propertyName: 'dealstage',           operator: 'EQ', value: stage })
+    if (estado)      filters.push({ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado })
+    if (alerta)      filters.push({ propertyName: 'bp_estado_alerta',      operator: 'EQ', value: alerta })
+    if (ownerFilter) filters.push({ propertyName: 'hubspot_owner_id',      operator: 'EQ', value: ownerFilter })
+    if (search)      filters.push({ propertyName: 'dealname',              operator: 'CONTAINS_TOKEN', value: search })
     return filters
   }
 
   const { data, isLoading, error } = useQuery(
-    ['deals', search, stage, zona, after],
+    ['deals', search, stage, estado, alerta, ownerFilter, after, preFilter],
     () => hubspot.searchDeals({
       filters: buildFilters(),
-      sorts: [{ propertyName: 'hs_lastmodifieddate', direction: 'DESCENDING' }],
+      sorts: [{ propertyName: 'bp_ultima_actividad_operador', direction: 'DESCENDING' }],
       limit: 25,
-      after
+      after,
     }),
     { keepPreviousData: true }
   )
@@ -66,42 +114,55 @@ export default function DealList() {
 
   return (
     <>
-      <Topbar title="Eventos" action={
-        <button className="btn btn-primary btn-sm" onClick={() => setShowCreate(true)}
-          style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-          <Plus size={13} /> Nuevo evento
-        </button>
-      } />
+      <Topbar
+        title={isSupervisor ? 'Todos los eventos' : 'Mis eventos'}
+        action={
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => setShowCreate(true)}
+            style={{ display: 'flex', alignItems: 'center', gap: 5 }}
+          >
+            <Plus size={13} /> Nuevo evento
+          </button>
+        }
+      />
 
       <div className="content">
-        <div className="search-bar">
+        {/* Filtros */}
+        <div className="filters" style={{ flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
           <input
-            placeholder="Buscar evento…"
+            placeholder="Buscar evento..."
             value={search}
-            onChange={e => { setSearch(e.target.value); setAfter(null); setHistory([]) }}
+            onChange={e => { setSearch(e.target.value); resetPage() }}
+            style={{ minWidth: 180 }}
           />
-        </div>
-        <div className="filters">
-          <select value={stage} onChange={e => { setStage(e.target.value); setAfter(null); setHistory([]) }}>
-            {STAGES_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+          <select value={stage} onChange={e => { setStage(e.target.value); resetPage() }}>
+            {STAGE_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
           </select>
-          <select value={zona} onChange={e => { setZona(e.target.value); setAfter(null); setHistory([]) }}>
-            <option value="">Todas las zonas</option>
-            <option value="norte">Norte</option>
-            <option value="sur">Sur</option>
-            <option value="centro">Centro</option>
-            <option value="occidente">Occidente</option>
+          <select value={estado} onChange={e => { setEstado(e.target.value); resetPage() }}>
+            {ESTADO_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
           </select>
+          <select value={alerta} onChange={e => { setAlerta(e.target.value); resetPage() }}>
+            {ALERTA_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+          {isSupervisor && (
+            <select value={ownerFilter} onChange={e => { setOwnerFilter(e.target.value); resetPage() }}>
+              <option value="">Todos los operadores</option>
+              {Object.entries(OWNER_NAMES).map(([id, name]) => (
+                <option key={id} value={id}>{name}</option>
+              ))}
+            </select>
+          )}
           {preFilter && (
             <button className="btn btn-ghost btn-sm" onClick={() => nav('/deals', { state: null })}>
-              × Quitar filtro rápido
+              x Quitar filtro rapido
             </button>
           )}
         </div>
 
         <div className="card">
           {isLoading ? (
-            <div className="loading">Cargando eventos…</div>
+            <div className="loading">Cargando eventos...</div>
           ) : error ? (
             <div className="card-body"><div className="error-msg">Error: {error.message}</div></div>
           ) : deals.length === 0 ? (
@@ -113,24 +174,43 @@ export default function DealList() {
                   <thead>
                     <tr>
                       <th>Evento</th>
-                      <th>Etapa</th>
+                      <th>Owner</th>
                       <th>Zona</th>
-                      <th>Monto</th>
-                      <th>Cierre</th>
-                      <th>Últ. actividad</th>
+                      <th>Estado</th>
+                      <th>Etapa</th>
+                      <th>Proximo contacto</th>
+                      <th>Ult. actividad</th>
+                      <th>Alerta</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {deals.map(d => (
-                      <tr key={d.id} className="clickable" onClick={() => nav(`/deals/${d.id}`)}>
-                        <td style={{ fontWeight: 500 }}>{d.properties.dealname || '(sin nombre)'}</td>
-                        <td><DealStageBadge stage={d.properties.dealstage} /></td>
-                        <td>{d.properties.bp_zona || '—'}</td>
-                        <td>{money(d.properties.amount)}</td>
-                        <td>{fmt(d.properties.closedate)}</td>
-                        <td>{fmt(d.properties.hs_lastmodifieddate)}</td>
-                      </tr>
-                    ))}
+                    {deals.map(d => {
+                      const p = d.properties
+                      const alert = p.bp_estado_alerta
+                      const isOverdue = p.bp_proximo_contacto && Number(p.bp_proximo_contacto) < Date.now()
+                      return (
+                        <tr key={d.id} className="clickable" onClick={() => nav(`/deals/${d.id}`)}>
+                          <td style={{ fontWeight: 500 }}>{p.dealname || '(sin nombre)'}</td>
+                          <td style={{ fontSize: 12 }}>{OWNER_NAMES[p.hubspot_owner_id] || '—'}</td>
+                          <td style={{ fontSize: 12 }}>{p.bp_zona || '—'}</td>
+                          <td style={{ fontSize: 12 }}>{p.bp_estado_prospeccion || '—'}</td>
+                          <td><DealStageBadge stage={p.dealstage} /></td>
+                          <td style={{ fontSize: 12, color: isOverdue ? 'var(--danger)' : undefined }}>
+                            {isOverdue && <Calendar size={11} style={{ marginRight: 3, verticalAlign: 'middle' }} />}
+                            {formatBpDate(p.bp_proximo_contacto)}
+                          </td>
+                          <td style={{ fontSize: 12 }}>{formatBpDate(p.bp_ultima_actividad_operador)}</td>
+                          <td>
+                            {alert && (
+                              <span style={{ display: 'flex', alignItems: 'center', gap: 3, fontSize: 11, color: ALERTA_COLORS[alert] || '#6b7280', fontWeight: 600 }}>
+                                <AlertTriangle size={11} />
+                                {alert === 'alerta_roja' ? 'Roja' : 'Amarilla'}
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      )
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -139,8 +219,8 @@ export default function DealList() {
                   Total: {data?.total ?? '?'} · mostrando {deals.length}
                 </div>
                 <div className="pagination-btns">
-                  <button className="btn btn-ghost btn-sm" onClick={goPrev} disabled={history.length === 0}>← Anterior</button>
-                  <button className="btn btn-ghost btn-sm" onClick={goNext} disabled={!nextAfter}>Siguiente →</button>
+                  <button className="btn btn-ghost btn-sm" onClick={goPrev} disabled={history.length === 0}>Anterior</button>
+                  <button className="btn btn-ghost btn-sm" onClick={goNext} disabled={!nextAfter}>Siguiente</button>
                 </div>
               </div>
             </>

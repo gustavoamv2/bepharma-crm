@@ -1,19 +1,21 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #f4f6f9;
+  --bg: #f6f8fb;
   --surface: #ffffff;
-  --border: #e2e8f0;
-  --primary: #0052cc;
-  --primary-hover: #0041a8;
-  --success: #00875a;
-  --warning: #ff8b00;
-  --danger: #de350b;
-  --text: #172b4d;
-  --text-muted: #6b778c;
+  --surface-muted: #f1f5f9;
+  --border: #d8e0ea;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --success: #15803d;
+  --warning: #b45309;
+  --danger: #b91c1c;
+  --info: #0369a1;
+  --text: #17202a;
+  --text-muted: #5d6b7a;
   --radius: 8px;
-  --shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.08);
-  --shadow-md: 0 4px 12px rgba(0,0,0,.1);
+  --shadow: 0 1px 3px rgba(0,0,0,.10), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.09);
 }
 
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -535,4 +537,142 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
   font-size: 12px;
 }
 .owner-stat .stat-label { color: var(--text-muted); }
+
+/* ── KANBAN DE EVENTOS (kev-*) ───────────────────────────────────────────── */
+.kev-board {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px 24px;
+  overflow-x: auto;
+  min-height: calc(100vh - 52px);
+  align-items: flex-start;
+}
+.kev-column {
+  flex-shrink: 0;
+  width: 232px;
+  background: #f6f8fb;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 80px);
+  border: 2px solid transparent;
+  transition: border-color .15s, background .15s;
+}
+.kev-column--over {
+  border-color: var(--primary);
+  background: #eff6ff;
+}
+.kev-col-header {
+  padding: 10px 12px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 3px solid transparent;
+  border-radius: 10px 10px 0 0;
+  flex-shrink: 0;
+}
+.kev-col-count {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.kev-cards {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.kev-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: grab;
+  transition: box-shadow .15s, transform .1s;
+  user-select: none;
+}
+.kev-card:hover { box-shadow: 0 3px 10px rgba(0,0,0,.1); transform: translateY(-1px); }
+.kev-card--overlay {
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  cursor: grabbing;
+  transform: rotate(1.5deg);
+}
+.kev-alert {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: 5px;
+}
+.kev-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+.kev-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+.kev-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 2px;
+}
+.kev-skeleton {
+  height: 80px;
+  background: linear-gradient(90deg, #e8ecf0 25%, #f4f6f8 50%, #e8ecf0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 8px;
+}
+@keyframes shimmer { 0% { background-position: 200% 0 } 100% { background-position: -200% 0 } }
+.kev-confirm-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.kev-confirm {
+  background: #fff;
+  border-radius: 10px;
+  padding: 24px;
+  max-width: 380px;
+  width: 90%;
+  box-shadow: 0 12px 40px rgba(0,0,0,.2);
+}
+.kev-confirm p { font-size: 14px; line-height: 1.5; margin-bottom: 18px; }
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  border: none;
+}
+.btn-primary:hover { background: #1d4ed8; }
+.btn-secondary {
+  background: #f1f5f9;
+  color: var(--text);
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+}
+.btn-secondary:hover { background: #e2e8f0; }
 .owner-stat .stat-val { font-weight: 700; font-size: 14px; color: var(--text); }

@@ -57,22 +57,22 @@ function BarChart({ data, color = '#4fc3f7', height = 140, onBarClick }) {
 
 // ── Gráfica donut SVG (interactiva) ──────────────────────────────────────────
 const STAGE_COLORS = {
-  appointmentscheduled:  '#4fc3f7',
-  qualifiedtobuy:        '#29b6f6',
-  presentationscheduled: '#ff9800',
-  decisionmakerboughtin: '#ab47bc',
-  contractsent:          '#42a5f5',
-  closedwon:             '#66bb6a',
-  closedlost:            '#ef5350',
+  nueva_empresa:       '#2563eb',
+  en_depuracion:       '#d97706',
+  en_enriquecimiento:  '#7c3aed',
+  contacto_enviado:    '#0369a1',
+  en_seguimiento:      '#0f766e',
+  confirmada_bepharma: '#15803d',
+  no_participa:        '#b91c1c',
 }
 const STAGE_LABELS = {
-  appointmentscheduled:  'Agendada',
-  qualifiedtobuy:        'Calificado',
-  presentationscheduled: 'Presentación',
-  decisionmakerboughtin: 'DM Aprobó',
-  contractsent:          'Contrato',
-  closedwon:             'Ganado',
-  closedlost:            'Perdido',
+  nueva_empresa:       'Nueva empresa',
+  en_depuracion:       'En depuracion',
+  en_enriquecimiento:  'En enriquecimiento',
+  contacto_enviado:    'Contacto enviado',
+  en_seguimiento:      'En seguimiento',
+  confirmada_bepharma: 'Confirmada',
+  no_participa:        'No participa',
 }
 
 function DonutChart({ data, onSliceClick }) {
@@ -144,9 +144,11 @@ function DonutChart({ data, onSliceClick }) {
   )
 }
 
-const now = () => new Date().toISOString()
-const minus72h = () => new Date(Date.now() - 72 * 3600 * 1000).toISOString()
-const startMonth = () => new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString()
+const ACTIVE_EVENT = 'BEPH-2026-09'
+
+const nowMs = () => String(Date.now())
+const minus72hMs = () => String(Date.now() - 72 * 3600 * 1000)
+const startMonthMs = () => String(new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime())
 
 const safeFmt = (val) => {
   if (!val) return '—'
@@ -193,12 +195,6 @@ export default function Dashboard() {
     { refetchInterval: 10 * 60 * 1000 }
   )
 
-  const { data: pipelineData } = useQuery(
-    ['company-pipeline'],
-    hubspot.getCompanyPipeline,
-    { refetchInterval: 10 * 60 * 1000 }
-  )
-
   const { data: tasksData, isLoading: loadingTasks } = useQuery(
     ['tasks-pending', user?.username, viewAsOperator],
     hubspot.getPendingTasks,
@@ -207,108 +203,102 @@ export default function Dashboard() {
 
   const tasks = tasksData?.results || []
 
-  // ── Company pipeline ───────────────────────────────────────────────────────
-  const PIPELINE_STAGES = [
-    { key: 'nueva',           label: '🆕 Nueva' },
-    { key: 'depuracion',      label: '🧹 Depuración' },
-    { key: 'enriquecimiento', label: '💎 Enriquecimiento' },
-    { key: 'calificada',      label: '✅ Calificada' },
-    { key: 'contactada',      label: '📞 Contactada' },
-    { key: 'seguimiento',     label: '🔁 Seguimiento' },
-    { key: 'confirmada',      label: '🏆 Confirmada' },
-    { key: 'descartada',      label: '❌ Descartada' },
-  ]
-  const companyStages = pipelineData?.byStage
-    ? PIPELINE_STAGES.map(s => ({ ...s, count: pipelineData.byStage[s.key] || 0 }))
-    : null
-
-  // ── Métricas cards ─────────────────────────────────────────────────────────
+  // ── Metricas cards usando propiedades BePharma ────────────────────────────
   const metricCards = [
     {
       key: 'sinActividad72h',
-      label: isSupervisor ? 'Sin actividad +72h' : 'Mis deals sin actividad',
-      sublabel: isSupervisor ? 'Todo el equipo' : '+72h sin tocar',
+      label: isSupervisor ? 'Sin actividad +72h' : 'Sin actividad +72h',
+      sublabel: 'bp_ultima_actividad_operador',
       icon: AlertTriangle, cls: 'metric-danger',
       filter: { filters: [
-        { propertyName: 'hs_lastmodifieddate', operator: 'LT', value: minus72h() },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedwon' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedlost' }
+        { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
+        { propertyName: 'bp_ultima_actividad_operador', operator: 'LT', value: minus72hMs() },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada_bepharma' },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'no_participa' },
       ]}
     },
     {
       key: 'callbacksVencidos',
       label: isSupervisor ? 'Callbacks vencidos' : 'Mis callbacks vencidos',
-      sublabel: 'Fecha cierre pasada',
+      sublabel: 'Proximo contacto pasado',
       icon: PhoneCall, cls: 'metric-danger',
       filter: { filters: [
-        { propertyName: 'closedate', operator: 'LT', value: now() },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedwon' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedlost' }
+        { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
+        { propertyName: 'bp_proximo_contacto', operator: 'LT', value: nowMs() },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada_bepharma' },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'no_participa' },
       ]}
     },
     {
       key: 'sinProximoContacto',
-      label: 'Sin próx. contacto',
-      sublabel: 'Sin siguiente paso',
+      label: 'Sin proximo contacto',
+      sublabel: 'Sin fecha agendada',
       icon: Calendar, cls: 'metric-warning',
       filter: { filters: [
-        { propertyName: 'notes_next_activity_date', operator: 'NOT_HAS_PROPERTY' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedwon' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedlost' }
+        { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
+        { propertyName: 'bp_proximo_contacto', operator: 'NOT_HAS_PROPERTY' },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada_bepharma' },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'no_participa' },
       ]}
     },
     {
-      key: 'confirmadasEsteMes',
-      label: isSupervisor ? 'Confirmadas este mes' : 'Mis confirmadas',
-      sublabel: 'Eventos ganados',
+      key: 'confirmadasBePharma',
+      label: isSupervisor ? 'Confirmadas BePharma' : 'Mis confirmadas',
+      sublabel: 'Evento activo BEPH-2026-09',
       icon: CheckSquare, cls: 'metric-success',
       filter: { filters: [
-        { propertyName: 'dealstage', operator: 'EQ', value: 'closedwon' },
-        { propertyName: 'createdate', operator: 'GTE', value: startMonth() }
+        { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
+        { propertyName: 'dealstage', operator: 'EQ', value: 'confirmada_bepharma' },
       ]}
     },
     ...(isSupervisor ? [{
       key: 'nuevosEsteMes',
       label: 'Nuevos este mes',
-      sublabel: 'Todos los operadores',
+      sublabel: 'Evento activo',
       icon: TrendingUp, cls: 'metric-primary',
       filter: { filters: [
-        { propertyName: 'createdate', operator: 'GTE', value: startMonth() }
+        { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
+        { propertyName: 'createdate', operator: 'GTE', value: startMonthMs() },
       ]}
     }] : [])
   ]
 
-  // ── Accesos rápidos ────────────────────────────────────────────────────────
+  // ── Accesos rapidos ───────────────────────────────────────────────────────
   const quickLinks = isSupervisor ? [
-    { label: '📋 Todos los eventos activos', path: '/deals' },
-    { label: '✅ Eventos ganados',           path: '/deals', stageFilter: 'closedwon' },
-    { label: '📊 Pipeline Kanban',            path: '/kanban' },
-    { label: '🏢 Todas las empresas',         path: '/companies' },
-    { label: '📈 Reportes del equipo',        path: '/reports' },
-    { label: '🔍 Buscar en Apollo / RR',      path: '/search' },
+    { label: 'Todos los eventos activos', path: '/deals' },
+    { label: 'Confirmadas BePharma',      path: '/deals', stageFilter: 'confirmada_bepharma' },
+    { label: 'Pipeline de Eventos',       path: '/kanban' },
+    { label: 'Todas las empresas',        path: '/companies' },
+    { label: 'Reportes del equipo',       path: '/reports' },
+    { label: 'Buscar en Apollo / RR',     path: '/search' },
   ] : [
-    { label: '📋 Mis eventos activos',       path: '/deals' },
-    { label: '📊 Pipeline Kanban',            path: '/kanban' },
-    { label: '🔴 Mis callbacks vencidos',     path: '/deals', stageFilter: 'callbacks' },
-    { label: '⚠️ Mis deals sin actividad',   path: '/deals', stageFilter: 'sinActividad' },
-    { label: '🔍 Buscar contactos',           path: '/search' },
+    { label: 'Mis eventos activos',       path: '/deals' },
+    { label: 'Pipeline de Eventos',       path: '/kanban' },
+    { label: 'Mis callbacks vencidos',    path: '/deals', stageFilter: 'callbacks' },
+    { label: 'Sin actividad +72h',        path: '/deals', stageFilter: 'sinActividad' },
+    { label: 'Buscar contactos',          path: '/search' },
   ]
 
   const handleQuickLink = (link) => {
     if (!link.stageFilter) return nav(link.path)
-    if (link.stageFilter === 'closedwon') {
-      nav(link.path, { state: { filter: { filters: [{ propertyName: 'dealstage', operator: 'EQ', value: 'closedwon' }] } } })
+    if (link.stageFilter === 'confirmada_bepharma') {
+      nav(link.path, { state: { filter: { filters: [
+        { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
+        { propertyName: 'dealstage', operator: 'EQ', value: 'confirmada_bepharma' },
+      ]}}})
     } else if (link.stageFilter === 'callbacks') {
       nav(link.path, { state: { filter: { filters: [
-        { propertyName: 'closedate', operator: 'LT', value: now() },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedwon' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedlost' }
+        { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
+        { propertyName: 'bp_proximo_contacto', operator: 'LT', value: nowMs() },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada_bepharma' },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'no_participa' },
       ]}}})
     } else if (link.stageFilter === 'sinActividad') {
       nav(link.path, { state: { filter: { filters: [
-        { propertyName: 'hs_lastmodifieddate', operator: 'LT', value: minus72h() },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedwon' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedlost' }
+        { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
+        { propertyName: 'bp_ultima_actividad_operador', operator: 'LT', value: minus72hMs() },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada_bepharma' },
+        { propertyName: 'dealstage', operator: 'NEQ', value: 'no_participa' },
       ]}}})
     }
   }
@@ -379,6 +369,29 @@ export default function Dashboard() {
           </div>
         )}
 
+        {/* ── Distribución por estado (supervisor) ──────────────────────── */}
+        {isSupervisor && metrics?.porEstado && Object.keys(metrics.porEstado).length > 0 && (
+          <div className="card" style={{ marginBottom: 16 }}>
+            <div className="card-header">
+              <h2>Distribución por estado de prospeccion — {ACTIVE_EVENT}</h2>
+            </div>
+            <div className="card-body" style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+              {Object.entries(metrics.porEstado).map(([estado, count]) => (
+                <div key={estado}
+                  style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 14px', cursor: 'pointer', minWidth: 130, textAlign: 'center' }}
+                  onClick={() => nav('/deals', { state: { filter: { filters: [
+                    { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
+                    { propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado },
+                  ]}}})}
+                >
+                  <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--primary)' }}>{count}</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>{estado}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* ── Gráficas interactivas ─────────────────────────────────────── */}
         {chartsData && (
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 24 }}>
@@ -418,46 +431,6 @@ export default function Dashboard() {
                     height={100}
                   />
                 </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ── Pipeline de Empresas ─────────────────────────────────────── */}
-        {isSupervisor && companyStages && (
-          <div className="card" style={{ marginBottom: 24 }}>
-            <div className="card-header">
-              <h2 style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                🏢 Pipeline de Empresas
-              </h2>
-              <span style={{ fontSize: 11, color: '#6b778c' }}>clic en etapa para ver detalle</span>
-            </div>
-            <div className="card-body" style={{ padding: '12px 16px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
-                {companyStages.map(s => (
-                  <div
-                    key={s.key}
-                    onClick={() => nav('/companies', { state: { stage: s.key } })}
-                    style={{
-                      background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8,
-                      padding: '10px 14px', cursor: 'pointer', transition: 'all .15s',
-                      textAlign: 'center'
-                    }}
-                    onMouseEnter={e => { e.currentTarget.style.borderColor = '#0052cc'; e.currentTarget.style.background = '#e8f0fe' }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.background = '#f8fafc' }}
-                  >
-                    <div style={{ fontSize: 18, marginBottom: 4 }}>{s.label.split(' ')[0]}</div>
-                    <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>
-                      {s.label.split(' ').slice(1).join(' ')}
-                    </div>
-                    <div style={{ fontSize: 22, fontWeight: 700, color: s.count > 0 ? '#172b4d' : '#adb5bd' }}>
-                      {s.count}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div style={{ marginTop: 10, fontSize: 12, color: '#6b778c', textAlign: 'right' }}>
-                Total: <strong>{pipelineData?.total ?? 0}</strong> empresas
               </div>
             </div>
           </div>

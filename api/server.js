@@ -1,28 +1,55 @@
 require('dotenv').config()
+const env = require('./config/env')   // valida vars criticas; falla si faltan
+
 const express = require('express')
+const helmet = require('helmet')
 const cors = require('cors')
+const rateLimit = require('express-rate-limit')
 const axios = require('axios')
 const crypto = require('crypto')
 const nodemailer = require('nodemailer')
 const { login, requireAuth, applyOwnerFilter } = require('./auth')
+const { requireWebhookToken } = require('./middleware/webhookAuth')
+const { errorHandler } = require('./middleware/errorHandler')
 
 const app = express()
-app.use(cors())
-app.use(express.json())
 
-const PORT = process.env.PORT || 3001
+// ── Seguridad base ────────────────────────────────────────────────────────────
+app.use(helmet())
+app.use(cors({
+  origin: env.APP_ORIGIN,
+  credentials: true,
+}))
+app.use(express.json({ limit: '1mb' }))
+
+// Request ID minimo para trazabilidad en logs
+app.use((req, _res, next) => {
+  req.id = crypto.randomBytes(6).toString('hex')
+  next()
+})
+
+// Rate limit en login: max 10 intentos por IP por 15 minutos
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { data: null, meta: {}, error: { code: 'RATE_LIMIT', message: 'Demasiados intentos. Intenta en 15 minutos.' } }
+})
+
+const PORT = env.PORT
 
 // ──────────────────────────────────────────────────────────────────────────────
 // AUTH
 // ──────────────────────────────────────────────────────────────────────────────
-app.post('/api/auth/login', async (req, res) => {
+app.post('/api/auth/login', loginLimiter, async (req, res) => {
   try {
     const { username, password } = req.body
     if (!username || !password) return res.status(400).json({ error: 'Faltan credenciales' })
     const result = await login(username, password)
     res.json(result)
   } catch (e) {
-    res.status(401).json({ error: e.message })
+    res.status(401).json({ error: 'Credenciales invalidas' })
   }
 })
 
@@ -33,28 +60,29 @@ app.get('/api/auth/me', requireAuth, (req, res) => {
 // ──────────────────────────────────────────────────────────────────────────────
 // HUBSPOT
 // ──────────────────────────────────────────────────────────────────────────────
-const hs = axios.create({
-  baseURL: 'https://api.hubapi.com',
-  headers: { Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}` }
-})
+const { hs, countDeals } = require('./repositories/hubspot.repository')
+const {
+  DEAL_PROPERTIES,
+  DEAL_DETAIL_PROPERTIES,
+  COMPANY_PROPERTIES,
+  CONTACT_PROPERTIES,
+  PIPELINE_STAGES,
+  ACTIVE_EVENT,
+  activeEventFilter,
+  notTerminalFilters,
+} = require('./config/hubspotProperties')
 
 // Deals – búsqueda con filtros BePharma
 app.post('/api/hubspot/deals/search', requireAuth, async (req, res) => {
   try {
     const { filters = [], sorts = [], limit = 50, after, properties } = req.body
-    const defaultProperties = [
-      'dealname', 'dealstage', 'amount', 'closedate', 'createdate',
-      'hubspot_owner_id', 'hs_lastmodifieddate', 'hs_next_step',
-      'bp_zona', 'bp_estado_prospeccion', 'bp_tipo_evento',
-      'notes_last_updated', 'hs_num_associated_contacts'
-    ]
     const filterGroups = applyOwnerFilter(req, filters.length ? [{ filters }] : [])
     const r = await hs.post('/crm/v3/objects/deals/search', {
       filterGroups,
       sorts,
       limit,
       after,
-      properties: properties || defaultProperties
+      properties: properties || DEAL_PROPERTIES,
     })
     res.json(r.data)
   } catch (e) {
@@ -67,13 +95,9 @@ app.get('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
   try {
     const r = await hs.get(`/crm/v3/objects/deals/${req.params.id}`, {
       params: {
-        properties: [
-          'dealname','dealstage','amount','closedate','createdate','hubspot_owner_id',
-          'bp_zona','bp_estado_prospeccion','bp_tipo_evento','hs_next_step',
-          'notes_last_updated','description'
-        ].join(','),
-        associations: 'contacts,companies,notes,calls,tasks'
-      }
+        properties: DEAL_DETAIL_PROPERTIES.join(','),
+        associations: 'contacts,companies,notes,calls,tasks',
+      },
     })
     res.json(r.data)
   } catch (e) {
@@ -86,18 +110,12 @@ app.post('/api/hubspot/companies/search', requireAuth, async (req, res) => {
   try {
     const { filters = [], sorts = [], limit = 50, after, properties: customProps } = req.body
     const filterGroups = applyOwnerFilter(req, filters.length ? [{ filters }] : [])
-    const defaultProps = [
-      'name','domain','industry','city','country','phone',
-      'createdate','hs_lastmodifieddate','hubspot_owner_id',
-      'numberofemployees','annualrevenue','lifecyclestage',
-      'bp_etapa_empresa','description'
-    ]
     const r = await hs.post('/crm/v3/objects/companies/search', {
       filterGroups,
       sorts,
       limit,
       after,
-      properties: customProps || defaultProps
+      properties: customProps || COMPANY_PROPERTIES,
     })
     res.json(r.data)
   } catch (e) {
@@ -110,9 +128,9 @@ app.get('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
   try {
     const r = await hs.get(`/crm/v3/objects/companies/${req.params.id}`, {
       params: {
-        properties: 'name,domain,industry,city,country,phone,numberofemployees,annualrevenue,lifecyclestage,createdate,hubspot_owner_id,description,bp_etapa_empresa',
-        associations: 'contacts,deals,notes'
-      }
+        properties: COMPANY_PROPERTIES.join(','),
+        associations: 'contacts,deals,notes',
+      },
     })
     const company = r.data
 
@@ -161,10 +179,7 @@ app.post('/api/hubspot/contacts/search', requireAuth, async (req, res) => {
       sorts,
       limit,
       after,
-      properties: [
-        'firstname','lastname','email','phone','jobtitle',
-        'company','createdate','hs_lastmodifieddate','hubspot_owner_id'
-      ]
+      properties: CONTACT_PROPERTIES,
     })
     res.json(r.data)
   } catch (e) {
@@ -177,9 +192,9 @@ app.get('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
   try {
     const r = await hs.get(`/crm/v3/objects/contacts/${req.params.id}`, {
       params: {
-        properties: 'firstname,lastname,email,phone,jobtitle,company,createdate,hubspot_owner_id',
-        associations: 'companies,deals,notes,calls'
-      }
+        properties: CONTACT_PROPERTIES.join(','),
+        associations: 'companies,deals,notes,calls',
+      },
     })
     res.json(r.data)
   } catch (e) {
@@ -236,6 +251,92 @@ app.get('/api/hubspot/engagements/:objectType/:objectId', requireAuth, async (re
 
   allItems.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
   res.json({ results: allItems })
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// PIPELINE DE EVENTOS — Kanban por dealstage
+// ──────────────────────────────────────────────────────────────────────────────
+
+// Carga deals del evento activo con nombre de empresa enriquecido
+app.get('/api/pipeline/deals', requireAuth, async (req, res) => {
+  try {
+    const allDeals = []
+    let after
+
+    // Hasta 100 deals (2 páginas) — suficiente para un pipeline operativo
+    for (let page = 0; page < 2; page++) {
+      const filterGroups = applyOwnerFilter(req, [{ filters: [activeEventFilter()] }])
+      const r = await hs.post('/crm/v3/objects/deals/search', {
+        filterGroups,
+        sorts: [{ propertyName: 'createdate', direction: 'DESCENDING' }],
+        limit: 50,
+        after,
+        properties: DEAL_PROPERTIES,
+      })
+      allDeals.push(...(r.data.results || []))
+      after = r.data.paging?.next?.after
+      if (!after) break
+    }
+
+    // Obtener primera empresa asociada a cada deal (paralelo)
+    const companyIdByDeal = {}
+    await Promise.all(allDeals.map(async (deal) => {
+      try {
+        const r = await hs.get(`/crm/v3/objects/deals/${deal.id}/associations/companies`)
+        const first = r.data.results?.[0]?.id
+        if (first) companyIdByDeal[deal.id] = first
+      } catch { /* sin empresa */ }
+    }))
+
+    // Batch read de nombres de empresa para IDs únicos
+    const uniqueCompanyIds = [...new Set(Object.values(companyIdByDeal))]
+    const companyNames = {}
+    if (uniqueCompanyIds.length > 0) {
+      try {
+        const r = await hs.post('/crm/v3/objects/companies/batch/read', {
+          inputs: uniqueCompanyIds.map(id => ({ id })),
+          properties: ['name'],
+        })
+        ;(r.data.results || []).forEach(c => { companyNames[c.id] = c.properties.name || '' })
+      } catch { /* sin nombres */ }
+    }
+
+    // Merge: agregar companyId y companyName a cada deal
+    const enriched = allDeals.map(deal => ({
+      ...deal,
+      _companyId: companyIdByDeal[deal.id] || null,
+      _companyName: companyIdByDeal[deal.id] ? (companyNames[companyIdByDeal[deal.id]] || '') : '',
+    }))
+
+    res.json({ results: enriched, total: enriched.length })
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// Actualizar dealstage desde el Kanban — con control de permisos
+app.patch('/api/pipeline/deals/:id/stage', requireAuth, async (req, res) => {
+  try {
+    const { stage } = req.body
+    if (!stage) return res.status(400).json({ error: 'Falta stage' })
+
+    // Operadores solo pueden mover sus propios deals
+    if (req.user.role === 'operator') {
+      const deal = await hs.get(`/crm/v3/objects/deals/${req.params.id}`, {
+        params: { properties: 'hubspot_owner_id' },
+      })
+      if (deal.data.properties.hubspot_owner_id !== String(req.user.ownerId)) {
+        return res.status(403).json({ error: 'Solo puedes mover tus propios eventos' })
+      }
+    }
+
+    const r = await hs.patch(`/crm/v3/objects/deals/${req.params.id}`, {
+      properties: { dealstage: stage },
+    })
+    res.json(r.data)
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
 })
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -325,47 +426,37 @@ app.delete('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
 // CHARTS — datos para gráficas del dashboard
 // ──────────────────────────────────────────────────────────────────────────────
 app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
-  const fg = (baseFilters) => applyOwnerFilter(req, [{ filters: baseFilters }])
+  const fg = (baseFilters) => applyOwnerFilter(req, [{ filters: [activeEventFilter(), ...baseFilters] }])
   const safe = async (filters) => {
     try {
       const r = await hs.post('/crm/v3/objects/deals/search', {
-        filterGroups: fg(filters), limit: 1, properties: ['dealname']
+        filterGroups: fg(filters), limit: 1, properties: ['dealname'],
       })
       return r.data.total || 0
     } catch { return 0 }
   }
 
-  const STAGES = [
-    { key: 'appointmentscheduled', label: 'Agendada' },
-    { key: 'qualifiedtobuy',       label: 'Calificado' },
-    { key: 'presentationscheduled',label: 'Presentación' },
-    { key: 'decisionmakerboughtin',label: 'DM Aprobó' },
-    { key: 'contractsent',         label: 'Contrato' },
-    { key: 'closedwon',            label: 'Ganado' },
-    { key: 'closedlost',           label: 'Perdido' },
-  ]
-
   const now = new Date()
   const months = [0,1,2,3,4,5].map(i => {
-    const d = new Date(now.getFullYear(), now.getMonth() - (5-i), 1)
+    const d = new Date(now.getFullYear(), now.getMonth() - (5 - i), 1)
     return {
       label: d.toLocaleString('es-MX', { month: 'short' }),
-      start: d.toISOString(),
-      end: new Date(d.getFullYear(), d.getMonth() + 1, 1).toISOString()
+      startMs: d.getTime(),
+      endMs: new Date(d.getFullYear(), d.getMonth() + 1, 1).getTime(),
     }
   })
 
   const [stageCounts, monthlyCounts] = await Promise.all([
-    Promise.all(STAGES.map(s => safe([{ propertyName: 'dealstage', operator: 'EQ', value: s.key }]))),
+    Promise.all(PIPELINE_STAGES.map(s => safe([{ propertyName: 'dealstage', operator: 'EQ', value: s.key }]))),
     Promise.all(months.map(m => safe([
-      { propertyName: 'createdate', operator: 'GTE', value: m.start },
-      { propertyName: 'createdate', operator: 'LT',  value: m.end }
-    ])))
+      { propertyName: 'createdate', operator: 'GTE', value: String(m.startMs) },
+      { propertyName: 'createdate', operator: 'LT',  value: String(m.endMs) },
+    ]))),
   ])
 
   res.json({
-    byStage: STAGES.map((s, i) => ({ ...s, count: stageCounts[i] })),
-    byMonth: months.map((m, i) => ({ label: m.label, count: monthlyCounts[i] }))
+    byStage: PIPELINE_STAGES.map((s, i) => ({ ...s, count: stageCounts[i] })),
+    byMonth: months.map((m, i) => ({ label: m.label, count: monthlyCounts[i] })),
   })
 })
 
@@ -455,20 +546,20 @@ app.post('/api/hubspot/contacts', requireAuth, async (req, res) => {
   }
 })
 
-// Métricas del dashboard (filtradas por owner para operadores)
+// Metricas del dashboard usando propiedades BePharma reales.
+// Fechas tipo date con LT/GT van en epoch milliseconds (no ISO string).
 app.get('/api/hubspot/metrics', requireAuth, async (req, res) => {
   try {
-    const now = new Date()
-    const minus72h = new Date(now - 72 * 60 * 60 * 1000).toISOString()
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString()
+    const now = Date.now()
+    const minus72hMs  = now - 72 * 60 * 60 * 1000
+    const startOfMonthMs = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime()
 
-    const fg = (baseFilters) => applyOwnerFilter(req, [{ filters: baseFilters }])
+    const fg = (baseFilters) => applyOwnerFilter(req, [{ filters: [activeEventFilter(), ...baseFilters] }])
 
-    // Cada query es independiente — si una falla devuelve 0 sin matar el resto
     const safeCount = async (filters) => {
       try {
         const r = await hs.post('/crm/v3/objects/deals/search', {
-          filterGroups: fg(filters), limit: 1, properties: ['dealname']
+          filterGroups: fg(filters), limit: 1, properties: ['dealname'],
         })
         return r.data.total || 0
       } catch (err) {
@@ -477,32 +568,62 @@ app.get('/api/hubspot/metrics', requireAuth, async (req, res) => {
       }
     }
 
-    const [sinActividad72h, nuevosEsteMes, sinProximoContacto, callbacksVencidos, confirmadasEsteMes] = await Promise.all([
+    // Distribucion por estado de prospeccion (para grafica de dona)
+    const BP_ESTADOS = ['nueva', 'en_depuracion', 'en_enriquecimiento', 'contacto_enviado', 'en_seguimiento', 'confirmada', 'no_participa']
+    const estadoCountsRaw = await Promise.all(
+      BP_ESTADOS.map(estado =>
+        safeCount([{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado }])
+      )
+    )
+    const porEstado = Object.fromEntries(BP_ESTADOS.map((e, i) => [e, estadoCountsRaw[i]]))
+
+    const [
+      sinActividad72h,
+      nuevosEsteMes,
+      sinProximoContacto,
+      callbacksVencidos,
+      confirmadasBePharma,
+      participaOtroEvento,
+    ] = await Promise.all([
+      // Sin actividad operador > 72h (excluye terminales)
       safeCount([
-        { propertyName: 'hs_lastmodifieddate', operator: 'LT', value: minus72h },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedwon' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedlost' }
+        { propertyName: 'bp_ultima_actividad_operador', operator: 'LT', value: String(minus72hMs) },
+        ...notTerminalFilters(),
       ]),
+      // Nuevos este mes con el evento activo
       safeCount([
-        { propertyName: 'createdate', operator: 'GTE', value: startOfMonth }
+        { propertyName: 'createdate', operator: 'GTE', value: String(startOfMonthMs) },
       ]),
+      // Sin proximo contacto agendado (abiertos)
       safeCount([
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedwon' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedlost' },
-        { propertyName: 'notes_next_activity_date', operator: 'NOT_HAS_PROPERTY' }
+        { propertyName: 'bp_proximo_contacto', operator: 'NOT_HAS_PROPERTY' },
+        ...notTerminalFilters(),
       ]),
+      // Callbacks vencidos: proximo contacto ya paso y no son terminales
       safeCount([
-        { propertyName: 'closedate', operator: 'LT', value: now.toISOString() },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedwon' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'closedlost' }
+        { propertyName: 'bp_proximo_contacto', operator: 'LT', value: String(now) },
+        ...notTerminalFilters(),
       ]),
+      // Confirmadas BePharma
       safeCount([
-        { propertyName: 'dealstage', operator: 'EQ', value: 'closedwon' },
-        { propertyName: 'createdate', operator: 'GTE', value: startOfMonth }
-      ])
+        { propertyName: 'dealstage', operator: 'EQ', value: 'confirmada_bepharma' },
+      ]),
+      // Participa en otro evento (bp_decision_participacion, no bp_estado_prospeccion)
+      safeCount([
+        { propertyName: 'bp_decision_participacion', operator: 'EQ', value: 'participa_otro_evento' },
+      ]),
     ])
 
-    res.json({ sinActividad72h, nuevosEsteMes, sinProximoContacto, callbacksVencidos, confirmadasEsteMes })
+    res.json({
+      sinActividad72h,
+      nuevosEsteMes,
+      sinProximoContacto,
+      callbacksVencidos,
+      confirmadasBePharma,
+      participaOtroEvento,
+      porEstado,
+      eventoActivo: ACTIVE_EVENT,
+    })
   } catch (e) {
     console.error('[metrics] fatal:', e.message)
     res.status(500).json({ error: e.message })
@@ -983,6 +1104,129 @@ app.post('/api/hubspot/tasks', requireAuth, async (req, res) => {
 })
 
 // ──────────────────────────────────────────────────────────────────────────────
+// REPORTES BEPHARMA — metricas operativas por evento activo (solo supervisores)
+// ──────────────────────────────────────────────────────────────────────────────
+app.get('/api/reports/bp-summary', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+
+  const OWNER_IDS = ['93615311', '93621022', '93771980', '93771979', '93771981', '73112880']
+  const nowMs = Date.now()
+  const minus72hMs = nowMs - 72 * 60 * 60 * 1000
+  const startOfMonthMs = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime()
+
+  const safeCount = async (filters) => {
+    try {
+      const fg = [{ filters: [activeEventFilter(), ...filters] }]
+      const r = await hs.post('/crm/v3/objects/deals/search', { filterGroups: fg, limit: 1, properties: ['dealname'] })
+      return r.data.total || 0
+    } catch { return 0 }
+  }
+
+  const countPerOwner = async (extraFilters) => {
+    const results = await Promise.all(OWNER_IDS.map(ownerId =>
+      safeCount([{ propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerId }, ...extraFilters])
+    ))
+    return Object.fromEntries(OWNER_IDS.map((id, i) => [id, results[i]]))
+  }
+
+  const countTasksPerOwner = async () => {
+    const results = await Promise.all(OWNER_IDS.map(ownerId =>
+      hs.post('/crm/v3/objects/tasks/search', {
+        filterGroups: [{ filters: [
+          { propertyName: 'hs_task_status', operator: 'EQ', value: 'NOT_STARTED' },
+          { propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerId }
+        ]}],
+        limit: 1, properties: ['hs_task_subject']
+      }).then(r => [ownerId, r.data.total || 0]).catch(() => [ownerId, 0])
+    ))
+    return Object.fromEntries(results)
+  }
+
+  const BP_ESTADOS = ['nueva', 'en_depuracion', 'en_enriquecimiento', 'contacto_enviado', 'en_seguimiento', 'confirmada', 'no_participa']
+
+  const [estadoCounts, callbacksPorOwner, sinActividadPorOwner, confirmadasPorOwner, participaOtroPorOwner, tareasPorOwner, nuevosEsteMes] = await Promise.all([
+    Promise.all(BP_ESTADOS.map(e => safeCount([{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: e }]))),
+    countPerOwner([
+      { propertyName: 'bp_proximo_contacto', operator: 'LT', value: String(nowMs) },
+      ...notTerminalFilters(),
+    ]),
+    countPerOwner([
+      { propertyName: 'bp_ultima_actividad_operador', operator: 'LT', value: String(minus72hMs) },
+      ...notTerminalFilters(),
+    ]),
+    countPerOwner([{ propertyName: 'dealstage', operator: 'EQ', value: 'confirmada_bepharma' }]),
+    countPerOwner([{ propertyName: 'bp_decision_participacion', operator: 'EQ', value: 'participa_otro_evento' }]),
+    countTasksPerOwner(),
+    safeCount([{ propertyName: 'createdate', operator: 'GTE', value: String(startOfMonthMs) }]),
+  ])
+
+  res.json({
+    eventoActivo: ACTIVE_EVENT,
+    porEstadoProspeccion: Object.fromEntries(BP_ESTADOS.map((e, i) => [e, estadoCounts[i]])),
+    callbacksVencidosPorOwner: callbacksPorOwner,
+    sinActividad72hPorOwner: sinActividadPorOwner,
+    confirmadasPorOwner,
+    participaOtroPorOwner,
+    tareasPorOwner,
+    nuevosEsteMes,
+  })
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// ADMIN — estado de integraciones
+// ──────────────────────────────────────────────────────────────────────────────
+app.get('/api/admin/integrations', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+
+  const results = {}
+
+  // HubSpot
+  try {
+    await hs.get('/crm/v3/owners?limit=1')
+    results.hubspot = { ok: true, label: 'Conectado' }
+  } catch (e) {
+    results.hubspot = { ok: false, label: e.response?.status === 401 ? 'Token invalido' : 'Error de conexion' }
+  }
+
+  // Zadarma
+  if (process.env.ZADARMA_API_KEY && process.env.ZADARMA_API_SECRET) {
+    try {
+      const data = await zadarmaRequest('/v1/info/balance/', {})
+      results.zadarma = { ok: true, label: `Conectado — saldo: ${data.balance || '?'}` }
+    } catch (e) {
+      results.zadarma = { ok: false, label: 'Error de autenticacion' }
+    }
+  } else {
+    results.zadarma = { ok: false, label: 'API Key no configurada' }
+  }
+
+  // Apollo
+  results.apollo = process.env.APOLLO_API_KEY
+    ? { ok: true, label: 'API Key configurada' }
+    : { ok: false, label: 'API Key no configurada' }
+
+  // RocketReach
+  results.rocketreach = process.env.ROCKETREACH_API_KEY
+    ? { ok: true, label: 'API Key configurada' }
+    : { ok: false, label: 'API Key no configurada' }
+
+  // Email SMTP
+  const emailUsers = ['roberto', 'yesenia', 'angel', 'gracie', 'carlos', 'sara']
+    .filter(u => process.env[`EMAIL_USER_${u.toUpperCase()}`])
+  results.email = {
+    ok: emailUsers.length > 0,
+    label: emailUsers.length > 0 ? `${emailUsers.length} usuario(s) configurados` : 'Sin cuentas SMTP configuradas',
+  }
+
+  // Webhook Zadarma token
+  results.webhookToken = process.env.ZADARMA_WEBHOOK_TOKEN
+    ? { ok: true, label: 'Token configurado' }
+    : { ok: false, label: 'Sin token — webhook expuesto' }
+
+  res.json(results)
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
 // REPORTES — actividad por operador, últimos N días (solo supervisores)
 // ──────────────────────────────────────────────────────────────────────────────
 app.get('/api/reports/activity', requireAuth, async (req, res) => {
@@ -1119,7 +1363,7 @@ app.patch('/api/hubspot/companies/bulk-stage', requireAuth, async (req, res) => 
 // Payload Make.com "Watch call end": caller_id, called_did, duration, status,
 //   sip, call_id_with_rec, pbx_call_id, record, call_start, call_end, internal
 // ──────────────────────────────────────────────────────────────────────────────
-app.post('/api/webhooks/zadarma-call-end', async (req, res) => {
+app.post('/api/webhooks/zadarma-call-end', requireWebhookToken, async (req, res) => {
   try {
     const {
       sip,              // extensión SIP del agente (ej: "100")
@@ -1276,6 +1520,9 @@ app.get('/api/hubspot/notifications', requireAuth, async (req, res) => {
     res.status(500).json({ error: e.message })
   }
 })
+
+// Error handler global — debe registrarse después de todas las rutas
+app.use(errorHandler)
 
 // ──────────────────────────────────────────────────────────────────────────────
 // En desarrollo escucha en el puerto; en Vercel se exporta como función serverless

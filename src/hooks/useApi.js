@@ -48,6 +48,12 @@ export const hubspot = {
   bulkUpdateStage: (ids, stage) => api.patch('/hubspot/companies/bulk-stage', { ids, stage }).then(r => r.data),
 }
 
+// ── Pipeline Kanban ───────────────────────────────────────────────────────────
+export const pipeline = {
+  getDeals:    ()            => api.get('/pipeline/deals').then(r => r.data),
+  updateStage: (id, stage)   => api.patch(`/pipeline/deals/${id}/stage`, { stage }).then(r => r.data),
+}
+
 // ── Zadarma ───────────────────────────────────────────────────────────────────
 export const zadarma = {
   call:     (from, to) => api.post('/zadarma/call', { from, to }).then(r => r.data),
@@ -69,9 +75,10 @@ export const rocketreach = {
 
 // ── Admin ─────────────────────────────────────────────────────────────────────
 export const admin = {
-  getUsers:    ()                               => api.get('/admin/users').then(r => r.data),
-  updateSip:   (username, sipExtension)         => api.patch(`/admin/users/${username}/sip`, { sipExtension }).then(r => r.data),
-  updateEmail: (username, emailUser, emailPass) => api.patch(`/admin/users/${username}/email`, { emailUser, emailPass }).then(r => r.data),
+  getUsers:        ()                               => api.get('/admin/users').then(r => r.data),
+  updateSip:       (username, sipExtension)         => api.patch(`/admin/users/${username}/sip`, { sipExtension }).then(r => r.data),
+  updateEmail:     (username, emailUser, emailPass) => api.patch(`/admin/users/${username}/email`, { emailUser, emailPass }).then(r => r.data),
+  getIntegrations: ()                               => api.get('/admin/integrations').then(r => r.data),
 }
 
 // ── Email ─────────────────────────────────────────────────────────────────────
@@ -82,7 +89,8 @@ export const emailApi = {
 
 // ── Reports ───────────────────────────────────────────────────────────────────
 export const reports = {
-  getActivity: (days = 30) => api.get(`/reports/activity?days=${days}`).then(r => r.data),
-  getCalls:    (ownerId, days = 30) => api.get(`/reports/calls?ownerId=${ownerId}&days=${days}`).then(r => r.data),
-  getNotes:    (ownerId, days = 30) => api.get(`/reports/notes?ownerId=${ownerId}&days=${days}`).then(r => r.data),
+  getActivity:  (days = 30)         => api.get(`/reports/activity?days=${days}`).then(r => r.data),
+  getCalls:     (ownerId, days = 30) => api.get(`/reports/calls?ownerId=${ownerId}&days=${days}`).then(r => r.data),
+  getNotes:     (ownerId, days = 30) => api.get(`/reports/notes?ownerId=${ownerId}&days=${days}`).then(r => r.data),
+  getBpSummary: ()                   => api.get('/reports/bp-summary').then(r => r.data),
 }

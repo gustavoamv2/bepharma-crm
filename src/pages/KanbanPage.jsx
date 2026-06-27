@@ -1,21 +1,30 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useQueryClient } from 'react-query'
-import { hubspot } from '../hooks/useApi'
+import {
+  DndContext,
+  DragOverlay,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  useDroppable,
+  useDraggable,
+} from '@dnd-kit/core'
+import { pipeline } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
-import RecordModal from '../components/RecordModal'
 import { useAuth } from '../contexts/AuthContext'
+import { Building2, User, MapPin, AlertTriangle, Calendar, ArrowRight } from 'lucide-react'
 
 const STAGES = [
-  { key: 'nueva',           label: '🆕 Nueva',          color: '#1e88e5', bg: '#e3f2fd' },
-  { key: 'depuracion',      label: '🧹 Depuración',      color: '#f57c00', bg: '#fff3e0' },
-  { key: 'enriquecimiento', label: '💎 Enriquecimiento', color: '#8e24aa', bg: '#f3e5f5' },
-  { key: 'calificada',      label: '✅ Calificada',      color: '#2e7d32', bg: '#e8f5e9' },
-  { key: 'contactada',      label: '📞 Contactada',      color: '#00695c', bg: '#e0f2f1' },
-  { key: 'seguimiento',     label: '🔁 Seguimiento',     color: '#3949ab', bg: '#e8eaf6' },
-  { key: 'confirmada',      label: '🏆 Confirmada',      color: '#1b5e20', bg: '#c8e6c9' },
-  { key: 'descartada',      label: '❌ Descartada',      color: '#c62828', bg: '#ffebee' },
+  { key: 'nueva_empresa',      label: 'Nueva empresa',      color: '#2563eb', bg: '#eff6ff' },
+  { key: 'en_depuracion',      label: 'En depuracion',      color: '#d97706', bg: '#fffbeb' },
+  { key: 'en_enriquecimiento', label: 'En enriquecimiento', color: '#7c3aed', bg: '#f5f3ff' },
+  { key: 'contacto_enviado',   label: 'Contacto enviado',   color: '#0369a1', bg: '#f0f9ff' },
+  { key: 'en_seguimiento',     label: 'En seguimiento',     color: '#0f766e', bg: '#f0fdfa' },
+  { key: 'confirmada_bepharma',label: 'Confirmada BePharma',color: '#15803d', bg: '#f0fdf4' },
+  { key: 'no_participa',       label: 'No participa',       color: '#b91c1c', bg: '#fef2f2' },
 ]
+
+const TERMINAL_STAGES = ['confirmada_bepharma', 'no_participa']
 
 const OWNER_NAMES = {
   '93615311': 'Roberto',
@@ -26,124 +35,166 @@ const OWNER_NAMES = {
   '73112880': 'Sara',
 }
 
-const OWNER_COLORS = ['#4fc3f7','#81c784','#ffb74d','#f48fb1','#ce93d8','#90caf9']
-
-function daysAgo(dateStr) {
-  if (!dateStr) return ''
-  const diff = Date.now() - new Date(dateStr).getTime()
-  const d = Math.floor(diff / (1000 * 60 * 60 * 24))
-  if (d === 0) return 'hoy'
-  if (d === 1) return 'ayer'
-  return `hace ${d}d`
+const ALERT_COLORS = {
+  alerta_roja:    '#b91c1c',
+  alerta_amarilla:'#b45309',
 }
 
-function KanbanCard({ company, onStageChange, onDelete, draggingId, setDraggingId }) {
-  const nav = useNavigate()
-  const [menuOpen, setMenuOpen] = useState(false)
-  const menuRef = useRef(null)
-  const p = company.properties
+function formatDate(val) {
+  if (!val) return null
+  const d = new Date(Number(val))
+  if (isNaN(d)) return null
+  return d.toLocaleDateString('es-MX', { day: '2-digit', month: 'short' })
+}
 
-  useEffect(() => {
-    const handler = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false)
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [])
+// ── Card ──────────────────────────────────────────────────────────────────────
+
+function EventCard({ deal, overlay = false }) {
+  const nav = useNavigate()
+  const p = deal.properties
+  const alert = p.bp_estado_alerta
+  const owner = OWNER_NAMES[p.hubspot_owner_id] || p.hubspot_owner_id || ''
+  const proximo = formatDate(p.bp_proximo_contacto)
+  const isOverdue = p.bp_proximo_contacto && Number(p.bp_proximo_contacto) < Date.now()
 
   return (
     <div
-      className={`kanban-card${draggingId === company.id ? ' dragging' : ''}`}
-      draggable
-      onDragStart={() => setDraggingId(company.id)}
-      onDragEnd={() => setDraggingId(null)}
+      className={`kev-card${overlay ? ' kev-card--overlay' : ''}`}
+      onClick={() => !overlay && nav(`/deals/${deal.id}`)}
+      style={{ cursor: overlay ? 'grabbing' : 'pointer' }}
     >
-      {/* Menu */}
-      <div style={{ position: 'relative' }} ref={menuRef}>
-        <button className="kc-menu-btn" onClick={() => setMenuOpen(v => !v)}>⋯</button>
-        {menuOpen && (
-          <div className="kc-dropdown">
-            <button onClick={() => { nav(`/companies/${company.id}`); setMenuOpen(false) }}>
-              🔗 Abrir detalle
-            </button>
-            {STAGES.map(s => (
-              <button
-                key={s.key}
-                onClick={() => { onStageChange(company.id, s.key); setMenuOpen(false) }}
-                style={{ fontSize: 11, paddingTop: 5, paddingBottom: 5 }}
-              >
-                {s.label}
-              </button>
-            ))}
-            <button className="danger" onClick={() => { onDelete(company.id); setMenuOpen(false) }}>
-              🗑 Eliminar
-            </button>
+      {alert && (
+        <div className="kev-alert" style={{ color: ALERT_COLORS[alert] || '#6b7280' }}>
+          <AlertTriangle size={11} />
+          <span>{alert === 'alerta_roja' ? 'Alerta roja' : 'Alerta amarilla'}</span>
+        </div>
+      )}
+
+      <div className="kev-name">{p.dealname || '(sin nombre)'}</div>
+
+      {deal._companyName && (
+        <div className="kev-row">
+          <Building2 size={12} />
+          <span>{deal._companyName}</span>
+        </div>
+      )}
+
+      <div className="kev-footer">
+        {owner && (
+          <div className="kev-row">
+            <User size={12} />
+            <span>{owner}</span>
           </div>
         )}
-      </div>
-
-      {/* Content */}
-      <div
-        className="kc-name"
-        onClick={() => nav(`/companies/${company.id}`)}
-        style={{ cursor: 'pointer', paddingRight: 20 }}
-      >
-        {p.name || '(sin nombre)'}
-      </div>
-      <div className="kc-meta">
-        {(p.domain || p.city) && (
-          <span>{p.domain || p.city}</span>
+        {p.bp_zona && (
+          <div className="kev-row">
+            <MapPin size={12} />
+            <span>{p.bp_zona}</span>
+          </div>
         )}
-        {p.hubspot_owner_id && OWNER_NAMES[p.hubspot_owner_id] && (
-          <span style={{ color: OWNER_COLORS[Object.keys(OWNER_NAMES).indexOf(p.hubspot_owner_id) % OWNER_COLORS.length] }}>
-            {OWNER_NAMES[p.hubspot_owner_id]}
-          </span>
-        )}
-        {p.hs_lastmodifieddate && (
-          <span style={{ marginLeft: 'auto' }}>{daysAgo(p.hs_lastmodifieddate)}</span>
+        {proximo && (
+          <div className="kev-row" style={{ color: isOverdue ? '#b91c1c' : undefined }}>
+            <Calendar size={12} />
+            <span>{proximo}</span>
+          </div>
         )}
       </div>
     </div>
   )
 }
 
+// ── Draggable Card wrapper ────────────────────────────────────────────────────
+
+function DraggableCard({ deal, disabled }) {
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({ id: deal.id })
+  return (
+    <div
+      ref={setNodeRef}
+      {...(disabled ? {} : { ...listeners, ...attributes })}
+      style={{ opacity: isDragging ? 0.35 : 1, touchAction: 'none' }}
+    >
+      <EventCard deal={deal} />
+    </div>
+  )
+}
+
+// ── Droppable Column ──────────────────────────────────────────────────────────
+
+function KanbanColumn({ stage, deals, loading, canDrop }) {
+  const { setNodeRef, isOver } = useDroppable({ id: stage.key })
+
+  return (
+    <div
+      ref={setNodeRef}
+      className={`kev-column${isOver && canDrop ? ' kev-column--over' : ''}`}
+    >
+      <div className="kev-col-header" style={{ borderTopColor: stage.color }}>
+        <span style={{ color: stage.color, fontWeight: 600, fontSize: 13 }}>{stage.label}</span>
+        <span
+          className="kev-col-count"
+          style={{ background: stage.bg, color: stage.color }}
+        >
+          {deals.length}
+        </span>
+      </div>
+
+      <div className="kev-cards">
+        {loading
+          ? Array.from({ length: 2 }).map((_, i) => (
+              <div key={i} className="kev-skeleton" />
+            ))
+          : deals.map(deal => (
+              <DraggableCard key={deal.id} deal={deal} disabled={false} />
+            ))
+        }
+      </div>
+    </div>
+  )
+}
+
+// ── Confirm Dialog ────────────────────────────────────────────────────────────
+
+function ConfirmDialog({ message, onConfirm, onCancel }) {
+  return (
+    <div className="kev-confirm-backdrop">
+      <div className="kev-confirm">
+        <p>{message}</p>
+        <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+          <button className="btn-secondary" onClick={onCancel}>Cancelar</button>
+          <button className="btn-primary" onClick={onConfirm}>Confirmar</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── Main Page ─────────────────────────────────────────────────────────────────
+
 export default function KanbanPage() {
   const { user } = useAuth()
-  const qc = useQueryClient()
-  const [companies, setCompanies] = useState([]) // flat list
+  const [deals, setDeals] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [search, setSearch] = useState('')
   const [ownerFilter, setOwnerFilter] = useState('')
-  const [draggingId, setDraggingId] = useState(null)
-  const [dragOverStage, setDragOverStage] = useState(null)
-  const [showCreate, setShowCreate] = useState(false)
-  const [createStage, setCreateStage] = useState('nueva')
+  const [activeDeal, setActiveDeal] = useState(null)   // deal being dragged
+  const [confirm, setConfirm] = useState(null)          // { dealId, fromStage, toStage }
 
   const isSupervisor = user?.role === 'supervisor'
 
-  // Cargar empresas (pagina hasta 200)
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
+  )
+
+  // Carga inicial
   useEffect(() => {
     let cancelled = false
     const load = async () => {
       setLoading(true)
       setError(null)
       try {
-        const allCompanies = []
-        let after = undefined
-        for (let page = 0; page < 4; page++) {
-          const res = await hubspot.searchCompanies({
-            filters: [],
-            sorts: [{ propertyName: 'hs_lastmodifieddate', direction: 'DESCENDING' }],
-            limit: 50,
-            after,
-            properties: ['name', 'domain', 'phone', 'city', 'hubspot_owner_id', 'bp_etapa_empresa', 'hs_lastmodifieddate', 'createdate'],
-          })
-          allCompanies.push(...(res.results || []))
-          after = res.paging?.next?.after
-          if (!after) break
-        }
-        if (!cancelled) setCompanies(allCompanies)
+        const data = await pipeline.getDeals()
+        if (!cancelled) setDeals(data.results || [])
       } catch (e) {
         if (!cancelled) setError(e.message)
       } finally {
@@ -154,90 +205,89 @@ export default function KanbanPage() {
     return () => { cancelled = true }
   }, [])
 
-  // Cambiar etapa (optimistic)
-  const handleStageChange = useCallback(async (companyId, newStage) => {
-    setCompanies(prev => prev.map(c =>
-      c.id === companyId
-        ? { ...c, properties: { ...c.properties, bp_etapa_empresa: newStage } }
-        : c
+  // Mueve un deal a una nueva etapa con optimistic update y rollback
+  const moveToStage = useCallback(async (dealId, toStage) => {
+    const prev = deals.find(d => d.id === dealId)
+    if (!prev || prev.properties.dealstage === toStage) return
+
+    // Optimistic update
+    setDeals(all => all.map(d =>
+      d.id === dealId ? { ...d, properties: { ...d.properties, dealstage: toStage } } : d
     ))
+
     try {
-      await hubspot.updateCompany(companyId, { bp_etapa_empresa: newStage })
+      await pipeline.updateStage(dealId, toStage)
     } catch (e) {
-      // revert on error
-      setCompanies(prev => prev.map(c =>
-        c.id === companyId
-          ? { ...c, properties: { ...c.properties, bp_etapa_empresa: undefined } }
-          : c
+      // Rollback
+      setDeals(all => all.map(d =>
+        d.id === dealId ? prev : d
       ))
+      alert(e.response?.data?.error || 'No se pudo mover el evento. Intenta de nuevo.')
     }
-  }, [])
+  }, [deals])
 
-  // Eliminar
-  const handleDelete = useCallback(async (companyId) => {
-    if (!window.confirm('¿Eliminar esta empresa?')) return
-    setCompanies(prev => prev.filter(c => c.id !== companyId))
-    try {
-      await hubspot.deleteCompany(companyId)
-    } catch (e) {
-      // Si falla, la empresa desaparece localmente igualmente (toast en producción)
-    }
-  }, [])
+  const handleDragStart = ({ active }) => {
+    const deal = deals.find(d => d.id === active.id)
+    setActiveDeal(deal || null)
+  }
 
-  // Drag and drop
-  const handleDrop = useCallback((targetStage) => {
-    if (!draggingId || targetStage === dragOverStage) {
-      setDraggingId(null)
-      setDragOverStage(null)
+  const handleDragEnd = ({ active, over }) => {
+    setActiveDeal(null)
+    if (!over || active.id === over.id) return
+    const toStage = over.id
+    const deal = deals.find(d => d.id === active.id)
+    if (!deal) return
+
+    if (TERMINAL_STAGES.includes(toStage)) {
+      const stageLabel = STAGES.find(s => s.key === toStage)?.label || toStage
+      setConfirm({ dealId: active.id, toStage, message: `Mover a "${stageLabel}". Esta accion cambia el estado en HubSpot. Confirmar?` })
       return
     }
-    handleStageChange(draggingId, targetStage)
-    setDraggingId(null)
-    setDragOverStage(null)
-  }, [draggingId, dragOverStage, handleStageChange])
+
+    moveToStage(active.id, toStage)
+  }
 
   // Filtrar y agrupar
-  const filtered = companies.filter(c => {
-    const name = c.properties.name?.toLowerCase() || ''
+  const filtered = deals.filter(d => {
+    const name = (d.properties.dealname || d._companyName || '').toLowerCase()
     const matchSearch = !search || name.includes(search.toLowerCase())
-    const matchOwner = !ownerFilter || c.properties.hubspot_owner_id === ownerFilter
+    const matchOwner = !ownerFilter || d.properties.hubspot_owner_id === ownerFilter
     return matchSearch && matchOwner
   })
 
-  const grouped = {}
-  STAGES.forEach(s => { grouped[s.key] = [] })
-  filtered.forEach(c => {
-    const stage = c.properties.bp_etapa_empresa || 'nueva'
-    if (grouped[stage]) grouped[stage].push(c)
-    else grouped['nueva'].push(c)
+  const grouped = Object.fromEntries(STAGES.map(s => [s.key, []]))
+  filtered.forEach(d => {
+    const stage = d.properties.dealstage || 'nueva_empresa'
+    if (grouped[stage]) grouped[stage].push(d)
+    else grouped['nueva_empresa'].push(d)
   })
 
   return (
     <>
       <Topbar
-        title="Pipeline de empresas"
+        title="Pipeline de Eventos"
         action={
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
             <input
-              placeholder="🔍 Filtrar empresas…"
+              placeholder="Filtrar eventos..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              style={{ width: 200, padding: '5px 10px', fontSize: 13 }}
+              style={{ width: 190, padding: '5px 10px', fontSize: 13, borderRadius: 6, border: '1px solid #d8e0ea' }}
             />
             {isSupervisor && (
               <select
                 value={ownerFilter}
                 onChange={e => setOwnerFilter(e.target.value)}
-                style={{ padding: '5px 8px', fontSize: 13 }}
+                style={{ padding: '5px 8px', fontSize: 13, borderRadius: 6, border: '1px solid #d8e0ea' }}
               >
-                <option value="">Todos los propietarios</option>
+                <option value="">Todos los operadores</option>
                 {Object.entries(OWNER_NAMES).map(([id, name]) => (
                   <option key={id} value={id}>{name}</option>
                 ))}
               </select>
             )}
-            <span style={{ fontSize: 12, color: '#6b778c', whiteSpace: 'nowrap' }}>
-              {filtered.length} empresas
+            <span style={{ fontSize: 12, color: '#5d6b7a', whiteSpace: 'nowrap' }}>
+              {filtered.length} eventos
             </span>
           </div>
         }
@@ -245,72 +295,36 @@ export default function KanbanPage() {
 
       {error && (
         <div className="content">
-          <div className="error-msg">Error al cargar empresas: {error}</div>
+          <div className="error-msg">Error al cargar eventos: {error}</div>
         </div>
       )}
 
-      <div className="kanban-wrapper">
-        {STAGES.map(stage => (
-          <div
-            key={stage.key}
-            className={`kanban-column${dragOverStage === stage.key ? ' drag-over' : ''}`}
-            onDragOver={e => { e.preventDefault(); setDragOverStage(stage.key) }}
-            onDragLeave={() => setDragOverStage(null)}
-            onDrop={() => handleDrop(stage.key)}
-          >
-            {/* Header */}
-            <div
-              className="kanban-col-header"
-              style={{ borderBottom: `2px solid ${stage.color}` }}
-            >
-              <span className="col-title" style={{ color: stage.color }}>{stage.label}</span>
-              <span
-                className="col-count"
-                style={{ background: stage.bg, color: stage.color }}
-              >
-                {grouped[stage.key]?.length || 0}
-              </span>
-            </div>
+      <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+        <div className="kev-board">
+          {STAGES.map(stage => (
+            <KanbanColumn
+              key={stage.key}
+              stage={stage}
+              deals={grouped[stage.key] || []}
+              loading={loading}
+              canDrop={activeDeal?.properties?.dealstage !== stage.key}
+            />
+          ))}
+        </div>
 
-            {/* Cards */}
-            <div className="kanban-cards">
-              {loading
-                ? Array.from({ length: 3 }).map((_, i) => (
-                    <div key={i} className="kanban-skeleton-card" />
-                  ))
-                : (grouped[stage.key] || []).map(company => (
-                    <KanbanCard
-                      key={company.id}
-                      company={company}
-                      onStageChange={handleStageChange}
-                      onDelete={handleDelete}
-                      draggingId={draggingId}
-                      setDraggingId={setDraggingId}
-                    />
-                  ))
-              }
-            </div>
+        <DragOverlay dropAnimation={null}>
+          {activeDeal && <EventCard deal={activeDeal} overlay />}
+        </DragOverlay>
+      </DndContext>
 
-            {/* Add button */}
-            <button
-              className="kanban-add-btn"
-              onClick={() => { setCreateStage(stage.key); setShowCreate(true) }}
-            >
-              + Empresa
-            </button>
-          </div>
-        ))}
-      </div>
-
-      {showCreate && (
-        <RecordModal
-          type="company"
-          initialValues={{ bp_etapa_empresa: createStage }}
-          onClose={() => setShowCreate(false)}
-          onSaved={(r) => {
-            setCompanies(prev => [...prev, r])
-            setShowCreate(false)
+      {confirm && (
+        <ConfirmDialog
+          message={confirm.message}
+          onConfirm={() => {
+            moveToStage(confirm.dealId, confirm.toStage)
+            setConfirm(null)
           }}
+          onCancel={() => setConfirm(null)}
         />
       )}
     </>

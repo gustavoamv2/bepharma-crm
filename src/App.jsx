@@ -92,7 +92,7 @@ function AppContent() {
             {isSupervisor ? 'Empresas' : 'Mis empresas'}
           </NavLink>
           <NavLink to="/kanban" className={({ isActive }) => isActive ? 'active' : ''}>
-            <Kanban size={15} /> Pipeline Kanban
+            <Kanban size={15} /> Pipeline de Eventos
           </NavLink>
           <NavLink to="/contacts" className={({ isActive }) => isActive ? 'active' : ''}>
             <Users size={15} />
@@ -140,8 +140,8 @@ function AppContent() {
             </div>
             <div style={{ fontSize: 10, color: '#546e7a' }}>
               {user.role === 'supervisor'
-                ? (sessionStorage.getItem('bp_view_mode') === 'operator' ? '👁 Vista operador' : '⭐ Supervisor')
-                : '👤 Operador'}
+                ? (sessionStorage.getItem('bp_view_mode') === 'operator' ? 'Vista operador' : 'Supervisor')
+                : 'Operador'}
             </div>
           </div>
           <button onClick={logout} title="Cerrar sesión"

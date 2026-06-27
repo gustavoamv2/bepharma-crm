@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
-import { Settings, Phone, User, Check, AlertTriangle, Mail } from 'lucide-react'
+import { Settings, Phone, User, Check, AlertTriangle, Mail, Activity, RefreshCw } from 'lucide-react'
 import { admin } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useToast } from '../hooks/useToast'
@@ -16,8 +16,76 @@ const ZADARMA_TOKENS = {
 }
 
 const ROLE_BADGE = {
-  supervisor: { label: '⭐ Supervisor', bg: '#e3fcef', color: '#006644' },
-  operator:   { label: '👤 Operador',   bg: '#deebff', color: '#0052cc' },
+  supervisor: { label: 'Supervisor', bg: '#e3fcef', color: '#006644' },
+  operator:   { label: 'Operador',   bg: '#deebff', color: '#0052cc' },
+}
+
+function IntegrationStatus() {
+  const [refetchKey, setRefetchKey] = useState(0)
+  const { data, isLoading, error } = useQuery(
+    ['admin-integrations', refetchKey],
+    admin.getIntegrations,
+    { staleTime: 60_000 }
+  )
+
+  const INTEGRATION_LABELS = {
+    hubspot:      'HubSpot API',
+    zadarma:      'Zadarma API',
+    apollo:       'Apollo.io',
+    rocketreach:  'RocketReach',
+    email:        'Email SMTP',
+    webhookToken: 'Webhook Token',
+  }
+
+  return (
+    <div className="card" style={{ marginBottom: 24 }}>
+      <div className="card-header">
+        <h2 style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Activity size={15} style={{ color: '#4fc3f7' }} /> Estado de integraciones
+        </h2>
+        <button className="btn btn-ghost btn-sm" onClick={() => setRefetchKey(k => k + 1)}
+          style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+          <RefreshCw size={12} /> Verificar
+        </button>
+      </div>
+      {isLoading ? (
+        <div className="loading">Verificando conexiones…</div>
+      ) : error ? (
+        <div className="card-body"><div className="error-msg">Error al verificar integraciones.</div></div>
+      ) : (
+        <div className="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Servicio</th>
+                <th>Estado</th>
+                <th>Detalle</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data && Object.entries(data).map(([key, info]) => (
+                <tr key={key}>
+                  <td style={{ fontWeight: 600, fontSize: 13 }}>{INTEGRATION_LABELS[key] || key}</td>
+                  <td>
+                    <span style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 5,
+                      padding: '2px 10px', borderRadius: 12, fontSize: 11, fontWeight: 700,
+                      background: info.ok ? '#e3fcef' : '#ffebe6',
+                      color: info.ok ? '#006644' : '#de350b',
+                    }}>
+                      {info.ok ? <Check size={10} /> : <AlertTriangle size={10} />}
+                      {info.ok ? 'OK' : 'Error'}
+                    </span>
+                  </td>
+                  <td style={{ fontSize: 12, color: '#546e7a' }}>{info.label}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  )
 }
 
 export default function AdminPage() {
@@ -67,8 +135,11 @@ export default function AdminPage() {
 
   return (
     <>
-      <Topbar title="Administración" />
+      <Topbar title="Administracion" />
       <div className="content">
+
+        {/* Estado de integraciones */}
+        <IntegrationStatus />
 
         {/* Usuarios y extensiones Zadarma */}
         <div className="card" style={{ marginBottom: 24 }}>
@@ -262,7 +333,7 @@ export default function AdminPage() {
                 <li>La llamada queda registrada en HubSpot como actividad</li>
               </ol>
               <div style={{ marginTop: 12, background: '#e3f2fd', borderRadius: 6, padding: '10px 12px', fontSize: 12 }}>
-                <strong>💡 Tip:</strong> Asegúrate de que tu extensión esté configurada en la tabla de arriba y el softphone esté conectado antes de intentar llamadas.
+                <strong>Tip:</strong> Asegurate de que tu extension este configurada en la tabla de arriba y el softphone este conectado antes de intentar llamadas.
               </div>
             </div>
           </div>
@@ -292,7 +363,7 @@ export default function AdminPage() {
                     <li>Ingresa el <strong>Token API</strong> que aparece abajo → <strong>Save</strong></li>
                   </ol>
                   <div style={{ marginTop: 10, background: '#1a2d42', borderRadius: 6, padding: '10px 14px', fontSize: 12 }}>
-                    <div style={{ fontWeight: 600, color: '#b0bec5', marginBottom: 4 }}>🔑 Token API Make.com ↔ Zadarma:</div>
+                    <div style={{ fontWeight: 600, color: '#b0bec5', marginBottom: 4 }}>Token API Make.com — Zadarma:</div>
                     <code style={{ color: '#4fc3f7', wordBreak: 'break-all' }}>056a40ed135ec9bba89775e323886737</code>
                   </div>
                 </div>
@@ -328,7 +399,7 @@ export default function AdminPage() {
               </div>
 
               <div style={{ marginTop: 14, background: '#e3f2fd', borderRadius: 6, padding: '10px 14px', fontSize: 12, color: '#0d47a1' }}>
-                <strong>✅ Qué pasa automáticamente:</strong> El CRM recibe la llamada, busca el contacto por número de teléfono, crea un engagement tipo "Llamada" en HubSpot con duración y grabación, lo asocia al contacto y evento, y genera un resumen IA si duró más de 30 segundos.
+                <strong>Que pasa automaticamente:</strong> El CRM recibe la llamada, busca el contacto por numero de telefono, crea un engagement tipo "Llamada" en HubSpot con duracion y grabacion, lo asocia al contacto y evento, y genera un resumen IA si duro mas de 30 segundos.
               </div>
             </div>
           </div>
@@ -349,18 +420,18 @@ export default function AdminPage() {
                 </div>
                 <div>
                   <div style={{ fontWeight: 600, color: '#b0bec5', fontSize: 11, textTransform: 'uppercase', marginBottom: 2 }}>Token API HubSpot</div>
-                  <code style={{ color: '#4fc3f7', fontSize: 11 }}>pat-na1-e745e6a4-de9a-…</code>
+                  <code style={{ color: '#4fc3f7', fontSize: 11 }}>pat-na1-••••••••••••••••••••••••••</code>
                 </div>
                 <div>
                   <div style={{ fontWeight: 600, color: '#b0bec5', fontSize: 11, textTransform: 'uppercase', marginBottom: 2 }}>Apollo.io API Key</div>
-                  <code style={{ color: '#4fc3f7', fontSize: 11 }}>AnL7suGIzVpQTxMuU0ZurA</code>
+                  <code style={{ color: '#4fc3f7', fontSize: 11 }}>••••••••••••••••••••••</code>
                 </div>
                 <div>
                   <div style={{ fontWeight: 600, color: '#b0bec5', fontSize: 11, textTransform: 'uppercase', marginBottom: 2 }}>RocketReach API Key</div>
-                  <code style={{ color: '#4fc3f7', fontSize: 11 }}>f7bb52k73266d0f5c44844…</code>
+                  <code style={{ color: '#4fc3f7', fontSize: 11 }}>••••••••••••••••••••••</code>
                 </div>
                 <div style={{ marginTop: 4, background: '#1a2d42', borderRadius: 6, padding: '8px 12px', fontSize: 12 }}>
-                  Estas credenciales están almacenadas en el archivo <code>.env</code> del servidor.
+                  Estas credenciales estan almacenadas en el archivo <code>.env</code> del servidor. El estado de conexion se verifica en el panel superior.
                 </div>
               </div>
             </div>
