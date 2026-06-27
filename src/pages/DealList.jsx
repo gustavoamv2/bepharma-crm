@@ -5,7 +5,6 @@ import { Plus, AlertTriangle, Calendar } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import { useAuth } from '../contexts/AuthContext'
 import Topbar from '../components/Topbar'
-import DealStageBadge from '../components/DealStageBadge'
 import RecordModal from '../components/RecordModal'
 
 const ACTIVE_EVENT = 'BEPH-2026-09'
@@ -35,6 +34,16 @@ const OWNER_NAMES = {
   '93771979': 'Gracie',
   '93771981': 'Carlos',
   '73112880': 'Sara',
+}
+
+const ESTADO_LABELS = {
+  nueva:              'Nueva',
+  en_depuracion:      'En Depuracion',
+  en_enriquecimiento: 'En Enriquecimiento',
+  contacto_enviado:   'Contacto enviado',
+  en_seguimiento:     'En seguimiento',
+  confirmada:         'Confirmada BePharma',
+  no_participa:       'No participa',
 }
 
 function formatBpDate(val) {
@@ -162,7 +171,6 @@ export default function DealList() {
                       <th>Owner</th>
                       <th>Zona</th>
                       <th>Estado</th>
-                      <th>Etapa</th>
                       <th>Proximo contacto</th>
                       <th>Ult. actividad</th>
                       <th>Alerta</th>
@@ -178,8 +186,7 @@ export default function DealList() {
                           <td style={{ fontWeight: 500 }}>{p.dealname || '(sin nombre)'}</td>
                           <td style={{ fontSize: 12 }}>{OWNER_NAMES[p.hubspot_owner_id] || '—'}</td>
                           <td style={{ fontSize: 12 }}>{p.bp_zona || '—'}</td>
-                          <td style={{ fontSize: 12 }}>{p.bp_estado_prospeccion || '—'}</td>
-                          <td><DealStageBadge stage={p.dealstage} /></td>
+                          <td style={{ fontSize: 12 }}>{ESTADO_LABELS[p.bp_estado_prospeccion] || p.bp_estado_prospeccion || '—'}</td>
                           <td style={{ fontSize: 12, color: isOverdue ? 'var(--danger)' : undefined }}>
                             {isOverdue && <Calendar size={11} style={{ marginRight: 3, verticalAlign: 'middle' }} />}
                             {formatBpDate(p.bp_proximo_contacto)}
