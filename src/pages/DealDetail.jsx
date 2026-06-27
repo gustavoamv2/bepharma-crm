@@ -132,12 +132,12 @@ export default function DealDetail() {
 
             {companies.length > 0 && (
               <div className="card">
-                <div className="card-header"><h2>Empresas ({companies.length})</h2></div>
+                <div className="card-header"><h2>Empresa vinculada</h2></div>
                 <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                   {companies.map(c => (
                     <button key={c.id} className="btn btn-ghost" style={{ justifyContent: 'flex-start' }}
                       onClick={() => nav(`/companies/${c.id}`)}>
-                      🏢 Empresa #{c.id}
+                      {c.properties?.name || `Empresa #${c.id}`}
                     </button>
                   ))}
                 </div>

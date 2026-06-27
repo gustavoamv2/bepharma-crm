@@ -99,7 +99,25 @@ app.get('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
         associations: 'contacts,companies,notes,calls,tasks',
       },
     })
-    res.json(r.data)
+    const deal = r.data
+
+    // Deduplicar empresas y enriquecer con nombre
+    const rawCompanies = deal.associations?.companies?.results || []
+    const uniqueCompanyIds = [...new Set(rawCompanies.map(c => String(c.id)))]
+    if (uniqueCompanyIds.length > 0) {
+      try {
+        const cr = await hs.post('/crm/v3/objects/companies/batch/read', {
+          inputs: uniqueCompanyIds.map(id => ({ id })),
+          properties: ['name', 'domain'],
+        })
+        const byId = Object.fromEntries((cr.data.results || []).map(c => [c.id, c]))
+        deal.associations.companies.results = uniqueCompanyIds.map(id => byId[id]).filter(Boolean)
+      } catch {
+        deal.associations.companies.results = uniqueCompanyIds.map(id => ({ id }))
+      }
+    }
+
+    res.json(deal)
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
   }
@@ -366,7 +384,7 @@ app.patch('/api/pipeline/deals/:id/stage', requireAuth, async (req, res) => {
     }
 
     const r = await hs.patch(`/crm/v3/objects/deals/${req.params.id}`, {
-      properties: { dealstage: stage },
+      properties: { bp_estado_prospeccion: stage },
     })
     res.json(r.data)
   } catch (e) {

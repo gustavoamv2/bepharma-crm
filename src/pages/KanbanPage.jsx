@@ -14,17 +14,18 @@ import Topbar from '../components/Topbar'
 import { useAuth } from '../contexts/AuthContext'
 import { Building2, User, MapPin, AlertTriangle, Calendar, ArrowRight } from 'lucide-react'
 
+// Columnas del Kanban basadas en bp_estado_prospeccion (propiedad custom BePharma)
 const STAGES = [
-  { key: 'nueva_empresa',      label: 'Nueva empresa',      color: '#2563eb', bg: '#eff6ff' },
-  { key: 'en_depuracion',      label: 'En depuracion',      color: '#d97706', bg: '#fffbeb' },
-  { key: 'en_enriquecimiento', label: 'En enriquecimiento', color: '#7c3aed', bg: '#f5f3ff' },
-  { key: 'contacto_enviado',   label: 'Contacto enviado',   color: '#0369a1', bg: '#f0f9ff' },
-  { key: 'en_seguimiento',     label: 'En seguimiento',     color: '#0f766e', bg: '#f0fdfa' },
-  { key: 'confirmada_bepharma',label: 'Confirmada BePharma',color: '#15803d', bg: '#f0fdf4' },
-  { key: 'no_participa',       label: 'No participa',       color: '#b91c1c', bg: '#fef2f2' },
+  { key: 'nueva',               label: 'Nueva',              color: '#2563eb', bg: '#eff6ff' },
+  { key: 'en_depuracion',       label: 'En Depuracion',      color: '#d97706', bg: '#fffbeb' },
+  { key: 'en_enriquecimiento',  label: 'En Enriquecimiento', color: '#7c3aed', bg: '#f5f3ff' },
+  { key: 'contacto_enviado',    label: 'Contacto enviado',   color: '#0369a1', bg: '#f0f9ff' },
+  { key: 'en_seguimiento',      label: 'En seguimiento',     color: '#0f766e', bg: '#f0fdfa' },
+  { key: 'confirmada',          label: 'Confirmada BePharma',color: '#15803d', bg: '#f0fdf4' },
+  { key: 'no_participa',        label: 'No participa',       color: '#b91c1c', bg: '#fef2f2' },
 ]
 
-const TERMINAL_STAGES = ['confirmada_bepharma', 'no_participa']
+const TERMINAL_STAGES = ['confirmada', 'no_participa']
 
 const OWNER_NAMES = {
   '93615311': 'Roberto',
@@ -212,11 +213,11 @@ export default function KanbanPage() {
   // Mueve un deal a una nueva etapa con optimistic update y rollback
   const moveToStage = useCallback(async (dealId, toStage) => {
     const prev = deals.find(d => d.id === dealId)
-    if (!prev || prev.properties.dealstage === toStage) return
+    if (!prev || prev.properties.bp_estado_prospeccion === toStage) return
 
     // Optimistic update
     setDeals(all => all.map(d =>
-      d.id === dealId ? { ...d, properties: { ...d.properties, dealstage: toStage } } : d
+      d.id === dealId ? { ...d, properties: { ...d.properties, bp_estado_prospeccion: toStage } } : d
     ))
 
     try {
@@ -265,9 +266,9 @@ export default function KanbanPage() {
 
   const grouped = Object.fromEntries(STAGES.map(s => [s.key, []]))
   filtered.forEach(d => {
-    const stage = d.properties.dealstage || 'nueva_empresa'
+    const stage = d.properties.bp_estado_prospeccion || 'nueva'
     if (grouped[stage]) grouped[stage].push(d)
-    else grouped['nueva_empresa'].push(d)
+    else grouped['nueva'].push(d)
   })
 
   return (
@@ -321,7 +322,7 @@ export default function KanbanPage() {
               stage={stage}
               deals={grouped[stage.key] || []}
               loading={loading}
-              canDrop={activeDeal?.properties?.dealstage !== stage.key}
+              canDrop={activeDeal?.properties?.bp_estado_prospeccion !== stage.key}
             />
           ))}
         </div>

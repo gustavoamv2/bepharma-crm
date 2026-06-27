@@ -10,25 +10,15 @@ import RecordModal from '../components/RecordModal'
 
 const ACTIVE_EVENT = 'BEPH-2026-09'
 
-const STAGE_OPTIONS = [
-  { value: '', label: 'Todas las etapas' },
-  { value: 'nueva_empresa',       label: 'Nueva empresa' },
-  { value: 'en_depuracion',       label: 'En depuracion' },
-  { value: 'en_enriquecimiento',  label: 'En enriquecimiento' },
-  { value: 'contacto_enviado',    label: 'Contacto enviado' },
-  { value: 'en_seguimiento',      label: 'En seguimiento' },
-  { value: 'confirmada_bepharma', label: 'Confirmada BePharma' },
-  { value: 'no_participa',        label: 'No participa' },
-]
-
+// Filtro por bp_estado_prospeccion (propiedad custom BePharma)
 const ESTADO_OPTIONS = [
   { value: '', label: 'Todos los estados' },
   { value: 'nueva',              label: 'Nueva' },
-  { value: 'en_depuracion',      label: 'En depuracion' },
-  { value: 'en_enriquecimiento', label: 'En enriquecimiento' },
+  { value: 'en_depuracion',      label: 'En Depuracion' },
+  { value: 'en_enriquecimiento', label: 'En Enriquecimiento' },
   { value: 'contacto_enviado',   label: 'Contacto enviado' },
   { value: 'en_seguimiento',     label: 'En seguimiento' },
-  { value: 'confirmada',         label: 'Confirmada' },
+  { value: 'confirmada',         label: 'Confirmada BePharma' },
   { value: 'no_participa',       label: 'No participa' },
 ]
 
@@ -70,7 +60,6 @@ export default function DealList() {
   const preFilter = location.state?.filter || null
 
   const [search, setSearch] = useState('')
-  const [stage, setStage] = useState('')
   const [estado, setEstado] = useState('')
   const [alerta, setAlerta] = useState('')
   const [ownerFilter, setOwnerFilter] = useState('')
@@ -84,11 +73,10 @@ export default function DealList() {
     const filters = [
       { propertyName: 'bp_evento_codigo', operator: 'EQ', value: ACTIVE_EVENT },
     ]
-    if (preFilter && !stage && !estado) {
+    if (preFilter && !estado) {
       filters.push(...(preFilter.filters || []))
     }
-    if (stage)       filters.push({ propertyName: 'dealstage',           operator: 'EQ', value: stage })
-    if (estado)      filters.push({ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado })
+    if (estado) filters.push({ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado })
     if (alerta)      filters.push({ propertyName: 'bp_estado_alerta',      operator: 'EQ', value: alerta })
     if (ownerFilter) filters.push({ propertyName: 'hubspot_owner_id',      operator: 'EQ', value: ownerFilter })
     if (search)      filters.push({ propertyName: 'dealname',              operator: 'CONTAINS_TOKEN', value: search })
@@ -96,7 +84,7 @@ export default function DealList() {
   }
 
   const { data, isLoading, error } = useQuery(
-    ['deals', search, stage, estado, alerta, ownerFilter, after, preFilter],
+    ['deals', search, estado, alerta, ownerFilter, after, preFilter],
     () => hubspot.searchDeals({
       filters: buildFilters(),
       sorts: [{ propertyName: 'bp_ultima_actividad_operador', direction: 'DESCENDING' }],
@@ -136,9 +124,6 @@ export default function DealList() {
             onChange={e => { setSearch(e.target.value); resetPage() }}
             style={{ minWidth: 180 }}
           />
-          <select value={stage} onChange={e => { setStage(e.target.value); resetPage() }}>
-            {STAGE_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-          </select>
           <select value={estado} onChange={e => { setEstado(e.target.value); resetPage() }}>
             {ESTADO_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
           </select>
