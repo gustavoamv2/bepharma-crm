@@ -452,7 +452,7 @@ export default function ReportsPage() {
                 <div className="card">
                   <div className="card-header">
                     <h2>Eventos creados por mes</h2>
-                    <span style={{ fontSize: 11, color: '#546e7a' }}>clic para ver deals</span>
+                    <span style={{ fontSize: 11, color: '#546e7a' }}>clic para ver eventos</span>
                   </div>
                   <div className="card-body">
                     {chartsData.byMonth && (() => {

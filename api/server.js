@@ -263,8 +263,9 @@ app.get('/api/pipeline/deals', requireAuth, async (req, res) => {
     const allDeals = []
     let after
 
-    // Hasta 100 deals (2 páginas) — suficiente para un pipeline operativo
-    for (let page = 0; page < 2; page++) {
+    // Hasta 500 eventos (10 páginas x 50) — carga completa del pipeline
+    const MAX_PAGES = 10
+    for (let page = 0; page < MAX_PAGES; page++) {
       const filterGroups = applyOwnerFilter(req, [{ filters: [activeEventFilter()] }])
       const r = await hs.post('/crm/v3/objects/deals/search', {
         filterGroups,
@@ -277,6 +278,7 @@ app.get('/api/pipeline/deals', requireAuth, async (req, res) => {
       after = r.data.paging?.next?.after
       if (!after) break
     }
+    const truncated = !!after  // true si aun quedan paginas sin cargar (>500)
 
     // Obtener primera empresa asociada a cada deal (paralelo)
     const companyIdByDeal = {}
@@ -308,7 +310,7 @@ app.get('/api/pipeline/deals', requireAuth, async (req, res) => {
       _companyName: companyIdByDeal[deal.id] ? (companyNames[companyIdByDeal[deal.id]] || '') : '',
     }))
 
-    res.json({ results: enriched, total: enriched.length })
+    res.json({ results: enriched, total: enriched.length, truncated })
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
   }

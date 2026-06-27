@@ -173,6 +173,7 @@ function ConfirmDialog({ message, onConfirm, onCancel }) {
 export default function KanbanPage() {
   const { user } = useAuth()
   const [deals, setDeals] = useState([])
+  const [truncated, setTruncated] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [search, setSearch] = useState('')
@@ -194,7 +195,10 @@ export default function KanbanPage() {
       setError(null)
       try {
         const data = await pipeline.getDeals()
-        if (!cancelled) setDeals(data.results || [])
+        if (!cancelled) {
+          setDeals(data.results || [])
+          setTruncated(data.truncated || false)
+        }
       } catch (e) {
         if (!cancelled) setError(e.message)
       } finally {
@@ -296,6 +300,12 @@ export default function KanbanPage() {
       {error && (
         <div className="content">
           <div className="error-msg">Error al cargar eventos: {error}</div>
+        </div>
+      )}
+
+      {truncated && (
+        <div style={{ margin: '0 16px 8px', padding: '7px 14px', background: '#fff8e1', border: '1px solid #f59e0b', borderRadius: 6, fontSize: 12, color: '#92400e', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontWeight: 700 }}>Aviso:</span> El evento activo tiene mas de 500 registros. El Kanban muestra los 500 mas recientes. Usa la vista Lista para ver todos.
         </div>
       )}
 

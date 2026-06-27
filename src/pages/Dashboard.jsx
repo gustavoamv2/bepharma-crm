@@ -423,7 +423,7 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="card">
-                <div className="card-header"><h2>Nuevos deals · últimos 6 meses</h2></div>
+                <div className="card-header"><h2>Nuevos eventos · ultimos 6 meses</h2></div>
                 <div className="card-body" style={{ padding: '12px 16px' }}>
                   <BarChart
                     data={chartsData.byMonth?.map(m => ({ ...m, key: m.label }))}

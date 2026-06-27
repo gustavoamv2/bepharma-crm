@@ -5,8 +5,8 @@ const { ZADARMA_WEBHOOK_TOKEN } = require('../config/env')
 // Si ZADARMA_WEBHOOK_TOKEN no esta configurado, permite paso pero loguea advertencia.
 function requireWebhookToken(req, res, next) {
   if (!ZADARMA_WEBHOOK_TOKEN) {
-    console.warn('[webhook] ZADARMA_WEBHOOK_TOKEN no configurado — endpoint sin proteccion')
-    return next()
+    console.error('[webhook] ZADARMA_WEBHOOK_TOKEN no configurado — rechazando solicitud')
+    return res.status(503).json({ error: 'Webhook no configurado' })
   }
   const provided = req.headers['x-bepharma-webhook-token'] || ''
   const expected = ZADARMA_WEBHOOK_TOKEN

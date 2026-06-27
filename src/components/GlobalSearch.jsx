@@ -135,7 +135,7 @@ export default function GlobalSearch() {
             ref={inputRef}
             value={query}
             onChange={handleInput}
-            placeholder="Buscar deals, contactos, empresas…"
+            placeholder="Buscar eventos, contactos, empresas…"
           />
           {loading && (
             <span style={{ fontSize: 11, color: '#aaa', whiteSpace: 'nowrap' }}>Buscando…</span>
