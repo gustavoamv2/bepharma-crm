@@ -146,6 +146,16 @@ function DonutChart({ data, onSliceClick }) {
 
 const ACTIVE_EVENT = 'BEPH-2026-09'
 
+const ESTADO_LABELS = {
+  nueva:              'Nueva',
+  en_depuracion:      'En Depuracion',
+  en_enriquecimiento: 'En Enriquecimiento',
+  contacto_enviado:   'Contacto enviado',
+  en_seguimiento:     'En seguimiento',
+  confirmada:         'Confirmada BePharma',
+  no_participa:       'No participa',
+}
+
 const nowMs = () => String(Date.now())
 const minus72hMs = () => String(Date.now() - 72 * 3600 * 1000)
 const startMonthMs = () => String(new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime())
@@ -385,7 +395,7 @@ export default function Dashboard() {
                   ]}}})}
                 >
                   <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--primary)' }}>{count}</div>
-                  <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>{estado}</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>{ESTADO_LABELS[estado] || estado}</div>
                 </div>
               ))}
             </div>
