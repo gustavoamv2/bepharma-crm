@@ -57,22 +57,22 @@ function BarChart({ data, color = '#4fc3f7', height = 140, onBarClick }) {
 
 // ── Gráfica donut SVG (interactiva) ──────────────────────────────────────────
 const STAGE_COLORS = {
-  nueva_empresa:       '#2563eb',
-  en_depuracion:       '#d97706',
-  en_enriquecimiento:  '#7c3aed',
-  contacto_enviado:    '#0369a1',
-  en_seguimiento:      '#0f766e',
-  confirmada_bepharma: '#15803d',
-  no_participa:        '#b91c1c',
+  nueva:              '#2563eb',
+  en_depuracion:      '#d97706',
+  en_enriquecimiento: '#7c3aed',
+  contacto_enviado:   '#0369a1',
+  en_seguimiento:     '#0f766e',
+  confirmada:         '#15803d',
+  no_participa:       '#b91c1c',
 }
 const STAGE_LABELS = {
-  nueva_empresa:       'Nueva empresa',
-  en_depuracion:       'En depuracion',
-  en_enriquecimiento:  'En enriquecimiento',
-  contacto_enviado:    'Contacto enviado',
-  en_seguimiento:      'En seguimiento',
-  confirmada_bepharma: 'Confirmada',
-  no_participa:        'No participa',
+  nueva:              'Nueva',
+  en_depuracion:      'En depuracion',
+  en_enriquecimiento: 'En enriquecimiento',
+  contacto_enviado:   'Contacto enviado',
+  en_seguimiento:     'En seguimiento',
+  confirmada:         'Confirmada BePharma',
+  no_participa:       'No participa',
 }
 
 function DonutChart({ data, onSliceClick }) {
@@ -223,8 +223,8 @@ export default function Dashboard() {
       filter: { filters: [
         { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
         { propertyName: 'bp_ultima_actividad_operador', operator: 'LT', value: minus72hMs() },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada_bepharma' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'no_participa' },
+        { propertyName: 'bp_estado_prospeccion', operator: 'NEQ', value: 'confirmada' },
+        { propertyName: 'bp_estado_prospeccion', operator: 'NEQ', value: 'no_participa' },
       ]}
     },
     {
@@ -235,8 +235,8 @@ export default function Dashboard() {
       filter: { filters: [
         { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
         { propertyName: 'bp_proximo_contacto', operator: 'LT', value: nowMs() },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada_bepharma' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'no_participa' },
+        { propertyName: 'bp_estado_prospeccion', operator: 'NEQ', value: 'confirmada' },
+        { propertyName: 'bp_estado_prospeccion', operator: 'NEQ', value: 'no_participa' },
       ]}
     },
     {
@@ -247,8 +247,8 @@ export default function Dashboard() {
       filter: { filters: [
         { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
         { propertyName: 'bp_proximo_contacto', operator: 'NOT_HAS_PROPERTY' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada_bepharma' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'no_participa' },
+        { propertyName: 'bp_estado_prospeccion', operator: 'NEQ', value: 'confirmada' },
+        { propertyName: 'bp_estado_prospeccion', operator: 'NEQ', value: 'no_participa' },
       ]}
     },
     {
@@ -258,7 +258,7 @@ export default function Dashboard() {
       icon: CheckSquare, cls: 'metric-success',
       filter: { filters: [
         { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
-        { propertyName: 'dealstage', operator: 'EQ', value: 'confirmada_bepharma' },
+        { propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: 'confirmada' },
       ]}
     },
     ...(isSupervisor ? [{
@@ -276,7 +276,7 @@ export default function Dashboard() {
   // ── Accesos rapidos ───────────────────────────────────────────────────────
   const quickLinks = isSupervisor ? [
     { label: 'Todos los eventos activos', path: '/deals' },
-    { label: 'Confirmadas BePharma',      path: '/deals', stageFilter: 'confirmada_bepharma' },
+    { label: 'Confirmadas BePharma',      path: '/deals', stageFilter: 'confirmada' },
     { label: 'Pipeline de Eventos',       path: '/kanban' },
     { label: 'Todas las empresas',        path: '/companies' },
     { label: 'Reportes del equipo',       path: '/reports' },
@@ -291,39 +291,40 @@ export default function Dashboard() {
 
   const handleQuickLink = (link) => {
     if (!link.stageFilter) return nav(link.path)
-    if (link.stageFilter === 'confirmada_bepharma') {
+    if (link.stageFilter === 'confirmada') {
       nav(link.path, { state: { filter: { filters: [
-        { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
-        { propertyName: 'dealstage', operator: 'EQ', value: 'confirmada_bepharma' },
+        { propertyName: 'bp_evento_codigo',      operator: 'EQ',  value: 'BEPH-2026-09' },
+        { propertyName: 'bp_estado_prospeccion', operator: 'EQ',  value: 'confirmada' },
       ]}}})
     } else if (link.stageFilter === 'callbacks') {
       nav(link.path, { state: { filter: { filters: [
-        { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
-        { propertyName: 'bp_proximo_contacto', operator: 'LT', value: nowMs() },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada_bepharma' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'no_participa' },
+        { propertyName: 'bp_evento_codigo',      operator: 'EQ',  value: 'BEPH-2026-09' },
+        { propertyName: 'bp_proximo_contacto',   operator: 'LT',  value: nowMs() },
+        { propertyName: 'bp_estado_prospeccion', operator: 'NEQ', value: 'confirmada' },
+        { propertyName: 'bp_estado_prospeccion', operator: 'NEQ', value: 'no_participa' },
       ]}}})
     } else if (link.stageFilter === 'sinActividad') {
       nav(link.path, { state: { filter: { filters: [
-        { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
-        { propertyName: 'bp_ultima_actividad_operador', operator: 'LT', value: minus72hMs() },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada_bepharma' },
-        { propertyName: 'dealstage', operator: 'NEQ', value: 'no_participa' },
+        { propertyName: 'bp_evento_codigo',            operator: 'EQ',  value: 'BEPH-2026-09' },
+        { propertyName: 'bp_ultima_actividad_operador',operator: 'LT',  value: minus72hMs() },
+        { propertyName: 'bp_estado_prospeccion',       operator: 'NEQ', value: 'confirmada' },
+        { propertyName: 'bp_estado_prospeccion',       operator: 'NEQ', value: 'no_participa' },
       ]}}})
     }
   }
 
   // ── Navegación desde gráficas ──────────────────────────────────────────────
   const handleBarClick = (bar) => {
-    // bar tiene { key, label, count }
     nav('/deals', { state: { filter: { filters: [
-      { propertyName: 'dealstage', operator: 'EQ', value: bar.key }
+      { propertyName: 'bp_evento_codigo',      operator: 'EQ', value: ACTIVE_EVENT },
+      { propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: bar.key },
     ]}}})
   }
 
   const handleSliceClick = (slice) => {
     nav('/deals', { state: { filter: { filters: [
-      { propertyName: 'dealstage', operator: 'EQ', value: slice.key }
+      { propertyName: 'bp_evento_codigo',      operator: 'EQ', value: ACTIVE_EVENT },
+      { propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: slice.key },
     ]}}})
   }
 

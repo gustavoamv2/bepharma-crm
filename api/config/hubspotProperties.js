@@ -69,17 +69,17 @@ const CONTACT_PROPERTIES = [
 // Claves: valores internos de HubSpot dealstage
 // Si los IDs reales difieren, actualizar aqui y el resto de la app usa los labels
 const PIPELINE_STAGES = [
-  { key: 'nueva_empresa',         label: 'Nueva empresa' },
-  { key: 'en_depuracion',         label: 'En depuracion' },
-  { key: 'en_enriquecimiento',    label: 'En enriquecimiento' },
-  { key: 'contacto_enviado',      label: 'Contacto enviado' },
-  { key: 'en_seguimiento',        label: 'En seguimiento' },
-  { key: 'confirmada_bepharma',   label: 'Confirmada BePharma' },
-  { key: 'no_participa',          label: 'No participa' },
+  { key: 'nueva',              label: 'Nueva' },
+  { key: 'en_depuracion',      label: 'En depuracion' },
+  { key: 'en_enriquecimiento', label: 'En enriquecimiento' },
+  { key: 'contacto_enviado',   label: 'Contacto enviado' },
+  { key: 'en_seguimiento',     label: 'En seguimiento' },
+  { key: 'confirmada',         label: 'Confirmada BePharma' },
+  { key: 'no_participa',       label: 'No participa' },
 ]
 
 // Etapas terminales: no cuentan como activas en metricas
-const TERMINAL_STAGES = ['confirmada_bepharma', 'no_participa']
+const TERMINAL_STAGES = ['confirmada', 'no_participa']
 
 // Filtro base para el evento activo - se aplica a todas las queries de deals
 function activeEventFilter() {
@@ -89,7 +89,7 @@ function activeEventFilter() {
 // Filtro para excluir etapas terminales
 function notTerminalFilters() {
   return TERMINAL_STAGES.map(stage => ({
-    propertyName: 'dealstage',
+    propertyName: 'bp_estado_prospeccion',
     operator: 'NEQ',
     value: stage,
   }))

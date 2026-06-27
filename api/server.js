@@ -501,7 +501,7 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
   })
 
   const [stageCounts, monthlyCounts] = await Promise.all([
-    Promise.all(PIPELINE_STAGES.map(s => safe([{ propertyName: 'dealstage', operator: 'EQ', value: s.key }]))),
+    Promise.all(PIPELINE_STAGES.map(s => safe([{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: s.key }]))),
     Promise.all(months.map(m => safe([
       { propertyName: 'createdate', operator: 'GTE', value: String(m.startMs) },
       { propertyName: 'createdate', operator: 'LT',  value: String(m.endMs) },
@@ -1072,13 +1072,12 @@ function getUserMailer(username) {
   const emailUser = process.env[`EMAIL_USER_${key}`]
   const emailPass = process.env[`EMAIL_PASS_${key}`]
   if (!emailUser || !emailPass) return null
+  const port = parseInt(process.env.SMTP_PORT || '465')
   return nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.office365.com',
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: false,
-    requireTLS: true,
+    host: process.env.SMTP_HOST || 'smtp.resend.com',
+    port,
+    secure: port === 465,
     auth: { user: emailUser, pass: emailPass },
-    tls: { ciphers: 'SSLv3' }
   })
 }
 
