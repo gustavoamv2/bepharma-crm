@@ -18,11 +18,15 @@ export default function ContactList() {
   const [history, setHistory] = useState([])
   const [showCreate, setShowCreate] = useState(false)
 
-  const filters = search ? [{ propertyName: 'lastname', operator: 'CONTAINS_TOKEN', value: search }] : []
+  const filterGroups = search ? [
+    { filters: [{ propertyName: 'firstname', operator: 'CONTAINS_TOKEN', value: search }] },
+    { filters: [{ propertyName: 'lastname',  operator: 'CONTAINS_TOKEN', value: search }] },
+    { filters: [{ propertyName: 'phone',     operator: 'CONTAINS_TOKEN', value: search }] },
+  ] : undefined
 
   const { data, isLoading, error } = useQuery(
     ['contacts', search, after],
-    () => hubspot.searchContacts({ filters, sorts: [{ propertyName: 'hs_lastmodifieddate', direction: 'DESCENDING' }], limit: 25, after }),
+    () => hubspot.searchContacts({ filterGroups, sorts: [{ propertyName: 'hs_lastmodifieddate', direction: 'DESCENDING' }], limit: 25, after }),
     { keepPreviousData: true }
   )
 
@@ -38,7 +42,7 @@ export default function ContactList() {
       } />
       <div className="content">
         <div className="search-bar">
-          <input placeholder="Buscar por apellido…" value={search} onChange={e => { setSearch(e.target.value); setAfter(null); setHistory([]) }} />
+          <input placeholder="Buscar por nombre, apellido o teléfono…" value={search} onChange={e => { setSearch(e.target.value); setAfter(null); setHistory([]) }} />
         </div>
 
         <div className="card">

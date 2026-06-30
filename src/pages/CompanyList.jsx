@@ -81,6 +81,7 @@ export default function CompanyList() {
                     <tr>
                       <th>Empresa</th>
                       <th>Etapa</th>
+                      <th>Contactos</th>
                       <th>Ciudad</th>
                       <th>Teléfono</th>
                       <th>Creada</th>
@@ -95,6 +96,11 @@ export default function CompanyList() {
                             ? <span style={{ fontSize: 11, fontWeight: 600 }}>{STAGE_LABELS[c.properties.bp_etapa_empresa] || c.properties.bp_etapa_empresa}</span>
                             : <span style={{ color: '#adb5bd', fontSize: 11 }}>—</span>
                           }
+                        </td>
+                        <td style={{ textAlign: 'center' }}>
+                          {c.properties.num_associated_contacts
+                            ? <span style={{ fontSize: 12, fontWeight: 600, color: '#0052cc' }}>{c.properties.num_associated_contacts}</span>
+                            : <span style={{ color: '#adb5bd', fontSize: 11 }}>—</span>}
                         </td>
                         <td>{c.properties.city || '—'}</td>
                         <td>{c.properties.phone || '—'}</td>

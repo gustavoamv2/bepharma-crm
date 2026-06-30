@@ -48,6 +48,7 @@ const COMPANY_PROPERTIES = [
   'bp_telefono_contacto_principal',
   'bp_zona',
   'description',
+  'num_associated_contacts',
 ]
 
 const CONTACT_PROPERTIES = [

@@ -224,8 +224,10 @@ app.get('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
 // Contactos – búsqueda
 app.post('/api/hubspot/contacts/search', requireAuth, async (req, res) => {
   try {
-    const { filters = [], sorts = [], limit = 50, after } = req.body
-    const filterGroups = applyOwnerFilter(req, filters.length ? [{ filters }] : [])
+    const { filters = [], filterGroups: fgBody, sorts = [], limit = 50, after } = req.body
+    // fgBody permite OR entre propiedades (nombre, apellido, teléfono)
+    const baseGroups = fgBody || (filters.length ? [{ filters }] : [])
+    const filterGroups = applyOwnerFilter(req, baseGroups)
     const r = await hs.post('/crm/v3/objects/contacts/search', {
       filterGroups,
       sorts,
