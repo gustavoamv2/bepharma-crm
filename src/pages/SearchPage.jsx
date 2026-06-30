@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Search, UserPlus, Mail } from 'lucide-react'
-import { apollo, rocketreach, hubspot } from '../hooks/useApi'
+import { useNavigate } from 'react-router-dom'
+import { apollo, rocketreach } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useToast } from '../hooks/useToast'
 import EmailComposer from '../components/EmailComposer'
+import RecordModal from '../components/RecordModal'
 
 const DEFAULT_TITLES = [
   'Director',
@@ -62,6 +64,7 @@ function ScoreBadge({ score }) {
 
 export default function SearchPage() {
   const { addToast: toast } = useToast()
+  const nav = useNavigate()
   const [source, setSource] = useState('both')
   const [form, setForm] = useState({
     name: '',
@@ -71,9 +74,9 @@ export default function SearchPage() {
     location: '',
   })
   const [emailTarget, setEmailTarget] = useState(null)
+  const [importTarget, setImportTarget] = useState(null)
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(false)
-  const [importing, setImporting] = useState({})
 
   const handleSearch = async (event) => {
     event.preventDefault()
@@ -154,28 +157,19 @@ export default function SearchPage() {
     }
   }
 
-  const handleImport = async (person) => {
-    setImporting(s => ({ ...s, [person.id]: true }))
-    try {
-      await hubspot.createContact({
-        firstname: person.name?.split(' ')[0] || '',
-        lastname: person.name?.split(' ').slice(1).join(' ') || '',
-        email: person.email || '',
-        phone: person.phone || '',
-        jobtitle: person.title || '',
-        company: person.company || '',
-        hs_lead_status: 'NEW',
-      })
-      toast(`${person.name} importado a HubSpot`, 'success')
-    } catch (err) {
-      const msg = err.response?.data?.message || err.message
-      if (msg?.includes('Contact already exists')) {
-        toast(`${person.name} ya existe en HubSpot`, 'default')
-      } else {
-        toast('Error al importar: ' + msg, 'error')
-      }
-    } finally {
-      setImporting(s => ({ ...s, [person.id]: false }))
+  const buildDefaults = (person) => {
+    const parts = (person.name || '').trim().split(/\s+/)
+    const firstname = parts[0] || ''
+    const lastname  = parts.slice(1).join(' ')
+    return {
+      firstname,
+      lastname,
+      email:           person.email    || '',
+      phone:           person.phone    || '',
+      jobtitle:        person.title    || '',
+      company:         person.company  || '',
+      hs_linkedin_url: person.linkedin || '',
+      hs_lead_status:  'NEW',
     }
   }
 
@@ -285,9 +279,9 @@ export default function SearchPage() {
                       )}
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 5, flexShrink: 0 }}>
-                      <button className="btn btn-success btn-sm" onClick={() => handleImport(person)} disabled={importing[person.id]}>
-                        <UserPlus size={13} />
-                        {importing[person.id] ? '...' : 'Importar'}
+                      <button className="btn btn-success btn-sm" onClick={() => setImportTarget(person)}
+                        style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                        <UserPlus size={13} /> Importar
                       </button>
                       {person.email && (
                         <button className="btn btn-ghost btn-sm" onClick={() => setEmailTarget(person)}
@@ -309,6 +303,19 @@ export default function SearchPage() {
           defaultTo={emailTarget.email}
           defaultSubject={`Contacto BePharma - ${emailTarget.name}`}
           onClose={() => setEmailTarget(null)}
+        />
+      )}
+
+      {importTarget && (
+        <RecordModal
+          type="contact"
+          defaults={buildDefaults(importTarget)}
+          onClose={() => setImportTarget(null)}
+          onSaved={(r) => {
+            setImportTarget(null)
+            toast(`${importTarget.name} importado`, 'success')
+            nav(`/contacts/${r.id}`)
+          }}
         />
       )}
     </>
