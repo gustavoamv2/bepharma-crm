@@ -9,7 +9,6 @@ import Topbar from '../components/Topbar'
 import CallWidget from '../components/CallWidget'
 import EmailComposer from '../components/EmailComposer'
 import RecordModal, { DeleteButton } from '../components/RecordModal'
-import ActivityBar from '../components/ActivityBar'
 import CreateTaskModal from '../components/CreateTaskModal'
 
 
@@ -210,12 +209,6 @@ export default function CompanyDetail() {
         />
       )}
 
-      <ActivityBar
-        objectType="companies"
-        objectId={id}
-        objectName={p.name}
-        onActivityLogged={() => qc.invalidateQueries(['engagements-company', id])}
-      />
     </>
   )
 }

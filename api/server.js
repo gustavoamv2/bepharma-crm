@@ -1348,25 +1348,25 @@ app.post('/api/hubspot/notes', requireAuth, async (req, res) => {
     if (!objectType || !objectId || !body) {
       return res.status(400).json({ error: 'Faltan campos: objectType, objectId, body' })
     }
-    const assocTypeMap = {
-      deals: 'note_to_deal',
-      contacts: 'note_to_contact',
-      companies: 'note_to_company'
-    }
+    // IDs de tipo de asociación HUBSPOT_DEFINED (v3 embedded associations)
+    const assocTypeIdMap = { deals: 214, contacts: 202, companies: 190 }
+    const assocTypeId = assocTypeIdMap[objectType]
+
     const noteBody = noteType !== 'NOTE' ? `[${noteType}] ${body}` : body
-    const r = await hs.post('/crm/v3/objects/notes', {
+    const payload = {
       properties: {
         hs_note_body: noteBody,
         hs_timestamp: new Date().toISOString(),
         hubspot_owner_id: req.user.ownerId
       }
-    })
-    const noteId = r.data.id
-    try {
-      await hs.put(`/crm/v3/objects/notes/${noteId}/associations/${objectType}/${objectId}/${assocTypeMap[objectType] || 'note_to_deal'}`)
-    } catch (assocErr) {
-      console.warn('[notes] association error:', assocErr.message)
     }
+    if (assocTypeId) {
+      payload.associations = [{
+        to: { id: objectId },
+        types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: assocTypeId }]
+      }]
+    }
+    const r = await hs.post('/crm/v3/objects/notes', payload)
     res.json(r.data)
   } catch (e) {
     console.error('[notes] error:', e.response?.data || e.message)
@@ -1403,7 +1403,11 @@ app.post('/api/hubspot/calls/log', requireAuth, async (req, res) => {
       `Numero marcado: ${phoneNumber || 'N/A'}`,
       notes ? `Notas: ${notes}` : 'Notas: N/A',
     ].join('\n')
-    const r = await hs.post('/crm/v3/objects/calls', {
+    // IDs de tipo de asociación HUBSPOT_DEFINED
+    const assocTypeIdMap = { deals: 206, contacts: 194, companies: 182 }
+    const assocTypeId = objectType && objectId ? assocTypeIdMap[objectType] : null
+
+    const callPayload = {
       properties: {
         hs_call_body: callBody,
         hs_call_duration: String(seconds * 1000),
@@ -1413,15 +1417,14 @@ app.post('/api/hubspot/calls/log', requireAuth, async (req, res) => {
         hs_call_to_number: phoneNumber,
         hs_call_title: `Llamada - ${outcomeLabel}`,
       }
-    })
-    const callId = r.data.id
-    if (objectType && objectId) {
-      try {
-        await hs.put(`/crm/v3/objects/calls/${callId}/associations/${objectType}/${objectId}/${assocTypeMap[objectType] || 'call_to_deal'}`)
-      } catch (assocErr) {
-        console.warn('[calls] association error:', assocErr.message)
-      }
     }
+    if (assocTypeId) {
+      callPayload.associations = [{
+        to: { id: objectId },
+        types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: assocTypeId }]
+      }]
+    }
+    const r = await hs.post('/crm/v3/objects/calls', callPayload)
     res.json(r.data)
   } catch (e) {
     console.error('[calls/log] error:', e.response?.data || e.message)
@@ -1444,7 +1447,13 @@ app.post('/api/hubspot/tasks', requireAuth, async (req, res) => {
     const ownerId = req.user.role === 'supervisor'
       ? (assignedOwnerId || req.user.ownerId)
       : req.user.ownerId
-    const r = await hs.post('/crm/v3/objects/tasks', {
+    // IDs de tipo de asociación HUBSPOT_DEFINED
+    const assocTypeIdMap = { deals: 216, contacts: 204, companies: 192 }
+    const assocTypeId = associatedObjectType && associatedObjectId
+      ? assocTypeIdMap[associatedObjectType]
+      : null
+
+    const taskPayload = {
       properties: {
         hs_task_subject: subject,
         hs_task_body: body,
@@ -1453,20 +1462,14 @@ app.post('/api/hubspot/tasks', requireAuth, async (req, res) => {
         hs_task_status: 'NOT_STARTED',
         hubspot_owner_id: ownerId
       }
-    })
-    const taskId = r.data.id
-    if (associatedObjectType && associatedObjectId) {
-      const assocTypeMap = {
-        deals: 'task_to_deal',
-        contacts: 'task_to_contact',
-        companies: 'task_to_company'
-      }
-      try {
-        await hs.put(`/crm/v3/objects/tasks/${taskId}/associations/${associatedObjectType}/${associatedObjectId}/${assocTypeMap[associatedObjectType] || 'task_to_deal'}`)
-      } catch (assocErr) {
-        console.warn('[tasks] association error:', assocErr.message)
-      }
     }
+    if (assocTypeId) {
+      taskPayload.associations = [{
+        to: { id: associatedObjectId },
+        types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: assocTypeId }]
+      }]
+    }
+    const r = await hs.post('/crm/v3/objects/tasks', taskPayload)
     res.json(r.data)
   } catch (e) {
     console.error('[tasks] error:', e.response?.data || e.message)

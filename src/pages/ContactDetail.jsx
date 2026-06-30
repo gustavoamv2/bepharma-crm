@@ -9,7 +9,6 @@ import Topbar from '../components/Topbar'
 import CallWidget from '../components/CallWidget'
 import EmailComposer from '../components/EmailComposer'
 import RecordModal, { DeleteButton } from '../components/RecordModal'
-import ActivityBar from '../components/ActivityBar'
 import CreateTaskModal from '../components/CreateTaskModal'
 
 const safeFmt = (v) => {
@@ -202,12 +201,6 @@ export default function ContactDetail() {
         />
       )}
 
-      <ActivityBar
-        objectType="contacts"
-        objectId={id}
-        objectName={fullName}
-        onActivityLogged={() => qc.invalidateQueries(['engagements-contact', id])}
-      />
     </>
   )
 }

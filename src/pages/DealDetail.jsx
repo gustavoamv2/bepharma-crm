@@ -265,7 +265,7 @@ export default function DealDetail() {
               contactName={activeContactName}
               objectType="deals"
               objectId={id}
-              onActivityLogged={() => qc.invalidateQueries(['engagements-deal', id])}
+              onActivityLogged={() => { setTab('actividades'); qc.invalidateQueries(['engagements-deal', id]) }}
             />
           </div>
         </div>
@@ -304,7 +304,7 @@ export default function DealDetail() {
         objectType="deals"
         objectId={id}
         objectName={p.dealname}
-        onActivityLogged={() => qc.invalidateQueries(['engagements-deal', id])}
+        onActivityLogged={() => { setTab('actividades'); qc.invalidateQueries(['engagements-deal', id]) }}
       />
     </>
   )
