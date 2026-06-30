@@ -577,17 +577,19 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
 
 // Admin – lista usuarios con config Zadarma
 app.get('/api/admin/users', requireAuth, async (req, res) => {
-  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
   const users = require('./users.json')
-  const safe = Object.entries(users).map(([username, u]) => ({
+  const isSupervisor = req.user.role === 'supervisor'
+  const all = Object.entries(users).map(([username, u]) => ({
     username,
     name: u.name,
     role: u.role,
     ownerId: u.ownerId,
     sipExtension: u.sipExtension || '',
     bp_zona: u.bp_zona || '',
-    emailUser: u.emailUser || ''   // no exponemos emailPass
+    emailUser: u.emailUser || ''
   }))
+  // Operadores solo ven su propio perfil
+  const safe = isSupervisor ? all : all.filter(u => u.username === req.user.username)
   res.json(safe)
 })
 
@@ -1128,14 +1130,62 @@ function getUserEmail(username) {
   return process.env[`EMAIL_USER_${username.toUpperCase()}`] || null
 }
 
-// Verificar config SMTP del usuario autenticado
+// ── Microsoft Graph helpers ────────────────────────────────────────────────────
+async function getMsGraphToken() {
+  const tenantId  = process.env.AZURE_TENANT_ID
+  const clientId  = process.env.AZURE_CLIENT_ID
+  const clientSec = process.env.AZURE_CLIENT_SECRET
+  if (!tenantId || !clientId || !clientSec) return null
+
+  const params = new URLSearchParams({
+    grant_type:    'client_credentials',
+    client_id:     clientId,
+    client_secret: clientSec,
+    scope:         'https://graph.microsoft.com/.default'
+  })
+  const r = await axios.post(
+    `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`,
+    params.toString(),
+    { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+  )
+  return r.data.access_token
+}
+
+async function sendViaGraph(fromEmail, senderName, to, subject, bodyHtml) {
+  const token = await getMsGraphToken()
+  if (!token) throw new Error('Azure no configurado (AZURE_TENANT_ID / CLIENT_ID / CLIENT_SECRET)')
+
+  await axios.post(
+    `https://graph.microsoft.com/v1.0/users/${fromEmail}/sendMail`,
+    {
+      message: {
+        subject,
+        body: { contentType: 'HTML', content: bodyHtml },
+        toRecipients: [{ emailAddress: { address: to } }],
+        from: { emailAddress: { name: senderName, address: fromEmail } }
+      },
+      saveToSentItems: true
+    },
+    { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } }
+  )
+}
+
+// Verificar config de email del usuario autenticado
 app.get('/api/email/verify', requireAuth, async (req, res) => {
   const emailUser = getUserEmail(req.user.username)
   if (!emailUser) return res.json({ ok: false, error: 'no_config' })
+
+  // Modo Graph: verificar que las 3 variables de Azure están presentes
+  if (process.env.AZURE_TENANT_ID && process.env.AZURE_CLIENT_ID && process.env.AZURE_CLIENT_SECRET) {
+    return res.json({ ok: true, user: emailUser, mode: 'graph' })
+  }
+
+  // Fallback: SMTP
   const mailer = getUserMailer(req.user.username)
+  if (!mailer) return res.json({ ok: false, error: 'no_config' })
   try {
     await mailer.verify()
-    res.json({ ok: true, user: emailUser })
+    res.json({ ok: true, user: emailUser, mode: 'smtp' })
   } catch (e) {
     res.json({ ok: false, error: e.message })
   }
@@ -1162,23 +1212,27 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
       return res.status(400).json({ error: 'Faltan campos: to, subject, body' })
     }
 
-    const mailer = getUserMailer(req.user.username)
-    if (!mailer) {
-      return res.status(400).json({ error: 'no_config' })
+    const emailUser = getUserEmail(req.user.username)
+    if (!emailUser) return res.status(400).json({ error: 'no_config' })
+
+    const bodyHtml = body.replace(/\n/g, '<br>')
+
+    if (process.env.AZURE_TENANT_ID && process.env.AZURE_CLIENT_ID && process.env.AZURE_CLIENT_SECRET) {
+      // ── Modo Microsoft Graph (Microsoft 365 OAuth) ────────────────────────
+      await sendViaGraph(emailUser, req.user.name, to, subject, bodyHtml)
+    } else {
+      // ── Fallback: SMTP ────────────────────────────────────────────────────
+      const mailer = getUserMailer(req.user.username)
+      if (!mailer) return res.status(400).json({ error: 'no_config' })
+      await mailer.sendMail({
+        from: `${req.user.name} <${emailUser}>`,
+        to, subject,
+        text: body,
+        html: bodyHtml
+      })
     }
 
-    const emailUser = getUserEmail(req.user.username)
-
-    // 1. Enviar email vía SMTP
-    const info = await mailer.sendMail({
-      from: `${req.user.name} <${emailUser}>`,
-      to,
-      subject,
-      text: body,
-      html: body.replace(/\n/g, '<br>')
-    })
-
-    // 2. Registrar como engagement en HubSpot
+    // Registrar como engagement en HubSpot (independiente del método de envío)
     try {
       await hs.post('/engagements/v1/engagements', {
         engagement: { active: true, type: 'EMAIL', timestamp: Date.now() },
@@ -1190,8 +1244,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
         metadata: {
           from: { email: emailUser, firstName: req.user.name },
           to: [{ email: to }],
-          subject, text: body,
-          html: body.replace(/\n/g, '<br>'),
+          subject, text: body, html: bodyHtml,
           status: 'SENT'
         }
       })
@@ -1199,9 +1252,10 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
       console.warn('HubSpot email log error:', hsErr.response?.data || hsErr.message)
     }
 
-    res.json({ success: true, messageId: info.messageId })
+    res.json({ success: true })
   } catch (e) {
-    res.status(500).json({ error: e.message })
+    const msg = e.response?.data?.message || e.response?.data?.error || e.message
+    res.status(500).json({ error: msg })
   }
 })
 
@@ -1417,9 +1471,9 @@ app.get('/api/admin/integrations', requireAuth, async (req, res) => {
 
   const results = {}
 
-  // HubSpot
+  // HubSpot — ping con deals (scope que el app siempre tiene)
   try {
-    await hs.get('/crm/v3/owners', { params: { limit: 1 } })
+    await hs.post('/crm/v3/objects/deals/search', { filterGroups: [], limit: 1, properties: ['dealname'] })
     results.hubspot = { ok: true, label: 'Conectado' }
   } catch (e) {
     const status = e.response?.status
@@ -1427,7 +1481,7 @@ app.get('/api/admin/integrations', requireAuth, async (req, res) => {
     const tokenPreview = hasToken ? process.env.HUBSPOT_ACCESS_TOKEN.slice(0, 12) + '...' : 'NO CONFIGURADO'
     results.hubspot = {
       ok: false,
-      label: status === 401 ? 'Token invalido' : status === 403 ? 'Sin permisos' : `Error ${status || 'red'}: ${e.message?.slice(0, 60)}`,
+      label: status === 401 ? 'Token invalido (revisa HUBSPOT_ACCESS_TOKEN en Vercel)' : status === 403 ? 'Sin permisos — revisa scopes del Private App' : `Error ${status || 'red'}: ${e.message?.slice(0, 60)}`,
       debug: `token: ${tokenPreview} | status: ${status}`
     }
   }

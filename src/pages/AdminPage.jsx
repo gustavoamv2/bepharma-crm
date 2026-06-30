@@ -105,16 +105,12 @@ export default function AdminPage() {
 
   const { data: users, isLoading } = useQuery('admin-users', admin.getUsers)
 
-  if (user?.role !== 'supervisor') {
-    return (
-      <>
-        <Topbar title="Administración" />
-        <div className="content">
-          <div className="error-msg">Solo supervisores pueden acceder a esta sección.</div>
-        </div>
-      </>
-    )
-  }
+  const isSupervisor = user?.role === 'supervisor'
+
+  // Filas visibles: supervisor ve todos, operador solo se ve a sí mismo
+  const visibleUsers = isSupervisor
+    ? (users || [])
+    : (users || []).filter(u => u.username === user?.username)
 
   const startEdit = (u) => {
     setEditingUser(u.username)
@@ -157,8 +153,8 @@ export default function AdminPage() {
       <Topbar title="Administracion" />
       <div className="content">
 
-        {/* Estado de integraciones */}
-        <IntegrationStatus />
+        {/* Estado de integraciones — solo supervisores */}
+        {isSupervisor && <IntegrationStatus />}
 
         {/* Usuarios y extensiones Zadarma */}
         <div className="card" style={{ marginBottom: 24 }}>
@@ -183,7 +179,7 @@ export default function AdminPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {(users || []).map(u => {
+                  {visibleUsers.map(u => {
                     const badge = ROLE_BADGE[u.role]
                     const isEditing = editingUser === u.username
                     return (
@@ -260,7 +256,7 @@ export default function AdminPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {(users || []).map(u => {
+                  {visibleUsers.map(u => {
                     const isEditing = editingZona === u.username
                     const BP_ZONA_OPTIONS = ['EEUU','Europa','LATAM Norte','LATAM Sur','Asia','Africa','Oceania','Medio Oriente']
                     return (
@@ -327,7 +323,7 @@ export default function AdminPage() {
               Ingresa el correo y contraseña de cada usuario. Copia el comando generado y ejecútalo en PowerShell desde la carpeta <code>bepharma-crm</code> para configurarlo en Vercel.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {(users || []).map(u => {
+              {visibleUsers.map(u => {
                 const f = emailForm[u.username] || {}
                 const isOpen = showEmailCmd === u.username
                 const cmd = `echo "${f.user || 'CORREO@empresa.com'}" | vercel env add EMAIL_USER_${u.username.toUpperCase()} production --force\necho "${f.pass || 'CONTRASENA'}" | vercel env add EMAIL_PASS_${u.username.toUpperCase()} production --force`
@@ -382,8 +378,8 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Instrucciones de integración Zadarma */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+        {/* Instrucciones de integración Zadarma — solo supervisores */}
+        {isSupervisor && <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
 
           {/* Softphone / app de escritorio */}
           <div className="card">
@@ -530,7 +526,7 @@ export default function AdminPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div>}
       </div>
     </>
   )
