@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useQuery, useQueryClient } from 'react-query'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { ExternalLink, Mail, Pencil } from 'lucide-react'
+import { ExternalLink, Mail, Pencil, PlusCircle } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import CallWidget from '../components/CallWidget'
@@ -35,6 +35,7 @@ export default function CompanyDetail() {
   const [showEmail, setShowEmail] = useState(false)
   const [showEdit, setShowEdit]   = useState(false)
   const [showTask, setShowTask]   = useState(false)
+  const [showDeal, setShowDeal]   = useState(false)
 
   const { data: company, isLoading, error } = useQuery(['company', id], () => hubspot.getCompany(id))
 
@@ -115,37 +116,40 @@ export default function CompanyDetail() {
               </div>
             )}
 
-            {deals.length > 0 && (
-              <div className="card">
-                <div className="card-header"><h2>Eventos ({deals.length})</h2></div>
-                <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  {deals.map(d => {
-                    const dp = d.properties || {}
-                    const STAGE_LABELS = {
-                      appointmentscheduled: 'Cita agendada', qualifiedtobuy: 'Calificado',
-                      presentationscheduled: 'Presentación', decisionmakerboughtin: 'DM Aprobó',
-                      contractsent: 'Contrato', closedwon: '✅ Ganado', closedlost: '❌ Perdido'
-                    }
-                    return (
-                      <button key={d.id} className="btn btn-ghost" style={{ justifyContent: 'flex-start', gap: 8 }}
-                        onClick={() => nav(`/deals/${d.id}`)}>
-                        💼 <strong>{dp.dealname || `Evento #${d.id}`}</strong>
-                        {dp.dealstage && (
-                          <span style={{ fontSize: 11, color: 'var(--text-muted)', marginLeft: 4 }}>
-                            {STAGE_LABELS[dp.dealstage] || dp.dealstage}
-                          </span>
-                        )}
-                        {dp.amount && (
-                          <span style={{ fontSize: 11, color: 'var(--success)', marginLeft: 'auto' }}>
-                            ${Number(dp.amount).toLocaleString('es-MX')}
-                          </span>
-                        )}
-                      </button>
-                    )
-                  })}
-                </div>
+            <div className="card">
+              <div className="card-header">
+                <h2>Eventos en pipeline ({deals.length})</h2>
+                <button className="btn btn-primary btn-sm" onClick={() => setShowDeal(true)}
+                  style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                  <PlusCircle size={13} /> Crear evento
+                </button>
               </div>
-            )}
+              <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {deals.length === 0 ? (
+                  <div style={{ fontSize: 13, color: 'var(--text-muted)', padding: '8px 0' }}>
+                    Sin eventos aún. Crea uno para comenzar a prospectar.
+                  </div>
+                ) : deals.map(d => {
+                  const dp = d.properties || {}
+                  const BP_ESTADO = {
+                    nueva: 'Nueva', en_depuracion: 'En Depuración', en_enriquecimiento: 'En Enriquecimiento',
+                    contacto_enviado: 'Contacto enviado', en_seguimiento: 'En seguimiento',
+                    confirmada: '✅ Confirmada', no_participa: '❌ No participa',
+                  }
+                  return (
+                    <button key={d.id} className="btn btn-ghost" style={{ justifyContent: 'flex-start', gap: 8 }}
+                      onClick={() => nav(`/deals/${d.id}`)}>
+                      💼 <strong>{dp.dealname || `Evento #${d.id}`}</strong>
+                      {dp.bp_estado_prospeccion && (
+                        <span style={{ fontSize: 11, color: 'var(--text-muted)', marginLeft: 4 }}>
+                          {BP_ESTADO[dp.bp_estado_prospeccion] || dp.bp_estado_prospeccion}
+                        </span>
+                      )}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
           </div>
 
           <div className="detail-side">
@@ -183,6 +187,23 @@ export default function CompanyDetail() {
           associatedObjectType="companies"
           associatedObjectId={id}
           associatedObjectName={p.name}
+        />
+      )}
+
+      {showDeal && (
+        <RecordModal
+          type="deal"
+          companyId={id}
+          defaults={{
+            bp_evento_codigo: 'BEPH-2026-09',
+            bp_estado_prospeccion: 'nueva',
+            dealname: p.name,
+          }}
+          onClose={() => setShowDeal(false)}
+          onSaved={(result) => {
+            qc.invalidateQueries(['company', id])
+            nav(`/deals/${result.id}`)
+          }}
         />
       )}
 

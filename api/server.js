@@ -434,9 +434,19 @@ app.patch('/api/pipeline/deals/:id/stage', requireAuth, async (req, res) => {
 // ──────────────────────────────────────────────────────────────────────────────
 app.post('/api/hubspot/deals', requireAuth, async (req, res) => {
   try {
-    const props = { ...req.body }
+    const { _companyId, ...rest } = req.body
+    const props = { ...rest }
     if (!props.hubspot_owner_id) props.hubspot_owner_id = req.user.ownerId
     const r = await hs.post('/crm/v3/objects/deals', { properties: props })
+    const dealId = r.data.id
+    // Si viene _companyId, crear la asociación deal → empresa
+    if (_companyId && dealId) {
+      try {
+        await hs.put(`/crm/v3/objects/deals/${dealId}/associations/companies/${_companyId}/deal_to_company`)
+      } catch (assocErr) {
+        console.warn('[deals] Error asociando empresa:', assocErr.message)
+      }
+    }
     res.json(r.data)
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
@@ -445,6 +455,11 @@ app.post('/api/hubspot/deals', requireAuth, async (req, res) => {
 
 app.patch('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
   try {
+    // Solo supervisores pueden modificar bp_estado_alerta
+    const isOperator = req.user.role === 'operator' || req.headers['x-view-mode'] === 'operator'
+    if (isOperator && 'bp_estado_alerta' in req.body) {
+      return res.status(403).json({ error: 'Solo los supervisores pueden modificar el estado de alerta.' })
+    }
     const r = await hs.patch(`/crm/v3/objects/deals/${req.params.id}`, { properties: req.body })
     res.json(r.data)
   } catch (e) {

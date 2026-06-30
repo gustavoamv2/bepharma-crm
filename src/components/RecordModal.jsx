@@ -34,12 +34,13 @@ const DEAL_FIELDS = [
   },
   { key: 'bp_estado_prospeccion', label: 'Estado prospección', type: 'select',
     options: [
-      { value: 'nuevo',         label: 'Nuevo' },
-      { value: 'contactado',    label: 'Contactado' },
-      { value: 'interesado',    label: 'Interesado' },
-      { value: 'en negociacion',label: 'En negociación' },
-      { value: 'cerrado',       label: 'Cerrado' },
-      { value: 'no interesado', label: 'No interesado' },
+      { value: 'nueva',              label: 'Nueva' },
+      { value: 'en_depuracion',      label: 'En Depuración' },
+      { value: 'en_enriquecimiento', label: 'En Enriquecimiento' },
+      { value: 'contacto_enviado',   label: 'Contacto enviado' },
+      { value: 'en_seguimiento',     label: 'En seguimiento' },
+      { value: 'confirmada',         label: 'Confirmada BePharma' },
+      { value: 'no_participa',       label: 'No participa' },
     ]
   },
   { key: 'hs_next_step', label: 'Siguiente paso', type: 'textarea' },
@@ -245,15 +246,15 @@ function CompanySearchField({ value, onChange, onCompanySelect }) {
 }
 
 // ── Modal ──────────────────────────────────────────────────────────────────────
-export default function RecordModal({ type, record, onClose, onSaved }) {
+export default function RecordModal({ type, record, onClose, onSaved, companyId = null, defaults = {} }) {
   const { addToast } = useToast()
   const fields = SCHEMAS[type] || []
   const isEdit = !!record?.id
 
-  // Inicializa form con los valores actuales
+  // Inicializa form: prioridad → valor actual del record → defaults → vacío
   const initial = {}
   fields.forEach(f => {
-    let val = record?.properties?.[f.key] || ''
+    let val = record?.properties?.[f.key] ?? defaults[f.key] ?? ''
     if (f.type === 'date' && val) val = val.slice(0, 10)
     initial[f.key] = val
   })
@@ -296,6 +297,14 @@ export default function RecordModal({ type, record, onClose, onSaved }) {
     if (type === 'contact') {
       if (form.company) props.company = form.company
       if (selectedCompanyId) props._companyId = selectedCompanyId
+    }
+    // Para deals: asociar empresa si viene companyId + incluir campos de defaults ocultos
+    if (type === 'deal' && !isEdit) {
+      if (companyId) props._companyId = companyId
+      // Incluir campos de defaults que no están en el formulario visible (ej: bp_evento_codigo)
+      Object.entries(defaults).forEach(([k, v]) => {
+        if (!(k in props) && v) props[k] = v
+      })
     }
 
     try {
