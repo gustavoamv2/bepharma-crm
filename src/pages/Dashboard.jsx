@@ -208,12 +208,6 @@ export default function Dashboard() {
   )
   const alertDeals = alertsData?.results || []
 
-  // ── byStage: usa metrics.porEstado (correcto) en lugar de chartsData.byStage (rate-limited → 0)
-  const STAGE_ORDER = ['nueva', 'en_depuracion', 'en_enriquecimiento', 'contacto_enviado', 'en_seguimiento', 'confirmada', 'no_participa']
-  const byStage = metrics?.porEstado
-    ? STAGE_ORDER.map(key => ({ key, label: STAGE_LABELS[key], count: metrics.porEstado[key] || 0 }))
-    : (chartsData?.byStage || [])
-
   // ── Metricas cards usando propiedades BePharma ────────────────────────────
   const metricCards = [
     {
@@ -431,30 +425,39 @@ export default function Dashboard() {
           <div className="card-body" style={{ padding: '12px 16px' }}>
 
             {/* Distribución por estado — chips (solo supervisor) */}
-            {isSupervisor && metrics?.porEstado && Object.keys(metrics.porEstado).length > 0 && (
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 14, paddingBottom: 14, borderBottom: '1px solid var(--border)' }}>
-                {Object.entries(metrics.porEstado).map(([estado, count]) => (
-                  <div key={estado}
-                    style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: 8, padding: '6px 12px', cursor: 'pointer', textAlign: 'center', minWidth: 110 }}
-                    onClick={() => nav('/deals', { state: { filter: { filters: [
-                      { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
-                      { propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado },
-                    ]}}})}
-                  >
-                    <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--primary)' }}>{count}</div>
-                    <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 2 }}>{ESTADO_LABELS[estado] || estado}</div>
-                  </div>
-                ))}
-              </div>
-            )}
+            {isSupervisor && (() => {
+              // Usa chartsData.byStage si tiene datos; si no, fallback a metrics.porEstado
+              const chipsFromCharts = chartsData?.byStage?.filter(s => s.count > 0)
+              const chipsFromMetrics = metrics?.porEstado
+                ? Object.entries(metrics.porEstado).filter(([, c]) => c > 0).map(([key, count]) => ({ key, label: ESTADO_LABELS[key] || key, count }))
+                : null
+              const chips = (chipsFromCharts?.length ? chipsFromCharts : chipsFromMetrics) || []
+              if (!chips.length) return null
+              return (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 14, paddingBottom: 14, borderBottom: '1px solid var(--border)' }}>
+                  {chips.map(({ key, label, count }) => (
+                    <div key={key}
+                      style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: 8, padding: '6px 12px', cursor: 'pointer', textAlign: 'center', minWidth: 110 }}
+                      onClick={() => nav('/deals', { state: { filter: { filters: [
+                        { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
+                        { propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: key },
+                      ]}}})}
+                    >
+                      <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--primary)' }}>{count}</div>
+                      <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 2 }}>{label || ESTADO_LABELS[key] || key}</div>
+                    </div>
+                  ))}
+                </div>
+              )
+            })()}
 
             {/* Gráficas */}
-            {(byStage.length > 0 || chartsData) && (
+            {chartsData && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                 <div>
                   <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Eventos por etapa</div>
                   <BarChart
-                    data={byStage}
+                    data={chartsData.byStage?.map(s => ({ ...s, label: STAGE_LABELS[s.key] || s.label }))}
                     color="#0052cc"
                     onBarClick={handleBarClick}
                   />
@@ -462,9 +465,9 @@ export default function Dashboard() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                   <div>
                     <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Distribución por etapa</div>
-                    <DonutChart data={byStage} onSliceClick={handleSliceClick} />
+                    <DonutChart data={chartsData.byStage} onSliceClick={handleSliceClick} />
                   </div>
-                  {chartsData?.byMonth?.length > 0 && (
+                  {chartsData.byMonth?.length > 0 && (
                     <div>
                       <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Nuevos eventos · últimos 6 meses</div>
                       <BarChart

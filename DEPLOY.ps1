@@ -35,7 +35,7 @@ if (-not $gitOk) {
 Write-Host "`n[2/3] Commit y push..." -ForegroundColor Yellow
 git add -A
 git status --short
-git commit -m "fix: dashboard sin tareas + donut usa metrics.porEstado (fix Sin datos por rate-limit HubSpot)"
+git commit -m "fix: dashboard sin tareas + charts vuelven a chartsData.byStage + chips con fallback metrics"
 git branch -M main
 git push -u origin main
 
