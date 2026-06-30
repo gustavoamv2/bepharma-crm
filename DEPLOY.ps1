@@ -35,7 +35,7 @@ if (-not $gitOk) {
 Write-Host "`n[2/3] Commit y push..." -ForegroundColor Yellow
 git add -A
 git status --short
-git commit -m "fix: asociacion deal-empresa usa API v4 + SPA routing vercel 404 + propiedades deal en empresa"
+git commit -m "fix: debug info HubSpot integration status + deal association v4 + SPA routing 404"
 git branch -M main
 git push -u origin main
 

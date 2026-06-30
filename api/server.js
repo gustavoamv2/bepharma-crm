@@ -1419,10 +1419,17 @@ app.get('/api/admin/integrations', requireAuth, async (req, res) => {
 
   // HubSpot
   try {
-    await hs.get('/crm/v3/owners?limit=1')
+    await hs.get('/crm/v3/owners', { params: { limit: 1 } })
     results.hubspot = { ok: true, label: 'Conectado' }
   } catch (e) {
-    results.hubspot = { ok: false, label: e.response?.status === 401 ? 'Token invalido' : 'Error de conexion' }
+    const status = e.response?.status
+    const hasToken = !!process.env.HUBSPOT_ACCESS_TOKEN
+    const tokenPreview = hasToken ? process.env.HUBSPOT_ACCESS_TOKEN.slice(0, 12) + '...' : 'NO CONFIGURADO'
+    results.hubspot = {
+      ok: false,
+      label: status === 401 ? 'Token invalido' : status === 403 ? 'Sin permisos' : `Error ${status || 'red'}: ${e.message?.slice(0, 60)}`,
+      debug: `token: ${tokenPreview} | status: ${status}`
+    }
   }
 
   // Zadarma

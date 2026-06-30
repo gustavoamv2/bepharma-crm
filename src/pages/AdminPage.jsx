@@ -77,7 +77,10 @@ function IntegrationStatus() {
                       {info.ok ? 'OK' : 'Error'}
                     </span>
                   </td>
-                  <td style={{ fontSize: 12, color: '#546e7a' }}>{info.label}</td>
+                  <td style={{ fontSize: 12, color: '#546e7a' }}>
+                    {info.label}
+                    {info.debug && <div style={{ fontSize: 10, color: '#9e9e9e', marginTop: 2 }}>{info.debug}</div>}
+                  </td>
                 </tr>
               ))}
             </tbody>
