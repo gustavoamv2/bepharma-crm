@@ -467,7 +467,8 @@ app.patch('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
     if (isOperator && 'bp_estado_alerta' in req.body) {
       return res.status(403).json({ error: 'Solo los supervisores pueden modificar el estado de alerta.' })
     }
-    const r = await hs.patch(`/crm/v3/objects/deals/${req.params.id}`, { properties: req.body })
+    const { _companyId, ...properties } = req.body
+    const r = await hs.patch(`/crm/v3/objects/deals/${req.params.id}`, { properties })
     res.json(r.data)
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
@@ -497,7 +498,8 @@ app.post('/api/hubspot/companies', requireAuth, async (req, res) => {
 
 app.patch('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
   try {
-    const r = await hs.patch(`/crm/v3/objects/companies/${req.params.id}`, { properties: req.body })
+    const { _companyId, ...properties } = req.body
+    const r = await hs.patch(`/crm/v3/objects/companies/${req.params.id}`, { properties })
     res.json(r.data)
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
@@ -518,7 +520,9 @@ app.delete('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
 // ──────────────────────────────────────────────────────────────────────────────
 app.patch('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
   try {
-    const r = await hs.patch(`/crm/v3/objects/contacts/${req.params.id}`, { properties: req.body })
+    // Extraer campos internos que no son propiedades de HubSpot
+    const { _companyId, ...properties } = req.body
+    const r = await hs.patch(`/crm/v3/objects/contacts/${req.params.id}`, { properties })
     res.json(r.data)
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
