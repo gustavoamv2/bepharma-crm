@@ -439,15 +439,18 @@ app.post('/api/hubspot/deals', requireAuth, async (req, res) => {
     if (!props.hubspot_owner_id) props.hubspot_owner_id = req.user.ownerId
     const r = await hs.post('/crm/v3/objects/deals', { properties: props })
     const dealId = r.data.id
-    // Si viene _companyId, crear la asociación deal → empresa (API v4, asociación por defecto)
+    // Si viene _companyId, crear la asociación deal → empresa
+    let assocError = null
     if (_companyId && dealId) {
       try {
-        await hs.put(`/crm/v4/objects/deals/${dealId}/associations/default/companies/${_companyId}`)
+        // Tipo 5 = deal_to_company (HubSpot defined, más confiable que v4 default)
+        await hs.put(`/crm/v3/objects/deals/${dealId}/associations/companies/${_companyId}/5`)
       } catch (assocErr) {
-        console.warn('[deals] Error asociando empresa:', assocErr.response?.data || assocErr.message)
+        assocError = assocErr.response?.data || assocErr.message
+        console.warn('[deals] Error asociando empresa:', assocError)
       }
     }
-    res.json(r.data)
+    res.json({ ...r.data, _assocError: assocError })
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
   }

@@ -201,6 +201,9 @@ export default function CompanyDetail() {
           }}
           onClose={() => setShowDeal(false)}
           onSaved={(result) => {
+            if (result._assocError) {
+              console.error('[deal create] Asociacion fallida:', result._assocError)
+            }
             qc.invalidateQueries(['company', id])
             nav(`/deals/${result.id}`)
           }}

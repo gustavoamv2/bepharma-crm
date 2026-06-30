@@ -246,20 +246,30 @@ function CompanySearchField({ value, onChange, onCompanySelect }) {
   )
 }
 
-// Campos simplificados para crear deal desde una empresa
+const DEAL_PROSPECCION_OPTIONS = [
+  { value: 'nueva',              label: 'Nueva' },
+  { value: 'en_depuracion',      label: 'En Depuración' },
+  { value: 'en_enriquecimiento', label: 'En Enriquecimiento' },
+  { value: 'contacto_enviado',   label: 'Contacto enviado' },
+  { value: 'en_seguimiento',     label: 'En seguimiento' },
+  { value: 'confirmada',         label: 'Confirmada BePharma' },
+  { value: 'no_participa',       label: 'No participa' },
+]
+
+// Campos para crear deal desde empresa (solo estado prospección)
 const DEAL_FIELDS_FROM_COMPANY = [
   { key: 'dealname', label: 'Nombre del evento', required: true, type: 'text' },
   { key: 'bp_estado_prospeccion', label: 'Estado de prospección', required: true, type: 'select',
-    options: [
-      { value: 'nueva',              label: 'Nueva' },
-      { value: 'en_depuracion',      label: 'En Depuración' },
-      { value: 'en_enriquecimiento', label: 'En Enriquecimiento' },
-      { value: 'contacto_enviado',   label: 'Contacto enviado' },
-      { value: 'en_seguimiento',     label: 'En seguimiento' },
-      { value: 'confirmada',         label: 'Confirmada BePharma' },
-      { value: 'no_participa',       label: 'No participa' },
-    ]
+    options: DEAL_PROSPECCION_OPTIONS
   },
+]
+
+// Campos para editar deal (sin nombre ni zona — ambos son automáticos)
+const DEAL_FIELDS_EDIT = [
+  { key: 'bp_estado_prospeccion', label: 'Estado de prospección', required: true, type: 'select',
+    options: DEAL_PROSPECCION_OPTIONS
+  },
+  { key: 'hs_next_step', label: 'Siguiente paso', type: 'textarea' },
 ]
 
 // ── Modal ──────────────────────────────────────────────────────────────────────
@@ -268,9 +278,13 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
   const { user } = useAuth()
   const isEdit = !!record?.id
 
-  // Modo simplificado: crear deal desde empresa
-  const isFromCompany = type === 'deal' && !!companyId && !isEdit
-  const fields = isFromCompany ? DEAL_FIELDS_FROM_COMPANY : (SCHEMAS[type] || [])
+  // Selección de campos según contexto
+  const fields = (() => {
+    if (type !== 'deal') return SCHEMAS[type] || []
+    if (isEdit) return DEAL_FIELDS_EDIT           // editar: solo estado + siguiente paso
+    if (companyId) return DEAL_FIELDS_FROM_COMPANY // crear desde empresa: nombre + estado
+    return SCHEMAS.deal                            // crear genérico: todos los campos
+  })()
 
   // Inicializa form: prioridad → valor actual del record → defaults → vacío
   const initial = {}
@@ -319,15 +333,16 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
       if (form.company) props.company = form.company
       if (selectedCompanyId) props._companyId = selectedCompanyId
     }
-    // Para deals: asociar empresa si viene companyId + incluir campos de defaults ocultos
-    if (type === 'deal' && !isEdit) {
-      if (companyId) props._companyId = companyId
-      // Incluir campos de defaults que no están en el formulario visible (ej: bp_evento_codigo)
-      Object.entries(defaults).forEach(([k, v]) => {
-        if (!(k in props) && v) props[k] = v
-      })
-      // Auto-asignar zona del operador logueado si no está ya en props
+    if (type === 'deal') {
+      // Auto-asignar zona del usuario en cualquier operación de deal
       if (!props.bp_zona && user?.bp_zona) props.bp_zona = user.bp_zona
+      if (!isEdit) {
+        if (companyId) props._companyId = companyId
+        // Incluir defaults ocultos (ej: bp_evento_codigo)
+        Object.entries(defaults).forEach(([k, v]) => {
+          if (!(k in props) && v) props[k] = v
+        })
+      }
     }
 
     try {

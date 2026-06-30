@@ -35,7 +35,7 @@ if (-not $gitOk) {
 Write-Host "`n[2/3] Commit y push..." -ForegroundColor Yellow
 git add -A
 git status --short
-git commit -m "fix: serializar error de Microsoft Graph en envio de email"
+git commit -m "fix: asociacion deal-empresa usa tipo 5 v3 + modal edicion deal simplificado"
 git branch -M main
 git push -u origin main
 
