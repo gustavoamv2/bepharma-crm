@@ -35,7 +35,7 @@ if (-not $gitOk) {
 Write-Host "`n[2/3] Commit y push..." -ForegroundColor Yellow
 git add -A
 git status --short
-git commit -m "fix: dashboard sin tareas + charts vuelven a chartsData.byStage + chips con fallback metrics"
+git commit -m "fix: orden dashboard - metricas, pipeline, alertas, panel inferior"
 git branch -M main
 git push -u origin main
 
