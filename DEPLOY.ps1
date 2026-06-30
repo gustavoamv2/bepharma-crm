@@ -35,7 +35,7 @@ if (-not $gitOk) {
 Write-Host "`n[2/3] Commit y push..." -ForegroundColor Yellow
 git add -A
 git status --short
-git commit -m "feat: zona BePharma por operador - auto-asigna en deal + admin configura zona + formulario crear evento simplificado"
+git commit -m "fix: asociacion deal-empresa usa API v4 + SPA routing vercel 404 + propiedades deal en empresa"
 git branch -M main
 git push -u origin main
 

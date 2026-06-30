@@ -201,7 +201,7 @@ app.get('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
       dealIds.length
         ? Promise.all(dealIds.slice(0, 10).map(did =>
             hs.get(`/crm/v3/objects/deals/${did}`, {
-              params: { properties: 'dealname,dealstage,amount' }
+              params: { properties: 'dealname,dealstage,amount,bp_estado_prospeccion,bp_evento_codigo' }
             }).then(r => r.data).catch(() => ({ id: did, properties: {} }))
           ))
         : []
@@ -439,12 +439,12 @@ app.post('/api/hubspot/deals', requireAuth, async (req, res) => {
     if (!props.hubspot_owner_id) props.hubspot_owner_id = req.user.ownerId
     const r = await hs.post('/crm/v3/objects/deals', { properties: props })
     const dealId = r.data.id
-    // Si viene _companyId, crear la asociación deal → empresa
+    // Si viene _companyId, crear la asociación deal → empresa (API v4, asociación por defecto)
     if (_companyId && dealId) {
       try {
-        await hs.put(`/crm/v3/objects/deals/${dealId}/associations/companies/${_companyId}/deal_to_company`)
+        await hs.put(`/crm/v4/objects/deals/${dealId}/associations/default/companies/${_companyId}`)
       } catch (assocErr) {
-        console.warn('[deals] Error asociando empresa:', assocErr.message)
+        console.warn('[deals] Error asociando empresa:', assocErr.response?.data || assocErr.message)
       }
     }
     res.json(r.data)
