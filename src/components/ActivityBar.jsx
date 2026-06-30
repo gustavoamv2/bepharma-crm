@@ -3,17 +3,8 @@ import { hubspot } from '../hooks/useApi'
 
 const TABS = [
   { key: 'note',     label: '📝 Nota' },
-  { key: 'call',     label: '📞 Llamada' },
   { key: 'linkedin', label: '💼 LinkedIn' },
   { key: 'followup', label: '📅 Seguimiento' },
-]
-
-const CALL_OUTCOMES = [
-  { value: 'CONNECTED',        label: 'Contestó' },
-  { value: 'NO_ANSWER',        label: 'No contestó' },
-  { value: 'LEFT_VOICEMAIL',   label: 'Buzón de voz' },
-  { value: 'BUSY',             label: 'Ocupado' },
-  { value: 'WRONG_NUMBER',     label: 'Número equivocado' },
 ]
 
 export default function ActivityBar({ objectType, objectId, objectName, onActivityLogged }) {
@@ -23,12 +14,6 @@ export default function ActivityBar({ objectType, objectId, objectName, onActivi
 
   // Note state
   const [noteText, setNoteText] = useState('')
-
-  // Call state
-  const [callOutcome, setCallOutcome] = useState('CONNECTED')
-  const [callDuration, setCallDuration] = useState('')
-  const [callNotes, setCallNotes] = useState('')
-  const [callPhone, setCallPhone] = useState('')
 
   // LinkedIn state
   const [linkedinMsg, setLinkedinMsg] = useState('')
@@ -44,10 +29,6 @@ export default function ActivityBar({ objectType, objectId, objectName, onActivi
 
   const reset = () => {
     setNoteText('')
-    setCallOutcome('CONNECTED')
-    setCallDuration('')
-    setCallNotes('')
-    setCallPhone('')
     setLinkedinMsg('')
     setFollowupDate('')
     setFollowupNotes('')
@@ -69,28 +50,6 @@ export default function ActivityBar({ objectType, objectId, objectName, onActivi
       onActivityLogged?.()
     } catch (e) {
       showFeedback(e.response?.data?.error || 'Error al guardar', 'error')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const saveCall = async () => {
-    setLoading(true)
-    try {
-      await hubspot.logCall({
-        objectType,
-        objectId,
-        outcome: callOutcome,
-        durationSeconds: callDuration ? parseInt(callDuration) : 0,
-        notes: callNotes.trim(),
-        phoneNumber: callPhone.trim(),
-      })
-      showFeedback('Llamada registrada')
-      reset()
-      setActiveTab(null)
-      onActivityLogged?.()
-    } catch (e) {
-      showFeedback(e.response?.data?.error || 'Error al registrar', 'error')
     } finally {
       setLoading(false)
     }
@@ -171,54 +130,6 @@ export default function ActivityBar({ objectType, objectId, objectName, onActivi
                 <button className="btn btn-ghost btn-sm" onClick={() => setActiveTab(null)}>Cancelar</button>
                 <button className="btn btn-primary btn-sm" onClick={saveNote} disabled={loading || !noteText.trim()}>
                   {loading ? 'Guardando…' : 'Guardar nota'}
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* LLAMADA */}
-          {activeTab === 'call' && (
-            <div className="abar-form">
-              <div className="abar-outcome-grid">
-                <div className="form-group">
-                  <label>Resultado</label>
-                  <select value={callOutcome} onChange={e => setCallOutcome(e.target.value)}>
-                    {CALL_OUTCOMES.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Duración (seg)</label>
-                  <input
-                    type="number"
-                    min="0"
-                    placeholder="ej: 120"
-                    value={callDuration}
-                    onChange={e => setCallDuration(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="form-group">
-                <label>Número marcado</label>
-                <input
-                  type="tel"
-                  placeholder="+52 55 1234 5678"
-                  value={callPhone}
-                  onChange={e => setCallPhone(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label>Notas de la llamada</label>
-                <textarea
-                  rows={2}
-                  placeholder="¿Qué pasó en la llamada?"
-                  value={callNotes}
-                  onChange={e => setCallNotes(e.target.value)}
-                />
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
-                <button className="btn btn-ghost btn-sm" onClick={() => setActiveTab(null)}>Cancelar</button>
-                <button className="btn btn-primary btn-sm" onClick={saveCall} disabled={loading}>
-                  {loading ? 'Registrando…' : 'Registrar llamada'}
                 </button>
               </div>
             </div>

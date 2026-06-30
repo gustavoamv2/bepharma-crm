@@ -8,9 +8,12 @@ const rateLimit = require('express-rate-limit')
 const axios = require('axios')
 const crypto = require('crypto')
 const nodemailer = require('nodemailer')
+const fs = require('fs')
+const path = require('path')
 const { login, requireAuth, applyOwnerFilter } = require('./auth')
 const { requireWebhookToken } = require('./middleware/webhookAuth')
 const { errorHandler } = require('./middleware/errorHandler')
+const { loadUsers, saveUsers } = require('./usersStore')
 
 const app = express()
 
@@ -645,7 +648,7 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
 
 // Admin – lista usuarios con config Zadarma
 app.get('/api/admin/users', requireAuth, async (req, res) => {
-  const users = require('./users.json')
+  const users = loadUsers()
   const isSupervisor = req.user.role === 'supervisor'
   const all = Object.entries(users).map(([username, u]) => ({
     username,
@@ -665,13 +668,10 @@ app.get('/api/admin/users', requireAuth, async (req, res) => {
 app.patch('/api/admin/users/:username/sip', requireAuth, async (req, res) => {
   if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
   try {
-    const fs = require('fs')
-    const path = require('path')
-    const usersPath = path.join(__dirname, 'users.json')
-    const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'))
+    const users = loadUsers()
     if (!users[req.params.username]) return res.status(404).json({ error: 'Usuario no encontrado' })
     users[req.params.username].sipExtension = req.body.sipExtension || ''
-    fs.writeFileSync(usersPath, JSON.stringify(users, null, 2))
+    saveUsers(users)
     res.json({ success: true })
   } catch (e) {
     res.status(500).json({ error: e.message })
@@ -682,13 +682,10 @@ app.patch('/api/admin/users/:username/sip', requireAuth, async (req, res) => {
 app.patch('/api/admin/users/:username/zona', requireAuth, async (req, res) => {
   if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
   try {
-    const fs = require('fs')
-    const path = require('path')
-    const usersPath = path.join(__dirname, 'users.json')
-    const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'))
+    const users = loadUsers()
     if (!users[req.params.username]) return res.status(404).json({ error: 'Usuario no encontrado' })
     users[req.params.username].bp_zona = req.body.bp_zona || ''
-    fs.writeFileSync(usersPath, JSON.stringify(users, null, 2))
+    saveUsers(users)
     res.json({ success: true })
   } catch (e) {
     res.status(500).json({ error: e.message })
@@ -1272,7 +1269,7 @@ app.get('/api/email/verify', requireAuth, async (req, res) => {
 // Admin: lista de usuarios con estado de email configurado
 app.get('/api/admin/email-status', requireAuth, async (req, res) => {
   if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
-  const users = require('./users.json')
+  const users = loadUsers()
   const status = Object.keys(users).map(username => ({
     username,
     name: users[username].name,
@@ -1769,11 +1766,9 @@ app.post('/api/webhooks/zadarma-call-end', requireWebhookToken, async (req, res)
     }
 
     // ── Mapear extensión SIP → HubSpot owner ID ─────────────────────────────
-    const fs = require('fs')
-    const path = require('path')
     let hubspotOwnerId = null
     try {
-      const usersData = JSON.parse(fs.readFileSync(path.join(__dirname, 'users.json'), 'utf8'))
+      const usersData = loadUsers()
       const match = Object.values(usersData).find(u => u.sipExtension && u.sipExtension.toString() === (sip || '').toString())
       if (match) hubspotOwnerId = match.ownerId
     } catch (e) { /* ignore */ }

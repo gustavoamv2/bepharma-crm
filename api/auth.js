@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const users = require('./users.json')
+const { loadUsers } = require('./usersStore')
 const { JWT_SECRET, JWT_TTL } = require('./config/env')
 
 const SECRET = JWT_SECRET
@@ -8,6 +8,7 @@ const TOKEN_TTL = JWT_TTL
 
 // ── Login ────────────────────────────────────────────────────────────────────
 async function login(username, password) {
+  const users = loadUsers()
   const user = users[username.toLowerCase()]
   if (!user) throw new Error('Usuario no encontrado')
 
