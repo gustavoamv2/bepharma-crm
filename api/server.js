@@ -525,6 +525,8 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
       return r.data.total || 0
     } catch { return 0 }
   }
+  // Pequeña pausa entre queries para no exceder el rate limit de HubSpot (4 req/s)
+  const delay = (ms) => new Promise(r => setTimeout(r, ms))
 
   const now = new Date()
   const months = [0,1,2,3,4,5].map(i => {
@@ -536,13 +538,21 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
     }
   })
 
-  const [stageCounts, monthlyCounts] = await Promise.all([
-    Promise.all(PIPELINE_STAGES.map(s => safe([{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: s.key }]))),
-    Promise.all(months.map(m => safe([
+  // Queries secuenciales para respetar el rate limit de HubSpot
+  const stageCounts = []
+  for (const s of PIPELINE_STAGES) {
+    stageCounts.push(await safe([{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: s.key }]))
+    await delay(260)
+  }
+
+  const monthlyCounts = []
+  for (const m of months) {
+    monthlyCounts.push(await safe([
       { propertyName: 'createdate', operator: 'GTE', value: String(m.startMs) },
       { propertyName: 'createdate', operator: 'LT',  value: String(m.endMs) },
-    ]))),
-  ])
+    ]))
+    await delay(260)
+  }
 
   res.json({
     byStage: PIPELINE_STAGES.map((s, i) => ({ ...s, count: stageCounts[i] })),
@@ -625,50 +635,43 @@ app.get('/api/hubspot/metrics', requireAuth, async (req, res) => {
       }
     }
 
-    // Distribucion por estado de prospeccion (para grafica de dona)
+    const delayMs = (ms) => new Promise(r => setTimeout(r, ms))
+
+    // Distribucion por estado — secuencial para respetar rate limit HubSpot (4 req/s)
     const BP_ESTADOS = ['nueva', 'en_depuracion', 'en_enriquecimiento', 'contacto_enviado', 'en_seguimiento', 'confirmada', 'no_participa']
-    const estadoCountsRaw = await Promise.all(
-      BP_ESTADOS.map(estado =>
-        safeCount([{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado }])
-      )
-    )
+    const estadoCountsRaw = []
+    for (const estado of BP_ESTADOS) {
+      estadoCountsRaw.push(await safeCount([{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado }]))
+      await delayMs(260)
+    }
     const porEstado = Object.fromEntries(BP_ESTADOS.map((e, i) => [e, estadoCountsRaw[i]]))
 
-    const [
-      sinActividad72h,
-      nuevosEsteMes,
-      sinProximoContacto,
-      callbacksVencidos,
-      confirmadasBePharma,
-      participaOtroEvento,
-    ] = await Promise.all([
-      // Sin actividad operador > 72h (excluye terminales)
-      safeCount([
-        { propertyName: 'bp_ultima_actividad_operador', operator: 'LT', value: String(minus72hMs) },
-        ...notTerminalFilters(),
-      ]),
-      // Nuevos este mes con el evento activo
-      safeCount([
-        { propertyName: 'createdate', operator: 'GTE', value: String(startOfMonthMs) },
-      ]),
-      // Sin proximo contacto agendado (abiertos)
-      safeCount([
-        { propertyName: 'bp_proximo_contacto', operator: 'NOT_HAS_PROPERTY' },
-        ...notTerminalFilters(),
-      ]),
-      // Callbacks vencidos: proximo contacto ya paso y no son terminales
-      safeCount([
-        { propertyName: 'bp_proximo_contacto', operator: 'LT', value: String(now) },
-        ...notTerminalFilters(),
-      ]),
-      // Confirmadas BePharma
-      safeCount([
-        { propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: 'confirmada' },
-      ]),
-      // Participa en otro evento (bp_decision_participacion, no bp_estado_prospeccion)
-      safeCount([
-        { propertyName: 'bp_decision_participacion', operator: 'EQ', value: 'participa_otro_evento' },
-      ]),
+    // Métricas principales — secuencial para respetar rate limit HubSpot
+    const sinActividad72h = await safeCount([
+      { propertyName: 'bp_ultima_actividad_operador', operator: 'LT', value: String(minus72hMs) },
+      ...notTerminalFilters(),
+    ])
+    await delayMs(260)
+    const nuevosEsteMes = await safeCount([
+      { propertyName: 'createdate', operator: 'GTE', value: String(startOfMonthMs) },
+    ])
+    await delayMs(260)
+    const sinProximoContacto = await safeCount([
+      { propertyName: 'bp_proximo_contacto', operator: 'NOT_HAS_PROPERTY' },
+      ...notTerminalFilters(),
+    ])
+    await delayMs(260)
+    const callbacksVencidos = await safeCount([
+      { propertyName: 'bp_proximo_contacto', operator: 'LT', value: String(now) },
+      ...notTerminalFilters(),
+    ])
+    await delayMs(260)
+    const confirmadasBePharma = await safeCount([
+      { propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: 'confirmada' },
+    ])
+    await delayMs(260)
+    const participaOtroEvento = await safeCount([
+      { propertyName: 'bp_decision_participacion', operator: 'EQ', value: 'participa_otro_evento' },
     ])
 
     res.json({
@@ -1077,11 +1080,14 @@ function getUserMailer(username) {
   const emailPass = process.env[`EMAIL_PASS_${key}`]
   if (!emailUser || !emailPass) return null
   const port = parseInt(process.env.SMTP_PORT || '465')
+  // SMTP_AUTH_USER permite separar el usuario de autenticación SMTP (ej: "resend")
+  // del email de origen (EMAIL_USER_*). Si no está definido, usa EMAIL_USER_*.
+  const smtpAuthUser = process.env.SMTP_AUTH_USER || emailUser
   return nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.resend.com',
     port,
     secure: port === 465,
-    auth: { user: emailUser, pass: emailPass },
+    auth: { user: smtpAuthUser, pass: emailPass },
   })
 }
 

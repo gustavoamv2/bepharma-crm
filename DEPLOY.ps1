@@ -35,7 +35,7 @@ if (-not $gitOk) {
 Write-Host "`n[2/3] Commit y push..." -ForegroundColor Yellow
 git add -A
 git status --short
-git commit -m "fix: orden dashboard - metricas, pipeline, alertas, panel inferior"
+git commit -m "fix: queries HubSpot secuenciales en charts y metrics para evitar rate limit"
 git branch -M main
 git push -u origin main
 
