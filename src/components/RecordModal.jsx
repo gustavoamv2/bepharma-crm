@@ -284,7 +284,7 @@ const DEAL_FIELDS = [
 ]
 
 const COMPANY_FIELDS = [
-  { key: 'name',     label: 'Nombre de la empresa', required: true, type: 'text' },
+  { key: 'name',     label: 'Nombre de la empresa', required: true, type: 'company-name-search' },
   { key: 'domain',   label: 'Dominio web',           type: 'text', placeholder: 'empresa.com' },
   { key: 'phone',    label: 'Teléfono',              type: 'text' },
   { key: 'country',  label: 'País',                  type: 'country-autocomplete' },
@@ -659,7 +659,7 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
         <form onSubmit={handleSubmit} style={{ flex: 1, overflowY: 'auto', padding: 20 }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
             {fields.map(f => (
-              <div key={f.key} style={{ gridColumn: (f.type === 'textarea' || f.type === 'company-search') ? '1 / -1' : 'auto' }}>
+              <div key={f.key} style={{ gridColumn: (f.type === 'textarea' || f.type === 'company-search' || f.type === 'company-name-search') ? '1 / -1' : 'auto' }}>
                 <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#6b778c', marginBottom: 5 }}>
                   {f.label}{f.required && <span style={{ color: '#de350b' }}> *</span>}
                 </label>
@@ -668,6 +668,12 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
                     value={form[f.key] || ''}
                     onChange={(v) => set(f.key, v)}
                     onCompanySelect={(id) => setSelectedCompanyId(id)}
+                  />
+                ) : f.type === 'company-name-search' ? (
+                  <CompanySearchField
+                    value={form[f.key] || ''}
+                    onChange={(v) => set(f.key, v)}
+                    onCompanySelect={() => {}}
                   />
                 ) : f.type === 'country-autocomplete' ? (
                   <AutocompleteField

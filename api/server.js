@@ -118,8 +118,26 @@ app.get('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
     }
 
     // Deduplicar contactos y enriquecer con nombre, teléfono y email
-    const rawContacts = deal.associations?.contacts?.results || []
-    const uniqueContactIds = [...new Set(rawContacts.map(c => String(c.id)))]
+    // Fallback: si el deal no tiene contactos directos, tomar los de la empresa vinculada
+    let rawContacts = deal.associations?.contacts?.results || []
+    if (rawContacts.length === 0 && uniqueCompanyIds.length > 0) {
+      try {
+        // Pedir asociaciones de contactos para cada empresa vinculada
+        const assocResults = await Promise.all(
+          uniqueCompanyIds.map(cid =>
+            hs.get(`/crm/v3/objects/companies/${cid}/associations/contacts`)
+              .then(r => r.data.results || [])
+              .catch(() => [])
+          )
+        )
+        rawContacts = assocResults.flat()
+        // Inicializar la clave si no existía
+        if (!deal.associations) deal.associations = {}
+        if (!deal.associations.contacts) deal.associations.contacts = { results: [] }
+      } catch { /* no crítico */ }
+    }
+
+    const uniqueContactIds = [...new Set(rawContacts.map(c => String(c.id || c.toObjectId)))]
     if (uniqueContactIds.length > 0) {
       try {
         const cr = await hs.post('/crm/v3/objects/contacts/batch/read', {
