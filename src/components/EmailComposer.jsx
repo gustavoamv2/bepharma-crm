@@ -72,7 +72,8 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', con
       toast('Email enviado y registrado en HubSpot', 'success')
       onClose()
     } catch (e) {
-      const msg = e.response?.data?.error || e.message
+      const raw = e.response?.data?.error || e.message
+      const msg = typeof raw === 'object' ? JSON.stringify(raw) : String(raw || 'Error desconocido')
       toast('Error al enviar: ' + msg, 'error')
     } finally {
       setSending(false)

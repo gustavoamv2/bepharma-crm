@@ -1254,7 +1254,9 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
 
     res.json({ success: true })
   } catch (e) {
-    const msg = e.response?.data?.message || e.response?.data?.error || e.message
+    const d = e.response?.data
+    const msg = d?.error?.message || d?.message || (typeof d?.error === 'string' ? d.error : null) || e.message || 'Error desconocido'
+    console.error('[email/send]', JSON.stringify(d || e.message))
     res.status(500).json({ error: msg })
   }
 })
