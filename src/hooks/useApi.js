@@ -77,6 +77,7 @@ export const rocketreach = {
 export const admin = {
   getUsers:        ()                               => api.get('/admin/users').then(r => r.data),
   updateSip:       (username, sipExtension)         => api.patch(`/admin/users/${username}/sip`, { sipExtension }).then(r => r.data),
+  updateZona:      (username, bp_zona)              => api.patch(`/admin/users/${username}/zona`, { bp_zona }).then(r => r.data),
   updateEmail:     (username, emailUser, emailPass) => api.patch(`/admin/users/${username}/email`, { emailUser, emailPass }).then(r => r.data),
   getIntegrations: ()                               => api.get('/admin/integrations').then(r => r.data),
 }

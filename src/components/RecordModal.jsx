@@ -3,6 +3,7 @@ import { useQueryClient } from 'react-query'
 import { X, Search } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import { useToast } from '../hooks/useToast'
+import { useAuth } from '../contexts/AuthContext'
 
 // ── Schemas por tipo de objeto ─────────────────────────────────────────────────
 const DEAL_FIELDS = [
@@ -245,11 +246,31 @@ function CompanySearchField({ value, onChange, onCompanySelect }) {
   )
 }
 
+// Campos simplificados para crear deal desde una empresa
+const DEAL_FIELDS_FROM_COMPANY = [
+  { key: 'dealname', label: 'Nombre del evento', required: true, type: 'text' },
+  { key: 'bp_estado_prospeccion', label: 'Estado de prospección', required: true, type: 'select',
+    options: [
+      { value: 'nueva',              label: 'Nueva' },
+      { value: 'en_depuracion',      label: 'En Depuración' },
+      { value: 'en_enriquecimiento', label: 'En Enriquecimiento' },
+      { value: 'contacto_enviado',   label: 'Contacto enviado' },
+      { value: 'en_seguimiento',     label: 'En seguimiento' },
+      { value: 'confirmada',         label: 'Confirmada BePharma' },
+      { value: 'no_participa',       label: 'No participa' },
+    ]
+  },
+]
+
 // ── Modal ──────────────────────────────────────────────────────────────────────
 export default function RecordModal({ type, record, onClose, onSaved, companyId = null, defaults = {} }) {
   const { addToast } = useToast()
-  const fields = SCHEMAS[type] || []
+  const { user } = useAuth()
   const isEdit = !!record?.id
+
+  // Modo simplificado: crear deal desde empresa
+  const isFromCompany = type === 'deal' && !!companyId && !isEdit
+  const fields = isFromCompany ? DEAL_FIELDS_FROM_COMPANY : (SCHEMAS[type] || [])
 
   // Inicializa form: prioridad → valor actual del record → defaults → vacío
   const initial = {}
@@ -305,6 +326,8 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
       Object.entries(defaults).forEach(([k, v]) => {
         if (!(k in props) && v) props[k] = v
       })
+      // Auto-asignar zona del operador logueado si no está ya en props
+      if (!props.bp_zona && user?.bp_zona) props.bp_zona = user.bp_zona
     }
 
     try {

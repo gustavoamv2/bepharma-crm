@@ -19,7 +19,8 @@ async function login(username, password) {
     name: user.name,
     role: user.role,           // 'supervisor' | 'operator'
     ownerId: user.ownerId,     // HubSpot owner ID
-    sipExtension: user.sipExtension || ''  // Zadarma SIP extension
+    sipExtension: user.sipExtension || '',  // Zadarma SIP extension
+    bp_zona: user.bp_zona || ''  // Zona BePharma asignada al usuario
   }
 
   const token = jwt.sign(payload, SECRET, { expiresIn: TOKEN_TTL })

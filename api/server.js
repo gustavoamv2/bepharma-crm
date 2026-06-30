@@ -585,6 +585,7 @@ app.get('/api/admin/users', requireAuth, async (req, res) => {
     role: u.role,
     ownerId: u.ownerId,
     sipExtension: u.sipExtension || '',
+    bp_zona: u.bp_zona || '',
     emailUser: u.emailUser || ''   // no exponemos emailPass
   }))
   res.json(safe)
@@ -600,6 +601,23 @@ app.patch('/api/admin/users/:username/sip', requireAuth, async (req, res) => {
     const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'))
     if (!users[req.params.username]) return res.status(404).json({ error: 'Usuario no encontrado' })
     users[req.params.username].sipExtension = req.body.sipExtension || ''
+    fs.writeFileSync(usersPath, JSON.stringify(users, null, 2))
+    res.json({ success: true })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// Admin – actualizar zona BePharma de un usuario
+app.patch('/api/admin/users/:username/zona', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  try {
+    const fs = require('fs')
+    const path = require('path')
+    const usersPath = path.join(__dirname, 'users.json')
+    const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'))
+    if (!users[req.params.username]) return res.status(404).json({ error: 'Usuario no encontrado' })
+    users[req.params.username].bp_zona = req.body.bp_zona || ''
     fs.writeFileSync(usersPath, JSON.stringify(users, null, 2))
     res.json({ success: true })
   } catch (e) {

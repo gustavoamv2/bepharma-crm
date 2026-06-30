@@ -95,6 +95,8 @@ export default function AdminPage() {
   const [editingUser, setEditingUser] = useState(null)
   const [emailForm, setEmailForm] = useState({})   // { username: { user, pass } }
   const [sipValue, setSipValue] = useState('')
+  const [editingZona, setEditingZona] = useState(null)
+  const [zonaValue, setZonaValue] = useState('')
   const [saving, setSaving] = useState(false)
   const [showEmailCmd, setShowEmailCmd] = useState(null)
 
@@ -125,6 +127,20 @@ export default function AdminPage() {
       setEditingUser(null)
     } catch (e) {
       addToast('Error al guardar', 'error')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const saveZona = async (username) => {
+    setSaving(true)
+    try {
+      await admin.updateZona(username, zonaValue)
+      qc.invalidateQueries('admin-users')
+      addToast('Zona actualizada', 'success')
+      setEditingZona(null)
+    } catch (e) {
+      addToast('Error al guardar zona', 'error')
     } finally {
       setSaving(false)
     }
@@ -208,6 +224,81 @@ export default function AdminPage() {
                           ) : (
                             <button className="btn btn-ghost btn-sm" onClick={() => startEdit(u)}>
                               Editar ext.
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+
+        {/* Zonas BePharma por usuario */}
+        <div className="card" style={{ marginBottom: 24 }}>
+          <div className="card-header">
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              🌎 Zona BePharma por Operador
+            </h2>
+          </div>
+          {isLoading ? (
+            <div className="loading">Cargando…</div>
+          ) : (
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Usuario</th>
+                    <th>Rol</th>
+                    <th>Zona asignada</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(users || []).map(u => {
+                    const isEditing = editingZona === u.username
+                    const BP_ZONA_OPTIONS = ['EEUU','Europa','LATAM Norte','LATAM Sur','Asia','Africa','Oceania','Medio Oriente']
+                    return (
+                      <tr key={u.username}>
+                        <td>
+                          <div style={{ fontWeight: 600 }}>{u.name}</div>
+                          <div style={{ fontSize: 11, color: '#6b778c' }}>@{u.username}</div>
+                        </td>
+                        <td>
+                          <span style={{ background: ROLE_BADGE[u.role]?.bg, color: ROLE_BADGE[u.role]?.color, padding: '2px 8px', borderRadius: 12, fontSize: 11, fontWeight: 600 }}>
+                            {ROLE_BADGE[u.role]?.label}
+                          </span>
+                        </td>
+                        <td>
+                          {isEditing ? (
+                            <select
+                              value={zonaValue}
+                              onChange={e => setZonaValue(e.target.value)}
+                              style={{ padding: '4px 8px', border: '1px solid #4fc3f7', borderRadius: 4, fontSize: 13 }}
+                              autoFocus
+                            >
+                              <option value="">— Sin zona —</option>
+                              {BP_ZONA_OPTIONS.map(z => <option key={z} value={z}>{z}</option>)}
+                            </select>
+                          ) : (
+                            <span style={{ fontWeight: 600, color: u.bp_zona ? '#0052cc' : '#6b778c' }}>
+                              {u.bp_zona || '—'}
+                            </span>
+                          )}
+                        </td>
+                        <td>
+                          {isEditing ? (
+                            <div style={{ display: 'flex', gap: 6 }}>
+                              <button className="btn btn-primary btn-sm" onClick={() => saveZona(u.username)} disabled={saving}>
+                                <Check size={12} /> {saving ? '…' : 'Guardar'}
+                              </button>
+                              <button className="btn btn-ghost btn-sm" onClick={() => setEditingZona(null)}>×</button>
+                            </div>
+                          ) : (
+                            <button className="btn btn-ghost btn-sm" onClick={() => { setEditingZona(u.username); setZonaValue(u.bp_zona || '') }}>
+                              Editar zona
                             </button>
                           )}
                         </td>
