@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useQuery, useQueryClient } from 'react-query'
 import { format } from 'date-fns'
@@ -26,15 +26,24 @@ const COMPANY_STAGES = [
 function StageSelector({ companyId, currentStage, onUpdated }) {
   const [saving, setSaving] = useState(false)
   const [value, setValue] = useState(currentStage || '')
+  const [savedOk, setSavedOk] = useState(false)
   const [errorMsg, setErrorMsg] = useState(null)
+
+  // Resincroniza cuando el padre refresca (refetch tras invalidateQueries)
+  useEffect(() => {
+    setValue(currentStage || '')
+  }, [currentStage])
 
   const handleChange = async (e) => {
     const newStage = e.target.value
     setValue(newStage)
     setSaving(true)
+    setSavedOk(false)
     setErrorMsg(null)
     try {
       await hubspot.updateCompany(companyId, { bp_etapa_empresa: newStage })
+      setSavedOk(true)
+      setTimeout(() => setSavedOk(false), 2000)
       onUpdated?.()
     } catch (err) {
       const d = err.response?.data
@@ -45,8 +54,6 @@ function StageSelector({ companyId, currentStage, onUpdated }) {
       setSaving(false)
     }
   }
-
-  const current = COMPANY_STAGES.find(s => s.key === value)
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -66,9 +73,13 @@ function StageSelector({ companyId, currentStage, onUpdated }) {
             <option key={s.key} value={s.key}>{s.label}</option>
           ))}
         </select>
-        {saving && <span style={{ fontSize: 11, color: '#6b778c' }}>Guardando…</span>}
+        {saving  && <span style={{ fontSize: 11, color: '#6b778c' }}>Guardando…</span>}
+        {savedOk && <span style={{ fontSize: 11, color: '#15803d' }}>✓ Guardado</span>}
       </div>
       {errorMsg && <div style={{ fontSize: 11, color: '#b91c1c' }}>{errorMsg}</div>}
+      <div style={{ fontSize: 10, color: '#6b778c', lineHeight: 1.4 }}>
+        Esta etapa clasifica la empresa en el CRM. Para mover un evento en el Pipeline, edita el estado directamente desde el evento o el Kanban.
+      </div>
     </div>
   )
 }
