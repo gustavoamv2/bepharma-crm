@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
-import { AlertTriangle, TrendingUp, Calendar, PhoneCall, CheckSquare, Users, Clock, BarChart2, Eye } from 'lucide-react'
-import { format } from 'date-fns'
-import { es } from 'date-fns/locale'
+import { AlertTriangle, TrendingUp, Calendar, PhoneCall, CheckSquare, Users, BarChart2, Eye } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useAuth } from '../contexts/AuthContext'
@@ -160,22 +158,6 @@ const nowMs = () => String(Date.now())
 const minus72hMs = () => String(Date.now() - 72 * 3600 * 1000)
 const startMonthMs = () => String(new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime())
 
-const safeFmt = (val) => {
-  if (!val) return '—'
-  const n = Number(val)
-  const d = isNaN(n) || n === 0 ? new Date(val) : new Date(n)
-  if (isNaN(d.getTime())) return '—'
-  return format(d, 'dd MMM HH:mm', { locale: es })
-}
-
-const PRIORITY_BADGE = {
-  HIGH:   { label: 'Alta',  cls: 'badge-red' },
-  MEDIUM: { label: 'Media', cls: 'badge-yellow' },
-  LOW:    { label: 'Baja',  cls: 'badge-gray' },
-}
-
-const ASSOC_PATHS = { deals: '/deals', contacts: '/contacts', companies: '/companies' }
-
 export default function Dashboard() {
   const nav = useNavigate()
   const { user } = useAuth()
@@ -192,7 +174,6 @@ export default function Dashboard() {
     // Elimina cache para forzar refetch con la nueva vista al renderizar
     qc.removeQueries(['metrics'])
     qc.removeQueries(['charts'])
-    qc.removeQueries(['tasks-pending'])
     setViewAsOperator(next)
   }
   const isSupervisor = user?.role === 'supervisor' && !viewAsOperator
@@ -210,14 +191,6 @@ export default function Dashboard() {
     { refetchInterval: 10 * 60 * 1000 }
   )
 
-  const { data: tasksData, isLoading: loadingTasks } = useQuery(
-    ['tasks-pending', user?.username, viewAsOperator],
-    hubspot.getPendingTasks,
-    { refetchInterval: 3 * 60 * 1000 }
-  )
-
-  const tasks = tasksData?.results || []
-
   // ── Alertas del supervisor ────────────────────────────────────────────────
   // El servidor aplica applyOwnerFilter automáticamente (operadores solo ven sus propios deals)
   const { data: alertsData } = useQuery(
@@ -234,6 +207,12 @@ export default function Dashboard() {
     { refetchInterval: 2 * 60 * 1000 }
   )
   const alertDeals = alertsData?.results || []
+
+  // ── byStage: usa metrics.porEstado (correcto) en lugar de chartsData.byStage (rate-limited → 0)
+  const STAGE_ORDER = ['nueva', 'en_depuracion', 'en_enriquecimiento', 'contacto_enviado', 'en_seguimiento', 'confirmada', 'no_participa']
+  const byStage = metrics?.porEstado
+    ? STAGE_ORDER.map(key => ({ key, label: STAGE_LABELS[key], count: metrics.porEstado[key] || 0 }))
+    : (chartsData?.byStage || [])
 
   // ── Metricas cards usando propiedades BePharma ────────────────────────────
   const metricCards = [
@@ -348,13 +327,6 @@ export default function Dashboard() {
       { propertyName: 'bp_evento_codigo',      operator: 'EQ', value: ACTIVE_EVENT },
       { propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: slice.key },
     ]}}})
-  }
-
-  // ── Navegación desde tarea pendiente ──────────────────────────────────────
-  const handleTaskClick = (task) => {
-    if (task._assoc) {
-      nav(`${ASSOC_PATHS[task._assoc.type]}/${task._assoc.id}`)
-    }
   }
 
   return (
@@ -477,12 +449,12 @@ export default function Dashboard() {
             )}
 
             {/* Gráficas */}
-            {chartsData && (
+            {(byStage.length > 0 || chartsData) && (
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                 <div>
                   <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Eventos por etapa</div>
                   <BarChart
-                    data={chartsData.byStage?.map(s => ({ ...s, label: STAGE_LABELS[s.key] || s.label }))}
+                    data={byStage}
                     color="#0052cc"
                     onBarClick={handleBarClick}
                   />
@@ -490,134 +462,64 @@ export default function Dashboard() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                   <div>
                     <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Distribución por etapa</div>
-                    <DonutChart data={chartsData.byStage} onSliceClick={handleSliceClick} />
+                    <DonutChart data={byStage} onSliceClick={handleSliceClick} />
                   </div>
-                  <div>
-                    <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Nuevos eventos · últimos 6 meses</div>
-                    <BarChart
-                      data={chartsData.byMonth?.map(m => ({ ...m, key: m.label }))}
-                      color="#00875a"
-                      height={100}
-                    />
-                  </div>
+                  {chartsData?.byMonth?.length > 0 && (
+                    <div>
+                      <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Nuevos eventos · últimos 6 meses</div>
+                      <BarChart
+                        data={chartsData.byMonth.map(m => ({ ...m, key: m.label }))}
+                        color="#00875a"
+                        height={100}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* ── Sección inferior: tareas (supervisor) + panel lateral ─────── */}
+        {/* ── Panel inferior: accesos rápidos + equipo/perfil ─────── */}
         {isSupervisor ? (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 20 }}>
-
-            {/* Tareas pendientes del equipo */}
-            <div className="card">
-              <div className="card-header">
-                <h2>
-                  <Clock size={14} style={{ verticalAlign: 'middle', marginRight: 6, color: '#ff8b00' }} />
-                  Tareas pendientes del equipo
-                </h2>
-                <span className="badge badge-yellow">{tasks.length}</span>
-              </div>
-              {loadingTasks ? (
-                <div className="loading">Cargando tareas…</div>
-              ) : tasks.length === 0 ? (
-                <div className="empty">Sin tareas pendientes en el equipo ✓</div>
-              ) : (
-                <div className="table-wrap">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Tarea</th>
-                        <th>Vinculado a</th>
-                        <th>Prioridad</th>
-                        <th>Fecha límite</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tasks.map(t => {
-                        const p = t.properties
-                        const pri = PRIORITY_BADGE[p.hs_task_priority] || PRIORITY_BADGE.MEDIUM
-                        const date = safeFmt(p.hs_timestamp)
-                        const hasAssoc = !!t._assoc
-                        const ASSOC_ICONS = { deals: '💼', contacts: '👤', companies: '🏭' }
-                        return (
-                          <tr
-                            key={t.id}
-                            className={hasAssoc ? 'clickable' : ''}
-                            onClick={() => hasAssoc && handleTaskClick(t)}
-                            title={hasAssoc ? `Ir a ${t._assoc.name}` : ''}
-                          >
-                            <td>
-                              <div style={{ fontWeight: 500, fontSize: 13 }}>
-                                {p.hs_task_subject || '(sin título)'}
-                              </div>
-                              {p.hs_task_body && (
-                                <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>
-                                  {p.hs_task_body.replace(/<[^>]+>/g, '').slice(0, 80)}
-                                </div>
-                              )}
-                            </td>
-                            <td>
-                              {t._assoc ? (
-                                <span style={{ fontSize: 12, display: 'flex', alignItems: 'center', gap: 4 }}>
-                                  <span>{ASSOC_ICONS[t._assoc.type]}</span>
-                                  <span style={{ color: 'var(--primary)', fontWeight: 500 }}>{t._assoc.name}</span>
-                                </span>
-                              ) : (
-                                <span style={{ color: 'var(--text-muted)', fontSize: 12 }}>—</span>
-                              )}
-                            </td>
-                            <td><span className={'badge ' + pri.cls}>{pri.label}</span></td>
-                            <td style={{ fontSize: 12, color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{date}</td>
-                          </tr>
-                        )
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div>
-
-            {/* Panel derecho supervisor */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div className="card">
-                <div className="card-header"><h2>Accesos rápidos</h2></div>
-                <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  {quickLinks.map((link, i) => (
-                    <button key={i} className="btn btn-ghost"
-                      style={{ justifyContent: 'flex-start', textAlign: 'left' }}
-                      onClick={() => handleQuickLink(link)}>
-                      {link.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div className="card">
-                <div className="card-header">
-                  <h2><Users size={14} style={{ verticalAlign: 'middle', marginRight: 6 }} />Equipo</h2>
-                  <button className="btn btn-ghost btn-sm" onClick={() => nav('/reports')} style={{ fontSize: 11 }}>
-                    Ver reportes →
+          /* Supervisor: quicklinks + equipo en fila */
+          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+            <div className="card" style={{ flex: '1 1 200px' }}>
+              <div className="card-header"><h2>Accesos rápidos</h2></div>
+              <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {quickLinks.map((link, i) => (
+                  <button key={i} className="btn btn-ghost"
+                    style={{ justifyContent: 'flex-start', textAlign: 'left' }}
+                    onClick={() => handleQuickLink(link)}>
+                    {link.label}
                   </button>
-                </div>
-                <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                  {[
-                    { name: 'Yesenia', zona: 'EEUU · Europa · LATAM Norte',     ownerId: '93621022' },
-                    { name: 'Angel',   zona: 'Europa del Este · Medio Oriente', ownerId: '93771980' },
-                    { name: 'Gracie',  zona: 'Asia Pacífico · Oceanía',         ownerId: '93771979' },
-                    { name: 'Carlos',  zona: 'LATAM Sur · Caribe',              ownerId: '93771981' },
-                    { name: 'Sara',    zona: 'África · Asia Central',           ownerId: '73112880' },
-                  ].map(op => (
-                    <div key={op.name}
-                      style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid var(--border)', fontSize: 12, cursor: 'pointer' }}
-                      onClick={() => nav('/deals', { state: { filter: { filters: [{ propertyName: 'hubspot_owner_id', operator: 'EQ', value: op.ownerId }] } } })}
-                      title={`Ver deals de ${op.name}`}
-                    >
-                      <span style={{ fontWeight: 600 }}>{op.name}</span>
-                      <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>{op.zona}</span>
-                    </div>
-                  ))}
-                </div>
+                ))}
+              </div>
+            </div>
+            <div className="card" style={{ flex: '2 1 320px' }}>
+              <div className="card-header">
+                <h2><Users size={14} style={{ verticalAlign: 'middle', marginRight: 6 }} />Equipo</h2>
+                <button className="btn btn-ghost btn-sm" onClick={() => nav('/reports')} style={{ fontSize: 11 }}>
+                  Ver reportes →
+                </button>
+              </div>
+              <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {[
+                  { name: 'Yesenia', zona: 'EEUU · Europa · LATAM Norte',     ownerId: '93621022' },
+                  { name: 'Angel',   zona: 'Europa del Este · Medio Oriente', ownerId: '93771980' },
+                  { name: 'Gracie',  zona: 'Asia Pacífico · Oceanía',         ownerId: '93771979' },
+                  { name: 'Carlos',  zona: 'LATAM Sur · Caribe',              ownerId: '93771981' },
+                  { name: 'Sara',    zona: 'África · Asia Central',           ownerId: '73112880' },
+                ].map(op => (
+                  <div key={op.name}
+                    style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid var(--border)', fontSize: 12, cursor: 'pointer' }}
+                    onClick={() => nav('/deals', { state: { filter: { filters: [{ propertyName: 'hubspot_owner_id', operator: 'EQ', value: op.ownerId }] } } })}
+                    title={`Ver deals de ${op.name}`}
+                  >
+                    <span style={{ fontWeight: 600 }}>{op.name}</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>{op.zona}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

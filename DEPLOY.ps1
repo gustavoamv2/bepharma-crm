@@ -35,7 +35,7 @@ if (-not $gitOk) {
 Write-Host "`n[2/3] Commit y push..." -ForegroundColor Yellow
 git add -A
 git status --short
-git commit -m "feat: rediseño dashboard + kanban compacto + fix company stage selector (useEffect sync, nota pipeline)"
+git commit -m "fix: dashboard sin tareas + donut usa metrics.porEstado (fix Sin datos por rate-limit HubSpot)"
 git branch -M main
 git push -u origin main
 
