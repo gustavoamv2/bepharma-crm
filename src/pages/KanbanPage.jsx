@@ -192,7 +192,13 @@ export default function KanbanPage() {
   const [activeDeal, setActiveDeal] = useState(null)   // deal being dragged
   const [confirm, setConfirm] = useState(null)          // { dealId, fromStage, toStage }
 
-  const isSupervisor = user?.role === 'supervisor'
+  const [viewMode, setViewMode] = useState(() => sessionStorage.getItem('bp_view_mode') || '')
+  useEffect(() => {
+    const handler = () => setViewMode(sessionStorage.getItem('bp_view_mode') || '')
+    window.addEventListener('bpViewModeChange', handler)
+    return () => window.removeEventListener('bpViewModeChange', handler)
+  }, [])
+  const isSupervisor = user?.role === 'supervisor' && viewMode !== 'operator'
 
   // Columnas terminales colapsadas por defecto
   const [collapsedCols, setCollapsedCols] = useState(new Set(TERMINAL_STAGES))

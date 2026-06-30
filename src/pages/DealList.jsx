@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Plus, AlertTriangle, Calendar, Flag } from 'lucide-react'
@@ -103,7 +103,13 @@ export default function DealList() {
   const qc = useQueryClient()
   const location = useLocation()
   const { user } = useAuth()
-  const isSupervisor = user?.role === 'supervisor'
+  const [viewMode, setViewMode] = useState(() => sessionStorage.getItem('bp_view_mode') || '')
+  useEffect(() => {
+    const handler = () => setViewMode(sessionStorage.getItem('bp_view_mode') || '')
+    window.addEventListener('bpViewModeChange', handler)
+    return () => window.removeEventListener('bpViewModeChange', handler)
+  }, [])
+  const isSupervisor = user?.role === 'supervisor' && viewMode !== 'operator'
 
   const preFilter = location.state?.filter || null
 
