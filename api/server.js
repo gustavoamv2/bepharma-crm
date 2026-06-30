@@ -108,12 +108,28 @@ app.get('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
       try {
         const cr = await hs.post('/crm/v3/objects/companies/batch/read', {
           inputs: uniqueCompanyIds.map(id => ({ id })),
-          properties: ['name', 'domain'],
+          properties: ['name', 'domain', 'phone', 'email'],
         })
         const byId = Object.fromEntries((cr.data.results || []).map(c => [c.id, c]))
         deal.associations.companies.results = uniqueCompanyIds.map(id => byId[id]).filter(Boolean)
       } catch {
         deal.associations.companies.results = uniqueCompanyIds.map(id => ({ id }))
+      }
+    }
+
+    // Deduplicar contactos y enriquecer con nombre, teléfono y email
+    const rawContacts = deal.associations?.contacts?.results || []
+    const uniqueContactIds = [...new Set(rawContacts.map(c => String(c.id)))]
+    if (uniqueContactIds.length > 0) {
+      try {
+        const cr = await hs.post('/crm/v3/objects/contacts/batch/read', {
+          inputs: uniqueContactIds.map(id => ({ id })),
+          properties: ['firstname', 'lastname', 'email', 'phone', 'jobtitle'],
+        })
+        const byId = Object.fromEntries((cr.data.results || []).map(c => [c.id, c]))
+        deal.associations.contacts.results = uniqueContactIds.map(id => byId[id]).filter(Boolean)
+      } catch {
+        deal.associations.contacts.results = uniqueContactIds.map(id => ({ id }))
       }
     }
 
@@ -525,9 +541,27 @@ app.delete('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
 // ──────────────────────────────────────────────────────────────────────────────
 app.patch('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
   try {
-    // Extraer campos internos que no son propiedades de HubSpot
     const { _companyId, ...properties } = req.body
-    const r = await hs.patch(`/crm/v3/objects/contacts/${req.params.id}`, { properties })
+    const contactId = req.params.id
+    const r = await hs.patch(`/crm/v3/objects/contacts/${contactId}`, { properties })
+
+    // Si cambia la empresa: quitar asociaciones anteriores y crear la nueva
+    if (_companyId) {
+      try {
+        const existing = await hs.get(`/crm/v3/objects/contacts/${contactId}/associations/companies`)
+        const oldIds = (existing.data.results || []).map(c => c.id)
+        await Promise.all(oldIds.map(oldId =>
+          hs.delete(`/crm/v3/objects/contacts/${contactId}/associations/companies/${oldId}/1`)
+            .catch(() => {})
+        ))
+      } catch {}
+      await hs.put(
+        `/crm/v3/objects/contacts/${contactId}/associations/companies/${_companyId}/1`,
+        {},
+        { headers: { 'Content-Type': 'application/json' } }
+      )
+    }
+
     res.json(r.data)
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })

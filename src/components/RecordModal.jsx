@@ -5,6 +5,241 @@ import { hubspot } from '../hooks/useApi'
 import { useToast } from '../hooks/useToast'
 import { useAuth } from '../contexts/AuthContext'
 
+// ── Países (label español, en para API de ciudades) ────────────────────────────
+const COUNTRIES = [
+  { label: 'Argentina', en: 'Argentina' },
+  { label: 'Australia', en: 'Australia' },
+  { label: 'Austria', en: 'Austria' },
+  { label: 'Bélgica', en: 'Belgium' },
+  { label: 'Bolivia', en: 'Bolivia' },
+  { label: 'Brasil', en: 'Brazil' },
+  { label: 'Canadá', en: 'Canada' },
+  { label: 'Chile', en: 'Chile' },
+  { label: 'China', en: 'China' },
+  { label: 'Colombia', en: 'Colombia' },
+  { label: 'Costa Rica', en: 'Costa Rica' },
+  { label: 'Cuba', en: 'Cuba' },
+  { label: 'Dinamarca', en: 'Denmark' },
+  { label: 'Ecuador', en: 'Ecuador' },
+  { label: 'Egipto', en: 'Egypt' },
+  { label: 'El Salvador', en: 'El Salvador' },
+  { label: 'Emiratos Árabes Unidos', en: 'United Arab Emirates' },
+  { label: 'España', en: 'Spain' },
+  { label: 'Estados Unidos', en: 'United States' },
+  { label: 'Etiopía', en: 'Ethiopia' },
+  { label: 'Filipinas', en: 'Philippines' },
+  { label: 'Finlandia', en: 'Finland' },
+  { label: 'Francia', en: 'France' },
+  { label: 'Ghana', en: 'Ghana' },
+  { label: 'Guatemala', en: 'Guatemala' },
+  { label: 'Honduras', en: 'Honduras' },
+  { label: 'India', en: 'India' },
+  { label: 'Indonesia', en: 'Indonesia' },
+  { label: 'Irán', en: 'Iran' },
+  { label: 'Iraq', en: 'Iraq' },
+  { label: 'Irlanda', en: 'Ireland' },
+  { label: 'Israel', en: 'Israel' },
+  { label: 'Italia', en: 'Italy' },
+  { label: 'Japón', en: 'Japan' },
+  { label: 'Jordania', en: 'Jordan' },
+  { label: 'Kazajistán', en: 'Kazakhstan' },
+  { label: 'Kenia', en: 'Kenya' },
+  { label: 'Marruecos', en: 'Morocco' },
+  { label: 'México', en: 'Mexico' },
+  { label: 'Nigeria', en: 'Nigeria' },
+  { label: 'Noruega', en: 'Norway' },
+  { label: 'Nueva Zelanda', en: 'New Zealand' },
+  { label: 'Países Bajos', en: 'Netherlands' },
+  { label: 'Pakistán', en: 'Pakistan' },
+  { label: 'Panamá', en: 'Panama' },
+  { label: 'Paraguay', en: 'Paraguay' },
+  { label: 'Perú', en: 'Peru' },
+  { label: 'Polonia', en: 'Poland' },
+  { label: 'Portugal', en: 'Portugal' },
+  { label: 'Puerto Rico', en: 'Puerto Rico' },
+  { label: 'Reino Unido', en: 'United Kingdom' },
+  { label: 'República Checa', en: 'Czech Republic' },
+  { label: 'República Dominicana', en: 'Dominican Republic' },
+  { label: 'Rumanía', en: 'Romania' },
+  { label: 'Rusia', en: 'Russia' },
+  { label: 'Arabia Saudita', en: 'Saudi Arabia' },
+  { label: 'Sudáfrica', en: 'South Africa' },
+  { label: 'Suecia', en: 'Sweden' },
+  { label: 'Suiza', en: 'Switzerland' },
+  { label: 'Tailandia', en: 'Thailand' },
+  { label: 'Taiwán', en: 'Taiwan' },
+  { label: 'Turquía', en: 'Turkey' },
+  { label: 'Ucrania', en: 'Ukraine' },
+  { label: 'Uruguay', en: 'Uruguay' },
+  { label: 'Venezuela', en: 'Venezuela' },
+  { label: 'Vietnam', en: 'Vietnam' },
+]
+const COUNTRY_LABELS = COUNTRIES.map(c => c.label)
+const COUNTRY_EN_BY_LABEL = Object.fromEntries(COUNTRIES.map(c => [c.label, c.en]))
+
+// ── Autocomplete genérico ──────────────────────────────────────────────────────
+function AutocompleteField({ value, onChange, options = [], placeholder, hasError }) {
+  const [query, setQuery]         = useState(value || '')
+  const [suggestions, setSuggestions] = useState([])
+  const [open, setOpen]           = useState(false)
+  const wrapRef                   = useRef(null)
+
+  useEffect(() => { setQuery(value || '') }, [value])
+
+  useEffect(() => {
+    const handler = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false) }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  const filter = (q) => {
+    const lq = q.trim().toLowerCase()
+    return lq ? options.filter(o => o.toLowerCase().includes(lq)) : options
+  }
+
+  const handleFocus = () => {
+    const filtered = filter(query)
+    setSuggestions(filtered.slice(0, 80))
+    setOpen(filtered.length > 0)
+  }
+
+  const handleInput = (e) => {
+    const v = e.target.value
+    setQuery(v)
+    onChange(v)
+    const filtered = filter(v)
+    setSuggestions(filtered.slice(0, 80))
+    setOpen(filtered.length > 0)
+  }
+
+  const handleSelect = (opt) => {
+    setQuery(opt)
+    onChange(opt)
+    setOpen(false)
+  }
+
+  return (
+    <div ref={wrapRef} style={{ position: 'relative' }}>
+      <input
+        type="text"
+        value={query}
+        onChange={handleInput}
+        onFocus={handleFocus}
+        placeholder={placeholder || ''}
+        style={inputStyle(hasError)}
+      />
+      {open && suggestions.length > 0 && (
+        <div style={{
+          position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 200,
+          background: '#fff', border: '1px solid #dfe1e6', borderRadius: 6,
+          boxShadow: '0 4px 16px rgba(0,0,0,.15)', maxHeight: 220, overflowY: 'auto'
+        }}>
+          {suggestions.map(opt => (
+            <div key={opt} onMouseDown={() => handleSelect(opt)}
+              style={{ padding: '8px 12px', cursor: 'pointer', fontSize: 13, borderBottom: '1px solid #f4f5f7' }}
+              onMouseEnter={e => e.currentTarget.style.background = '#f4f5f7'}
+              onMouseLeave={e => e.currentTarget.style.background = '#fff'}>
+              {opt}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── Autocomplete de ciudades (carga según país) ────────────────────────────────
+function CityAutocompleteField({ value, onChange, countryLabel, placeholder, hasError }) {
+  const [query, setQuery]         = useState(value || '')
+  const [cities, setCities]       = useState([])
+  const [suggestions, setSuggestions] = useState([])
+  const [open, setOpen]           = useState(false)
+  const [loading, setLoading]     = useState(false)
+  const wrapRef                   = useRef(null)
+  const loadedCountry             = useRef(null)
+
+  useEffect(() => { setQuery(value || '') }, [value])
+
+  useEffect(() => {
+    const handler = (e) => { if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false) }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  // Cargar ciudades cuando cambia el país seleccionado
+  useEffect(() => {
+    const enName = COUNTRY_EN_BY_LABEL[countryLabel]
+    if (!enName || enName === loadedCountry.current) return
+    loadedCountry.current = enName
+    setLoading(true)
+    setCities([])
+    fetch('https://countriesnow.space/api/v0.1/countries/cities', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ country: enName })
+    })
+      .then(r => r.json())
+      .then(d => setCities(d.data || []))
+      .catch(() => setCities([]))
+      .finally(() => setLoading(false))
+  }, [countryLabel])
+
+  const filter = (q) => {
+    const lq = q.trim().toLowerCase()
+    return lq ? cities.filter(c => c.toLowerCase().includes(lq)) : cities
+  }
+
+  const handleFocus = () => {
+    const filtered = filter(query)
+    setSuggestions(filtered.slice(0, 80))
+    setOpen(filtered.length > 0)
+  }
+
+  const handleInput = (e) => {
+    const v = e.target.value
+    setQuery(v)
+    onChange(v)
+    const filtered = filter(v)
+    setSuggestions(filtered.slice(0, 80))
+    setOpen(filtered.length > 0)
+  }
+
+  const handleSelect = (opt) => {
+    setQuery(opt)
+    onChange(opt)
+    setOpen(false)
+  }
+
+  return (
+    <div ref={wrapRef} style={{ position: 'relative' }}>
+      <input
+        type="text"
+        value={query}
+        onChange={handleInput}
+        onFocus={handleFocus}
+        placeholder={loading ? 'Cargando ciudades…' : placeholder || ''}
+        style={inputStyle(hasError)}
+      />
+      {open && suggestions.length > 0 && (
+        <div style={{
+          position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 200,
+          background: '#fff', border: '1px solid #dfe1e6', borderRadius: 6,
+          boxShadow: '0 4px 16px rgba(0,0,0,.15)', maxHeight: 220, overflowY: 'auto'
+        }}>
+          {suggestions.map(opt => (
+            <div key={opt} onMouseDown={() => handleSelect(opt)}
+              style={{ padding: '8px 12px', cursor: 'pointer', fontSize: 13, borderBottom: '1px solid #f4f5f7' }}
+              onMouseEnter={e => e.currentTarget.style.background = '#f4f5f7'}
+              onMouseLeave={e => e.currentTarget.style.background = '#fff'}>
+              {opt}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ── Schemas por tipo de objeto ─────────────────────────────────────────────────
 const DEAL_FIELDS = [
   { key: 'dealname',            label: 'Nombre del evento', required: true, type: 'text' },
@@ -52,8 +287,8 @@ const COMPANY_FIELDS = [
   { key: 'name',     label: 'Nombre de la empresa', required: true, type: 'text' },
   { key: 'domain',   label: 'Dominio web',           type: 'text', placeholder: 'empresa.com' },
   { key: 'phone',    label: 'Teléfono',              type: 'text' },
-  { key: 'city',     label: 'Ciudad',                type: 'text' },
-  { key: 'country',  label: 'País',                  type: 'text' },
+  { key: 'country',  label: 'País',                  type: 'country-autocomplete' },
+  { key: 'city',     label: 'Ciudad',                type: 'city-autocomplete' },
   { key: 'industry', label: 'Industria', type: 'select', options: [
     { value: '', label: '— Seleccionar —' },
     { value: 'ACCOUNTING',                        label: 'Contabilidad' },
@@ -433,6 +668,22 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
                     value={form[f.key] || ''}
                     onChange={(v) => set(f.key, v)}
                     onCompanySelect={(id) => setSelectedCompanyId(id)}
+                  />
+                ) : f.type === 'country-autocomplete' ? (
+                  <AutocompleteField
+                    value={form[f.key] || ''}
+                    onChange={(v) => set(f.key, v)}
+                    options={COUNTRY_LABELS}
+                    placeholder="Selecciona o escribe un país…"
+                    hasError={errors[f.key]}
+                  />
+                ) : f.type === 'city-autocomplete' ? (
+                  <CityAutocompleteField
+                    value={form[f.key] || ''}
+                    onChange={(v) => set(f.key, v)}
+                    countryLabel={form.country || ''}
+                    placeholder="Selecciona o escribe una ciudad…"
+                    hasError={errors[f.key]}
                   />
                 ) : f.type === 'select' ? (
                   <select

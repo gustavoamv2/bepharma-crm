@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useQuery, useQueryClient } from 'react-query'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { ExternalLink, Mail, Pencil, Flag } from 'lucide-react'
+import { ExternalLink, Mail, Pencil, Flag, Star, Phone, User } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import { useAuth } from '../contexts/AuthContext'
 import Topbar from '../components/Topbar'
@@ -66,6 +66,16 @@ export default function DealDetail() {
   const [showEdit, setShowEdit]   = useState(false)
   const [showTask, setShowTask]   = useState(false)
 
+  // Contacto predeterminado — persiste en localStorage por deal
+  const storageKey = `bp_default_contact_${id}`
+  const [defaultContactId, setDefaultContactId] = useState(
+    () => localStorage.getItem(storageKey) || null
+  )
+  const handleSetDefault = (contactId) => {
+    localStorage.setItem(storageKey, contactId)
+    setDefaultContactId(contactId)
+  }
+
   const { data: deal, isLoading, error } = useQuery(['deal', id], () => hubspot.getDeal(id))
   const { data: engData, isLoading: loadingEng } = useQuery(
     ['engagements-deal', id],
@@ -80,6 +90,27 @@ export default function DealDetail() {
   const contacts = deal.associations?.contacts?.results || []
   const companies = deal.associations?.companies?.results || []
   const portalId = '51580878'
+
+  // Determinar contacto activo (predeterminado o primero)
+  const activeContact = contacts.find(c => c.id === defaultContactId) || contacts[0] || null
+  const activePhone = activeContact?.properties?.phone || ''
+  const activeContactName = activeContact
+    ? [activeContact.properties?.firstname, activeContact.properties?.lastname].filter(Boolean).join(' ') || `Contacto #${activeContact.id}`
+    : p.dealname
+
+  // Opciones de email para el composer
+  const emailOptions = [
+    ...contacts
+      .filter(c => c.properties?.email)
+      .map(c => ({
+        label: [c.properties.firstname, c.properties.lastname].filter(Boolean).join(' ') || `Contacto #${c.id}`,
+        email: c.properties.email,
+      })),
+    ...companies
+      .filter(c => c.properties?.email)
+      .map(c => ({ label: c.properties.name || `Empresa #${c.id}`, email: c.properties.email })),
+  ]
+  const defaultEmail = emailOptions[0]?.email || ''
 
   return (
     <>
@@ -151,16 +182,64 @@ export default function DealDetail() {
               </div>
             </div>
 
+            {/* ── Contactos ── */}
             {contacts.length > 0 && (
               <div className="card">
-                <div className="card-header"><h2>Contactos ({contacts.length})</h2></div>
-                <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  {contacts.map(c => (
-                    <button key={c.id} className="btn btn-ghost" style={{ justifyContent: 'flex-start' }}
-                      onClick={() => nav(`/contacts/${c.id}`)}>
-                      👤 Contacto #{c.id}
-                    </button>
-                  ))}
+                <div className="card-header">
+                  <h2>Contactos ({contacts.length})</h2>
+                  {contacts.length > 1 && (
+                    <span style={{ fontSize: 11, color: '#6b778c' }}>★ = contacto predeterminado</span>
+                  )}
+                </div>
+                <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {contacts.map(c => {
+                    const cp = c.properties || {}
+                    const name = [cp.firstname, cp.lastname].filter(Boolean).join(' ') || `Contacto #${c.id}`
+                    const isDefault = c.id === (defaultContactId || contacts[0]?.id)
+                    return (
+                      <div key={c.id} style={{
+                        display: 'flex', alignItems: 'flex-start', gap: 10,
+                        padding: '10px 12px', borderRadius: 8,
+                        background: isDefault ? '#f0f7ff' : '#f8fafc',
+                        border: `1px solid ${isDefault ? '#b3d4ff' : '#e2e8f0'}`,
+                      }}>
+                        {/* Selector predeterminado (solo si hay más de uno) */}
+                        {contacts.length > 1 && (
+                          <button
+                            title={isDefault ? 'Contacto predeterminado' : 'Marcar como predeterminado'}
+                            onClick={() => handleSetDefault(c.id)}
+                            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '2px 0', flexShrink: 0 }}
+                          >
+                            <Star size={15} fill={isDefault ? '#f59e0b' : 'none'} color={isDefault ? '#f59e0b' : '#94a3b8'} />
+                          </button>
+                        )}
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                            <button
+                              className="btn btn-ghost btn-sm"
+                              style={{ fontWeight: 600, padding: '2px 6px' }}
+                              onClick={() => nav(`/contacts/${c.id}`)}
+                            >
+                              <User size={12} style={{ marginRight: 4 }} />{name}
+                            </button>
+                            {cp.jobtitle && <span style={{ fontSize: 11, color: '#6b778c' }}>{cp.jobtitle}</span>}
+                          </div>
+                          <div style={{ display: 'flex', gap: 16, marginTop: 6, flexWrap: 'wrap' }}>
+                            {cp.phone && (
+                              <span style={{ fontSize: 12, color: '#374151', display: 'flex', alignItems: 'center', gap: 4 }}>
+                                <Phone size={11} color="#6b778c" />{cp.phone}
+                              </span>
+                            )}
+                            {cp.email && (
+                              <span style={{ fontSize: 12, color: '#374151', display: 'flex', alignItems: 'center', gap: 4 }}>
+                                <Mail size={11} color="#6b778c" />{cp.email}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             )}
@@ -182,7 +261,8 @@ export default function DealDetail() {
 
           <div className="detail-side">
             <CallWidget
-              contactName={p.dealname}
+              phone={activePhone}
+              contactName={activeContactName}
               objectType="deals"
               objectId={id}
               onActivityLogged={() => qc.invalidateQueries(['engagements-deal', id])}
@@ -193,8 +273,11 @@ export default function DealDetail() {
 
       {showEmail && (
         <EmailComposer
+          defaultTo={defaultEmail}
           defaultSubject={`Seguimiento: ${p.dealname}`}
+          emailOptions={emailOptions}
           dealId={id}
+          contactId={activeContact?.id}
           onClose={() => setShowEmail(false)}
         />
       )}

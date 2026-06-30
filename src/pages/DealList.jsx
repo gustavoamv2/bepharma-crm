@@ -153,13 +153,15 @@ export default function DealList() {
       <Topbar
         title={isSupervisor ? 'Todos los eventos' : 'Mis eventos'}
         action={
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={() => setShowCreate(true)}
-            style={{ display: 'flex', alignItems: 'center', gap: 5 }}
-          >
-            <Plus size={13} /> Nuevo evento
-          </button>
+          !isSupervisor && (
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={() => setShowCreate(true)}
+              style={{ display: 'flex', alignItems: 'center', gap: 5 }}
+            >
+              <Plus size={13} /> Nuevo evento
+            </button>
+          )
         }
       />
 

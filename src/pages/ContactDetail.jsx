@@ -154,22 +154,22 @@ export default function ContactDetail() {
               <h3 style={{ fontSize: 13, fontWeight: 600, color: '#0077b5', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
                 <Linkedin size={14} /> LinkedIn
               </h3>
-              {linkedin ? (
-                <a href={linkedin.startsWith('http') ? linkedin : `https://linkedin.com/in/${linkedin}`}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {linkedin && (
+                  <a href={linkedin.startsWith('http') ? linkedin : `https://linkedin.com/in/${linkedin}`}
+                    target="_blank" rel="noopener"
+                    className="btn btn-ghost"
+                    style={{ justifyContent: 'center', color: '#0077b5', borderColor: '#0077b5' }}>
+                    Abrir perfil ↗
+                  </a>
+                )}
+                <a href={`https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(fullName)}&origin=FACETED_SEARCH`}
                   target="_blank" rel="noopener"
                   className="btn btn-ghost"
-                  style={{ width: '100%', justifyContent: 'center', color: '#0077b5', borderColor: '#0077b5' }}>
-                  Abrir perfil de {p.firstname || 'contacto'} ↗
+                  style={{ justifyContent: 'center', color: '#0077b5' }}>
+                  {linkedin ? 'Buscar en LinkedIn' : 'Buscar en LinkedIn ↗'}
                 </a>
-              ) : (
-                <div style={{ fontSize: 12, color: '#6b778c', lineHeight: 1.6 }}>
-                  Sin LinkedIn registrado.{' '}
-                  <a href={`https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(fullName + ' ' + (p.company || ''))}`}
-                    target="_blank" rel="noopener">
-                    Buscar en LinkedIn ↗
-                  </a>
-                </div>
-              )}
+              </div>
             </div>
           </div>
         </div>

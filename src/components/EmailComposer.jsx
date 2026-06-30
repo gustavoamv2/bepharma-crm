@@ -25,9 +25,9 @@ const modal = {
   maxHeight: '90vh',
 }
 
-export default function EmailComposer({ defaultTo = '', defaultSubject = '', contactId, dealId, companyId, onClose }) {
+export default function EmailComposer({ defaultTo = '', defaultSubject = '', emailOptions = [], contactId, dealId, companyId, onClose }) {
   const { addToast: toast } = useToast()
-  const [to, setTo] = useState(defaultTo)
+  const [to, setTo] = useState(defaultTo || emailOptions[0]?.email || '')
   const [subject, setSubject] = useState(defaultSubject)
   const [body, setBody] = useState('')
   const [sending, setSending] = useState(false)
@@ -104,6 +104,31 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', con
         )}
 
         <div style={{ flex: 1, overflow: 'auto', padding: 18, display: 'flex', flexDirection: 'column', gap: 10 }}>
+
+          {/* Chips de selección rápida de email */}
+          {emailOptions.length > 1 && (
+            <div style={{ paddingBottom: 10, borderBottom: '1px solid #e2e8f0' }}>
+              <div style={{ fontSize: 11, color: '#6b778c', fontWeight: 600, marginBottom: 6 }}>Enviar a:</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {emailOptions.map(opt => (
+                  <button
+                    key={opt.email}
+                    onClick={() => setTo(opt.email)}
+                    style={{
+                      padding: '4px 10px', borderRadius: 20, fontSize: 12, cursor: 'pointer',
+                      border: `1px solid ${to === opt.email ? '#0052cc' : '#dfe1e6'}`,
+                      background: to === opt.email ? '#e6f0ff' : '#f4f5f7',
+                      color: to === opt.email ? '#0052cc' : '#344563',
+                      fontWeight: to === opt.email ? 600 : 400,
+                    }}
+                  >
+                    {opt.label} — {opt.email}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: 8, gap: 10 }}>
             <span style={{ fontSize: 12, color: '#6b778c', fontWeight: 600, minWidth: 50 }}>Para</span>
             <input
