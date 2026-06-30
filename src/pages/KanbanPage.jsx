@@ -48,13 +48,22 @@ function formatDate(val) {
   return d.toLocaleDateString('es-MX', { day: '2-digit', month: 'short' })
 }
 
-// ── Card ──────────────────────────────────────────────────────────────────────
+// Abrevia la zona al primer segmento antes del primer "·"
+function shortZona(zona) {
+  if (!zona) return ''
+  const part = zona.split('·')[0].trim()
+  return part.length > 8 ? part.slice(0, 7) + '…' : part
+}
+
+// ── Card compacta ─────────────────────────────────────────────────────────────
 
 function EventCard({ deal, overlay = false }) {
   const nav = useNavigate()
   const p = deal.properties
   const alert = p.bp_estado_alerta
-  const owner = OWNER_NAMES[p.hubspot_owner_id] || p.hubspot_owner_id || ''
+  const owner = OWNER_NAMES[p.hubspot_owner_id] || ''
+  const zona = shortZona(p.bp_zona)
+  const ownerLabel = [owner, zona].filter(Boolean).join(' · ')
   const proximo = formatDate(p.bp_proximo_contacto)
   const isOverdue = p.bp_proximo_contacto && Number(p.bp_proximo_contacto) < Date.now()
 
@@ -66,38 +75,21 @@ function EventCard({ deal, overlay = false }) {
     >
       {alert && (
         <div className="kev-alert" style={{ color: ALERT_COLORS[alert] || '#6b7280' }}>
-          <AlertTriangle size={11} />
+          <AlertTriangle size={10} />
           <span>{alert === 'alerta_roja' ? 'Alerta roja' : 'Alerta amarilla'}</span>
         </div>
       )}
 
       <div className="kev-name">{p.dealname || '(sin nombre)'}</div>
 
-      {deal._companyName && (
-        <div className="kev-row">
-          <Building2 size={12} />
-          <span>{deal._companyName}</span>
-        </div>
-      )}
-
       <div className="kev-footer">
-        {owner && (
-          <div className="kev-row">
-            <User size={12} />
-            <span>{owner}</span>
-          </div>
-        )}
-        {p.bp_zona && (
-          <div className="kev-row">
-            <MapPin size={12} />
-            <span>{p.bp_zona}</span>
-          </div>
+        {ownerLabel && (
+          <span className="kev-pill kev-pill--owner">{ownerLabel}</span>
         )}
         {proximo && (
-          <div className="kev-row" style={{ color: isOverdue ? '#b91c1c' : undefined }}>
-            <Calendar size={12} />
-            <span>{proximo}</span>
-          </div>
+          <span className="kev-pill" style={{ color: isOverdue ? '#b91c1c' : '#0f766e', background: isOverdue ? '#fef2f2' : '#f0fdfa' }}>
+            {proximo}{isOverdue ? ' !' : ''}
+          </span>
         )}
       </div>
     </div>
@@ -121,8 +113,23 @@ function DraggableCard({ deal, disabled }) {
 
 // ── Droppable Column ──────────────────────────────────────────────────────────
 
-function KanbanColumn({ stage, deals, loading, canDrop }) {
+function KanbanColumn({ stage, deals, loading, canDrop, collapsed, onToggleCollapse }) {
   const { setNodeRef, isOver } = useDroppable({ id: stage.key })
+
+  if (collapsed) {
+    return (
+      <div
+        className="kev-column-collapsed"
+        style={{ borderTopColor: stage.color }}
+        onClick={() => onToggleCollapse(stage.key)}
+        title={`Expandir: ${stage.label} (${deals.length})`}
+      >
+        <span className="kev-col-collapsed-count" style={{ color: stage.color }}>{deals.length}</span>
+        <span className="kev-col-collapsed-label" style={{ color: stage.color }}>{stage.label}</span>
+        <ArrowRight size={12} style={{ color: stage.color, marginTop: 4 }} />
+      </div>
+    )
+  }
 
   return (
     <div
@@ -130,11 +137,14 @@ function KanbanColumn({ stage, deals, loading, canDrop }) {
       className={`kev-column${isOver && canDrop ? ' kev-column--over' : ''}`}
     >
       <div className="kev-col-header" style={{ borderTopColor: stage.color }}>
-        <span style={{ color: stage.color, fontWeight: 600, fontSize: 13 }}>{stage.label}</span>
         <span
-          className="kev-col-count"
-          style={{ background: stage.bg, color: stage.color }}
+          style={{ color: stage.color, fontWeight: 600, fontSize: 12, cursor: 'pointer' }}
+          onClick={() => onToggleCollapse(stage.key)}
+          title="Colapsar columna"
         >
+          {stage.label}
+        </span>
+        <span className="kev-col-count" style={{ background: stage.bg, color: stage.color }}>
           {deals.length}
         </span>
       </div>
@@ -183,6 +193,14 @@ export default function KanbanPage() {
   const [confirm, setConfirm] = useState(null)          // { dealId, fromStage, toStage }
 
   const isSupervisor = user?.role === 'supervisor'
+
+  // Columnas terminales colapsadas por defecto
+  const [collapsedCols, setCollapsedCols] = useState(new Set(TERMINAL_STAGES))
+  const toggleCollapse = (key) => setCollapsedCols(prev => {
+    const next = new Set(prev)
+    next.has(key) ? next.delete(key) : next.add(key)
+    return next
+  })
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
@@ -321,6 +339,8 @@ export default function KanbanPage() {
               deals={grouped[stage.key] || []}
               loading={loading}
               canDrop={activeDeal?.properties?.bp_estado_prospeccion !== stage.key}
+              collapsed={collapsedCols.has(stage.key)}
+              onToggleCollapse={toggleCollapse}
             />
           ))}
         </div>

@@ -447,186 +447,152 @@ export default function Dashboard() {
           </div>
         )}
 
-        {/* ── Distribución por estado (supervisor) ──────────────────────── */}
-        {isSupervisor && metrics?.porEstado && Object.keys(metrics.porEstado).length > 0 && (
-          <div className="card" style={{ marginBottom: 16 }}>
-            <div className="card-header">
-              <h2>Distribución por estado de prospeccion — {ACTIVE_EVENT}</h2>
-            </div>
-            <div className="card-body" style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-              {Object.entries(metrics.porEstado).map(([estado, count]) => (
-                <div key={estado}
-                  style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 14px', cursor: 'pointer', minWidth: 130, textAlign: 'center' }}
-                  onClick={() => nav('/deals', { state: { filter: { filters: [
-                    { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
-                    { propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado },
-                  ]}}})}
-                >
-                  <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--primary)' }}>{count}</div>
-                  <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>{ESTADO_LABELS[estado] || estado}</div>
-                </div>
-              ))}
-            </div>
+        {/* ── Pipeline: gráficas + distribución (fusionadas) ───────────── */}
+        <div className="card" style={{ marginBottom: 16 }}>
+          <div className="card-header">
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <BarChart2 size={14} style={{ color: '#0052cc' }} />
+              Pipeline {ACTIVE_EVENT} · {isSupervisor ? 'equipo' : 'mis eventos'}
+            </h2>
+            <span style={{ fontSize: 11, color: '#6b778c' }}>clic en gráfica para filtrar</span>
           </div>
-        )}
+          <div className="card-body" style={{ padding: '12px 16px' }}>
 
-        {/* ── Gráficas interactivas ─────────────────────────────────────── */}
-        {chartsData && (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 24 }}>
-            <div className="card">
-              <div className="card-header">
-                <h2 style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <BarChart2 size={14} style={{ color: '#0052cc' }} />
-                  Eventos por etapa {isSupervisor ? '(equipo)' : '(mis eventos)'}
-                </h2>
-                <span style={{ fontSize: 11, color: '#6b778c' }}>clic en barra para filtrar</span>
-              </div>
-              <div className="card-body" style={{ padding: '12px 16px' }}>
-                <BarChart
-                  data={chartsData.byStage?.map(s => ({ ...s, label: STAGE_LABELS[s.key] || s.label }))}
-                  color="#0052cc"
-                  onBarClick={handleBarClick}
-                />
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div className="card" style={{ flex: 1 }}>
-                <div className="card-header">
-                  <h2>Distribución por etapa</h2>
-                  <span style={{ fontSize: 11, color: '#6b778c' }}>clic para filtrar</span>
-                </div>
-                <div className="card-body" style={{ padding: '12px 16px' }}>
-                  <DonutChart data={chartsData.byStage} onSliceClick={handleSliceClick} />
-                </div>
-              </div>
-              <div className="card">
-                <div className="card-header"><h2>Nuevos eventos · ultimos 6 meses</h2></div>
-                <div className="card-body" style={{ padding: '12px 16px' }}>
-                  <BarChart
-                    data={chartsData.byMonth?.map(m => ({ ...m, key: m.label }))}
-                    color="#00875a"
-                    height={100}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 20 }}>
-
-          {/* Tareas pendientes — clicables */}
-          <div className="card">
-            <div className="card-header">
-              <h2>
-                <Clock size={14} style={{ verticalAlign: 'middle', marginRight: 6, color: '#ff8b00' }} />
-                {isSupervisor ? 'Tareas pendientes del equipo' : 'Mis tareas pendientes'}
-              </h2>
-              <span className="badge badge-yellow">{tasks.length}</span>
-            </div>
-            {loadingTasks ? (
-              <div className="loading">Cargando tareas…</div>
-            ) : tasks.length === 0 ? (
-              <div className="empty">
-                {isSupervisor ? 'Sin tareas pendientes en el equipo ✓' : '¡Sin tareas pendientes! Estás al día ✓'}
-              </div>
-            ) : (
-              <div className="table-wrap">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Tarea</th>
-                      <th>Vinculado a</th>
-                      <th>Prioridad</th>
-                      <th>Fecha límite</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tasks.map(t => {
-                      const p = t.properties
-                      const pri = PRIORITY_BADGE[p.hs_task_priority] || PRIORITY_BADGE.MEDIUM
-                      const date = safeFmt(p.hs_timestamp)
-                      const hasAssoc = !!t._assoc
-                      const ASSOC_ICONS = { deals: '💼', contacts: '👤', companies: '🏭' }
-                      return (
-                        <tr
-                          key={t.id}
-                          className={hasAssoc ? 'clickable' : ''}
-                          onClick={() => hasAssoc && handleTaskClick(t)}
-                          title={hasAssoc ? `Ir a ${t._assoc.name}` : ''}
-                        >
-                          <td>
-                            <div style={{ fontWeight: 500, fontSize: 13 }}>
-                              {p.hs_task_subject || '(sin título)'}
-                            </div>
-                            {p.hs_task_body && (
-                              <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>
-                                {p.hs_task_body.replace(/<[^>]+>/g, '').slice(0, 80)}
-                              </div>
-                            )}
-                          </td>
-                          <td>
-                            {t._assoc ? (
-                              <span style={{ fontSize: 12, display: 'flex', alignItems: 'center', gap: 4 }}>
-                                <span>{ASSOC_ICONS[t._assoc.type]}</span>
-                                <span style={{ color: 'var(--primary)', fontWeight: 500 }}>{t._assoc.name}</span>
-                              </span>
-                            ) : (
-                              <span style={{ color: 'var(--text-muted)', fontSize: 12 }}>—</span>
-                            )}
-                          </td>
-                          <td><span className={'badge ' + pri.cls}>{pri.label}</span></td>
-                          <td style={{ fontSize: 12, color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{date}</td>
-                        </tr>
-                      )
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-
-          {/* Panel derecho */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-
-            {/* Accesos rápidos */}
-            <div className="card">
-              <div className="card-header"><h2>Accesos rápidos</h2></div>
-              <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                {quickLinks.map((link, i) => (
-                  <button key={i} className="btn btn-ghost"
-                    style={{ justifyContent: 'flex-start', textAlign: 'left' }}
-                    onClick={() => handleQuickLink(link)}>
-                    {link.label}
-                  </button>
+            {/* Distribución por estado — chips (solo supervisor) */}
+            {isSupervisor && metrics?.porEstado && Object.keys(metrics.porEstado).length > 0 && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 14, paddingBottom: 14, borderBottom: '1px solid var(--border)' }}>
+                {Object.entries(metrics.porEstado).map(([estado, count]) => (
+                  <div key={estado}
+                    style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: 8, padding: '6px 12px', cursor: 'pointer', textAlign: 'center', minWidth: 110 }}
+                    onClick={() => nav('/deals', { state: { filter: { filters: [
+                      { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
+                      { propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado },
+                    ]}}})}
+                  >
+                    <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--primary)' }}>{count}</div>
+                    <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 2 }}>{ESTADO_LABELS[estado] || estado}</div>
+                  </div>
                 ))}
               </div>
-            </div>
+            )}
 
-            {/* Perfil (operadores o vista operador) */}
-            {!isSupervisor && (
-              <div className="card">
-                <div className="card-header"><h2>Tu perfil</h2></div>
-                <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  <div className="prop-item">
-                    <div className="prop-label">Nombre</div>
-                    <div className="prop-value">{user.name}</div>
+            {/* Gráficas */}
+            {chartsData && (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                <div>
+                  <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Eventos por etapa</div>
+                  <BarChart
+                    data={chartsData.byStage?.map(s => ({ ...s, label: STAGE_LABELS[s.key] || s.label }))}
+                    color="#0052cc"
+                    onBarClick={handleBarClick}
+                  />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                  <div>
+                    <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Distribución por etapa</div>
+                    <DonutChart data={chartsData.byStage} onSliceClick={handleSliceClick} />
                   </div>
-                  <div className="prop-item">
-                    <div className="prop-label">Rol</div>
-                    <div className="prop-value">{viewAsOperator ? 'Supervisor (vista operador)' : 'Operador CRM'}</div>
-                  </div>
-                  <div className="prop-item">
-                    <div className="prop-label">HubSpot Owner ID</div>
-                    <div className="prop-value" style={{ fontFamily: 'monospace', fontSize: 12 }}>{user.ownerId}</div>
+                  <div>
+                    <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Nuevos eventos · últimos 6 meses</div>
+                    <BarChart
+                      data={chartsData.byMonth?.map(m => ({ ...m, key: m.label }))}
+                      color="#00875a"
+                      height={100}
+                    />
                   </div>
                 </div>
               </div>
             )}
+          </div>
+        </div>
 
-            {/* Equipo (supervisores) */}
-            {isSupervisor && (
+        {/* ── Sección inferior: tareas (supervisor) + panel lateral ─────── */}
+        {isSupervisor ? (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 20 }}>
+
+            {/* Tareas pendientes del equipo */}
+            <div className="card">
+              <div className="card-header">
+                <h2>
+                  <Clock size={14} style={{ verticalAlign: 'middle', marginRight: 6, color: '#ff8b00' }} />
+                  Tareas pendientes del equipo
+                </h2>
+                <span className="badge badge-yellow">{tasks.length}</span>
+              </div>
+              {loadingTasks ? (
+                <div className="loading">Cargando tareas…</div>
+              ) : tasks.length === 0 ? (
+                <div className="empty">Sin tareas pendientes en el equipo ✓</div>
+              ) : (
+                <div className="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Tarea</th>
+                        <th>Vinculado a</th>
+                        <th>Prioridad</th>
+                        <th>Fecha límite</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {tasks.map(t => {
+                        const p = t.properties
+                        const pri = PRIORITY_BADGE[p.hs_task_priority] || PRIORITY_BADGE.MEDIUM
+                        const date = safeFmt(p.hs_timestamp)
+                        const hasAssoc = !!t._assoc
+                        const ASSOC_ICONS = { deals: '💼', contacts: '👤', companies: '🏭' }
+                        return (
+                          <tr
+                            key={t.id}
+                            className={hasAssoc ? 'clickable' : ''}
+                            onClick={() => hasAssoc && handleTaskClick(t)}
+                            title={hasAssoc ? `Ir a ${t._assoc.name}` : ''}
+                          >
+                            <td>
+                              <div style={{ fontWeight: 500, fontSize: 13 }}>
+                                {p.hs_task_subject || '(sin título)'}
+                              </div>
+                              {p.hs_task_body && (
+                                <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>
+                                  {p.hs_task_body.replace(/<[^>]+>/g, '').slice(0, 80)}
+                                </div>
+                              )}
+                            </td>
+                            <td>
+                              {t._assoc ? (
+                                <span style={{ fontSize: 12, display: 'flex', alignItems: 'center', gap: 4 }}>
+                                  <span>{ASSOC_ICONS[t._assoc.type]}</span>
+                                  <span style={{ color: 'var(--primary)', fontWeight: 500 }}>{t._assoc.name}</span>
+                                </span>
+                              ) : (
+                                <span style={{ color: 'var(--text-muted)', fontSize: 12 }}>—</span>
+                              )}
+                            </td>
+                            <td><span className={'badge ' + pri.cls}>{pri.label}</span></td>
+                            <td style={{ fontSize: 12, color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{date}</td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            {/* Panel derecho supervisor */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div className="card">
+                <div className="card-header"><h2>Accesos rápidos</h2></div>
+                <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {quickLinks.map((link, i) => (
+                    <button key={i} className="btn btn-ghost"
+                      style={{ justifyContent: 'flex-start', textAlign: 'left' }}
+                      onClick={() => handleQuickLink(link)}>
+                      {link.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
               <div className="card">
                 <div className="card-header">
                   <h2><Users size={14} style={{ verticalAlign: 'middle', marginRight: 6 }} />Equipo</h2>
@@ -636,11 +602,11 @@ export default function Dashboard() {
                 </div>
                 <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                   {[
-                    { name: 'Yesenia', zona: 'EEUU · Europa · LATAM Norte',        ownerId: '93621022' },
-                    { name: 'Angel',   zona: 'Europa del Este · Medio Oriente',    ownerId: '93771980' },
-                    { name: 'Gracie',  zona: 'Asia Pacífico · Oceanía',            ownerId: '93771979' },
-                    { name: 'Carlos',  zona: 'LATAM Sur · Caribe',                 ownerId: '93771981' },
-                    { name: 'Sara',    zona: 'África · Asia Central',              ownerId: '73112880' },
+                    { name: 'Yesenia', zona: 'EEUU · Europa · LATAM Norte',     ownerId: '93621022' },
+                    { name: 'Angel',   zona: 'Europa del Este · Medio Oriente', ownerId: '93771980' },
+                    { name: 'Gracie',  zona: 'Asia Pacífico · Oceanía',         ownerId: '93771979' },
+                    { name: 'Carlos',  zona: 'LATAM Sur · Caribe',              ownerId: '93771981' },
+                    { name: 'Sara',    zona: 'África · Asia Central',           ownerId: '73112880' },
                   ].map(op => (
                     <div key={op.name}
                       style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid var(--border)', fontSize: 12, cursor: 'pointer' }}
@@ -653,9 +619,42 @@ export default function Dashboard() {
                   ))}
                 </div>
               </div>
-            )}
+            </div>
           </div>
-        </div>
+        ) : (
+          /* Panel operador — accesos rápidos + perfil en fila */
+          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+            <div className="card" style={{ flex: '1 1 240px' }}>
+              <div className="card-header"><h2>Accesos rápidos</h2></div>
+              <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {quickLinks.map((link, i) => (
+                  <button key={i} className="btn btn-ghost"
+                    style={{ justifyContent: 'flex-start', textAlign: 'left' }}
+                    onClick={() => handleQuickLink(link)}>
+                    {link.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="card" style={{ flex: '1 1 240px' }}>
+              <div className="card-header"><h2>Tu perfil</h2></div>
+              <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <div className="prop-item">
+                  <div className="prop-label">Nombre</div>
+                  <div className="prop-value">{user.name}</div>
+                </div>
+                <div className="prop-item">
+                  <div className="prop-label">Rol</div>
+                  <div className="prop-value">{viewAsOperator ? 'Supervisor (vista operador)' : 'Operador CRM'}</div>
+                </div>
+                <div className="prop-item">
+                  <div className="prop-label">HubSpot Owner ID</div>
+                  <div className="prop-value" style={{ fontFamily: 'monospace', fontSize: 12 }}>{user.ownerId}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   )
