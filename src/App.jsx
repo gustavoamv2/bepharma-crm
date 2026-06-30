@@ -51,6 +51,16 @@ function AppContent() {
   const { user, logout, loading } = useAuth()
   const notifCount = useNotifCount()
 
+  // Vista de operador reactiva — se sincroniza con el toggle del Dashboard
+  const [viewMode, setViewMode] = useState(
+    () => sessionStorage.getItem('bp_view_mode') || ''
+  )
+  useEffect(() => {
+    const handler = () => setViewMode(sessionStorage.getItem('bp_view_mode') || '')
+    window.addEventListener('bpViewModeChange', handler)
+    return () => window.removeEventListener('bpViewModeChange', handler)
+  }, [])
+
   // Disparar GlobalSearch con Ctrl+K desde el sidebar button
   const openSearch = () => {
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true }))
@@ -66,7 +76,8 @@ function AppContent() {
 
   if (!user) return <LoginPage />
 
-  const isSupervisor = user.role === 'supervisor'
+  // Supervisor actuando como operador → menú de operador
+  const isSupervisor = user.role === 'supervisor' && viewMode !== 'operator'
 
   return (
     <div className="layout">

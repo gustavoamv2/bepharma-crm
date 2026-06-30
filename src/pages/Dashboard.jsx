@@ -171,6 +171,8 @@ export default function Dashboard() {
     const next = !viewAsOperator
     if (next) sessionStorage.setItem('bp_view_mode', 'operator')
     else sessionStorage.removeItem('bp_view_mode')
+    // Notificar al sidebar para que actualice el menú inmediatamente
+    window.dispatchEvent(new Event('bpViewModeChange'))
     // Elimina cache para forzar refetch con la nueva vista al renderizar
     qc.removeQueries(['metrics'])
     qc.removeQueries(['charts'])

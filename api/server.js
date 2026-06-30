@@ -1453,11 +1453,13 @@ app.post('/api/hubspot/tasks', requireAuth, async (req, res) => {
       ? assocTypeIdMap[associatedObjectType]
       : null
 
+    const dueDateMs = new Date(dueDate).getTime()
     const taskPayload = {
       properties: {
         hs_task_subject: subject,
         hs_task_body: body,
         hs_timestamp: new Date(dueDate).toISOString(),
+        hs_task_reminders: String(dueDateMs),   // recordatorio a la misma hora de vencimiento
         hs_task_priority: priority,
         hs_task_status: 'NOT_STARTED',
         hubspot_owner_id: ownerId
