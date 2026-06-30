@@ -443,8 +443,12 @@ app.post('/api/hubspot/deals', requireAuth, async (req, res) => {
     let assocError = null
     if (_companyId && dealId) {
       try {
-        // Tipo 5 = deal_to_company (HubSpot defined, más confiable que v4 default)
-        await hs.put(`/crm/v3/objects/deals/${dealId}/associations/companies/${_companyId}/5`)
+        // Tipo 5 = deal_to_company (HubSpot defined)
+        await hs.put(
+          `/crm/v3/objects/deals/${dealId}/associations/companies/${_companyId}/5`,
+          {},
+          { headers: { 'Content-Type': 'application/json' } }
+        )
       } catch (assocErr) {
         assocError = assocErr.response?.data || assocErr.message
         console.warn('[deals] Error asociando empresa:', assocError)
