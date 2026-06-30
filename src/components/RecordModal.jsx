@@ -577,6 +577,16 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!validate()) return
+
+    // Contacto nuevo con empresa escrita pero no seleccionada del dropdown
+    if (type === 'contact' && !isEdit && form.company && !selectedCompanyId) {
+      setErrors(prev => ({
+        ...prev,
+        company: 'La empresa no existe en HubSpot. Créala primero y luego asígnala al contacto.'
+      }))
+      return
+    }
+
     setSaving(true)
 
     // Limpia valores vacíos; excluye campos especiales
@@ -664,11 +674,18 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
                   {f.label}{f.required && <span style={{ color: '#de350b' }}> *</span>}
                 </label>
                 {f.type === 'company-search' ? (
-                  <CompanySearchField
-                    value={form[f.key] || ''}
-                    onChange={(v) => set(f.key, v)}
-                    onCompanySelect={(id) => setSelectedCompanyId(id)}
-                  />
+                  <>
+                    <CompanySearchField
+                      value={form[f.key] || ''}
+                      onChange={(v) => { set(f.key, v); setErrors(prev => ({ ...prev, company: undefined })) }}
+                      onCompanySelect={(id) => { setSelectedCompanyId(id); setErrors(prev => ({ ...prev, company: undefined })) }}
+                    />
+                    {errors[f.key] && (
+                      <div style={{ marginTop: 6, padding: '8px 12px', background: '#fff3cd', border: '1px solid #ffc107', borderRadius: 6, fontSize: 12, color: '#856404' }}>
+                        ⚠️ {errors[f.key]}
+                      </div>
+                    )}
+                  </>
                 ) : f.type === 'company-name-search' ? (
                   <CompanySearchField
                     value={form[f.key] || ''}
