@@ -645,17 +645,27 @@ app.patch('/api/admin/users/:username/zona', requireAuth, async (req, res) => {
 app.post('/api/hubspot/contacts', requireAuth, async (req, res) => {
   try {
     const { _companyId, ...properties } = req.body
+    // Auto-asignar owner para que el contacto aparezca en la vista del operador
+    if (!properties.hubspot_owner_id && req.user?.ownerId) {
+      properties.hubspot_owner_id = req.user.ownerId
+    }
     const r = await hs.post('/crm/v3/objects/contacts', { properties })
     const contactId = r.data.id
-    // Si viene un company ID, crear la asociación
+    let assocError = null
+    // Asociar a empresa usando tipo numérico 1 (CONTACT_TO_COMPANY) + Content-Type explícito
     if (_companyId && contactId) {
       try {
-        await hs.put(`/crm/v3/objects/contacts/${contactId}/associations/companies/${_companyId}/contact_to_company`)
+        await hs.put(
+          `/crm/v3/objects/contacts/${contactId}/associations/companies/${_companyId}/1`,
+          {},
+          { headers: { 'Content-Type': 'application/json' } }
+        )
       } catch (assocErr) {
-        console.warn('[contacts] Error asociando empresa:', assocErr.message)
+        assocError = assocErr.response?.data || assocErr.message
+        console.warn('[contacts] Error asociando empresa:', assocError)
       }
     }
-    res.json(r.data)
+    res.json({ ...r.data, _assocError: assocError })
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data?.message || e.message })
   }
