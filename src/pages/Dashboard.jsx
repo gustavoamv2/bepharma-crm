@@ -218,6 +218,23 @@ export default function Dashboard() {
 
   const tasks = tasksData?.results || []
 
+  // ── Alertas del supervisor ────────────────────────────────────────────────
+  // El servidor aplica applyOwnerFilter automáticamente (operadores solo ven sus propios deals)
+  const { data: alertsData } = useQuery(
+    ['deals-alertas', user?.username, viewAsOperator],
+    () => hubspot.searchDeals({
+      filters: [
+        { propertyName: 'bp_evento_codigo', operator: 'EQ', value: ACTIVE_EVENT },
+        { propertyName: 'bp_estado_alerta', operator: 'HAS_PROPERTY' },
+      ],
+      properties: ['dealname', 'bp_estado_alerta', 'bp_estado_prospeccion'],
+      limit: 25,
+      sorts: [{ propertyName: 'bp_estado_alerta', direction: 'DESCENDING' }],
+    }),
+    { refetchInterval: 2 * 60 * 1000 }
+  )
+  const alertDeals = alertsData?.results || []
+
   // ── Metricas cards usando propiedades BePharma ────────────────────────────
   const metricCards = [
     {
@@ -382,6 +399,51 @@ export default function Dashboard() {
         {metricsError && (
           <div className="error-msg" style={{ marginBottom: 16 }}>
             Error cargando métricas. Verifica el token de HubSpot en .env
+          </div>
+        )}
+
+        {/* ── Alertas del supervisor ────────────────────────────────────── */}
+        {alertDeals.length > 0 && (
+          <div className="card" style={{ marginBottom: 16, border: '1.5px solid #b91c1c' }}>
+            <div className="card-header" style={{ background: 'rgba(185,28,28,0.06)' }}>
+              <h2 style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#b91c1c' }}>
+                <AlertTriangle size={14} />
+                {isSupervisor ? 'Eventos con alerta activa' : 'Alertas del supervisor'}
+              </h2>
+              <span className="badge badge-red">{alertDeals.length}</span>
+            </div>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Evento / empresa</th>
+                    <th>Alerta</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {alertDeals.map(d => {
+                    const p = d.properties
+                    const isRed = p.bp_estado_alerta === 'alerta_roja'
+                    return (
+                      <tr key={d.id} className="clickable" style={{ cursor: 'pointer' }}
+                        onClick={() => nav(`/deals/${d.id}`)}>
+                        <td style={{ fontWeight: 500 }}>{p.dealname || '—'}</td>
+                        <td>
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 600, color: isRed ? '#b91c1c' : '#b45309' }}>
+                            <AlertTriangle size={11} />
+                            {isRed ? 'Alerta roja' : 'Alerta amarilla'}
+                          </span>
+                        </td>
+                        <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+                          {STAGE_LABELS[p.bp_estado_prospeccion] || p.bp_estado_prospeccion || '—'}
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
 

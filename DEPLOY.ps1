@@ -35,7 +35,7 @@ if (-not $gitOk) {
 Write-Host "`n[2/3] Commit y push..." -ForegroundColor Yellow
 git add -A
 git status --short
-git commit -m "fix: zadarma query string sorted to match signature + error details + test endpoint"
+git commit -m "feat: panel alertas supervisor en dashboard del operador"
 git branch -M main
 git push -u origin main
 
