@@ -148,11 +148,19 @@ const TITLES  = { deal: 'evento', company: 'empresa', contact: 'contacto' }
 function CompanySearchField({ value, onChange, onCompanySelect }) {
   const [query, setQuery] = useState(value || '')
   const [results, setResults] = useState([])
+  const [allCompanies, setAllCompanies] = useState([])
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState(null)
   const debounceRef = useRef(null)
   const wrapRef = useRef(null)
+
+  // Cargar todas las empresas al montar
+  useEffect(() => {
+    hubspot.quickSearchCompanies('').then(data => {
+      setAllCompanies(data.results || [])
+    }).catch(() => {})
+  }, [])
 
   // Cerrar dropdown al clic fuera
   useEffect(() => {
@@ -163,7 +171,12 @@ function CompanySearchField({ value, onChange, onCompanySelect }) {
 
   const search = useCallback((q) => {
     clearTimeout(debounceRef.current)
-    if (!q.trim() || q.length < 2) { setResults([]); setOpen(false); return }
+    if (!q.trim()) {
+      // Sin texto: mostrar todas las empresas cargadas
+      setResults(allCompanies)
+      setOpen(allCompanies.length > 0)
+      return
+    }
     debounceRef.current = setTimeout(async () => {
       setLoading(true)
       try {
@@ -173,14 +186,23 @@ function CompanySearchField({ value, onChange, onCompanySelect }) {
       } catch { setResults([]) }
       finally { setLoading(false) }
     }, 300)
-  }, [])
+  }, [allCompanies])
+
+  const handleFocus = () => {
+    if (!query.trim()) {
+      setResults(allCompanies)
+      setOpen(allCompanies.length > 0)
+    } else {
+      search(query)
+    }
+  }
 
   const handleInput = (e) => {
     const v = e.target.value
     setQuery(v)
-    onChange(v)           // update form's company name field
+    onChange(v)
     setSelected(null)
-    onCompanySelect(null) // clear company id selection
+    onCompanySelect(null)
     search(v)
   }
 
@@ -194,6 +216,8 @@ function CompanySearchField({ value, onChange, onCompanySelect }) {
     setResults([])
   }
 
+  const displayed = results.length > 0 ? results : allCompanies
+
   return (
     <div ref={wrapRef} style={{ position: 'relative' }}>
       <div style={{ position: 'relative' }}>
@@ -201,7 +225,8 @@ function CompanySearchField({ value, onChange, onCompanySelect }) {
           type="text"
           value={query}
           onChange={handleInput}
-          placeholder="Busca o escribe el nombre de la empresa…"
+          onFocus={handleFocus}
+          placeholder="Busca o selecciona una empresa…"
           style={{ ...inputStyle(false), paddingRight: 32 }}
         />
         <Search size={14} style={{ position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', color: '#6b778c', pointerEvents: 'none' }} />
@@ -212,13 +237,13 @@ function CompanySearchField({ value, onChange, onCompanySelect }) {
       {loading && (
         <div style={{ fontSize: 11, color: '#6b778c', marginTop: 3 }}>Buscando…</div>
       )}
-      {open && results.length > 0 && (
+      {open && displayed.length > 0 && (
         <div style={{
           position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 200,
           background: '#fff', border: '1px solid #dfe1e6', borderRadius: 6,
-          boxShadow: '0 4px 16px rgba(0,0,0,.15)', maxHeight: 200, overflowY: 'auto'
+          boxShadow: '0 4px 16px rgba(0,0,0,.15)', maxHeight: 220, overflowY: 'auto'
         }}>
-          {results.map(c => {
+          {displayed.map(c => {
             const p = c.properties || {}
             return (
               <div
@@ -328,10 +353,11 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
         props[f.key] = f.type === 'number' ? String(val) : val
       }
     })
-    // Para contactos: incluir company name y _companyId para asociación
+    // Para contactos: incluir company name, _companyId y asignar owner al usuario actual
     if (type === 'contact') {
       if (form.company) props.company = form.company
       if (selectedCompanyId) props._companyId = selectedCompanyId
+      if (!isEdit && user?.ownerId) props.hubspot_owner_id = String(user.ownerId)
     }
     if (type === 'deal') {
       // Auto-asignar zona del usuario en cualquier operación de deal

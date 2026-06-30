@@ -145,12 +145,15 @@ app.post('/api/hubspot/companies/search', requireAuth, async (req, res) => {
 app.get('/api/hubspot/companies/quick-search', requireAuth, async (req, res) => {
   try {
     const q = (req.query.q || '').trim()
-    if (!q) return res.json({ results: [] })
-    const r = await hs.post('/crm/v3/objects/companies/search', {
-      filterGroups: [{ filters: [{ propertyName: 'name', operator: 'CONTAINS_TOKEN', value: q }] }],
+    const body = {
       properties: ['name', 'domain', 'city'],
-      limit: 10
-    })
+      sorts: [{ propertyName: 'name', direction: 'ASCENDING' }],
+      limit: 50
+    }
+    if (q) {
+      body.filterGroups = [{ filters: [{ propertyName: 'name', operator: 'CONTAINS_TOKEN', value: q }] }]
+    }
+    const r = await hs.post('/crm/v3/objects/companies/search', body)
     res.json({ results: r.data.results || [] })
   } catch (e) {
     res.json({ results: [] })
