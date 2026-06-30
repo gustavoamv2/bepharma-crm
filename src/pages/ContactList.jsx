@@ -98,7 +98,17 @@ export default function ContactList() {
         <RecordModal
           type="contact"
           onClose={() => setShowCreate(false)}
-          onSaved={(r) => { qc.invalidateQueries(['contacts']); nav(`/contacts/${r.id}`) }}
+          onSaved={(r) => {
+            // Inject the new contact into the cache immediately (HubSpot search API
+            // has ~1-2 min indexing delay, so newly created contacts won't show up
+            // in search results right away without this)
+            qc.setQueriesData({ queryKey: ['contacts'] }, (old) => {
+              if (!old) return old
+              return { ...old, results: [r, ...(old.results || [])] }
+            })
+            qc.invalidateQueries(['contacts'])
+            nav(`/contacts/${r.id}`)
+          }}
         />
       )}
     </>
