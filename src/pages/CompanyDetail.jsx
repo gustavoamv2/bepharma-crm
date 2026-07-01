@@ -131,7 +131,7 @@ export default function CompanyDetail() {
                 ) : deals.map(d => {
                   const dp = d.properties || {}
                   const BP_ESTADO = {
-                    nueva: 'Nueva', en_depuracion: 'En Depuración', en_enriquecimiento: 'En Enriquecimiento',
+                    nueva: 'Nueva', en_depuracion: 'En Depuración',
                     contacto_enviado: 'Contacto enviado', en_seguimiento: 'En seguimiento',
                     confirmada: '✅ Confirmada', no_participa: '❌ No participa',
                   }

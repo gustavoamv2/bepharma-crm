@@ -507,14 +507,21 @@ function CompanySearchField({ value, onChange, onCompanySelect }) {
 }
 
 const DEAL_PROSPECCION_OPTIONS = [
-  { value: 'nueva',              label: 'Nueva' },
-  { value: 'en_depuracion',      label: 'En Depuración' },
-  { value: 'en_enriquecimiento', label: 'En Enriquecimiento' },
-  { value: 'contacto_enviado',   label: 'Contacto enviado' },
-  { value: 'en_seguimiento',     label: 'En seguimiento' },
-  { value: 'confirmada',         label: 'Confirmada BePharma' },
-  { value: 'no_participa',       label: 'No participa' },
+  { value: 'nueva',            label: 'Nueva' },
+  { value: 'en_depuracion',   label: 'En Depuración' },
+  { value: 'contacto_enviado', label: 'Contacto enviado' },
+  { value: 'en_seguimiento',  label: 'En seguimiento' },
+  { value: 'confirmada',      label: 'Confirmada' },
+  { value: 'no_participa',    label: 'No participa' },
 ]
+
+// Eventos BePharma programados — actualizar cuando se agenden nuevas ediciones
+export const EVENTOS_PROGRAMADOS = [
+  { value: 'BEPH-2026-09', label: 'Septiembre 2026 (actual)' },
+  { value: 'BEPH-2027-03', label: 'Marzo 2027' },
+  { value: 'BEPH-2027-09', label: 'Septiembre 2027' },
+]
+export const ACTIVE_EVENT = 'BEPH-2026-09'
 
 // Campos para crear deal desde empresa (solo estado prospección)
 const DEAL_FIELDS_FROM_COMPANY = [
@@ -558,6 +565,8 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
   const [saving, setSaving]         = useState(false)
   const [errors, setErrors]         = useState({})
   const [selectedCompanyId, setSelectedCompanyId] = useState(null)
+  // Para edición de deals: evento al que aplica el estado confirmada/no_participa
+  const [dealEvento, setDealEvento] = useState(record?.properties?.bp_evento_codigo || ACTIVE_EVENT)
 
   useEffect(() => {
     const handler = (e) => { if (e.key === 'Escape') onClose() }
@@ -607,7 +616,17 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
     if (type === 'deal') {
       // Auto-asignar zona del usuario en cualquier operación de deal
       if (!props.bp_zona && user?.bp_zona) props.bp_zona = user.bp_zona
-      if (!isEdit) {
+      if (isEdit) {
+        const estado = props.bp_estado_prospeccion
+        if (estado === 'confirmada') {
+          // Mover el deal al evento confirmado
+          props.bp_evento_codigo = dealEvento
+        } else if (estado === 'no_participa' && dealEvento && dealEvento !== (record?.properties?.bp_evento_codigo || ACTIVE_EVENT)) {
+          // Interesado en otro evento → mover deal y reactivar estado
+          props.bp_evento_codigo = dealEvento
+          props.bp_estado_prospeccion = 'en_seguimiento'
+        }
+      } else {
         if (companyId) props._companyId = companyId
         // Incluir defaults ocultos (ej: bp_evento_codigo)
         Object.entries(defaults).forEach(([k, v]) => {
@@ -667,6 +686,38 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
 
         {/* Body */}
         <form onSubmit={handleSubmit} style={{ flex: 1, overflowY: 'auto', padding: 20 }}>
+          {/* Selector de evento para Confirmada / No participa (solo edición de deals) */}
+          {type === 'deal' && isEdit && (form.bp_estado_prospeccion === 'confirmada' || form.bp_estado_prospeccion === 'no_participa') && (
+            <div style={{ marginBottom: 16, padding: '12px 14px', background: form.bp_estado_prospeccion === 'confirmada' ? '#f0fdf4' : '#fef9ec', border: `1px solid ${form.bp_estado_prospeccion === 'confirmada' ? '#86efac' : '#fcd34d'}`, borderRadius: 8 }}>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#374151', marginBottom: 6 }}>
+                {form.bp_estado_prospeccion === 'confirmada'
+                  ? '✅ ¿Para qué evento se confirma la participación?'
+                  : '🔄 ¿Le interesa participar en otro evento programado?'}
+              </label>
+              <select
+                value={dealEvento}
+                onChange={e => setDealEvento(e.target.value)}
+                style={{ width: '100%', padding: '7px 10px', border: '1px solid #d1d5db', borderRadius: 6, fontSize: 13, background: '#fff' }}
+              >
+                {form.bp_estado_prospeccion === 'no_participa' && (
+                  <option value="">— Sin interés en otros eventos —</option>
+                )}
+                {EVENTOS_PROGRAMADOS.map(e => (
+                  <option key={e.value} value={e.value}>{e.label}</option>
+                ))}
+              </select>
+              {form.bp_estado_prospeccion === 'no_participa' && dealEvento && dealEvento !== (record?.properties?.bp_evento_codigo || ACTIVE_EVENT) && (
+                <div style={{ marginTop: 6, fontSize: 11, color: '#92400e' }}>
+                  El lead se moverá a <strong>{EVENTOS_PROGRAMADOS.find(e => e.value === dealEvento)?.label}</strong> con estado "En seguimiento".
+                </div>
+              )}
+              {form.bp_estado_prospeccion === 'confirmada' && dealEvento !== (record?.properties?.bp_evento_codigo || ACTIVE_EVENT) && (
+                <div style={{ marginTop: 6, fontSize: 11, color: '#166534' }}>
+                  El lead se moverá a <strong>{EVENTOS_PROGRAMADOS.find(e => e.value === dealEvento)?.label}</strong> como confirmado.
+                </div>
+              )}
+            </div>
+          )}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
             {fields.map(f => (
               <div key={f.key} style={{ gridColumn: (f.type === 'textarea' || f.type === 'company-search' || f.type === 'company-name-search') ? '1 / -1' : 'auto' }}>

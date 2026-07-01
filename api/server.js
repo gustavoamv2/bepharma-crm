@@ -748,7 +748,7 @@ app.get('/api/hubspot/metrics', requireAuth, async (req, res) => {
     const delayMs = (ms) => new Promise(r => setTimeout(r, ms))
 
     // Distribucion por estado — secuencial para respetar rate limit HubSpot (4 req/s)
-    const BP_ESTADOS = ['nueva', 'en_depuracion', 'en_enriquecimiento', 'contacto_enviado', 'en_seguimiento', 'confirmada', 'no_participa']
+    const BP_ESTADOS = ['nueva', 'en_depuracion', 'contacto_enviado', 'en_seguimiento', 'confirmada', 'no_participa']
     const estadoCountsRaw = []
     for (const estado of BP_ESTADOS) {
       estadoCountsRaw.push(await safeCount([{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado }]))

@@ -12,13 +12,12 @@ const ACTIVE_EVENT = 'BEPH-2026-09'
 // Filtro por bp_estado_prospeccion (propiedad custom BePharma)
 const ESTADO_OPTIONS = [
   { value: '', label: 'Todos los estados' },
-  { value: 'nueva',              label: 'Nueva' },
-  { value: 'en_depuracion',      label: 'En Depuracion' },
-  { value: 'en_enriquecimiento', label: 'En Enriquecimiento' },
-  { value: 'contacto_enviado',   label: 'Contacto enviado' },
-  { value: 'en_seguimiento',     label: 'En seguimiento' },
-  { value: 'confirmada',         label: 'Confirmada BePharma' },
-  { value: 'no_participa',       label: 'No participa' },
+  { value: 'nueva',            label: 'Nueva' },
+  { value: 'en_depuracion',   label: 'En Depuración' },
+  { value: 'contacto_enviado', label: 'Contacto enviado' },
+  { value: 'en_seguimiento',  label: 'En seguimiento' },
+  { value: 'confirmada',      label: 'Confirmada' },
+  { value: 'no_participa',    label: 'No participa' },
 ]
 
 const ALERTA_OPTIONS = [
@@ -37,13 +36,12 @@ const OWNER_NAMES = {
 }
 
 const ESTADO_LABELS = {
-  nueva:              'Nueva',
-  en_depuracion:      'En Depuracion',
-  en_enriquecimiento: 'En Enriquecimiento',
-  contacto_enviado:   'Contacto enviado',
-  en_seguimiento:     'En seguimiento',
-  confirmada:         'Confirmada BePharma',
-  no_participa:       'No participa',
+  nueva:            'Nueva',
+  en_depuracion:   'En Depuración',
+  contacto_enviado: 'Contacto enviado',
+  en_seguimiento:  'En seguimiento',
+  confirmada:      'Confirmada',
+  no_participa:    'No participa',
 }
 
 function formatBpDate(val) {

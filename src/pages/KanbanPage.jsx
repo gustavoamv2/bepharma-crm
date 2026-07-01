@@ -16,13 +16,12 @@ import { Building2, User, MapPin, AlertTriangle, Calendar, ArrowRight } from 'lu
 
 // Columnas del Kanban basadas en bp_estado_prospeccion (propiedad custom BePharma)
 const STAGES = [
-  { key: 'nueva',               label: 'Nueva',              color: '#2563eb', bg: '#eff6ff' },
-  { key: 'en_depuracion',       label: 'En Depuracion',      color: '#d97706', bg: '#fffbeb' },
-  { key: 'en_enriquecimiento',  label: 'En Enriquecimiento', color: '#7c3aed', bg: '#f5f3ff' },
-  { key: 'contacto_enviado',    label: 'Contacto enviado',   color: '#0369a1', bg: '#f0f9ff' },
-  { key: 'en_seguimiento',      label: 'En seguimiento',     color: '#0f766e', bg: '#f0fdfa' },
-  { key: 'confirmada',          label: 'Confirmada BePharma',color: '#15803d', bg: '#f0fdf4' },
-  { key: 'no_participa',        label: 'No participa',       color: '#b91c1c', bg: '#fef2f2' },
+  { key: 'nueva',            label: 'Nueva',           color: '#2563eb', bg: '#eff6ff' },
+  { key: 'en_depuracion',   label: 'En Depuración',   color: '#d97706', bg: '#fffbeb' },
+  { key: 'contacto_enviado', label: 'Contacto enviado', color: '#0369a1', bg: '#f0f9ff' },
+  { key: 'en_seguimiento',  label: 'En seguimiento',  color: '#0f766e', bg: '#f0fdfa' },
+  { key: 'confirmada',      label: 'Confirmada',      color: '#15803d', bg: '#f0fdf4' },
+  { key: 'no_participa',    label: 'No participa',    color: '#b91c1c', bg: '#fef2f2' },
 ]
 
 const TERMINAL_STAGES = ['confirmada', 'no_participa']

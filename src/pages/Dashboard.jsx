@@ -55,22 +55,20 @@ function BarChart({ data, color = '#4fc3f7', height = 140, onBarClick }) {
 
 // ── Gráfica donut SVG (interactiva) ──────────────────────────────────────────
 const STAGE_COLORS = {
-  nueva:              '#2563eb',
-  en_depuracion:      '#d97706',
-  en_enriquecimiento: '#7c3aed',
-  contacto_enviado:   '#0369a1',
-  en_seguimiento:     '#0f766e',
-  confirmada:         '#15803d',
-  no_participa:       '#b91c1c',
+  nueva:            '#2563eb',
+  en_depuracion:   '#d97706',
+  contacto_enviado: '#0369a1',
+  en_seguimiento:  '#0f766e',
+  confirmada:      '#15803d',
+  no_participa:    '#b91c1c',
 }
 const STAGE_LABELS = {
-  nueva:              'Nueva',
-  en_depuracion:      'En depuracion',
-  en_enriquecimiento: 'En enriquecimiento',
-  contacto_enviado:   'Contacto enviado',
-  en_seguimiento:     'En seguimiento',
-  confirmada:         'Confirmada BePharma',
-  no_participa:       'No participa',
+  nueva:            'Nueva',
+  en_depuracion:   'En depuración',
+  contacto_enviado: 'Contacto enviado',
+  en_seguimiento:  'En seguimiento',
+  confirmada:      'Confirmada',
+  no_participa:    'No participa',
 }
 
 function DonutChart({ data, onSliceClick }) {
@@ -145,13 +143,12 @@ function DonutChart({ data, onSliceClick }) {
 const ACTIVE_EVENT = 'BEPH-2026-09'
 
 const ESTADO_LABELS = {
-  nueva:              'Nueva',
-  en_depuracion:      'En Depuracion',
-  en_enriquecimiento: 'En Enriquecimiento',
-  contacto_enviado:   'Contacto enviado',
-  en_seguimiento:     'En seguimiento',
-  confirmada:         'Confirmada BePharma',
-  no_participa:       'No participa',
+  nueva:            'Nueva',
+  en_depuracion:   'En Depuración',
+  contacto_enviado: 'Contacto enviado',
+  en_seguimiento:  'En seguimiento',
+  confirmada:      'Confirmada',
+  no_participa:    'No participa',
 }
 
 const nowMs = () => String(Date.now())
