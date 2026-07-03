@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom'
-import { LayoutDashboard, Briefcase, Building2, Users, Search, LogOut, Settings, Kanban, BarChart2 } from 'lucide-react'
+import { LayoutDashboard, Briefcase, Building2, Users, Search, LogOut, Settings, Kanban, BarChart2, KeyRound } from 'lucide-react'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { ToastProvider } from './hooks/useToast'
 import { hubspot } from './hooks/useApi'
@@ -13,10 +13,13 @@ import ContactList from './pages/ContactList'
 import ContactDetail from './pages/ContactDetail'
 import SearchPage from './pages/SearchPage'
 import LoginPage from './pages/LoginPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 import AdminPage from './pages/AdminPage'
 import KanbanPage from './pages/KanbanPage'
 import ReportsPage from './pages/ReportsPage'
 import GlobalSearch from './components/GlobalSearch'
+import ChangePasswordModal from './components/ChangePasswordModal'
 
 function Avatar({ name }) {
   const initials = (name || 'U').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase()
@@ -50,6 +53,7 @@ function useNotifCount() {
 function AppContent() {
   const { user, logout, loading } = useAuth()
   const notifCount = useNotifCount()
+  const [showChangePassword, setShowChangePassword] = useState(false)
 
   // Vista de operador reactiva — se sincroniza con el toggle del Dashboard
   const [viewMode, setViewMode] = useState(
@@ -74,7 +78,17 @@ function AppContent() {
     )
   }
 
-  if (!user) return <LoginPage />
+  if (!user) {
+    // Rutas publicas (sin sesion): login + recuperar/restablecer contraseña.
+    // Cualquier otra ruta cae en LoginPage.
+    return (
+      <Routes>
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password"  element={<ResetPasswordPage />} />
+        <Route path="*"                element={<LoginPage />} />
+      </Routes>
+    )
+  }
 
   // Supervisor actuando como operador → menú de operador
   // (si canToggleView es false, el usuario nunca puede pasar a vista operador)
@@ -159,12 +173,20 @@ function AppContent() {
                 : 'Operador'}
             </div>
           </div>
+          <button onClick={() => setShowChangePassword(true)} title="Cambiar contraseña"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#546e7a', padding: 4, borderRadius: 4 }}>
+            <KeyRound size={15} />
+          </button>
           <button onClick={logout} title="Cerrar sesión"
             style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#546e7a', padding: 4, borderRadius: 4 }}>
             <LogOut size={15} />
           </button>
         </div>
       </aside>
+
+      {showChangePassword && (
+        <ChangePasswordModal onClose={() => setShowChangePassword(false)} />
+      )}
 
       <div className="main">
         <Routes>

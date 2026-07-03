@@ -41,15 +41,23 @@ function computeAutoStage({ companyPhone, companyEmail, contacts = [] }) {
 // Recalcula la etapa automática de una empresa y la aplica a todos sus deals
 // que estén actualmente en una etapa automática (o sin etapa) — nunca toca
 // deals ya movidos manualmente a En Seguimiento/Confirmada/No Participa.
-async function recomputeDealStagesForCompany(companyId) {
+async function recomputeDealStagesForCompany(companyId, opts = {}) {
   if (!companyId) return { skipped: true }
+  const { dryRun = false } = opts
 
   try {
+    // NOTA (03-jul-2026): este portal NO tiene una propiedad estandar "email" en
+    // Empresas -- el campo real es "bp_email_empresa" ("Email corporativo empresa").
+    // Antes se pedia "email" (que no existe), asi que companyEmail siempre daba ''
+    // sin importar los datos reales de la empresa. Hoy bp_email_empresa tampoco
+    // tiene datos cargados en ninguna empresa del portal, asi que el efecto
+    // practico actual es el mismo (0), pero esto queda listo para cuando se
+    // empiece a poblar ese campo.
     const companyR = await hs.get(`/crm/v3/objects/companies/${companyId}`, {
-      params: { properties: 'phone,email' },
+      params: { properties: 'phone,bp_email_empresa' },
     })
     const companyPhone = companyR.data.properties?.phone || ''
-    const companyEmail = companyR.data.properties?.email || ''
+    const companyEmail = companyR.data.properties?.bp_email_empresa || ''
 
     const contactAssocR = await hs
       .get(`/crm/v3/objects/companies/${companyId}/associations/contacts`)
@@ -89,13 +97,13 @@ async function recomputeDealStagesForCompany(companyId) {
       })
       .map(d => d.id)
 
-    if (updatable.length) {
+    if (updatable.length && !dryRun) {
       await hs.post('/crm/v3/objects/deals/batch/update', {
         inputs: updatable.map(id => ({ id, properties: { bp_estado_prospeccion: newStage } })),
       })
     }
 
-    return { companyId, newStage, updatedDeals: updatable }
+    return { companyId, newStage, updatedDeals: updatable, dryRun }
   } catch (err) {
     console.warn(
       '[autoStage] fallo al recalcular etapa para empresa', companyId, ':',

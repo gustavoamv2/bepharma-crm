@@ -1,11 +1,13 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const { loadUsers } = require('./usersStore')
+const { loadUsers, saveUsers } = require('./usersStore')
 const { JWT_SECRET, JWT_TTL } = require('./config/env')
 const { labelsToEnglish } = require('./config/countries')
 
 const SECRET = JWT_SECRET
 const TOKEN_TTL = JWT_TTL
+const RESET_TOKEN_TTL = '30m'
+const MIN_PASSWORD_LENGTH = 8
 
 // ── Login ────────────────────────────────────────────────────────────────────
 async function login(username, password) {
@@ -28,6 +30,78 @@ async function login(username, password) {
 
   const token = jwt.sign(payload, SECRET, { expiresIn: TOKEN_TTL })
   return { token, user: payload }
+}
+
+// ── Recuperar / cambiar contraseña ───────────────────────────────────────────
+// El token de reset lleva un fragmento del hash de la contraseña ACTUAL
+// (pwv = "password version"). Al validar el token se compara ese fragmento
+// contra el hash vigente en ese momento: si la contraseña ya cambió (porque
+// el link se usó, o se cambió por otra vía), el fragmento ya no coincide y el
+// token queda invalidado solo, sin necesitar guardar/borrar tokens en disco.
+function pwVersion(hash) {
+  return (hash || '').slice(-12)
+}
+
+function validatePasswordStrength(newPassword) {
+  if (typeof newPassword !== 'string' || newPassword.length < MIN_PASSWORD_LENGTH) {
+    throw new Error(`La contraseña debe tener al menos ${MIN_PASSWORD_LENGTH} caracteres`)
+  }
+}
+
+// Genera el token de un solo uso para el link de "recuperar contraseña".
+// Lanza si el username no existe -- el caller (route) decide si responde
+// generico para no filtrar qué usuarios existen.
+function generateResetToken(username) {
+  const users = loadUsers()
+  const user = users[username.toLowerCase()]
+  if (!user) throw new Error('Usuario no encontrado')
+
+  const token = jwt.sign(
+    { username: username.toLowerCase(), purpose: 'reset', pwv: pwVersion(user.password) },
+    SECRET,
+    { expiresIn: RESET_TOKEN_TTL }
+  )
+  return { token, user }
+}
+
+// Aplica una nueva contraseña usando un token de reset válido.
+async function resetPasswordWithToken(token, newPassword) {
+  validatePasswordStrength(newPassword)
+
+  let decoded
+  try {
+    decoded = jwt.verify(token, SECRET)
+  } catch {
+    throw new Error('El link para restablecer la contraseña expiró o no es válido')
+  }
+  if (decoded.purpose !== 'reset') throw new Error('Token inválido')
+
+  const users = loadUsers()
+  const user = users[decoded.username]
+  if (!user) throw new Error('Usuario no encontrado')
+  if (pwVersion(user.password) !== decoded.pwv) {
+    throw new Error('Este link ya fue usado. Solicita uno nuevo.')
+  }
+
+  user.password = await bcrypt.hash(newPassword, 10)
+  saveUsers(users)
+  return { username: decoded.username }
+}
+
+// Cambio de contraseña por el propio usuario ya autenticado (requiere la actual).
+async function changePassword(username, currentPassword, newPassword) {
+  validatePasswordStrength(newPassword)
+
+  const users = loadUsers()
+  const user = users[username.toLowerCase()]
+  if (!user) throw new Error('Usuario no encontrado')
+
+  const ok = await bcrypt.compare(currentPassword, user.password)
+  if (!ok) throw new Error('La contraseña actual no es correcta')
+
+  user.password = await bcrypt.hash(newPassword, 10)
+  saveUsers(users)
+  return { username: username.toLowerCase() }
 }
 
 // ── Middleware ────────────────────────────────────────────────────────────────
@@ -94,4 +168,13 @@ function applyCountryFilter(req, filterGroups, propertyName, { translate = false
   })
 }
 
-module.exports = { login, requireAuth, applyOwnerFilter, applyCountryFilter, addFilterToGroups }
+module.exports = {
+  login,
+  requireAuth,
+  applyOwnerFilter,
+  applyCountryFilter,
+  addFilterToGroups,
+  generateResetToken,
+  resetPasswordWithToken,
+  changePassword,
+}

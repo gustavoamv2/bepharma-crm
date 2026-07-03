@@ -11,7 +11,7 @@ const nodemailer = require('nodemailer')
 const fs = require('fs')
 const path = require('path')
 const FormData = require('form-data')
-const { login, requireAuth, applyOwnerFilter, applyCountryFilter, addFilterToGroups } = require('./auth')
+const { login, requireAuth, applyOwnerFilter, applyCountryFilter, addFilterToGroups, generateResetToken, resetPasswordWithToken, changePassword } = require('./auth')
 const { requireWebhookToken } = require('./middleware/webhookAuth')
 const { errorHandler } = require('./middleware/errorHandler')
 const { loadUsers, saveUsers } = require('./usersStore')
@@ -44,6 +44,16 @@ const loginLimiter = rateLimit({
   message: { data: null, meta: {}, error: { code: 'RATE_LIMIT', message: 'Demasiados intentos. Intenta en 15 minutos.' } }
 })
 
+// Rate limit en "olvidé mi contraseña": max 5 solicitudes por IP por 15 minutos
+// (evita spam de emails y dificulta enumerar usuarios validos por fuerza bruta)
+const forgotPasswordLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { data: null, meta: {}, error: { code: 'RATE_LIMIT', message: 'Demasiadas solicitudes. Intenta en 15 minutos.' } }
+})
+
 const PORT = env.PORT
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -74,6 +84,68 @@ app.post('/api/auth/login', loginLimiter, async (req, res) => {
 
 app.get('/api/auth/me', requireAuth, (req, res) => {
   res.json({ user: req.user })
+})
+
+// "Olvidé mi contraseña" — manda un link de un solo uso (30 min) al correo
+// configurado del usuario (EMAIL_USER_<USERNAME> en .env), usando su propio
+// transporte SMTP (getUserMailer/getUserEmail, definidos mas abajo en este
+// archivo pero disponibles aqui por hoisting de function declarations).
+// Respuesta SIEMPRE generica: no revela si el usuario existe o si tiene
+// correo configurado, para no facilitar enumeracion de usuarios validos.
+app.post('/api/auth/forgot-password', forgotPasswordLimiter, async (req, res) => {
+  const generic = {
+    success: true,
+    message: 'Si el usuario existe y tiene un correo configurado, se envió un link para restablecer la contraseña.',
+  }
+  const { username } = req.body
+  if (!username) return res.status(400).json({ error: 'Falta el usuario' })
+
+  try {
+    const { token, user } = generateResetToken(username)
+    const to = getUserEmail(username)
+    const mailer = getUserMailer(username)
+    if (!to || !mailer) {
+      console.warn(`[forgot-password] usuario "${username}" sin correo configurado (EMAIL_USER_${username.toUpperCase()})`)
+      return res.json(generic)
+    }
+
+    const resetLink = `${env.APP_ORIGIN}/reset-password?token=${encodeURIComponent(token)}`
+    const html = `
+      <p>Hola ${user.name || username},</p>
+      <p>Recibimos una solicitud para restablecer tu contraseña del CRM de BePharma.</p>
+      <p><a href="${resetLink}">Haz clic aquí para elegir una nueva contraseña</a></p>
+      <p>Este link expira en 30 minutos. Si tú no solicitaste esto, puedes ignorar este correo.</p>
+    `
+    await mailer.sendMail({ from: to, to, subject: 'BePharma CRM — Restablecer contraseña', html })
+    res.json(generic)
+  } catch (e) {
+    console.warn('[forgot-password]', e.message)
+    res.json(generic) // nunca revelar el motivo real (usuario inexistente, etc.)
+  }
+})
+
+// Aplica la nueva contraseña usando el token del link de "olvidé mi contraseña"
+app.post('/api/auth/reset-password', async (req, res) => {
+  try {
+    const { token, newPassword } = req.body
+    if (!token || !newPassword) return res.status(400).json({ error: 'Faltan datos' })
+    const result = await resetPasswordWithToken(token, newPassword)
+    res.json({ success: true, username: result.username })
+  } catch (e) {
+    res.status(400).json({ error: e.message })
+  }
+})
+
+// Cambio de contraseña por el propio usuario ya logueado (requiere la actual)
+app.post('/api/auth/change-password', requireAuth, async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body
+    if (!currentPassword || !newPassword) return res.status(400).json({ error: 'Faltan datos' })
+    await changePassword(req.user.username, currentPassword, newPassword)
+    res.json({ success: true })
+  } catch (e) {
+    res.status(400).json({ error: e.message })
+  }
 })
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -810,6 +882,23 @@ app.patch('/api/admin/users/:username/paises', requireAuth, async (req, res) => 
 // etapa automática o sin etapa. Uso: backfill único tras desplegar esta
 // funcionalidad, o para resincronizar si algo se editó directo en HubSpot
 // sin pasar por el CRM (que es donde vive el recálculo en tiempo real).
+//
+// LIMITE IMPORTANTE (descubierto 03-jul-2026): esto procesa las empresas
+// una por una, secuencial, con varias llamadas a HubSpot por empresa. Con
+// unos cientos de empresas esto termina bien, pero con miles (ej. un import
+// masivo de un evento nuevo) la ejecución total toma varios minutos y la
+// función serverless de Vercel se corta antes de terminar (no hay
+// `maxDuration` configurado, y con el `builds` legacy de vercel.json no es
+// trivial subirlo). El resultado: cada corrida "arregla" solo el primer
+// grupo de empresas antes del corte, y como siempre reprocesa en el mismo
+// orden, nunca avanza mas alla de ese primer grupo.
+//
+// Para backfills grandes (varios cientos+ de empresas pendientes) usar en
+// su lugar el script de una sola corrida, sin límite de tiempo:
+//   node api/scripts/recompute-auto-stages.js --dry-run
+//   node api/scripts/recompute-auto-stages.js --confirm
+// Este botón queda bien para recalculos chicos (unas pocas decenas de
+// empresas editadas directo en HubSpot).
 app.post('/api/admin/recompute-auto-stages', requireAuth, async (req, res) => {
   if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
   try {

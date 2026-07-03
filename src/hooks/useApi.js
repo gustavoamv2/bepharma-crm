@@ -88,6 +88,13 @@ export const rocketreach = {
   lookup: (body) => api.post('/rocketreach/lookup', body).then(r => r.data),
 }
 
+// ── Auth (recuperar / cambiar contraseña) ────────────────────────────────────
+export const authApi = {
+  forgotPassword:  (username)                    => api.post('/auth/forgot-password', { username }).then(r => r.data),
+  resetPassword:   (token, newPassword)          => api.post('/auth/reset-password', { token, newPassword }).then(r => r.data),
+  changePassword:  (currentPassword, newPassword) => api.post('/auth/change-password', { currentPassword, newPassword }).then(r => r.data),
+}
+
 // ── Admin ─────────────────────────────────────────────────────────────────────
 export const admin = {
   getUsers:        ()                               => api.get('/admin/users').then(r => r.data),

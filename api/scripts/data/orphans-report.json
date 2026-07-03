@@ -1,0 +1,423 @@
+{
+  "generadoEn": "2026-07-03T21:16:17.045Z",
+  "evento": "BEPH-2026-09",
+  "totalHuerfanos": 1133,
+  "resueltosEstaCorrida": 1091,
+  "ambiguos": [
+    {
+      "dealId": "62164543345",
+      "dealname": "CrystalGenomics, Inc. - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "crystalgenomics, inc.",
+      "companiesCandidatas": [
+        "56479491707",
+        "56489032762"
+      ]
+    },
+    {
+      "dealId": "62165552705",
+      "dealname": "North China Pharmaceutical Co., Ltd. (NCPC) - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "north china pharmaceutical co., ltd. (ncpc)",
+      "companiesCandidatas": [
+        "56478868324",
+        "56491037571"
+      ]
+    },
+    {
+      "dealId": "62163569310",
+      "dealname": "PharmEco LLC - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "pharmeco llc",
+      "companiesCandidatas": [
+        "56487681907",
+        "56489338379"
+      ]
+    },
+    {
+      "dealId": "62163252845",
+      "dealname": "CrystalGenomics, Inc. - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "crystalgenomics, inc.",
+      "companiesCandidatas": [
+        "56479491707",
+        "56489032762"
+      ]
+    },
+    {
+      "dealId": "62158079744",
+      "dealname": "Shionogi & Co., Ltd. - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "shionogi & co., ltd.",
+      "companiesCandidatas": [
+        "56482675030",
+        "56483912516"
+      ]
+    },
+    {
+      "dealId": "62167046917",
+      "dealname": "Joincare Pharmaceutical Group Industry Co., Ltd. - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "joincare pharmaceutical group industry co., ltd.",
+      "companiesCandidatas": [
+        "56477320869",
+        "56484545335"
+      ]
+    },
+    {
+      "dealId": "62167046916",
+      "dealname": "Qilu Pharmaceutical Co., Ltd. - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "qilu pharmaceutical co., ltd.",
+      "companiesCandidatas": [
+        "56465054489",
+        "56497445015"
+      ]
+    },
+    {
+      "dealId": "62163976585",
+      "dealname": "Genexine, Inc. - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "genexine, inc.",
+      "companiesCandidatas": [
+        "56465953307",
+        "56485817215"
+      ]
+    },
+    {
+      "dealId": "62165516450",
+      "dealname": "Genexine, Inc. - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "genexine, inc.",
+      "companiesCandidatas": [
+        "56465953307",
+        "56485817215"
+      ]
+    },
+    {
+      "dealId": "62166922052",
+      "dealname": "Bioneer Corporation - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "bioneer corporation",
+      "companiesCandidatas": [
+        "56471583519",
+        "56475467285"
+      ]
+    },
+    {
+      "dealId": "62167072269",
+      "dealname": "North China Pharmaceutical Co., Ltd. (NCPC) - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "north china pharmaceutical co., ltd. (ncpc)",
+      "companiesCandidatas": [
+        "56478868324",
+        "56491037571"
+      ]
+    },
+    {
+      "dealId": "62158072177",
+      "dealname": "Joincare Pharmaceutical Group Industry Co., Ltd. - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "joincare pharmaceutical group industry co., ltd.",
+      "companiesCandidatas": [
+        "56477320869",
+        "56484545335"
+      ]
+    },
+    {
+      "dealId": "62166037054",
+      "dealname": "Bioneer Corporation - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "bioneer corporation",
+      "companiesCandidatas": [
+        "56471583519",
+        "56475467285"
+      ]
+    },
+    {
+      "dealId": "62149589120",
+      "dealname": "Qilu Pharmaceutical Co., Ltd. - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "qilu pharmaceutical co., ltd.",
+      "companiesCandidatas": [
+        "56465054489",
+        "56497445015"
+      ]
+    },
+    {
+      "dealId": "62163832920",
+      "dealname": "Shionogi & Co., Ltd. - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "shionogi & co., ltd.",
+      "companiesCandidatas": [
+        "56482675030",
+        "56483912516"
+      ]
+    },
+    {
+      "dealId": "62164475267",
+      "dealname": "PharmEco LLC - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "pharmeco llc",
+      "companiesCandidatas": [
+        "56487681907",
+        "56489338379"
+      ]
+    },
+    {
+      "dealId": "62172767882",
+      "dealname": "Alternova A/S - BEPH-2026-09",
+      "zona": "gracie",
+      "companyNameBuscado": "alternova a/s",
+      "companiesCandidatas": [
+        "56471897896",
+        "56484686659"
+      ]
+    },
+    {
+      "dealId": "62173639844",
+      "dealname": "Alternova A/S - BEPH-2026-09",
+      "zona": "gracie",
+      "companyNameBuscado": "alternova a/s",
+      "companiesCandidatas": [
+        "56471897896",
+        "56484686659"
+      ]
+    },
+    {
+      "dealId": "62173600148",
+      "dealname": "Reponex Pharmaceuticals A/S - BEPH-2026-09",
+      "zona": "gracie",
+      "companyNameBuscado": "reponex pharmaceuticals a/s",
+      "companiesCandidatas": [
+        "56463824290",
+        "56488263534"
+      ]
+    },
+    {
+      "dealId": "62170876773",
+      "dealname": "Reponex Pharmaceuticals A/S - BEPH-2026-09",
+      "zona": "gracie",
+      "companyNameBuscado": "reponex pharmaceuticals a/s",
+      "companiesCandidatas": [
+        "56463824290",
+        "56488263534"
+      ]
+    },
+    {
+      "dealId": "62173776278",
+      "dealname": "Specific Pharma A/S - BEPH-2026-09",
+      "zona": "gracie",
+      "companyNameBuscado": "specific pharma a/s",
+      "companiesCandidatas": [
+        "56472216639",
+        "56498308165"
+      ]
+    },
+    {
+      "dealId": "62151875148",
+      "dealname": "Specific Pharma A/S - BEPH-2026-09",
+      "zona": "gracie",
+      "companyNameBuscado": "specific pharma a/s",
+      "companiesCandidatas": [
+        "56472216639",
+        "56498308165"
+      ]
+    },
+    {
+      "dealId": "62173286563",
+      "dealname": "Bavarian Nordic A/S - BEPH-2026-09",
+      "zona": "gracie",
+      "companyNameBuscado": "bavarian nordic a/s",
+      "companiesCandidatas": [
+        "56475284135",
+        "56484065880"
+      ]
+    },
+    {
+      "dealId": "62159335490",
+      "dealname": "Bavarian Nordic A/S - BEPH-2026-09",
+      "zona": "gracie",
+      "companyNameBuscado": "bavarian nordic a/s",
+      "companiesCandidatas": [
+        "56475284135",
+        "56484065880"
+      ]
+    },
+    {
+      "dealId": "62174674297",
+      "dealname": "Medifarma - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "medifarma",
+      "companiesCandidatas": [
+        "56467798914",
+        "56484228180",
+        "56488430234"
+      ]
+    },
+    {
+      "dealId": "62174363392",
+      "dealname": "Asofarma Centroamérica y el Caribe - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "asofarma centroamérica y el caribe",
+      "companiesCandidatas": [
+        "56482519390",
+        "56495011768"
+      ]
+    },
+    {
+      "dealId": "62176820268",
+      "dealname": "Medifarma - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "medifarma",
+      "companiesCandidatas": [
+        "56467798914",
+        "56484228180",
+        "56488430234"
+      ]
+    },
+    {
+      "dealId": "62174304047",
+      "dealname": "Laboratorios Delta - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "laboratorios delta",
+      "companiesCandidatas": [
+        "56478570564",
+        "56492277673"
+      ]
+    },
+    {
+      "dealId": "62174679329",
+      "dealname": "Celnova Pharma - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "celnova pharma",
+      "companiesCandidatas": [
+        "56480096407",
+        "56495616256"
+      ]
+    },
+    {
+      "dealId": "62174626733",
+      "dealname": "Infarma - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "infarma",
+      "companiesCandidatas": [
+        "56476261547",
+        "56489516579"
+      ]
+    },
+    {
+      "dealId": "62174333830",
+      "dealname": "FAES Farma - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "faes farma",
+      "companiesCandidatas": [
+        "56464439963",
+        "56479014304"
+      ]
+    },
+    {
+      "dealId": "62174462768",
+      "dealname": "Celnova Pharma - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "celnova pharma",
+      "companiesCandidatas": [
+        "56480096407",
+        "56495616256"
+      ]
+    },
+    {
+      "dealId": "62174543620",
+      "dealname": "FAES Farma - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "faes farma",
+      "companiesCandidatas": [
+        "56464439963",
+        "56479014304"
+      ]
+    },
+    {
+      "dealId": "62176102209",
+      "dealname": "Medifarma - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "medifarma",
+      "companiesCandidatas": [
+        "56467798914",
+        "56484228180",
+        "56488430234"
+      ]
+    },
+    {
+      "dealId": "62176560170",
+      "dealname": "Leterago - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "leterago",
+      "companiesCandidatas": [
+        "56470057548",
+        "56481437368"
+      ]
+    },
+    {
+      "dealId": "62174966848",
+      "dealname": "Laboratorios Delta - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "laboratorios delta",
+      "companiesCandidatas": [
+        "56478570564",
+        "56492277673"
+      ]
+    },
+    {
+      "dealId": "62176820274",
+      "dealname": "Infarma - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "infarma",
+      "companiesCandidatas": [
+        "56476261547",
+        "56489516579"
+      ]
+    },
+    {
+      "dealId": "62176696101",
+      "dealname": "Asofarma Centroamérica y el Caribe - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "asofarma centroamérica y el caribe",
+      "companiesCandidatas": [
+        "56482519390",
+        "56495011768"
+      ]
+    },
+    {
+      "dealId": "62174145635",
+      "dealname": "Leterago - BEPH-2026-09",
+      "zona": "yesenia",
+      "companyNameBuscado": "leterago",
+      "companiesCandidatas": [
+        "56470057548",
+        "56481437368"
+      ]
+    }
+  ],
+  "sinEmpresa": [
+    {
+      "dealId": "62163569311",
+      "dealname": "Ego Pharmaceuticals - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "ego pharmaceuticals"
+    },
+    {
+      "dealId": "62165913182",
+      "dealname": "Ego Pharmaceuticals (Middle East Regional Office) - BEPH-2026-09",
+      "zona": "angel",
+      "companyNameBuscado": "ego pharmaceuticals (middle east regional office)"
+    },
+    {
+      "dealId": "62174474897",
+      "dealname": "Erela - BEPH-2026-09",
+      "zona": "sara",
+      "companyNameBuscado": "erela"
+    }
+  ],
+  "patronInvalido": [],
+  "sinZona": []
+}

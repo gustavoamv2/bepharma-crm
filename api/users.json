@@ -6,7 +6,7 @@
     "ownerId": "93615311",
     "bp_paises": [],
     "sipExtension": "",
-    "password": "$2a$10$lBrc4hqh6Wyf55bBgCFHpubRrjJct1oxE8InZPb/nRmOmZQBLr.ui",
+    "password": "$2a$10$HqnUjHCLtbxKR5Hk6Dab6Om7qST7E8gmii5PkmWCmoQixvFylGmDC",
     "emailUser": "",
     "emailPass": ""
   },
@@ -16,7 +16,7 @@
     "ownerId": "93621022",
     "bp_paises": ["México", "España", "Argentina", "Chile", "Paraguay", "Uruguay", "Venezuela", "Colombia", "Perú", "Ecuador", "Bolivia", "República Dominicana", "Costa Rica", "Panamá", "El Salvador", "Guatemala"],
     "sipExtension": "104",
-    "password": "$2a$10$qwPGlKg8i7mpLNo8XjULIeHJtsJAvz1YOVjLYfNy9B8veoLt.HatC",
+    "password": "$2a$10$mCr2p29.cTyl3XuXbPzifus9LBeCF4doERVNNdQm1eOL9fhI/E0RK",
     "emailUser": "",
     "emailPass": ""
   },
@@ -26,7 +26,7 @@
     "ownerId": "93771980",
     "bp_paises": ["Italia", "India", "Rusia", "Japón", "Corea del Sur", "China", "Vietnam", "Turquía", "Singapur", "Australia", "Nueva Zelanda", "Estados Unidos", "Emiratos Árabes Unidos", "Arabia Saudita"],
     "sipExtension": "101",
-    "password": "$2b$10$lRb6JoYogV43li4bGhWFRe51nqDtc6bT.w7BDcwz7Sy8IUB85vR8y",
+    "password": "$2a$10$o0QLbjM0lmzXunQATEUIYODrG2gcCbEtCJWNjRpqKpRlOr3DcjSH2",
     "emailUser": "",
     "emailPass": ""
   },
@@ -36,7 +36,7 @@
     "ownerId": "93771979",
     "bp_paises": ["Inglaterra", "Bélgica", "Finlandia", "Croacia", "Irlanda", "Estados Unidos", "Dinamarca", "Escocia", "Noruega", "Bulgaria", "Haití", "Georgia", "Antillas", "Antigua y Barbuda", "Bahamas", "Barbados", "Cuba", "Dominica", "Granada", "Jamaica", "República Dominicana", "San Cristóbal y Nieves", "San Vicente y las Granadinas", "Santa Lucía", "Trinidad y Tobago", "Egipto"],
     "sipExtension": "103",
-    "password": "$2b$10$yT7WbRLnExi2LRcLrXpTKOZqfA06zldkLk2oEf85oizwizJev4GYu",
+    "password": "$2a$10$FxFJzRmlGwxySm8GuF100OaOYHy.2WmN6/gLs3MMok1i0E4cm/5nm",
     "emailUser": "",
     "emailPass": ""
   },
@@ -46,7 +46,7 @@
     "ownerId": "93771981",
     "bp_paises": ["Brasil", "Alemania", "Austria", "Canadá", "Francia", "Portugal", "Suiza", "Sudáfrica", "Islandia", "Serbia", "Ucrania", "Marruecos", "Israel", "Eslovaquia", "Moldavia", "Qatar"],
     "sipExtension": "100",
-    "password": "$2b$10$Y.vmS9o9agCdF6xsx.sjluUiXZV8BZ8K6Eyir887bmWRIiwBi2evK",
+    "password": "$2a$10$sjp4XKZ28eH3Ks6K3TecbeuTlgRkIJ6R.WzZ3MGR8DppmQWr8rxiC",
     "emailUser": "",
     "emailPass": ""
   },
@@ -56,7 +56,7 @@
     "ownerId": "73112880",
     "bp_paises": ["Suecia", "Estados Unidos", "Países Bajos", "Polonia", "Grecia", "Puerto Rico", "México", "Hungría", "Tailandia", "Indonesia", "Malasia", "Guyana"],
     "sipExtension": "102",
-    "password": "$2b$10$WxoV7QlUnYkr3KX31elVhuPq7ncLX4vUV2dej7OOgSK1E2ZQ2gOgu",
+    "password": "$2a$10$/E.6qjrQ9.UveVjsqXBZUO.KiM2tTiFDabaWst8cjq1anMlTMYP0a",
     "emailUser": "",
     "emailPass": ""
   }

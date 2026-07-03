@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 const ROLE_LABELS = { supervisor: 'Supervisor', operator: 'Operador' }
 
@@ -73,6 +73,9 @@ export default function LoginPage() {
                 autoComplete="current-password"
                 required
               />
+              <Link to="/forgot-password" style={{ display: 'inline-block', marginTop: 6, fontSize: 12, color: '#5e6c84' }}>
+                ¿Olvidaste tu contraseña?
+              </Link>
             </div>
 
             {error && (

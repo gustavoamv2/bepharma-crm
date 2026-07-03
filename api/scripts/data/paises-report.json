@@ -1,0 +1,272 @@
+{
+  "generadoEn": "2026-07-03T22:25:11.239Z",
+  "evento": "BEPH-2026-09",
+  "totalSinPais": 815,
+  "resueltosEstaCorrida": 756,
+  "sinEmpresa": [
+    {
+      "dealId": "62164543345",
+      "dealname": "CrystalGenomics, Inc. - BEPH-2026-09"
+    },
+    {
+      "dealId": "62165552705",
+      "dealname": "North China Pharmaceutical Co., Ltd. (NCPC) - BEPH-2026-09"
+    },
+    {
+      "dealId": "62163569311",
+      "dealname": "Ego Pharmaceuticals - BEPH-2026-09"
+    },
+    {
+      "dealId": "62163569310",
+      "dealname": "PharmEco LLC - BEPH-2026-09"
+    },
+    {
+      "dealId": "62163252845",
+      "dealname": "CrystalGenomics, Inc. - BEPH-2026-09"
+    },
+    {
+      "dealId": "62158079744",
+      "dealname": "Shionogi & Co., Ltd. - BEPH-2026-09"
+    },
+    {
+      "dealId": "62165913182",
+      "dealname": "Ego Pharmaceuticals (Middle East Regional Office) - BEPH-2026-09"
+    },
+    {
+      "dealId": "62167046917",
+      "dealname": "Joincare Pharmaceutical Group Industry Co., Ltd. - BEPH-2026-09"
+    },
+    {
+      "dealId": "62167046916",
+      "dealname": "Qilu Pharmaceutical Co., Ltd. - BEPH-2026-09"
+    },
+    {
+      "dealId": "62163976585",
+      "dealname": "Genexine, Inc. - BEPH-2026-09"
+    },
+    {
+      "dealId": "62165516450",
+      "dealname": "Genexine, Inc. - BEPH-2026-09"
+    },
+    {
+      "dealId": "62166922052",
+      "dealname": "Bioneer Corporation - BEPH-2026-09"
+    },
+    {
+      "dealId": "62167072269",
+      "dealname": "North China Pharmaceutical Co., Ltd. (NCPC) - BEPH-2026-09"
+    },
+    {
+      "dealId": "62158072177",
+      "dealname": "Joincare Pharmaceutical Group Industry Co., Ltd. - BEPH-2026-09"
+    },
+    {
+      "dealId": "62166037054",
+      "dealname": "Bioneer Corporation - BEPH-2026-09"
+    },
+    {
+      "dealId": "62149589120",
+      "dealname": "Qilu Pharmaceutical Co., Ltd. - BEPH-2026-09"
+    },
+    {
+      "dealId": "62163832920",
+      "dealname": "Shionogi & Co., Ltd. - BEPH-2026-09"
+    },
+    {
+      "dealId": "62164475267",
+      "dealname": "PharmEco LLC - BEPH-2026-09"
+    },
+    {
+      "dealId": "62172767882",
+      "dealname": "Alternova A/S - BEPH-2026-09"
+    },
+    {
+      "dealId": "62173639844",
+      "dealname": "Alternova A/S - BEPH-2026-09"
+    },
+    {
+      "dealId": "62173600148",
+      "dealname": "Reponex Pharmaceuticals A/S - BEPH-2026-09"
+    },
+    {
+      "dealId": "62170876773",
+      "dealname": "Reponex Pharmaceuticals A/S - BEPH-2026-09"
+    },
+    {
+      "dealId": "62173776278",
+      "dealname": "Specific Pharma A/S - BEPH-2026-09"
+    },
+    {
+      "dealId": "62151875148",
+      "dealname": "Specific Pharma A/S - BEPH-2026-09"
+    },
+    {
+      "dealId": "62173286563",
+      "dealname": "Bavarian Nordic A/S - BEPH-2026-09"
+    },
+    {
+      "dealId": "62159335490",
+      "dealname": "Bavarian Nordic A/S - BEPH-2026-09"
+    },
+    {
+      "dealId": "62174474897",
+      "dealname": "Erela - BEPH-2026-09"
+    },
+    {
+      "dealId": "62174674297",
+      "dealname": "Medifarma - BEPH-2026-09"
+    },
+    {
+      "dealId": "62174363392",
+      "dealname": "Asofarma Centroamérica y el Caribe - BEPH-2026-09"
+    },
+    {
+      "dealId": "62176820268",
+      "dealname": "Medifarma - BEPH-2026-09"
+    },
+    {
+      "dealId": "62174304047",
+      "dealname": "Laboratorios Delta - BEPH-2026-09"
+    },
+    {
+      "dealId": "62174679329",
+      "dealname": "Celnova Pharma - BEPH-2026-09"
+    },
+    {
+      "dealId": "62174626733",
+      "dealname": "Infarma - BEPH-2026-09"
+    },
+    {
+      "dealId": "62174333830",
+      "dealname": "FAES Farma - BEPH-2026-09"
+    },
+    {
+      "dealId": "62174462768",
+      "dealname": "Celnova Pharma - BEPH-2026-09"
+    },
+    {
+      "dealId": "62174543620",
+      "dealname": "FAES Farma - BEPH-2026-09"
+    },
+    {
+      "dealId": "62176102209",
+      "dealname": "Medifarma - BEPH-2026-09"
+    },
+    {
+      "dealId": "62176560170",
+      "dealname": "Leterago - BEPH-2026-09"
+    },
+    {
+      "dealId": "62174966848",
+      "dealname": "Laboratorios Delta - BEPH-2026-09"
+    },
+    {
+      "dealId": "62176820274",
+      "dealname": "Infarma - BEPH-2026-09"
+    },
+    {
+      "dealId": "62176696101",
+      "dealname": "Asofarma Centroamérica y el Caribe - BEPH-2026-09"
+    },
+    {
+      "dealId": "62174145635",
+      "dealname": "Leterago - BEPH-2026-09"
+    }
+  ],
+  "empresaSinPais": [
+    {
+      "dealId": "62151532929",
+      "dealname": "Farmina - BEPH-2026-09",
+      "companyId": "56488890976"
+    },
+    {
+      "dealId": "62163824640",
+      "dealname": "ELVIM Ltd - BEPH-2026-09",
+      "companyId": "56470655144"
+    },
+    {
+      "dealId": "62157953977",
+      "dealname": "AFT Pharmaceuticals Ltd (NZX: AFT, ASX: AFP) - BEPH-2026-09",
+      "companyId": "56463967494"
+    },
+    {
+      "dealId": "62165953435",
+      "dealname": "Emona Biopharma - BEPH-2026-09",
+      "companyId": "56495465366"
+    },
+    {
+      "dealId": "62166878722",
+      "dealname": "LASCO Pharmaceutical Division (LASCO Distributors) - BEPH-2026-09",
+      "companyId": "56490282079"
+    },
+    {
+      "dealId": "62165252688",
+      "dealname": "Besins Healthcare - BEPH-2026-09",
+      "companyId": "56471422781"
+    },
+    {
+      "dealId": "62167016295",
+      "dealname": "Delorbis Pharmaceuticals Ltd - BEPH-2026-09",
+      "companyId": "56489338439"
+    },
+    {
+      "dealId": "62166799901",
+      "dealname": "AFT Pharmaceuticals - BEPH-2026-09",
+      "companyId": "56463967494"
+    },
+    {
+      "dealId": "62151675432",
+      "dealname": "Incepta Pharmaceuticals Limited - BEPH-2026-09",
+      "companyId": "56471422780"
+    },
+    {
+      "dealId": "62165896848",
+      "dealname": "Pronova Corporation - BEPH-2026-09",
+      "companyId": "56490282079"
+    }
+  ],
+  "paisNoReconocido": [
+    {
+      "dealId": "62173553941",
+      "dealname": "Pharmaceutical Warehousing Inc (PWI) - BEPH-2026-09",
+      "companyId": "56476710043",
+      "rawCountry": "Antigua · Aruba · Curaçao"
+    },
+    {
+      "dealId": "62175736693",
+      "dealname": "Aventa Aruba N.V. - BEPH-2026-09",
+      "companyId": "56489649001",
+      "rawCountry": "Antigua · Aruba · Curaçao"
+    },
+    {
+      "dealId": "62173439544",
+      "dealname": "Curaçao Pharmacal Company B.V. - BEPH-2026-09",
+      "companyId": "56484841512",
+      "rawCountry": "Antigua · Aruba · Curaçao"
+    },
+    {
+      "dealId": "62173077654",
+      "dealname": "MedicaPharma Supplies Ltd - BEPH-2026-09",
+      "companyId": "56478119772",
+      "rawCountry": "Antigua · Aruba · Curaçao"
+    },
+    {
+      "dealId": "62151875149",
+      "dealname": "Medicosmetics Aruba N.V. - BEPH-2026-09",
+      "companyId": "56474958913",
+      "rawCountry": "Antigua · Aruba · Curaçao"
+    },
+    {
+      "dealId": "62172981821",
+      "dealname": "Aventa Dutch Caribbean - BEPH-2026-09",
+      "companyId": "56471427436",
+      "rawCountry": "Antigua · Aruba · Curaçao"
+    },
+    {
+      "dealId": "62172736300",
+      "dealname": "Caribbean Pharmaceutical Supplies Ltd - BEPH-2026-09",
+      "companyId": "56473293238",
+      "rawCountry": "Antigua · Aruba · Curaçao"
+    }
+  ]
+}
