@@ -3,11 +3,9 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useQuery, useQueryClient } from 'react-query'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { ExternalLink, Mail, Linkedin, Pencil } from 'lucide-react'
+import { ExternalLink, Linkedin, Pencil } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
-import CallWidget from '../components/CallWidget'
-import EmailComposer from '../components/EmailComposer'
 import RecordModal, { DeleteButton } from '../components/RecordModal'
 import CreateTaskModal from '../components/CreateTaskModal'
 
@@ -30,7 +28,6 @@ export default function ContactDetail() {
   const { id } = useParams()
   const nav = useNavigate()
   const qc = useQueryClient()
-  const [showEmail, setShowEmail] = useState(false)
   const [showEdit, setShowEdit]   = useState(false)
   const [showTask, setShowTask]   = useState(false)
 
@@ -65,11 +62,6 @@ export default function ContactDetail() {
               <div className="card-header">
                 <h2>{fullName}</h2>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  {p.email && (
-                    <button className="btn btn-ghost btn-sm" onClick={() => setShowEmail(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                      <Mail size={13} /> Email
-                    </button>
-                  )}
                   {linkedin && (
                     <a href={linkedin.startsWith('http') ? linkedin : `https://linkedin.com/in/${linkedin}`}
                       target="_blank" rel="noopener"
@@ -86,15 +78,7 @@ export default function ContactDetail() {
               </div>
               <div className="card-body">
                 <div className="props-grid">
-                  <Prop label="Email" value={p.email ? (
-                    <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                      <a href={`mailto:${p.email}`}>{p.email}</a>
-                      <button onClick={() => setShowEmail(true)}
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#0052cc', padding: 0, fontSize: 11 }}>
-                        ✉ redactar
-                      </button>
-                    </span>
-                  ) : null} />
+                  <Prop label="Email" value={p.email || null} />
                   <Prop label="Teléfono" value={p.phone} />
                   <Prop label="Cargo" value={p.jobtitle} />
                   <Prop label="Empresa" value={p.company} />
@@ -141,14 +125,6 @@ export default function ContactDetail() {
           </div>
 
           <div className="detail-side">
-            <CallWidget
-              phone={p.phone}
-              contactName={fullName}
-              objectType="contacts"
-              objectId={id}
-              onActivityLogged={() => qc.invalidateQueries(['engagements-contact', id])}
-            />
-
             <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, padding: 16 }}>
               <h3 style={{ fontSize: 13, fontWeight: 600, color: '#0077b5', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
                 <Linkedin size={14} /> LinkedIn
@@ -173,15 +149,6 @@ export default function ContactDetail() {
           </div>
         </div>
       </div>
-
-      {showEmail && (
-        <EmailComposer
-          defaultTo={p.email || ''}
-          defaultSubject={`Contacto de BePharma — ${fullName}`}
-          contactId={id}
-          onClose={() => setShowEmail(false)}
-        />
-      )}
 
       {showEdit && (
         <RecordModal

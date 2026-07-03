@@ -5,6 +5,7 @@ import { admin } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useToast } from '../hooks/useToast'
 import { useAuth } from '../contexts/AuthContext'
+import { COUNTRIES } from '../constants/countries'
 
 // Tokens Zadarma por extensión (del archivo Token Hubspot.txt)
 const ZADARMA_TOKENS = {
@@ -98,10 +99,13 @@ export default function AdminPage() {
   const [editingUser, setEditingUser] = useState(null)
   const [emailForm, setEmailForm] = useState({})   // { username: { user, pass } }
   const [sipValue, setSipValue] = useState('')
-  const [editingZona, setEditingZona] = useState(null)
-  const [zonaValue, setZonaValue] = useState('')
+  const [editingPaises, setEditingPaises] = useState(null)
+  const [paisesValue, setPaisesValue] = useState([])
+  const [paisesFilter, setPaisesFilter] = useState('')
   const [saving, setSaving] = useState(false)
   const [showEmailCmd, setShowEmailCmd] = useState(null)
+  const [recomputing, setRecomputing] = useState(false)
+  const [recomputeResult, setRecomputeResult] = useState(null)
 
   const { data: users, isLoading } = useQuery('admin-users', admin.getUsers)
 
@@ -131,22 +135,49 @@ export default function AdminPage() {
     }
   }
 
-  const saveZona = async (username) => {
+  const savePaises = async (username) => {
     setSaving(true)
     try {
-      await admin.updateZona(username, zonaValue)
+      await admin.updatePaises(username, paisesValue)
       qc.invalidateQueries('admin-users')
-      addToast('Zona actualizada', 'success')
-      setEditingZona(null)
+      addToast('Países actualizados', 'success')
+      setEditingPaises(null)
     } catch (e) {
-      addToast('Error al guardar zona', 'error')
+      addToast('Error al guardar países', 'error')
     } finally {
       setSaving(false)
     }
   }
 
+  const togglePais = (label) => {
+    setPaisesValue(prev =>
+      prev.includes(label) ? prev.filter(p => p !== label) : [...prev, label]
+    )
+  }
+
   const setEmailField = (username, field, value) =>
     setEmailForm(f => ({ ...f, [username]: { ...(f[username] || {}), [field]: value } }))
+
+  const runRecomputeAutoStages = async () => {
+    setRecomputing(true)
+    setRecomputeResult(null)
+    try {
+      const r = await admin.recomputeAutoStages()
+      setRecomputeResult(r)
+      addToast(`Listo: ${r.totalDealsActualizados} deals actualizados de ${r.companiesProcesadas} empresas`, 'success')
+    } catch (e) {
+      // El error puede venir como string, {error: '...'} o, si algo se cae antes
+      // de llegar al handler (404/500 de Vercel), como HTML — nunca concatenar
+      // el objeto crudo, o se ve literalmente "[object Object]" en el toast.
+      const raw = e.response?.data?.error ?? e.response?.data
+      const msg = typeof raw === 'string' && raw
+        ? raw
+        : (raw && typeof raw === 'object' ? JSON.stringify(raw) : null) || e.message || 'Error desconocido'
+      addToast('Error al recalcular etapas: ' + msg, 'error')
+    } finally {
+      setRecomputing(false)
+    }
+  }
 
   return (
     <>
@@ -155,6 +186,37 @@ export default function AdminPage() {
 
         {/* Estado de integraciones — solo supervisores */}
         {isSupervisor && <IntegrationStatus />}
+
+        {/* Recalcular etapas automáticas — solo supervisores */}
+        {isSupervisor && (
+          <div className="card" style={{ marginBottom: 24 }}>
+            <div className="card-header">
+              <h2 style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <RefreshCw size={15} style={{ color: '#66bb6a' }} /> Etapas automáticas (Nueva / En Depuración / En Enriquecimiento / Por Contactar)
+              </h2>
+            </div>
+            <div className="card-body">
+              <p style={{ fontSize: 12, color: '#6b778c', marginBottom: 12 }}>
+                Estas 4 etapas las asigna el CRM automáticamente según cuántos datos de contacto
+                (teléfono/email de la empresa o de sus contactos) tiene cada evento. El recálculo
+                ya corre solo cada vez que se edita un contacto o una empresa desde el CRM — este
+                botón sirve para forzar una pasada completa (por ejemplo, la primera vez, o si algo
+                se editó directo en HubSpot sin pasar por el CRM). Nunca toca deals en En Seguimiento,
+                Confirmada o No Participa — esas son siempre decisión del operador.
+              </p>
+              <button className="btn btn-primary btn-sm" onClick={runRecomputeAutoStages} disabled={recomputing}
+                style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <RefreshCw size={12} /> {recomputing ? 'Recalculando…' : 'Recalcular etapas ahora'}
+              </button>
+              {recomputeResult && (
+                <div style={{ marginTop: 10, fontSize: 12, color: '#374151' }}>
+                  {recomputeResult.dealsEvaluados} deals evaluados · {recomputeResult.companiesProcesadas} empresas procesadas ·{' '}
+                  <strong>{recomputeResult.totalDealsActualizados} deals actualizados</strong>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Usuarios y extensiones Zadarma */}
         <div className="card" style={{ marginBottom: 24 }}>
@@ -235,12 +297,19 @@ export default function AdminPage() {
           )}
         </div>
 
-        {/* Zonas BePharma por usuario */}
+        {/* Países asignados por operador */}
         <div className="card" style={{ marginBottom: 24 }}>
           <div className="card-header">
             <h2 style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              🌎 Zona BePharma por Operador
+              🌎 Países asignados por Operador
             </h2>
+          </div>
+          <div className="card-body" style={{ paddingBottom: 0 }}>
+            <p style={{ fontSize: 12, color: '#6b778c', marginTop: -4, marginBottom: 12 }}>
+              Cada operador puede tener uno o varios países asignados (sin importar de qué zona sean).
+              Un mismo país puede asignarse a más de un operador. Esto controla qué deals, contactos y
+              empresas ve el operador, además del propietario (owner) asignado en HubSpot.
+            </p>
           </div>
           {isLoading ? (
             <div className="loading">Cargando…</div>
@@ -251,14 +320,13 @@ export default function AdminPage() {
                   <tr>
                     <th>Usuario</th>
                     <th>Rol</th>
-                    <th>Zona asignada</th>
+                    <th>Países asignados</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   {visibleUsers.map(u => {
-                    const isEditing = editingZona === u.username
-                    const BP_ZONA_OPTIONS = ['EEUU','Europa','LATAM Norte','LATAM Sur','Asia','Africa','Oceania','Medio Oriente']
+                    const isEditing = editingPaises === u.username
                     return (
                       <tr key={u.username}>
                         <td>
@@ -270,34 +338,64 @@ export default function AdminPage() {
                             {ROLE_BADGE[u.role]?.label}
                           </span>
                         </td>
-                        <td>
+                        <td style={{ maxWidth: 420 }}>
                           {isEditing ? (
-                            <select
-                              value={zonaValue}
-                              onChange={e => setZonaValue(e.target.value)}
-                              style={{ padding: '4px 8px', border: '1px solid #4fc3f7', borderRadius: 4, fontSize: 13 }}
-                              autoFocus
-                            >
-                              <option value="">— Sin zona —</option>
-                              {BP_ZONA_OPTIONS.map(z => <option key={z} value={z}>{z}</option>)}
-                            </select>
+                            <div style={{ border: '1px solid #4fc3f7', borderRadius: 6, padding: 8, width: 320 }}>
+                              <input
+                                value={paisesFilter}
+                                onChange={e => setPaisesFilter(e.target.value)}
+                                placeholder="Buscar país…"
+                                style={{ width: '100%', padding: '4px 8px', border: '1px solid #dfe1e6', borderRadius: 4, fontSize: 12, marginBottom: 6 }}
+                                autoFocus
+                              />
+                              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginBottom: 6, minHeight: 20 }}>
+                                {paisesValue.length === 0 ? (
+                                  <span style={{ fontSize: 11, color: '#9e9e9e' }}>Sin países seleccionados</span>
+                                ) : paisesValue.map(p => (
+                                  <span key={p} style={{ background: '#e3f2fd', color: '#0052cc', borderRadius: 10, padding: '2px 8px', fontSize: 11, display: 'flex', alignItems: 'center', gap: 4 }}>
+                                    {p}
+                                    <span style={{ cursor: 'pointer', fontWeight: 700 }} onClick={() => togglePais(p)}>×</span>
+                                  </span>
+                                ))}
+                              </div>
+                              <div style={{ maxHeight: 160, overflowY: 'auto', border: '1px solid #eef2f6', borderRadius: 4 }}>
+                                {COUNTRIES
+                                  .filter(c => c.label.toLowerCase().includes(paisesFilter.toLowerCase()))
+                                  .map(c => (
+                                    <label key={c.label} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 8px', fontSize: 12, cursor: 'pointer' }}>
+                                      <input
+                                        type="checkbox"
+                                        checked={paisesValue.includes(c.label)}
+                                        onChange={() => togglePais(c.label)}
+                                      />
+                                      {c.label}
+                                    </label>
+                                  ))}
+                              </div>
+                            </div>
                           ) : (
-                            <span style={{ fontWeight: 600, color: u.bp_zona ? '#0052cc' : '#6b778c' }}>
-                              {u.bp_zona || '—'}
-                            </span>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+                              {(u.bp_paises || []).length === 0 ? (
+                                <span style={{ fontWeight: 600, color: '#6b778c' }}>—</span>
+                              ) : (u.bp_paises || []).map(p => (
+                                <span key={p} style={{ background: '#e3f2fd', color: '#0052cc', borderRadius: 10, padding: '2px 8px', fontSize: 11, fontWeight: 600 }}>
+                                  {p}
+                                </span>
+                              ))}
+                            </div>
                           )}
                         </td>
                         <td>
                           {isEditing ? (
                             <div style={{ display: 'flex', gap: 6 }}>
-                              <button className="btn btn-primary btn-sm" onClick={() => saveZona(u.username)} disabled={saving}>
+                              <button className="btn btn-primary btn-sm" onClick={() => savePaises(u.username)} disabled={saving}>
                                 <Check size={12} /> {saving ? '…' : 'Guardar'}
                               </button>
-                              <button className="btn btn-ghost btn-sm" onClick={() => setEditingZona(null)}>×</button>
+                              <button className="btn btn-ghost btn-sm" onClick={() => setEditingPaises(null)}>×</button>
                             </div>
                           ) : (
-                            <button className="btn btn-ghost btn-sm" onClick={() => { setEditingZona(u.username); setZonaValue(u.bp_zona || '') }}>
-                              Editar zona
+                            <button className="btn btn-ghost btn-sm" onClick={() => { setEditingPaises(u.username); setPaisesValue(u.bp_paises || []); setPaisesFilter('') }}>
+                              Editar países
                             </button>
                           )}
                         </td>
@@ -424,72 +522,6 @@ export default function AdminPage() {
               </ol>
               <div style={{ marginTop: 12, background: '#e3f2fd', borderRadius: 6, padding: '10px 12px', fontSize: 12 }}>
                 <strong>Tip:</strong> Asegurate de que tu extension este configurada en la tabla de arriba y el softphone este conectado antes de intentar llamadas.
-              </div>
-            </div>
-          </div>
-
-          {/* Configuración Make.com → BePharma */}
-          <div className="card" style={{ gridColumn: '1 / -1' }}>
-            <div className="card-header">
-              <h2 style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <AlertTriangle size={14} style={{ color: '#ff8b00' }} />
-                Paso 3 · Integración Make.com → BePharma CRM (registro automático de llamadas)
-              </h2>
-            </div>
-            <div className="card-body" style={{ fontSize: 13, lineHeight: 1.7, color: '#546e7a' }}>
-              <p style={{ marginBottom: 14 }}>Cada vez que termina una llamada en Zadarma, Make.com la envía al CRM y queda registrada automáticamente en HubSpot con duración, estado y resumen IA.</p>
-
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-                {/* Paso A */}
-                <div>
-                  <div style={{ fontWeight: 700, color: '#b0bec5', fontSize: 11, textTransform: 'uppercase', marginBottom: 8 }}>A · Activar Zadarma en Make.com</div>
-                  <ol style={{ paddingLeft: 18, display: 'flex', flexDirection: 'column', gap: 5 }}>
-                    <li>Ve a <a href="https://my.zadarma.com" target="_blank" rel="noopener" style={{ color: '#4fc3f7' }}>my.zadarma.com</a> → <strong>Configuración → Integraciones y API → Make</strong></li>
-                    <li>Haz clic en <strong>Activar</strong> → luego <strong>Ir a ajustes</strong> (abre Make.com)</li>
-                    <li>En Make.com: <strong>Scenarios → Create a new scenario</strong></li>
-                    <li>Selecciona la aplicación <strong>Zadarma</strong></li>
-                    <li>Trigger: <strong>Watch call end</strong></li>
-                    <li>Haz clic en <strong>Create webhook</strong> → <strong>Create a connection</strong></li>
-                    <li>Ingresa el <strong>Token API</strong> que aparece abajo → <strong>Save</strong></li>
-                  </ol>
-                  <div style={{ marginTop: 10, background: '#1a2d42', borderRadius: 6, padding: '10px 14px', fontSize: 12 }}>
-                    <div style={{ fontWeight: 600, color: '#b0bec5', marginBottom: 4 }}>Token API Make.com — Zadarma:</div>
-                    <code style={{ color: '#4fc3f7', wordBreak: 'break-all' }}>056a40ed135ec9bba89775e323886737</code>
-                  </div>
-                </div>
-
-                {/* Paso B */}
-                <div>
-                  <div style={{ fontWeight: 700, color: '#b0bec5', fontSize: 11, textTransform: 'uppercase', marginBottom: 8 }}>B · Enviar datos al CRM (módulo HTTP)</div>
-                  <ol style={{ paddingLeft: 18, display: 'flex', flexDirection: 'column', gap: 5 }}>
-                    <li>En el escenario, agrega un segundo módulo: <strong>HTTP → Make a request</strong></li>
-                    <li>URL: la dirección de tu servidor BePharma:</li>
-                    <li style={{ listStyle: 'none', margin: '4px 0' }}>
-                      <code style={{ background: '#0d1e2e', padding: '4px 8px', borderRadius: 4, fontSize: 11, color: '#66bb6a', wordBreak: 'break-all' }}>
-                        https://[tu-servidor]/api/webhooks/zadarma-call-end
-                      </code>
-                    </li>
-                    <li>Método: <strong>POST</strong> · Content-Type: <strong>application/json</strong></li>
-                    <li>Body (JSON) con campos del trigger Zadarma:<br />
-                      <code style={{ fontSize: 11, display: 'block', background: '#0d1e2e', padding: '6px 10px', borderRadius: 4, marginTop: 4, whiteSpace: 'pre-wrap', color: '#90caf9' }}>{`{
-  "sip": "{{sip}}",
-  "caller_id": "{{caller_id}}",
-  "called_did": "{{called_did}}",
-  "duration": "{{duration}}",
-  "status": "{{status}}",
-  "record": "{{record}}",
-  "call_id_with_rec": "{{call_id_with_rec}}",
-  "call_start": "{{call_start}}",
-  "internal": "{{internal}}"
-}`}</code>
-                    </li>
-                    <li>Guarda y <strong>activa el escenario</strong> (botón ▶)</li>
-                  </ol>
-                </div>
-              </div>
-
-              <div style={{ marginTop: 14, background: '#e3f2fd', borderRadius: 6, padding: '10px 14px', fontSize: 12, color: '#0d47a1' }}>
-                <strong>Que pasa automaticamente:</strong> El CRM recibe la llamada, busca el contacto por numero de telefono, crea un engagement tipo "Llamada" en HubSpot con duracion y grabacion, lo asocia al contacto y evento, y genera un resumen IA si duro mas de 30 segundos.
               </div>
             </div>
           </div>

@@ -34,6 +34,7 @@ export default function LoginPage() {
       <div style={{ width: 360 }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
+          <img src="/logo.png" alt="BePharma" style={{ width: 64, height: 64, objectFit: 'contain', marginBottom: 12 }} />
           <div style={{ fontSize: 28, fontWeight: 800, color: '#fff', letterSpacing: '-0.5px' }}>
             Be<span style={{ color: '#4fc3f7' }}>Pharma</span>
           </div>

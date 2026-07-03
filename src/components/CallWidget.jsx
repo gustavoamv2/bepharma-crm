@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Phone, Clock } from 'lucide-react'
 import { useQuery } from 'react-query'
 import { hubspot, zadarma } from '../hooks/useApi'
@@ -26,6 +26,24 @@ export default function CallWidget({ phone, contactName, objectType, objectId, o
   const [to, setTo] = useState(phone || '')
   const [calling, setCalling] = useState(false)
   const [callStatus, setCallStatus] = useState('')
+  const widgetRef = useRef(null)
+  const isFirstPhoneRef = useRef(true)
+
+  // Si el padre selecciona otro número (ej. click en el teléfono de otro
+  // contacto en la ficha del deal), reflejarlo en el input — el estado del
+  // input es local, así que sin este efecto un cambio en la prop `phone`
+  // no se reflejaba tras el primer render. El scroll-into-view solo se
+  // dispara en cambios posteriores, no en el montaje inicial del widget.
+  useEffect(() => {
+    if (isFirstPhoneRef.current) {
+      isFirstPhoneRef.current = false
+      return
+    }
+    if (phone) {
+      setTo(phone)
+      widgetRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }
+  }, [phone])
 
   const { data: callHistory } = useQuery(
     ['zadarma-calls'],
@@ -71,7 +89,7 @@ export default function CallWidget({ phone, contactName, objectType, objectId, o
     .slice(0, 5)
 
   return (
-    <div className="call-widget">
+    <div className="call-widget" ref={widgetRef}>
       <h3><Phone size={13} style={{ verticalAlign: 'middle', marginRight: 6 }} />Click-to-Call</h3>
       <div className="call-phone-input">
         <input

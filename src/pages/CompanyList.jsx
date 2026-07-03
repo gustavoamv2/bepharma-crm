@@ -7,6 +7,7 @@ import { Plus, X } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import RecordModal from '../components/RecordModal'
+import { useAuth } from '../contexts/AuthContext'
 
 const fmt = (v) => v ? format(parseISO(v), 'dd MMM yy', { locale: es }) : '—'
 
@@ -25,10 +26,16 @@ export default function CompanyList() {
   const nav = useNavigate()
   const location = useLocation()
   const qc = useQueryClient()
+  const { user } = useAuth()
+  // Solo supervisores pueden crear empresas nuevas. Respeta bp_view_mode para
+  // que un supervisor simulando "vista operador" tampoco vea el boton.
+  const viewMode = sessionStorage.getItem('bp_view_mode') || ''
+  const isSupervisor = user?.role === 'supervisor' && viewMode !== 'operator'
   const [search, setSearch] = useState('')
   const [after, setAfter] = useState(null)
   const [history, setHistory] = useState([])
   const [showCreate, setShowCreate] = useState(false)
+  const [hideBlacklist, setHideBlacklist] = useState(true)
 
   // Pre-filter from Dashboard company pipeline navigation
   const stageFilter = location.state?.stage || null
@@ -43,19 +50,32 @@ export default function CompanyList() {
     { keepPreviousData: true }
   )
 
-  const companies = data?.results || []
+  const allCompanies = data?.results || []
+  const blacklistedCount = allCompanies.filter(c => c.properties.bp_lista_negra === 'true').length
+  const companies = hideBlacklist ? allCompanies.filter(c => c.properties.bp_lista_negra !== 'true') : allCompanies
   const nextAfter = data?.paging?.next?.after
 
   return (
     <>
       <Topbar title="Empresas" action={
-        <button className="btn btn-primary btn-sm" onClick={() => setShowCreate(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-          <Plus size={13} /> Nueva empresa
-        </button>
+        isSupervisor && (
+          <button className="btn btn-primary btn-sm" onClick={() => setShowCreate(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+            <Plus size={13} /> Nueva empresa
+          </button>
+        )
       } />
       <div className="content">
         <div className="search-bar" style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <input placeholder="Buscar empresa…" value={search} onChange={e => { setSearch(e.target.value); setAfter(null); setHistory([]) }} style={{ flex: 1 }} />
+          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#6b778c', flexShrink: 0, cursor: 'pointer', whiteSpace: 'nowrap' }}>
+            <input
+              type="checkbox"
+              checked={hideBlacklist}
+              onChange={e => setHideBlacklist(e.target.checked)}
+              style={{ accentColor: '#de350b', width: 14, height: 14 }}
+            />
+            Ocultar lista negra{blacklistedCount > 0 && ` (${blacklistedCount})`}
+          </label>
           {stageFilter && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#e8f0fe', borderRadius: 6, padding: '4px 10px', fontSize: 12, fontWeight: 600, color: '#0052cc', flexShrink: 0 }}>
               Etapa: {STAGE_LABELS[stageFilter] || stageFilter}
@@ -89,8 +109,16 @@ export default function CompanyList() {
                   </thead>
                   <tbody>
                     {companies.map(c => (
-                      <tr key={c.id} className="clickable" onClick={() => nav(`/companies/${c.id}`)}>
-                        <td style={{ fontWeight: 500 }}>{c.properties.name || '(sin nombre)'}</td>
+                      <tr key={c.id} className="clickable" onClick={() => nav(`/companies/${c.id}`)}
+                        style={c.properties.bp_lista_negra === 'true' ? { background: '#fff1f0' } : undefined}>
+                        <td style={{ fontWeight: 500 }}>
+                          {c.properties.name || '(sin nombre)'}
+                          {c.properties.bp_lista_negra === 'true' && (
+                            <span style={{ marginLeft: 6, fontSize: 10, fontWeight: 700, color: '#a8071a', background: '#ffccc7', padding: '1px 6px', borderRadius: 10 }}>
+                              ⛔ LISTA NEGRA
+                            </span>
+                          )}
+                        </td>
                         <td>
                           {c.properties.bp_etapa_empresa
                             ? <span style={{ fontSize: 11, fontWeight: 600 }}>{STAGE_LABELS[c.properties.bp_etapa_empresa] || c.properties.bp_etapa_empresa}</span>

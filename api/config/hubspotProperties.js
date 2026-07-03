@@ -11,6 +11,7 @@ const DEAL_PROPERTIES = [
   'hubspot_owner_id',
   'bp_evento_codigo',
   'bp_zona',
+  'bp_evento_paises',
   'bp_estado_prospeccion',
   'bp_estado_alerta',
   'bp_proximo_contacto',
@@ -23,6 +24,7 @@ const DEAL_DETAIL_PROPERTIES = [
   ...DEAL_PROPERTIES,
   'description',
   'hs_next_step',
+  'hs_lastmodifieddate',
 ]
 
 const COMPANY_PROPERTIES = [
@@ -49,6 +51,7 @@ const COMPANY_PROPERTIES = [
   'bp_zona',
   'description',
   'num_associated_contacts',
+  'bp_lista_negra',
 ]
 
 const CONTACT_PROPERTIES = [
@@ -58,6 +61,7 @@ const CONTACT_PROPERTIES = [
   'phone',
   'jobtitle',
   'company',
+  'country',
   'createdate',
   'hubspot_owner_id',
   'bp_rol_en_empresa',
@@ -73,18 +77,26 @@ const CONTACT_PROPERTIES = [
 // Etapas del pipeline BePharma - Eventos
 // Claves: valores internos de HubSpot dealstage
 // Si los IDs reales difieren, actualizar aqui y el resto de la app usa los labels
+// NOTA: el value interno de HubSpot sigue siendo 'contacto_enviado' — solo el
+// label visible cambió a "Por Contactar" (redefinición de negocio 02-jul-2026).
 const PIPELINE_STAGES = [
   { key: 'nueva',              label: 'Nueva' },
-  { key: 'en_depuracion',      label: 'En depuracion' },
-  { key: 'en_enriquecimiento', label: 'En enriquecimiento' },
-  { key: 'contacto_enviado',   label: 'Contacto enviado' },
-  { key: 'en_seguimiento',     label: 'En seguimiento' },
-  { key: 'confirmada',         label: 'Confirmada BePharma' },
-  { key: 'no_participa',       label: 'No participa' },
+  { key: 'en_depuracion',      label: 'En Depuración' },
+  { key: 'en_enriquecimiento', label: 'En Enriquecimiento' },
+  { key: 'contacto_enviado',   label: 'Por Contactar' },
+  { key: 'en_seguimiento',     label: 'En Seguimiento' },
+  { key: 'confirmada',         label: 'Confirmada' },
+  { key: 'no_participa',       label: 'No Participa' },
 ]
 
 // Etapas terminales: no cuentan como activas en metricas
 const TERMINAL_STAGES = ['confirmada', 'no_participa']
+
+// Etapas que el CRM asigna automáticamente según cantidad de datos de contacto
+// disponibles (empresa + contactos asociados) — ver api/services/autoStage.service.js.
+// Las etapas restantes (en_seguimiento, confirmada, no_participa) son decisión
+// exclusiva del operador y el recálculo automático NUNCA las sobreescribe.
+const AUTO_STAGE_KEYS = ['nueva', 'en_depuracion', 'en_enriquecimiento', 'contacto_enviado']
 
 // Filtro base para el evento activo - se aplica a todas las queries de deals
 function activeEventFilter() {
@@ -108,6 +120,7 @@ module.exports = {
   CONTACT_PROPERTIES,
   PIPELINE_STAGES,
   TERMINAL_STAGES,
+  AUTO_STAGE_KEYS,
   activeEventFilter,
   notTerminalFilters,
 }

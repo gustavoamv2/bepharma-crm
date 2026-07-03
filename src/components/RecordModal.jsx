@@ -1,81 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useQueryClient } from 'react-query'
 import { X, Search } from 'lucide-react'
-import { hubspot } from '../hooks/useApi'
+import { hubspot, invalidateDashboard } from '../hooks/useApi'
 import { useToast } from '../hooks/useToast'
 import { useAuth } from '../contexts/AuthContext'
-
-// ── Países (label español, en para API de ciudades) ────────────────────────────
-const COUNTRIES = [
-  { label: 'Argentina', en: 'Argentina' },
-  { label: 'Australia', en: 'Australia' },
-  { label: 'Austria', en: 'Austria' },
-  { label: 'Bélgica', en: 'Belgium' },
-  { label: 'Bolivia', en: 'Bolivia' },
-  { label: 'Brasil', en: 'Brazil' },
-  { label: 'Canadá', en: 'Canada' },
-  { label: 'Chile', en: 'Chile' },
-  { label: 'China', en: 'China' },
-  { label: 'Colombia', en: 'Colombia' },
-  { label: 'Costa Rica', en: 'Costa Rica' },
-  { label: 'Cuba', en: 'Cuba' },
-  { label: 'Dinamarca', en: 'Denmark' },
-  { label: 'Ecuador', en: 'Ecuador' },
-  { label: 'Egipto', en: 'Egypt' },
-  { label: 'El Salvador', en: 'El Salvador' },
-  { label: 'Emiratos Árabes Unidos', en: 'United Arab Emirates' },
-  { label: 'España', en: 'Spain' },
-  { label: 'Estados Unidos', en: 'United States' },
-  { label: 'Etiopía', en: 'Ethiopia' },
-  { label: 'Filipinas', en: 'Philippines' },
-  { label: 'Finlandia', en: 'Finland' },
-  { label: 'Francia', en: 'France' },
-  { label: 'Ghana', en: 'Ghana' },
-  { label: 'Guatemala', en: 'Guatemala' },
-  { label: 'Honduras', en: 'Honduras' },
-  { label: 'India', en: 'India' },
-  { label: 'Indonesia', en: 'Indonesia' },
-  { label: 'Irán', en: 'Iran' },
-  { label: 'Iraq', en: 'Iraq' },
-  { label: 'Irlanda', en: 'Ireland' },
-  { label: 'Israel', en: 'Israel' },
-  { label: 'Italia', en: 'Italy' },
-  { label: 'Japón', en: 'Japan' },
-  { label: 'Jordania', en: 'Jordan' },
-  { label: 'Kazajistán', en: 'Kazakhstan' },
-  { label: 'Kenia', en: 'Kenya' },
-  { label: 'Marruecos', en: 'Morocco' },
-  { label: 'México', en: 'Mexico' },
-  { label: 'Nigeria', en: 'Nigeria' },
-  { label: 'Noruega', en: 'Norway' },
-  { label: 'Nueva Zelanda', en: 'New Zealand' },
-  { label: 'Países Bajos', en: 'Netherlands' },
-  { label: 'Pakistán', en: 'Pakistan' },
-  { label: 'Panamá', en: 'Panama' },
-  { label: 'Paraguay', en: 'Paraguay' },
-  { label: 'Perú', en: 'Peru' },
-  { label: 'Polonia', en: 'Poland' },
-  { label: 'Portugal', en: 'Portugal' },
-  { label: 'Puerto Rico', en: 'Puerto Rico' },
-  { label: 'Reino Unido', en: 'United Kingdom' },
-  { label: 'República Checa', en: 'Czech Republic' },
-  { label: 'República Dominicana', en: 'Dominican Republic' },
-  { label: 'Rumanía', en: 'Romania' },
-  { label: 'Rusia', en: 'Russia' },
-  { label: 'Arabia Saudita', en: 'Saudi Arabia' },
-  { label: 'Sudáfrica', en: 'South Africa' },
-  { label: 'Suecia', en: 'Sweden' },
-  { label: 'Suiza', en: 'Switzerland' },
-  { label: 'Tailandia', en: 'Thailand' },
-  { label: 'Taiwán', en: 'Taiwan' },
-  { label: 'Turquía', en: 'Turkey' },
-  { label: 'Ucrania', en: 'Ukraine' },
-  { label: 'Uruguay', en: 'Uruguay' },
-  { label: 'Venezuela', en: 'Venezuela' },
-  { label: 'Vietnam', en: 'Vietnam' },
-]
-const COUNTRY_LABELS = COUNTRIES.map(c => c.label)
-const COUNTRY_EN_BY_LABEL = Object.fromEntries(COUNTRIES.map(c => [c.label, c.en]))
+import { COUNTRIES, COUNTRY_LABELS, COUNTRY_EN_BY_LABEL } from '../constants/countries'
 
 // ── Autocomplete genérico ──────────────────────────────────────────────────────
 function AutocompleteField({ value, onChange, options = [], placeholder, hasError }) {
@@ -273,10 +202,10 @@ const DEAL_FIELDS = [
       { value: 'nueva',              label: 'Nueva' },
       { value: 'en_depuracion',      label: 'En Depuración' },
       { value: 'en_enriquecimiento', label: 'En Enriquecimiento' },
-      { value: 'contacto_enviado',   label: 'Contacto enviado' },
-      { value: 'en_seguimiento',     label: 'En seguimiento' },
-      { value: 'confirmada',         label: 'Confirmada BePharma' },
-      { value: 'no_participa',       label: 'No participa' },
+      { value: 'contacto_enviado',   label: 'Por Contactar' },
+      { value: 'en_seguimiento',     label: 'En Seguimiento' },
+      { value: 'confirmada',         label: 'Confirmada' },
+      { value: 'no_participa',       label: 'No Participa' },
     ]
   },
   { key: 'hs_next_step', label: 'Siguiente paso', type: 'textarea' },
@@ -364,6 +293,8 @@ const COMPANY_FIELDS = [
   ]},
   { key: 'numberofemployees', label: 'Nº empleados', type: 'number' },
   { key: 'description', label: 'Descripción',        type: 'textarea' },
+  { key: 'bp_lista_negra', label: 'Lista negra',     type: 'checkbox',
+    helpText: 'No contactar a esta empresa en futuros eventos. La empresa sigue en la base de datos, pero se marca visualmente para excluirla al armar listas de prospección.' },
 ]
 
 const CONTACT_FIELDS = [
@@ -509,11 +440,26 @@ function CompanySearchField({ value, onChange, onCompanySelect }) {
 const DEAL_PROSPECCION_OPTIONS = [
   { value: 'nueva',            label: 'Nueva' },
   { value: 'en_depuracion',   label: 'En Depuración' },
-  { value: 'contacto_enviado', label: 'Contacto enviado' },
-  { value: 'en_seguimiento',  label: 'En seguimiento' },
+  { value: 'en_enriquecimiento', label: 'En Enriquecimiento' },
+  { value: 'contacto_enviado', label: 'Por Contactar' },
+  { value: 'en_seguimiento',  label: 'En Seguimiento' },
   { value: 'confirmada',      label: 'Confirmada' },
-  { value: 'no_participa',    label: 'No participa' },
+  { value: 'no_participa',    label: 'No Participa' },
 ]
+
+// Nueva/En Depuración/En Enriquecimiento/Por Contactar las asigna el CRM
+// automáticamente según los datos de contacto disponibles (ver
+// api/services/autoStage.service.js). Al editar un deal ya existente se
+// muestran las 7 opciones (para que el valor actual siempre coincida con
+// algo en el <select>), pero esas 4 quedan deshabilitadas — el operador solo
+// puede avanzar manualmente a En Seguimiento/Confirmada/No Participa. Si se
+// dejaran seleccionables, un cambio manual se quedaría "congelado" hasta el
+// próximo cambio de datos de contacto que dispare el recálculo automático.
+const AUTO_STAGE_VALUES = ['nueva', 'en_depuracion', 'en_enriquecimiento', 'contacto_enviado']
+const EDIT_STAGE_OPTIONS = DEAL_PROSPECCION_OPTIONS.map(o => ({
+  ...o,
+  disabled: AUTO_STAGE_VALUES.includes(o.value),
+}))
 
 // Eventos BePharma programados — actualizar cuando se agenden nuevas ediciones
 export const EVENTOS_PROGRAMADOS = [
@@ -533,14 +479,15 @@ const DEAL_FIELDS_FROM_COMPANY = [
 
 // Campos para editar deal (sin nombre ni zona — ambos son automáticos)
 const DEAL_FIELDS_EDIT = [
-  { key: 'bp_estado_prospeccion', label: 'Estado de prospección', required: true, type: 'select',
-    options: DEAL_PROSPECCION_OPTIONS
+  { key: 'bp_estado_prospeccion', label: 'Estado de la Empresa', required: true, type: 'select',
+    options: EDIT_STAGE_OPTIONS,
+    helpText: 'Nueva / En Depuración / En Enriquecimiento / Por Contactar las asigna el CRM automáticamente — solo puedes avanzar manualmente a En Seguimiento, Confirmada o No Participa.',
   },
   { key: 'hs_next_step', label: 'Siguiente paso', type: 'textarea' },
 ]
 
 // ── Modal ──────────────────────────────────────────────────────────────────────
-export default function RecordModal({ type, record, onClose, onSaved, companyId = null, defaults = {} }) {
+export default function RecordModal({ type, record, onClose, onSaved, companyId = null, companyIdForEdit = null, defaults = {} }) {
   const { addToast } = useToast()
   const { user } = useAuth()
   const isEdit = !!record?.id
@@ -558,6 +505,7 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
   fields.forEach(f => {
     let val = record?.properties?.[f.key] ?? defaults[f.key] ?? ''
     if (f.type === 'date' && val) val = val.slice(0, 10)
+    if (f.type === 'checkbox') val = val === true || val === 'true'
     initial[f.key] = val
   })
 
@@ -565,8 +513,14 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
   const [saving, setSaving]         = useState(false)
   const [errors, setErrors]         = useState({})
   const [selectedCompanyId, setSelectedCompanyId] = useState(null)
-  // Para edición de deals: evento al que aplica el estado confirmada/no_participa
-  const [dealEvento, setDealEvento] = useState(record?.properties?.bp_evento_codigo || ACTIVE_EVENT)
+  // Para edición de deals: eventos seleccionados (confirmada=multi, no_participa=uno)
+  const currentDealEvento = record?.properties?.bp_evento_codigo || ACTIVE_EVENT
+  const [dealEventos, setDealEventos] = useState([currentDealEvento]) // checkboxes confirmada
+  const [dealEvento, setDealEvento]   = useState(currentDealEvento)   // select no_participa
+
+  const toggleDealEvento = (val) => setDealEventos(prev =>
+    prev.includes(val) ? (prev.length > 1 ? prev.filter(v => v !== val) : prev) : [...prev, val]
+  )
 
   useEffect(() => {
     const handler = (e) => { if (e.key === 'Escape') onClose() }
@@ -604,7 +558,7 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
       if (f.type === 'company-search') return // handled separately
       const val = form[f.key]
       if (val !== '' && val !== null && val !== undefined) {
-        props[f.key] = f.type === 'number' ? String(val) : val
+        props[f.key] = (f.type === 'number' || f.type === 'checkbox') ? String(val) : val
       }
     })
     // Para contactos: incluir company name, _companyId y asignar owner al usuario actual
@@ -614,14 +568,9 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
       if (!isEdit && user?.ownerId) props.hubspot_owner_id = String(user.ownerId)
     }
     if (type === 'deal') {
-      // Auto-asignar zona del usuario en cualquier operación de deal
-      if (!props.bp_zona && user?.bp_zona) props.bp_zona = user.bp_zona
       if (isEdit) {
         const estado = props.bp_estado_prospeccion
-        if (estado === 'confirmada') {
-          // Mover el deal al evento confirmado
-          props.bp_evento_codigo = dealEvento
-        } else if (estado === 'no_participa' && dealEvento && dealEvento !== (record?.properties?.bp_evento_codigo || ACTIVE_EVENT)) {
+        if (estado === 'no_participa' && dealEvento && dealEvento !== currentDealEvento) {
           // Interesado en otro evento → mover deal y reactivar estado
           props.bp_evento_codigo = dealEvento
           props.bp_estado_prospeccion = 'en_seguimiento'
@@ -641,6 +590,25 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
         if (type === 'deal')    result = await hubspot.updateDeal(record.id, props)
         if (type === 'company') result = await hubspot.updateCompany(record.id, props)
         if (type === 'contact') result = await hubspot.updateContact(record.id, props)
+
+        // Confirmada en múltiples eventos → crear deals adicionales
+        if (type === 'deal' && props.bp_estado_prospeccion === 'confirmada') {
+          const extras = dealEventos.filter(v => v !== currentDealEvento)
+          for (const ev of extras) {
+            const evLabel = EVENTOS_PROGRAMADOS.find(e => e.value === ev)?.label || ev
+            const newDealProps = {
+              dealname: record.properties.dealname,
+              bp_evento_codigo: ev,
+              bp_estado_prospeccion: 'confirmada',
+              hubspot_owner_id: record.properties.hubspot_owner_id || '',
+              bp_zona: record.properties.bp_zona || '',
+            }
+            if (companyIdForEdit) newDealProps._companyId = companyIdForEdit
+            await hubspot.createDeal(newDealProps)
+            addToast(`Deal creado para ${evLabel}`, 'success')
+          }
+        }
+
         addToast(`${TITLES[type]} actualizado`, 'success')
       } else {
         if (type === 'deal')    result = await hubspot.createDeal(props)
@@ -687,44 +655,81 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
         {/* Body */}
         <form onSubmit={handleSubmit} style={{ flex: 1, overflowY: 'auto', padding: 20 }}>
           {/* Selector de evento para Confirmada / No participa (solo edición de deals) */}
-          {type === 'deal' && isEdit && (form.bp_estado_prospeccion === 'confirmada' || form.bp_estado_prospeccion === 'no_participa') && (
-            <div style={{ marginBottom: 16, padding: '12px 14px', background: form.bp_estado_prospeccion === 'confirmada' ? '#f0fdf4' : '#fef9ec', border: `1px solid ${form.bp_estado_prospeccion === 'confirmada' ? '#86efac' : '#fcd34d'}`, borderRadius: 8 }}>
-              <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#374151', marginBottom: 6 }}>
-                {form.bp_estado_prospeccion === 'confirmada'
-                  ? '✅ ¿Para qué evento se confirma la participación?'
-                  : '🔄 ¿Le interesa participar en otro evento programado?'}
+          {type === 'deal' && isEdit && form.bp_estado_prospeccion === 'confirmada' && (
+            <div style={{ marginBottom: 16, padding: '12px 14px', background: '#f0fdf4', border: '1px solid #86efac', borderRadius: 8 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: '#166534', marginBottom: 8 }}>
+                ✅ ¿En qué evento(s) confirma participación?
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {EVENTOS_PROGRAMADOS.map(ev => (
+                  <label key={ev.value} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 13 }}>
+                    <input
+                      type="checkbox"
+                      checked={dealEventos.includes(ev.value)}
+                      onChange={() => toggleDealEvento(ev.value)}
+                      style={{ accentColor: '#15803d', width: 15, height: 15 }}
+                    />
+                    <span style={{ color: '#374151' }}>{ev.label}</span>
+                    {ev.value === currentDealEvento && (
+                      <span style={{ fontSize: 10, background: '#dcfce7', color: '#166534', padding: '1px 6px', borderRadius: 10 }}>actual</span>
+                    )}
+                  </label>
+                ))}
+              </div>
+              {dealEventos.filter(v => v !== currentDealEvento).length > 0 && (
+                <div style={{ marginTop: 8, fontSize: 11, color: '#166534', background: '#dcfce7', borderRadius: 5, padding: '5px 8px' }}>
+                  Se crearán deals adicionales para: {dealEventos.filter(v => v !== currentDealEvento).map(v => EVENTOS_PROGRAMADOS.find(e => e.value === v)?.label).join(', ')}
+                </div>
+              )}
+            </div>
+          )}
+
+          {type === 'deal' && isEdit && form.bp_estado_prospeccion === 'no_participa' && (
+            <div style={{ marginBottom: 16, padding: '12px 14px', background: '#fef9ec', border: '1px solid #fcd34d', borderRadius: 8 }}>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#92400e', marginBottom: 6 }}>
+                🔄 ¿Le interesa participar en otro evento programado?
               </label>
               <select
                 value={dealEvento}
                 onChange={e => setDealEvento(e.target.value)}
                 style={{ width: '100%', padding: '7px 10px', border: '1px solid #d1d5db', borderRadius: 6, fontSize: 13, background: '#fff' }}
               >
-                {form.bp_estado_prospeccion === 'no_participa' && (
-                  <option value="">— Sin interés en otros eventos —</option>
-                )}
-                {EVENTOS_PROGRAMADOS.map(e => (
+                <option value="">— Sin interés en otros eventos —</option>
+                {EVENTOS_PROGRAMADOS.filter(e => e.value !== currentDealEvento).map(e => (
                   <option key={e.value} value={e.value}>{e.label}</option>
                 ))}
               </select>
-              {form.bp_estado_prospeccion === 'no_participa' && dealEvento && dealEvento !== (record?.properties?.bp_evento_codigo || ACTIVE_EVENT) && (
+              {dealEvento && dealEvento !== currentDealEvento && (
                 <div style={{ marginTop: 6, fontSize: 11, color: '#92400e' }}>
                   El lead se moverá a <strong>{EVENTOS_PROGRAMADOS.find(e => e.value === dealEvento)?.label}</strong> con estado "En seguimiento".
-                </div>
-              )}
-              {form.bp_estado_prospeccion === 'confirmada' && dealEvento !== (record?.properties?.bp_evento_codigo || ACTIVE_EVENT) && (
-                <div style={{ marginTop: 6, fontSize: 11, color: '#166534' }}>
-                  El lead se moverá a <strong>{EVENTOS_PROGRAMADOS.find(e => e.value === dealEvento)?.label}</strong> como confirmado.
                 </div>
               )}
             </div>
           )}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
             {fields.map(f => (
-              <div key={f.key} style={{ gridColumn: (f.type === 'textarea' || f.type === 'company-search' || f.type === 'company-name-search') ? '1 / -1' : 'auto' }}>
-                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#6b778c', marginBottom: 5 }}>
-                  {f.label}{f.required && <span style={{ color: '#de350b' }}> *</span>}
-                </label>
-                {f.type === 'company-search' ? (
+              <div key={f.key} style={{ gridColumn: (f.type === 'textarea' || f.type === 'company-search' || f.type === 'company-name-search' || f.type === 'checkbox') ? '1 / -1' : 'auto' }}>
+                {f.type !== 'checkbox' && (
+                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#6b778c', marginBottom: 5 }}>
+                    {f.label}{f.required && <span style={{ color: '#de350b' }}> *</span>}
+                  </label>
+                )}
+                {f.type === 'checkbox' ? (
+                  <div style={{ padding: '10px 12px', background: form[f.key] ? '#fff1f0' : '#f7f8fa', border: `1px solid ${form[f.key] ? '#ffa39e' : '#dfe1e6'}`, borderRadius: 6 }}>
+                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: 8, cursor: 'pointer', fontSize: 13 }}>
+                      <input
+                        type="checkbox"
+                        checked={!!form[f.key]}
+                        onChange={e => set(f.key, e.target.checked)}
+                        style={{ marginTop: 2, accentColor: '#de350b', width: 15, height: 15, flexShrink: 0 }}
+                      />
+                      <span>
+                        <span style={{ fontWeight: 600, color: '#172b4d' }}>⛔ {f.label}</span>
+                        {f.helpText && <div style={{ fontSize: 11, color: '#6b778c', marginTop: 2 }}>{f.helpText}</div>}
+                      </span>
+                    </label>
+                  </div>
+                ) : f.type === 'company-search' ? (
                   <>
                     <CompanySearchField
                       value={form[f.key] || ''}
@@ -760,16 +765,19 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
                     hasError={errors[f.key]}
                   />
                 ) : f.type === 'select' ? (
-                  <select
-                    value={form[f.key] || ''}
-                    onChange={e => set(f.key, e.target.value)}
-                    style={inputStyle(errors[f.key])}
-                  >
-                    <option value="">— Seleccionar —</option>
-                    {f.options.map(o => (
-                      <option key={o.value} value={o.value}>{o.label}</option>
-                    ))}
-                  </select>
+                  <>
+                    <select
+                      value={form[f.key] || ''}
+                      onChange={e => set(f.key, e.target.value)}
+                      style={inputStyle(errors[f.key])}
+                    >
+                      <option value="">— Seleccionar —</option>
+                      {f.options.map(o => (
+                        <option key={o.value} value={o.value} disabled={o.disabled}>{o.label}</option>
+                      ))}
+                    </select>
+                    {f.helpText && <div style={{ fontSize: 11, color: '#6b778c', marginTop: 4 }}>{f.helpText}</div>}
+                  </>
                 ) : f.type === 'textarea' ? (
                   <textarea
                     value={form[f.key] || ''}
@@ -826,10 +834,9 @@ export function DeleteButton({ type, id, name, onDeleted }) {
     qc.removeQueries(listKey)
     qc.removeQueries(['pipeline-deals'])
 
+    invalidateDashboard(qc)
     await Promise.all([
       qc.invalidateQueries(listKey),
-      qc.invalidateQueries('metrics'),
-      qc.invalidateQueries('charts'),
       qc.invalidateQueries('reports-bp-summary'),
       qc.invalidateQueries(['pipeline-deals']),
     ])

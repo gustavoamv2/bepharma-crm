@@ -11,6 +11,34 @@ const hs = axios.create({
   headers: { Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}` },
 })
 
+// Reintentos automáticos con backoff cuando HubSpot responde 429 (rate limit).
+// Sin esto, cualquier ráfaga de llamadas (varios usuarios/pestañas a la vez,
+// o el paginado de /pipeline/deals) puede tumbar la carga con "status code 429".
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+const MAX_429_RETRIES = 4
+
+hs.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const status = error.response?.status
+    const config = error.config || {}
+    if (status !== 429) return Promise.reject(error)
+
+    config.__retryCount429 = (config.__retryCount429 || 0) + 1
+    if (config.__retryCount429 > MAX_429_RETRIES) return Promise.reject(error)
+
+    // Respeta el header Retry-After de HubSpot si viene; si no, backoff exponencial
+    const retryAfterHeader = Number(error.response?.headers?.['retry-after'])
+    const backoffMs = Number.isFinite(retryAfterHeader) && retryAfterHeader > 0
+      ? retryAfterHeader * 1000
+      : 500 * Math.pow(2, config.__retryCount429 - 1) // 500ms, 1s, 2s, 4s
+
+    console.warn(`[hubspot] 429 rate limit — reintento ${config.__retryCount429}/${MAX_429_RETRIES} en ${backoffMs}ms (${config.method?.toUpperCase()} ${config.url})`)
+    await sleep(backoffMs)
+    return hs(config)
+  }
+)
+
 // ── Deals ─────────────────────────────────────────────────────────────────────
 
 async function searchDeals({ filterGroups = [], sorts = [], limit = 50, after, properties } = {}) {

@@ -87,6 +87,15 @@ tr.clickable:hover td { background: #f0f4ff; cursor: pointer; }
 .btn-danger { background: var(--danger); color: #fff; }
 .btn-success { background: var(--success); color: #fff; }
 .btn-sm { padding: 4px 10px; font-size: 12px; }
+
+/* Editor de cuerpo de email (Redactar email) */
+.email-body-editable:empty:before {
+  content: attr(data-placeholder);
+  color: #a5adba;
+  pointer-events: none;
+}
+.email-body-editable ul, .email-body-editable ol { margin: 4px 0 4px 22px; padding: 0; }
+.email-body-editable p { margin: 0 0 8px 0; }
 .btn-call { background: #00875a; color: #fff; border-radius: 20px; padding: 5px 14px; }
 .btn-call:hover { background: #006644; }
 

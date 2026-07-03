@@ -1,13 +1,13 @@
 import React from 'react'
 
 const STAGES = {
-  nueva_empresa:       { label: 'Nueva empresa',       cls: 'badge-blue' },
-  en_depuracion:       { label: 'En depuracion',       cls: 'badge-yellow' },
-  en_enriquecimiento:  { label: 'En enriquecimiento',  cls: 'badge-purple' },
-  contacto_enviado:    { label: 'Contacto enviado',     cls: 'badge-blue' },
-  en_seguimiento:      { label: 'En seguimiento',       cls: 'badge-blue' },
-  confirmada_bepharma: { label: 'Confirmada BePharma',  cls: 'badge-green' },
-  no_participa:        { label: 'No participa',         cls: 'badge-red' },
+  nueva:               { label: 'Nueva',               cls: 'badge-blue' },
+  en_depuracion:       { label: 'En Depuración',       cls: 'badge-yellow' },
+  en_enriquecimiento:  { label: 'En Enriquecimiento',  cls: 'badge-purple' },
+  contacto_enviado:    { label: 'Por Contactar',        cls: 'badge-blue' },
+  en_seguimiento:      { label: 'En Seguimiento',       cls: 'badge-blue' },
+  confirmada:          { label: 'Confirmada',           cls: 'badge-green' },
+  no_participa:        { label: 'No Participa',         cls: 'badge-red' },
 }
 
 export default function DealStageBadge({ stage }) {

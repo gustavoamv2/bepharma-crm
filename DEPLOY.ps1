@@ -35,8 +35,7 @@ if (-not $gitOk) {
 Write-Host "`n[2/3] Commit y push..." -ForegroundColor Yellow
 git add -A
 git status --short
-git commit -m "fix: contactos auto-asignan owner + asociacion empresa usa tipo numerico 1"
-git branch -M main
+git commit -m "feat: Resend con dominio bepharma.org verificado, from por operador via EMAIL_USER_*"
 git push -u origin main
 
 Write-Host "`n[3/4] Deploy a Vercel..." -ForegroundColor Yellow

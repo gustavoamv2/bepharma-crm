@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Plus, AlertTriangle, Calendar, Flag } from 'lucide-react'
-import { hubspot } from '../hooks/useApi'
+import { hubspot, invalidateDashboard } from '../hooks/useApi'
 import { useAuth } from '../contexts/AuthContext'
 import Topbar from '../components/Topbar'
 import RecordModal from '../components/RecordModal'
@@ -14,10 +14,11 @@ const ESTADO_OPTIONS = [
   { value: '', label: 'Todos los estados' },
   { value: 'nueva',            label: 'Nueva' },
   { value: 'en_depuracion',   label: 'En Depuración' },
-  { value: 'contacto_enviado', label: 'Contacto enviado' },
-  { value: 'en_seguimiento',  label: 'En seguimiento' },
+  { value: 'en_enriquecimiento', label: 'En Enriquecimiento' },
+  { value: 'contacto_enviado', label: 'Por Contactar' },
+  { value: 'en_seguimiento',  label: 'En Seguimiento' },
   { value: 'confirmada',      label: 'Confirmada' },
-  { value: 'no_participa',    label: 'No participa' },
+  { value: 'no_participa',    label: 'No Participa' },
 ]
 
 const ALERTA_OPTIONS = [
@@ -38,10 +39,11 @@ const OWNER_NAMES = {
 const ESTADO_LABELS = {
   nueva:            'Nueva',
   en_depuracion:   'En Depuración',
-  contacto_enviado: 'Contacto enviado',
-  en_seguimiento:  'En seguimiento',
+  en_enriquecimiento: 'En Enriquecimiento',
+  contacto_enviado: 'Por Contactar',
+  en_seguimiento:  'En Seguimiento',
   confirmada:      'Confirmada',
-  no_participa:    'No participa',
+  no_participa:    'No Participa',
 }
 
 function formatBpDate(val) {
@@ -251,7 +253,10 @@ export default function DealList() {
                               <AlertToggle
                                 dealId={d.id}
                                 current={alert}
-                                onUpdated={() => qc.invalidateQueries(['deals'])}
+                                onUpdated={() => {
+                                  qc.invalidateQueries(['deals'])
+                                  invalidateDashboard(qc)
+                                }}
                               />
                             </td>
                           )}
@@ -279,7 +284,11 @@ export default function DealList() {
         <RecordModal
           type="deal"
           onClose={() => setShowCreate(false)}
-          onSaved={(r) => { qc.invalidateQueries(['deals']); nav(`/deals/${r.id}`) }}
+          onSaved={(r) => {
+            qc.invalidateQueries(['deals'])
+            invalidateDashboard(qc)
+            nav(`/deals/${r.id}`)
+          }}
         />
       )}
     </>

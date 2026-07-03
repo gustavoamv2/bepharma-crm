@@ -9,7 +9,8 @@ import {
   useDroppable,
   useDraggable,
 } from '@dnd-kit/core'
-import { pipeline } from '../hooks/useApi'
+import { useQuery, useQueryClient } from 'react-query'
+import { pipeline, hubspot, invalidateDashboard } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useAuth } from '../contexts/AuthContext'
 import { Building2, User, MapPin, AlertTriangle, Calendar, ArrowRight } from 'lucide-react'
@@ -18,10 +19,11 @@ import { Building2, User, MapPin, AlertTriangle, Calendar, ArrowRight } from 'lu
 const STAGES = [
   { key: 'nueva',            label: 'Nueva',           color: '#2563eb', bg: '#eff6ff' },
   { key: 'en_depuracion',   label: 'En Depuración',   color: '#d97706', bg: '#fffbeb' },
-  { key: 'contacto_enviado', label: 'Contacto enviado', color: '#0369a1', bg: '#f0f9ff' },
-  { key: 'en_seguimiento',  label: 'En seguimiento',  color: '#0f766e', bg: '#f0fdfa' },
+  { key: 'en_enriquecimiento', label: 'En Enriquecimiento', color: '#7c3aed', bg: '#f5f3ff' },
+  { key: 'contacto_enviado', label: 'Por Contactar', color: '#0369a1', bg: '#f0f9ff' },
+  { key: 'en_seguimiento',  label: 'En Seguimiento',  color: '#0f766e', bg: '#f0fdfa' },
   { key: 'confirmada',      label: 'Confirmada',      color: '#15803d', bg: '#f0fdf4' },
-  { key: 'no_participa',    label: 'No participa',    color: '#b91c1c', bg: '#fef2f2' },
+  { key: 'no_participa',    label: 'No Participa',    color: '#b91c1c', bg: '#fef2f2' },
 ]
 
 const TERMINAL_STAGES = ['confirmada', 'no_participa']
@@ -112,8 +114,15 @@ function DraggableCard({ deal, disabled }) {
 
 // ── Droppable Column ──────────────────────────────────────────────────────────
 
-function KanbanColumn({ stage, deals, loading, canDrop, collapsed, onToggleCollapse }) {
+function KanbanColumn({ stage, deals, loading, canDrop, collapsed, onToggleCollapse, realCount }) {
   const { setNodeRef, isOver } = useDroppable({ id: stage.key })
+  // El badge muestra el conteo real de HubSpot (mismo que el Dashboard), no solo
+  // los deals ya cargados en este Kanban (que puede estar truncado a 500).
+  const displayCount = realCount ?? deals.length
+  const isTruncatedHere = realCount !== undefined && realCount > deals.length
+  const countTitle = isTruncatedHere
+    ? `${realCount} en total · ${deals.length} cargados aqui`
+    : undefined
 
   if (collapsed) {
     return (
@@ -121,9 +130,9 @@ function KanbanColumn({ stage, deals, loading, canDrop, collapsed, onToggleColla
         className="kev-column-collapsed"
         style={{ borderTopColor: stage.color }}
         onClick={() => onToggleCollapse(stage.key)}
-        title={`Expandir: ${stage.label} (${deals.length})`}
+        title={loading ? 'Cargando…' : (countTitle || `Expandir: ${stage.label} (${displayCount})`)}
       >
-        <span className="kev-col-collapsed-count" style={{ color: stage.color }}>{deals.length}</span>
+        <span className="kev-col-collapsed-count" style={{ color: stage.color }}>{loading ? '…' : displayCount}</span>
         <span className="kev-col-collapsed-label" style={{ color: stage.color }}>{stage.label}</span>
         <ArrowRight size={12} style={{ color: stage.color, marginTop: 4 }} />
       </div>
@@ -143,8 +152,9 @@ function KanbanColumn({ stage, deals, loading, canDrop, collapsed, onToggleColla
         >
           {stage.label}
         </span>
-        <span className="kev-col-count" style={{ background: stage.bg, color: stage.color }}>
-          {deals.length}
+        {/* Mientras carga no mostrar "0": se leia como dato final en vez de "aun sin cargar" */}
+        <span className="kev-col-count" style={{ background: stage.bg, color: stage.color }} title={countTitle}>
+          {loading ? '…' : displayCount}
         </span>
       </div>
 
@@ -198,6 +208,19 @@ export default function KanbanPage() {
     return () => window.removeEventListener('bpViewModeChange', handler)
   }, [])
   const isSupervisor = user?.role === 'supervisor' && viewMode !== 'operator'
+  const qc = useQueryClient()
+
+  // Conteos reales por etapa (mismo endpoint y query key que usa el Dashboard),
+  // para que los badges de columna no dependan del subconjunto truncado a 500
+  // deals que carga este Kanban.
+  const { data: chartsData } = useQuery(
+    ['charts', user?.username, viewMode === 'operator'],
+    hubspot.charts,
+    { refetchInterval: 10 * 60 * 1000 }
+  )
+  const realCountByStage = Object.fromEntries(
+    (chartsData?.byStage || []).map(s => [s.key, s.count])
+  )
 
   // Columnas terminales colapsadas por defecto
   const [collapsedCols, setCollapsedCols] = useState(new Set(TERMINAL_STAGES))
@@ -245,6 +268,7 @@ export default function KanbanPage() {
 
     try {
       await pipeline.updateStage(dealId, toStage)
+      invalidateDashboard(qc)
     } catch (e) {
       // Rollback
       setDeals(all => all.map(d =>
@@ -346,6 +370,9 @@ export default function KanbanPage() {
               canDrop={activeDeal?.properties?.bp_estado_prospeccion !== stage.key}
               collapsed={collapsedCols.has(stage.key)}
               onToggleCollapse={toggleCollapse}
+              // El conteo real solo aplica si no hay filtro local activo (búsqueda/operador),
+              // porque ese total viene sin filtrar por texto/owner elegido en esta pantalla.
+              realCount={(!search && !ownerFilter) ? realCountByStage[stage.key] : undefined}
             />
           ))}
         </div>

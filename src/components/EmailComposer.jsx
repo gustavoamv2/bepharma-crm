@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { X, Send, Mail } from 'lucide-react'
+import React, { useState, useEffect, useRef } from 'react'
+import {
+  X, Send, Mail, Paperclip, PenLine, Bold, Italic, Underline,
+  AlignLeft, AlignCenter, AlignRight, AlignJustify, List, ListOrdered,
+} from 'lucide-react'
 import axios from 'axios'
 import { useToast } from '../hooks/useToast'
+import SignatureEditor from './SignatureEditor'
 
 const overlay = {
   position: 'fixed',
@@ -18,21 +22,74 @@ const modal = {
   background: '#fff',
   borderRadius: 10,
   width: '100%',
-  maxWidth: 620,
+  maxWidth: 680,
   boxShadow: '0 20px 60px rgba(0,0,0,.25)',
   display: 'flex',
   flexDirection: 'column',
   maxHeight: '90vh',
 }
 
-export default function EmailComposer({ defaultTo = '', defaultSubject = '', emailOptions = [], contactId, dealId, companyId, onClose }) {
+// Mantenerse bajo el límite de ~2.5MB combinados que valida el backend
+// (que a su vez deja margen bajo el límite de 4mb del body de la función serverless)
+const ATTACH_MAX_TOTAL_BYTES = 2.4 * 1024 * 1024
+
+const FONTS = [
+  { label: 'Arial', value: 'Arial, sans-serif' },
+  { label: 'Georgia', value: 'Georgia, serif' },
+  { label: 'Times New Roman', value: '"Times New Roman", serif' },
+  { label: 'Courier New', value: '"Courier New", monospace' },
+  { label: 'Verdana', value: 'Verdana, sans-serif' },
+]
+
+const humanSize = (bytes) => {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
+
+const fileToBase64 = (file) => new Promise((resolve, reject) => {
+  const reader = new FileReader()
+  reader.onload = () => resolve(String(reader.result).split(',')[1] || '')
+  reader.onerror = reject
+  reader.readAsDataURL(file)
+})
+
+const toolBtn = {
+  background: 'none', border: 'none', cursor: 'pointer', padding: '5px 7px',
+  borderRadius: 5, color: '#344563', display: 'flex', alignItems: 'center',
+}
+
+function ToolbarButton({ onMouseDown, title, children }) {
+  return (
+    <button
+      type="button"
+      title={title}
+      onMouseDown={(e) => { e.preventDefault(); onMouseDown() }}
+      style={toolBtn}
+      onMouseEnter={e => e.currentTarget.style.background = '#f0f1f3'}
+      onMouseLeave={e => e.currentTarget.style.background = 'none'}
+    >
+      {children}
+    </button>
+  )
+}
+
+export default function EmailComposer({ defaultTo = '', defaultSubject = '', emailOptions = [], contactId, dealId, companyId, onClose, onSent }) {
   const { addToast: toast } = useToast()
   const [to, setTo] = useState(defaultTo || emailOptions[0]?.email || '')
+  const [cc, setCc] = useState('')
+  const [showCc, setShowCc] = useState(false)
   const [subject, setSubject] = useState(defaultSubject)
-  const [body, setBody] = useState('')
   const [sending, setSending] = useState(false)
   const [smtpOk, setSmtpOk] = useState(null)
   const [smtpError, setSmtpError] = useState('')
+
+  const [signatureHtml, setSignatureHtml] = useState('')
+  const [showSigEditor, setShowSigEditor] = useState(false)
+
+  const [attachments, setAttachments] = useState([]) // [{ id, filename, contentType, sizeBytes, base64 }]
+  const fileInputRef = useRef(null)
+  const bodyRef = useRef(null)
 
   useEffect(() => {
     axios.get('/api/email/verify', {
@@ -46,30 +103,85 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
         setSmtpOk(false)
         setSmtpError(e.response?.data?.error || e.message || 'No se pudo verificar el correo')
       })
+
+    axios.get('/api/email/signature')
+      .then(r => setSignatureHtml(r.data?.html || ''))
+      .catch(() => { /* sin firma configurada — no bloquea el composer */ })
   }, [])
 
   useEffect(() => {
-    const handler = (e) => { if (e.key === 'Escape') onClose() }
+    const handler = (e) => { if (e.key === 'Escape' && !showSigEditor) onClose() }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [onClose])
+  }, [onClose, showSigEditor])
+
+  const totalAttachBytes = attachments.reduce((sum, a) => sum + a.sizeBytes, 0)
+
+  const handleFilesPick = async (e) => {
+    const files = Array.from(e.target.files || [])
+    e.target.value = ''
+    if (!files.length) return
+
+    let runningTotal = totalAttachBytes
+    for (const file of files) {
+      if (runningTotal + file.size > ATTACH_MAX_TOTAL_BYTES) {
+        toast(`"${file.name}" no cabe — máx. ${humanSize(ATTACH_MAX_TOTAL_BYTES)} combinados entre todos los adjuntos`, 'error')
+        continue
+      }
+      try {
+        const base64 = await fileToBase64(file)
+        setAttachments(prev => [...prev, {
+          id: `${file.name}_${file.size}_${Date.now()}`,
+          filename: file.name,
+          contentType: file.type || 'application/octet-stream',
+          sizeBytes: file.size,
+          base64,
+        }])
+        runningTotal += file.size
+      } catch {
+        toast(`No se pudo leer "${file.name}"`, 'error')
+      }
+    }
+  }
+
+  const removeAttachment = (id) => setAttachments(prev => prev.filter(a => a.id !== id))
+
+  const exec = (cmd, value) => {
+    bodyRef.current?.focus()
+    document.execCommand(cmd, false, value)
+  }
 
   const handleSend = async () => {
+    const bodyHtml = bodyRef.current?.innerHTML || ''
+    const bodyText = bodyHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+
     if (!to.trim()) return toast('Ingresa el destinatario', 'error')
     if (!subject.trim()) return toast('Ingresa el asunto', 'error')
-    if (!body.trim()) return toast('El cuerpo del email no puede estar vacio', 'error')
+    if (!bodyText) return toast('El cuerpo del email no puede estar vacio', 'error')
 
     setSending(true)
     try {
-      await axios.post('/api/email/send', {
+      const r = await axios.post('/api/email/send', {
         to: to.trim(),
+        cc: cc.trim(),
         subject: subject.trim(),
-        body: body.trim(),
+        bodyHtml,
+        signatureHtml: signatureHtml || undefined,
+        attachments: attachments.map(a => ({ filename: a.filename, contentType: a.contentType, content: a.base64 })),
         contactId,
         dealId,
         companyId,
       })
-      toast('Email enviado y registrado en HubSpot', 'success')
+      if (r.data?.hubspotLogged) {
+        if (r.data?.attachmentsFailed?.length) {
+          toast(`Email enviado y registrado, pero estos adjuntos no se pudieron subir a HubSpot: ${r.data.attachmentsFailed.join(', ')}`, 'default')
+        } else {
+          toast('Email enviado y registrado en HubSpot', 'success')
+        }
+        onSent?.()
+      } else {
+        toast('Email enviado, pero no se pudo registrar en HubSpot' + (r.data?.hubspotLogError ? `: ${r.data.hubspotLogError}` : ''), 'error')
+      }
       onClose()
     } catch (e) {
       const raw = e.response?.data?.error || e.message
@@ -81,7 +193,7 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
   }
 
   return (
-    <div style={overlay} onClick={e => e.target === e.currentTarget && onClose()}>
+    <div style={overlay} onClick={e => e.target === e.currentTarget && !showSigEditor && onClose()}>
       <div style={modal}>
         <div style={{ padding: '14px 18px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600, fontSize: 14 }}>
@@ -130,17 +242,38 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
           )}
 
           <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: 8, gap: 10 }}>
-            <span style={{ fontSize: 12, color: '#6b778c', fontWeight: 600, minWidth: 50 }}>Para</span>
+            <span style={{ fontSize: 12, color: '#6b778c', fontWeight: 600, minWidth: 40 }}>Para</span>
             <input
               value={to}
               onChange={e => setTo(e.target.value)}
               placeholder="contacto@empresa.com"
               style={{ border: 'none', outline: 'none', fontSize: 13, flex: 1, padding: 0 }}
             />
+            {!showCc && (
+              <button
+                type="button"
+                onClick={() => setShowCc(true)}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6b778c', fontSize: 12, padding: 0 }}
+              >
+                Cc
+              </button>
+            )}
           </div>
 
+          {showCc && (
+            <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: 8, gap: 10 }}>
+              <span style={{ fontSize: 12, color: '#6b778c', fontWeight: 600, minWidth: 40 }}>Cc</span>
+              <input
+                value={cc}
+                onChange={e => setCc(e.target.value)}
+                placeholder="otro@empresa.com, otro2@empresa.com"
+                style={{ border: 'none', outline: 'none', fontSize: 13, flex: 1, padding: 0 }}
+              />
+            </div>
+          )}
+
           <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: 8, gap: 10 }}>
-            <span style={{ fontSize: 12, color: '#6b778c', fontWeight: 600, minWidth: 50 }}>Asunto</span>
+            <span style={{ fontSize: 12, color: '#6b778c', fontWeight: 600, minWidth: 40 }}>Asunto</span>
             <input
               value={subject}
               onChange={e => setSubject(e.target.value)}
@@ -149,23 +282,109 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
             />
           </div>
 
-          <textarea
-            value={body}
-            onChange={e => setBody(e.target.value)}
-            placeholder="Escribe tu mensaje aqui..."
-            rows={10}
+          {/* ── Barra de herramientas de formato ── */}
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap',
+            padding: '4px 0', borderBottom: '1px solid #e2e8f0',
+          }}>
+            <select
+              defaultValue={FONTS[0].value}
+              onMouseDown={() => bodyRef.current?.focus()}
+              onChange={e => exec('fontName', e.target.value)}
+              style={{ fontSize: 12, border: '1px solid #dfe1e6', borderRadius: 5, padding: '4px 6px', background: '#fff', marginRight: 4 }}
+            >
+              {FONTS.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
+            </select>
+
+            <ToolbarButton title="Negrita" onMouseDown={() => exec('bold')}><Bold size={14} /></ToolbarButton>
+            <ToolbarButton title="Cursiva" onMouseDown={() => exec('italic')}><Italic size={14} /></ToolbarButton>
+            <ToolbarButton title="Subrayado" onMouseDown={() => exec('underline')}><Underline size={14} /></ToolbarButton>
+
+            <div style={{ width: 1, height: 18, background: '#e2e8f0', margin: '0 4px' }} />
+
+            <ToolbarButton title="Alinear izquierda" onMouseDown={() => exec('justifyLeft')}><AlignLeft size={14} /></ToolbarButton>
+            <ToolbarButton title="Centrar" onMouseDown={() => exec('justifyCenter')}><AlignCenter size={14} /></ToolbarButton>
+            <ToolbarButton title="Alinear derecha" onMouseDown={() => exec('justifyRight')}><AlignRight size={14} /></ToolbarButton>
+            <ToolbarButton title="Justificar" onMouseDown={() => exec('justifyFull')}><AlignJustify size={14} /></ToolbarButton>
+
+            <div style={{ width: 1, height: 18, background: '#e2e8f0', margin: '0 4px' }} />
+
+            <ToolbarButton title="Viñetas" onMouseDown={() => exec('insertUnorderedList')}><List size={14} /></ToolbarButton>
+            <ToolbarButton title="Numeración" onMouseDown={() => exec('insertOrderedList')}><ListOrdered size={14} /></ToolbarButton>
+          </div>
+
+          <div
+            ref={bodyRef}
+            contentEditable
+            suppressContentEditableWarning
+            data-placeholder="Escribe tu mensaje aqui..."
+            className="email-body-editable"
             style={{
-              border: 'none',
               outline: 'none',
-              resize: 'vertical',
               fontSize: 13,
-              fontFamily: 'inherit',
+              fontFamily: 'Arial, sans-serif',
               lineHeight: 1.6,
               color: '#172b4d',
-              minHeight: 200,
-              padding: 0,
+              minHeight: 180,
+              padding: '4px 0',
             }}
           />
+
+          {/* ── Adjuntos ── */}
+          <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                onClick={() => fileInputRef.current?.click()}
+                style={{ display: 'flex', alignItems: 'center', gap: 5 }}
+              >
+                <Paperclip size={13} /> Adjuntar archivo
+              </button>
+              {attachments.length > 0 && (
+                <span style={{ fontSize: 11, color: '#6b778c' }}>{humanSize(totalAttachBytes)} / {humanSize(ATTACH_MAX_TOTAL_BYTES)}</span>
+              )}
+            </div>
+            <input ref={fileInputRef} type="file" multiple style={{ display: 'none' }} onChange={handleFilesPick} />
+            {attachments.length > 0 && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 8 }}>
+                {attachments.map(a => (
+                  <div key={a.id} style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    background: '#f4f5f7', borderRadius: 6, padding: '5px 10px', fontSize: 12,
+                  }}>
+                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginRight: 8 }}>
+                      📎 {a.filename} <span style={{ color: '#94a3b8' }}>({humanSize(a.sizeBytes)})</span>
+                    </span>
+                    <button onClick={() => removeAttachment(a.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6b778c', padding: 2, flexShrink: 0 }}>
+                      <X size={13} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* ── Firma ── */}
+          <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: signatureHtml ? 6 : 0 }}>
+              <span style={{ fontSize: 11, color: '#6b778c', fontWeight: 600 }}>Firma (se agrega automáticamente)</span>
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                onClick={() => setShowSigEditor(true)}
+                style={{ display: 'flex', alignItems: 'center', gap: 5 }}
+              >
+                <PenLine size={13} /> {signatureHtml ? 'Editar firma' : 'Crear firma'}
+              </button>
+            </div>
+            {signatureHtml && (
+              <div
+                style={{ border: '1px solid #e2e8f0', borderRadius: 8, padding: 10, fontSize: 12, background: '#fafbfc' }}
+                dangerouslySetInnerHTML={{ __html: signatureHtml }}
+              />
+            )}
+          </div>
         </div>
 
         <div style={{ padding: '12px 18px', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#f8fafc' }}>
@@ -188,6 +407,13 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
           </div>
         </div>
       </div>
+
+      {showSigEditor && (
+        <SignatureEditor
+          onClose={() => setShowSigEditor(false)}
+          onSaved={(html) => setSignatureHtml(html)}
+        />
+      )}
     </div>
   )
 }

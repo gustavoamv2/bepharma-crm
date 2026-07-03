@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const { loadUsers } = require('./usersStore')
 const { JWT_SECRET, JWT_TTL } = require('./config/env')
+const { labelsToEnglish } = require('./config/countries')
 
 const SECRET = JWT_SECRET
 const TOKEN_TTL = JWT_TTL
@@ -21,7 +22,8 @@ async function login(username, password) {
     role: user.role,           // 'supervisor' | 'operator'
     ownerId: user.ownerId,     // HubSpot owner ID
     sipExtension: user.sipExtension || '',  // Zadarma SIP extension
-    bp_zona: user.bp_zona || ''  // Zona BePharma asignada al usuario
+    bp_paises: Array.isArray(user.bp_paises) ? user.bp_paises : [],  // Países BePharma asignados al operador
+    canToggleView: user.canToggleView !== false  // false = solo vista supervisor, sin toggle a vista operador
   }
 
   const token = jwt.sign(payload, SECRET, { expiresIn: TOKEN_TTL })
@@ -43,28 +45,53 @@ function requireAuth(req, res, next) {
   }
 }
 
-// ── Helpers para filtrar por propietario ─────────────────────────────────────
+// ── Helpers para filtrar por propietario / país ──────────────────────────────
 // Si el usuario es operador (o está en vista-operador), agrega filtro de owner
 // El header x-view-mode: operator permite que supervisores simulen vista de operador
-function applyOwnerFilter(req, filterGroups) {
+function isActingAsOperator(req) {
   const viewMode = req.headers['x-view-mode']
-  const actAsOperator = req.user?.role === 'operator' || viewMode === 'operator'
-
-  if (actAsOperator) {
-    const ownerFilter = {
-      propertyName: 'hubspot_owner_id',
-      operator: 'EQ',
-      value: req.user.ownerId
-    }
-    if (!filterGroups || filterGroups.length === 0) {
-      return [{ filters: [ownerFilter] }]
-    }
-    return filterGroups.map(group => ({
-      ...group,
-      filters: [...(group.filters || []), ownerFilter]
-    }))
-  }
-  return filterGroups
+  if (req.user?.role === 'operator') return true
+  if (viewMode === 'operator' && req.user?.canToggleView === false) return false
+  return viewMode === 'operator'
 }
 
-module.exports = { login, requireAuth, applyOwnerFilter }
+function addFilterToGroups(filterGroups, filter) {
+  if (!filterGroups || filterGroups.length === 0) {
+    return [{ filters: [filter] }]
+  }
+  return filterGroups.map(group => ({
+    ...group,
+    filters: [...(group.filters || []), filter]
+  }))
+}
+
+function applyOwnerFilter(req, filterGroups) {
+  if (!isActingAsOperator(req)) return filterGroups
+  return addFilterToGroups(filterGroups, {
+    propertyName: 'hubspot_owner_id',
+    operator: 'EQ',
+    value: req.user.ownerId
+  })
+}
+
+// Restringe resultados a los países asignados al operador (req.user.bp_paises).
+// propertyName: propiedad de HubSpot donde vive el país en ese objeto
+//   (ej. 'bp_evento_paises' en deals, 'country' en empresas/contactos).
+// translate: si true, convierte los países (guardados en español) a su
+//   equivalente en inglés antes de filtrar (así están guardados 'country').
+// Si el operador no tiene países asignados, no se agrega ningún filtro
+// (comportamiento igual al actual, sin restricción) para no dejar a nadie
+// sin ver nada por una configuración incompleta.
+function applyCountryFilter(req, filterGroups, propertyName, { translate = false } = {}) {
+  if (!isActingAsOperator(req)) return filterGroups
+  const paises = req.user?.bp_paises
+  if (!Array.isArray(paises) || paises.length === 0) return filterGroups
+  const values = translate ? labelsToEnglish(paises) : paises
+  return addFilterToGroups(filterGroups, {
+    propertyName,
+    operator: 'IN',
+    values
+  })
+}
+
+module.exports = { login, requireAuth, applyOwnerFilter, applyCountryFilter }

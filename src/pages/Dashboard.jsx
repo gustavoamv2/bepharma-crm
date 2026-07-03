@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { AlertTriangle, TrendingUp, Calendar, PhoneCall, CheckSquare, Users, BarChart2, Eye } from 'lucide-react'
-import { hubspot } from '../hooks/useApi'
+import { hubspot, admin } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useAuth } from '../contexts/AuthContext'
 
@@ -64,11 +64,12 @@ const STAGE_COLORS = {
 }
 const STAGE_LABELS = {
   nueva:            'Nueva',
-  en_depuracion:   'En depuración',
-  contacto_enviado: 'Contacto enviado',
-  en_seguimiento:  'En seguimiento',
+  en_depuracion:   'En Depuración',
+  en_enriquecimiento: 'En Enriquecimiento',
+  contacto_enviado: 'Por Contactar',
+  en_seguimiento:  'En Seguimiento',
   confirmada:      'Confirmada',
-  no_participa:    'No participa',
+  no_participa:    'No Participa',
 }
 
 function DonutChart({ data, onSliceClick }) {
@@ -145,10 +146,19 @@ const ACTIVE_EVENT = 'BEPH-2026-09'
 const ESTADO_LABELS = {
   nueva:            'Nueva',
   en_depuracion:   'En Depuración',
-  contacto_enviado: 'Contacto enviado',
-  en_seguimiento:  'En seguimiento',
+  en_enriquecimiento: 'En Enriquecimiento',
+  contacto_enviado: 'Por Contactar',
+  en_seguimiento:  'En Seguimiento',
   confirmada:      'Confirmada',
-  no_participa:    'No participa',
+  no_participa:    'No Participa',
+}
+
+// Paleta de colores del banner de métricas (mismo estilo que Reportes)
+const METRIC_COLORS = {
+  'metric-danger':  '#de350b',
+  'metric-warning': '#ff8b00',
+  'metric-success': '#00875a',
+  'metric-primary': '#0052cc',
 }
 
 const nowMs = () => String(Date.now())
@@ -176,7 +186,7 @@ export default function Dashboard() {
     setViewAsOperator(next)
   }
   const isSupervisor = user?.role === 'supervisor' && !viewAsOperator
-  const canToggle = user?.role === 'supervisor'
+  const canToggle = user?.role === 'supervisor' && user?.canToggleView !== false
 
   const { data: metrics, isLoading: loadingMetrics, error: metricsError } = useQuery(
     ['metrics', user?.username, viewAsOperator],
@@ -190,22 +200,46 @@ export default function Dashboard() {
     { refetchInterval: 10 * 60 * 1000 }
   )
 
+  // Equipo (para el panel de supervisor) — países asignados reales, no hardcodeados
+  const { data: teamUsers } = useQuery('admin-users', admin.getUsers, {
+    enabled: isSupervisor,
+    staleTime: 60_000,
+  })
+  const team = (teamUsers || [])
+    .filter(u => u.role === 'operator')
+    .map(u => ({ name: u.name, ownerId: u.ownerId, paises: (u.bp_paises || []).join(' · ') || 'Sin países asignados' }))
+
   // ── Alertas del supervisor ────────────────────────────────────────────────
   // El servidor aplica applyOwnerFilter automáticamente (operadores solo ven sus propios deals)
-  const { data: alertsData } = useQuery(
+  const { data: alertsData, error: alertsError } = useQuery(
     ['deals-alertas', user?.username, viewAsOperator],
     () => hubspot.searchDeals({
       filters: [
         { propertyName: 'bp_evento_codigo', operator: 'EQ', value: ACTIVE_EVENT },
         { propertyName: 'bp_estado_alerta', operator: 'HAS_PROPERTY' },
       ],
-      properties: ['dealname', 'bp_estado_alerta', 'bp_estado_prospeccion'],
+      properties: ['dealname', 'bp_estado_alerta', 'bp_estado_prospeccion', 'hs_lastmodifieddate'],
       limit: 25,
-      sorts: [{ propertyName: 'bp_estado_alerta', direction: 'DESCENDING' }],
+      // La Search API de HubSpot solo admite UN campo de orden por request
+      // (mandar 2 devuelve VALIDATION_ERROR "Only one sort field is allowed"
+      // y la query fallaba silenciosamente — la tarjeta de alertas desaparecía
+      // por completo, tanto en vista supervisor como operador).
+      // Ordenamos por actividad reciente en el servidor (para no perder alertas
+      // recien levantadas fuera del top-25) y reordenamos por severidad en el
+      // cliente — Array.sort es estable, asi que dentro de cada severidad se
+      // conserva el orden por mas reciente primero.
+      sorts: [
+        { propertyName: 'hs_lastmodifieddate', direction: 'DESCENDING' },
+      ],
     }),
     { refetchInterval: 2 * 60 * 1000 }
   )
-  const alertDeals = alertsData?.results || []
+  const alertDeals = [...(alertsData?.results || [])].sort((a, b) => {
+    const sev = (p) => p.bp_estado_alerta === 'alerta_roja' ? 0 : 1
+    return sev(a.properties) - sev(b.properties)
+  })
+  // total real de HubSpot (no el .length de la lista, que esta topada a 25)
+  const alertsTotal = alertsData?.total ?? alertDeals.length
 
   // ── Metricas cards usando propiedades BePharma ────────────────────────────
   const metricCards = [
@@ -341,21 +375,20 @@ export default function Dashboard() {
       <div className="content">
 
         {/* Métricas */}
-        <div className="metrics-grid">
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 20 }}>
           {metricCards.map(card => {
             const Icon = card.icon
+            const color = METRIC_COLORS[card.cls] || '#0052cc'
             return (
-              <div key={card.key} className={'metric-card ' + card.cls}
+              <div key={card.key}
+                style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: 8, padding: '12px 18px', minWidth: 140, textAlign: 'center', cursor: 'pointer' }}
                 onClick={() => nav('/deals', { state: { filter: card.filter } })}
-                title="Clic para ver deals">
-                <div className="label">
-                  <Icon size={12} style={{ verticalAlign: 'middle', marginRight: 4 }} />
-                  {card.label}
-                </div>
-                <div className="value">
+                title={`${card.sublabel} · clic para ver`}>
+                <Icon size={16} style={{ color, marginBottom: 4 }} />
+                <div style={{ fontSize: 26, fontWeight: 800, color }}>
                   {loadingMetrics ? '…' : metricsError ? '!' : (metrics?.[card.key] ?? 0)}
                 </div>
-                <div className="sublabel">{card.sublabel} · clic para ver →</div>
+                <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>{card.label}</div>
               </div>
             )
           })}
@@ -438,15 +471,25 @@ export default function Dashboard() {
         </div>
 
         {/* ── Alertas del supervisor ────────────────────────────────────── */}
-        {alertDeals.length > 0 && (
+        {alertsError && (
+          <div className="error-msg" style={{ marginBottom: 16 }}>
+            Error cargando alertas: {alertsError.response?.data?.error?.message || alertsError.response?.data?.error || alertsError.message}
+          </div>
+        )}
+        {alertsTotal > 0 && (
           <div className="card" style={{ marginBottom: 16, border: '1.5px solid #b91c1c' }}>
             <div className="card-header" style={{ background: 'rgba(185,28,28,0.06)' }}>
               <h2 style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#b91c1c' }}>
                 <AlertTriangle size={14} />
                 {isSupervisor ? 'Eventos con alerta activa' : 'Alertas del supervisor'}
               </h2>
-              <span className="badge badge-red">{alertDeals.length}</span>
+              <span className="badge badge-red">{alertsTotal}</span>
             </div>
+            {alertsTotal > alertDeals.length && (
+              <div style={{ padding: '6px 14px', fontSize: 11, color: '#92400e', background: '#fff8e1', borderBottom: '1px solid #f59e0b' }}>
+                Mostrando las {alertDeals.length} más recientes de {alertsTotal} en total.
+              </div>
+            )}
             <div className="table-wrap">
               <table>
                 <thead>
@@ -506,20 +549,14 @@ export default function Dashboard() {
                 </button>
               </div>
               <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                {[
-                  { name: 'Yesenia', zona: 'EEUU · Europa · LATAM Norte',     ownerId: '93621022' },
-                  { name: 'Angel',   zona: 'Europa del Este · Medio Oriente', ownerId: '93771980' },
-                  { name: 'Gracie',  zona: 'Asia Pacífico · Oceanía',         ownerId: '93771979' },
-                  { name: 'Carlos',  zona: 'LATAM Sur · Caribe',              ownerId: '93771981' },
-                  { name: 'Sara',    zona: 'África · Asia Central',           ownerId: '73112880' },
-                ].map(op => (
+                {team.map(op => (
                   <div key={op.name}
                     style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid var(--border)', fontSize: 12, cursor: 'pointer' }}
                     onClick={() => nav('/deals', { state: { filter: { filters: [{ propertyName: 'hubspot_owner_id', operator: 'EQ', value: op.ownerId }] } } })}
                     title={`Ver deals de ${op.name}`}
                   >
                     <span style={{ fontWeight: 600 }}>{op.name}</span>
-                    <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>{op.zona}</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>{op.paises}</span>
                   </div>
                 ))}
               </div>

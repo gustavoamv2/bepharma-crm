@@ -3,14 +3,16 @@ import { useNavigate } from 'react-router-dom'
 import { Search } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 
+// bp_estado_prospeccion es donde vive el estado real del deal en esta app
+// (el dealstage estandar de HubSpot no se usa aqui — son IDs numericos de pipeline)
 const DEAL_STAGES = {
-  appointmentscheduled: 'Cita agendada',
-  qualifiedtobuy: 'Calificado',
-  presentationscheduled: 'Presentación',
-  decisionmakerboughtin: 'DM Aprobó',
-  contractsent: 'Contrato enviado',
-  closedwon: 'Ganado ✅',
-  closedlost: 'Perdido ❌',
+  nueva:              'Nueva',
+  en_depuracion:      'En Depuración',
+  en_enriquecimiento: 'En Enriquecimiento',
+  contacto_enviado:   'Por Contactar',
+  en_seguimiento:     'En Seguimiento',
+  confirmada:         'Confirmada',
+  no_participa:       'No Participa',
 }
 
 export default function GlobalSearch() {
@@ -88,7 +90,7 @@ export default function GlobalSearch() {
 
   // Flatten all results for keyboard nav
   const allItems = [
-    ...results.deals.map(d => ({ type: 'deal', id: d.id, name: d.properties.dealname || '(sin nombre)', sub: DEAL_STAGES[d.properties.dealstage] || d.properties.dealstage || '' })),
+    ...results.deals.map(d => ({ type: 'deal', id: d.id, name: d.properties.dealname || '(sin nombre)', sub: DEAL_STAGES[d.properties.bp_estado_prospeccion] || d.properties.bp_estado_prospeccion || '' })),
     ...results.contacts.map(c => ({ type: 'contact', id: c.id, name: `${c.properties.firstname || ''} ${c.properties.lastname || ''}`.trim() || '(sin nombre)', sub: c.properties.email || c.properties.jobtitle || '' })),
     ...results.companies.map(co => ({ type: 'company', id: co.id, name: co.properties.name || '(sin nombre)', sub: co.properties.domain || co.properties.city || '' })),
   ]

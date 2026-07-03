@@ -10,10 +10,12 @@ const crypto = require('crypto')
 const nodemailer = require('nodemailer')
 const fs = require('fs')
 const path = require('path')
-const { login, requireAuth, applyOwnerFilter } = require('./auth')
+const FormData = require('form-data')
+const { login, requireAuth, applyOwnerFilter, applyCountryFilter } = require('./auth')
 const { requireWebhookToken } = require('./middleware/webhookAuth')
 const { errorHandler } = require('./middleware/errorHandler')
 const { loadUsers, saveUsers } = require('./usersStore')
+const { getSignature, saveSignature, kvEnabled } = require('./signatureStore')
 
 const app = express()
 
@@ -23,7 +25,9 @@ app.use(cors({
   origin: env.APP_ORIGIN,
   credentials: true,
 }))
-app.use(express.json({ limit: '1mb' }))
+// 4mb: deja margen bajo el límite de ~4.5mb de Vercel para el body de la función
+// serverless (necesario para adjuntos de email codificados en base64)
+app.use(express.json({ limit: '4mb' }))
 
 // Request ID minimo para trazabilidad en logs
 app.use((req, _res, next) => {
@@ -41,6 +45,18 @@ const loginLimiter = rateLimit({
 })
 
 const PORT = env.PORT
+
+// ──────────────────────────────────────────────────────────────────────────────
+// HEALTH — check basico, sin auth, para monitoreo/uptime
+// ──────────────────────────────────────────────────────────────────────────────
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+    version: require('../package.json').version,
+  })
+})
 
 // ──────────────────────────────────────────────────────────────────────────────
 // AUTH
@@ -71,15 +87,21 @@ const {
   CONTACT_PROPERTIES,
   PIPELINE_STAGES,
   ACTIVE_EVENT,
+  AUTO_STAGE_KEYS,
   activeEventFilter,
   notTerminalFilters,
 } = require('./config/hubspotProperties')
+const {
+  recomputeDealStagesForCompany,
+  getCompanyIdsForContact,
+} = require('./services/autoStage.service')
 
 // Deals – búsqueda con filtros BePharma
 app.post('/api/hubspot/deals/search', requireAuth, async (req, res) => {
   try {
     const { filters = [], sorts = [], limit = 50, after, properties } = req.body
-    const filterGroups = applyOwnerFilter(req, filters.length ? [{ filters }] : [])
+    let filterGroups = applyOwnerFilter(req, filters.length ? [{ filters }] : [])
+    filterGroups = applyCountryFilter(req, filterGroups, 'bp_evento_paises')
     const r = await hs.post('/crm/v3/objects/deals/search', {
       filterGroups,
       sorts,
@@ -160,11 +182,12 @@ app.get('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
   }
 })
 
-// Empresas – búsqueda (sin filtro de owner: las empresas son registros compartidos)
+// Empresas – búsqueda (sin filtro de owner: las empresas son registros compartidos;
+// sí se restringen por país cuando el operador tiene países asignados en su config)
 app.post('/api/hubspot/companies/search', requireAuth, async (req, res) => {
   try {
     const { filters = [], sorts = [], limit = 50, after, properties: customProps } = req.body
-    const filterGroups = filters.length ? [{ filters }] : []
+    const filterGroups = applyCountryFilter(req, filters.length ? [{ filters }] : [], 'country', { translate: true })
     const r = await hs.post('/crm/v3/objects/companies/search', {
       filterGroups,
       sorts,
@@ -239,7 +262,7 @@ app.get('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
           ))
         : [],
       dealIds.length
-        ? Promise.all(dealIds.slice(0, 10).map(did =>
+        ? Promise.all(dealIds.slice(0, 25).map(did =>
             hs.get(`/crm/v3/objects/deals/${did}`, {
               params: { properties: 'dealname,dealstage,amount,bp_estado_prospeccion,bp_evento_codigo' }
             }).then(r => r.data).catch(() => ({ id: did, properties: {} }))
@@ -267,7 +290,8 @@ app.post('/api/hubspot/contacts/search', requireAuth, async (req, res) => {
     const { filters = [], filterGroups: fgBody, sorts = [], limit = 50, after } = req.body
     // fgBody permite OR entre propiedades (nombre, apellido, teléfono)
     const baseGroups = fgBody || (filters.length ? [{ filters }] : [])
-    const filterGroups = applyOwnerFilter(req, baseGroups)
+    let filterGroups = applyOwnerFilter(req, baseGroups)
+    filterGroups = applyCountryFilter(req, filterGroups, 'country', { translate: true })
     const r = await hs.post('/crm/v3/objects/contacts/search', {
       filterGroups,
       sorts,
@@ -330,14 +354,33 @@ app.get('/api/hubspot/owners', requireAuth, async (req, res) => {
 app.get('/api/hubspot/engagements/:objectType/:objectId', requireAuth, async (req, res) => {
   const { objectType, objectId } = req.params
   const propMap = {
-    notes:    ['hs_note_body', 'hs_createdate'],
-    calls:    ['hs_call_body', 'hs_call_duration', 'hs_createdate', 'hs_call_status', 'hs_call_direction'],
-    meetings: ['hs_meeting_title', 'hs_meeting_body', 'hs_meeting_start_time', 'hs_createdate'],
-    emails:   ['hs_email_subject', 'hs_email_text', 'hs_createdate'],
-    tasks:    ['hs_task_subject', 'hs_task_body', 'hs_createdate', 'hs_task_status']
+    notes:    ['hs_note_body', 'hs_createdate', 'hs_attachment_ids'],
+    calls:    ['hs_call_body', 'hs_call_duration', 'hs_createdate', 'hs_call_status', 'hs_call_direction', 'hs_attachment_ids'],
+    meetings: ['hs_meeting_title', 'hs_meeting_body', 'hs_meeting_start_time', 'hs_createdate', 'hs_attachment_ids'],
+    emails:   ['hs_email_subject', 'hs_email_text', 'hs_createdate', 'hs_attachment_ids', 'hs_email_to_email', 'hs_email_cc_email'],
+    tasks:    ['hs_task_subject', 'hs_task_body', 'hs_createdate', 'hs_task_status', 'hs_attachment_ids']
   }
   const typeLabel = { notes: 'NOTE', calls: 'CALL', meetings: 'MEETING', emails: 'EMAIL', tasks: 'TASK' }
   const allItems = []
+
+  // Resuelve IDs de archivo (hs_attachment_ids, separados por ";") a URLs de
+  // descarga firmadas — necesario porque los adjuntos se suben como PRIVATE.
+  async function resolveAttachments(rawIds) {
+    const fileIds = String(rawIds || '').split(';').map(s => s.trim()).filter(Boolean)
+    if (!fileIds.length) return []
+    const results = await Promise.all(fileIds.map(fileId =>
+      hs.get(`/files/v3/files/${fileId}/signed-url`).then(r => ({
+        id: fileId,
+        name: r.data.name ? `${r.data.name}${r.data.extension ? '.' + r.data.extension : ''}` : `archivo-${fileId}`,
+        url: r.data.url,
+        size: r.data.size || null,
+      })).catch(err => {
+        console.warn(`[engagements] fallo al obtener signed-url de archivo ${fileId}:`, err.response?.status, err.response?.data?.message || err.message)
+        return null
+      })
+    ))
+    return results.filter(Boolean)
+  }
 
   await Promise.all(Object.keys(propMap).map(async (engType) => {
     try {
@@ -347,9 +390,12 @@ app.get('/api/hubspot/engagements/:objectType/:objectId', requireAuth, async (re
       const details = await Promise.all(ids.map(id =>
         hs.get(`/crm/v3/objects/${engType}/${id}`, {
           params: { properties: propMap[engType].join(',') }
-        }).catch(() => null)
+        }).catch(detailErr => {
+          console.warn(`[engagements] fallo al leer ${engType}/${id}:`, detailErr.response?.status, detailErr.response?.data?.message || detailErr.message)
+          return null
+        })
       ))
-      details.filter(Boolean).forEach(d => {
+      await Promise.all(details.filter(Boolean).map(async (d) => {
         const p = d.data.properties
         allItems.push({
           id: d.data.id,
@@ -357,10 +403,15 @@ app.get('/api/hubspot/engagements/:objectType/:objectId', requireAuth, async (re
           createdAt: p.hs_createdate || p.hs_meeting_start_time || null,
           body: p.hs_note_body || p.hs_call_body || p.hs_meeting_body || p.hs_email_text || p.hs_task_body || '',
           title: p.hs_meeting_title || p.hs_email_subject || p.hs_task_subject || '',
-          durationMs: p.hs_call_duration || null
+          durationMs: p.hs_call_duration || null,
+          to: p.hs_email_to_email || null,
+          cc: p.hs_email_cc_email || null,
+          attachments: await resolveAttachments(p.hs_attachment_ids),
         })
-      })
-    } catch { /* skip */ }
+      }))
+    } catch (assocErr) {
+      console.warn(`[engagements] fallo al listar asociaciones ${objectType}/${objectId} -> ${engType}:`, assocErr.response?.status, assocErr.response?.data?.message || assocErr.message)
+    }
   }))
 
   allItems.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
@@ -382,7 +433,8 @@ app.get('/api/pipeline/deals', requireAuth, async (req, res) => {
     const sleep = (ms) => new Promise(r => setTimeout(r, ms))
     for (let page = 0; page < MAX_PAGES; page++) {
       if (page > 0) await sleep(300) // 300ms entre páginas → ~3 req/seg < límite HubSpot
-      const filterGroups = applyOwnerFilter(req, [{ filters: [activeEventFilter()] }])
+      let filterGroups = applyOwnerFilter(req, [{ filters: [activeEventFilter()] }])
+      filterGroups = applyCountryFilter(req, filterGroups, 'bp_evento_paises')
       const r = await hs.post('/crm/v3/objects/deals/search', {
         filterGroups,
         sorts: [{ propertyName: 'createdate', direction: 'DESCENDING' }],
@@ -451,6 +503,15 @@ app.patch('/api/pipeline/deals/:id/stage', requireAuth, async (req, res) => {
     const { stage } = req.body
     if (!stage) return res.status(400).json({ error: 'Falta stage' })
 
+    // Nueva/En Depuración/En Enriquecimiento/Por Contactar las asigna el CRM
+    // automáticamente según los datos de contacto (ver autoStage.service.js)
+    // — no se pueden arrastrar manualmente en el Kanban a esas columnas.
+    if (AUTO_STAGE_KEYS.includes(stage)) {
+      return res.status(403).json({
+        error: 'Esta etapa se asigna automáticamente según los datos de contacto de la empresa. Solo puedes mover un evento a En Seguimiento, Confirmada o No Participa.',
+      })
+    }
+
     // Operadores solo pueden mover sus propios deals
     if (req.user.role === 'operator') {
       const deal = await hs.get(`/crm/v3/objects/deals/${req.params.id}`, {
@@ -491,6 +552,11 @@ app.post('/api/hubspot/deals', requireAuth, async (req, res) => {
           {},
           { headers: { 'Content-Type': 'application/json' } }
         )
+        // El deal recién creado normalmente entra sin bp_estado_prospeccion
+        // (o con "nueva" por defecto) — recalcularla ahora mismo según los
+        // datos que ya tenga la empresa/sus contactos, para que no se quede
+        // en blanco/desactualizada desde el primer momento.
+        await recomputeDealStagesForCompany(_companyId)
       } catch (assocErr) {
         assocError = assocErr.response?.data || assocErr.message
         console.warn('[deals] Error asociando empresa:', assocError)
@@ -542,6 +608,10 @@ app.patch('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
   try {
     const { _companyId, ...properties } = req.body
     const r = await hs.patch(`/crm/v3/objects/companies/${req.params.id}`, { properties })
+    // Si cambió el teléfono/email de la empresa (o cualquier otra edición),
+    // recalcular la etapa automática de sus deals — barato hacerlo siempre
+    // en vez de detectar qué campo específico cambió.
+    await recomputeDealStagesForCompany(req.params.id)
     res.json(r.data)
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
@@ -567,11 +637,12 @@ app.patch('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
     const r = await hs.patch(`/crm/v3/objects/contacts/${contactId}`, { properties })
 
     // Si cambia la empresa: quitar asociaciones anteriores y crear la nueva
+    let oldCompanyIds = []
     if (_companyId) {
       try {
         const existing = await hs.get(`/crm/v3/objects/contacts/${contactId}/associations/companies`)
-        const oldIds = (existing.data.results || []).map(c => c.id)
-        await Promise.all(oldIds.map(oldId =>
+        oldCompanyIds = (existing.data.results || []).map(c => c.id)
+        await Promise.all(oldCompanyIds.map(oldId =>
           hs.delete(`/crm/v3/objects/contacts/${contactId}/associations/companies/${oldId}/1`)
             .catch(() => {})
         ))
@@ -583,6 +654,17 @@ app.patch('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
       )
     }
 
+    // Recalcular la etapa automática de la(s) empresa(s) afectada(s) — la
+    // actual (por si cambió teléfono/email de este contacto) y, si se movió
+    // de empresa, también la anterior (perdió un dato de contacto).
+    try {
+      const currentCompanyIds = _companyId ? [_companyId] : await getCompanyIdsForContact(contactId)
+      const companiesToRecompute = [...new Set([...currentCompanyIds, ...oldCompanyIds])]
+      await Promise.all(companiesToRecompute.map(cid => recomputeDealStagesForCompany(cid)))
+    } catch (recomputeErr) {
+      console.warn('[contacts] fallo al recalcular etapa automática:', recomputeErr.message)
+    }
+
     res.json(r.data)
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
@@ -591,7 +673,12 @@ app.patch('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
 
 app.delete('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
   try {
+    // Capturar la(s) empresa(s) asociadas ANTES de borrar — al eliminar el
+    // contacto se pierde un dato de contacto, así que la etapa automática
+    // de sus deals puede necesitar bajar de nivel.
+    const companyIds = await getCompanyIdsForContact(req.params.id)
     await hs.delete(`/crm/v3/objects/contacts/${req.params.id}`)
+    await Promise.all(companyIds.map(cid => recomputeDealStagesForCompany(cid)))
     res.json({ success: true })
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
@@ -602,7 +689,11 @@ app.delete('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
 // CHARTS — datos para gráficas del dashboard
 // ──────────────────────────────────────────────────────────────────────────────
 app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
-  const fg = (baseFilters) => applyOwnerFilter(req, [{ filters: [activeEventFilter(), ...baseFilters] }])
+  const fg = (baseFilters) => applyCountryFilter(
+    req,
+    applyOwnerFilter(req, [{ filters: [activeEventFilter(), ...baseFilters] }]),
+    'bp_evento_paises'
+  )
   const safe = async (filters) => {
     try {
       const r = await hs.post('/crm/v3/objects/deals/search', {
@@ -656,7 +747,7 @@ app.get('/api/admin/users', requireAuth, async (req, res) => {
     role: u.role,
     ownerId: u.ownerId,
     sipExtension: u.sipExtension || '',
-    bp_zona: u.bp_zona || '',
+    bp_paises: Array.isArray(u.bp_paises) ? u.bp_paises : [],
     emailUser: u.emailUser || ''
   }))
   // Operadores solo ven su propio perfil
@@ -678,13 +769,17 @@ app.patch('/api/admin/users/:username/sip', requireAuth, async (req, res) => {
   }
 })
 
-// Admin – actualizar zona BePharma de un usuario
-app.patch('/api/admin/users/:username/zona', requireAuth, async (req, res) => {
+// Admin – actualizar países asignados a un operador
+app.patch('/api/admin/users/:username/paises', requireAuth, async (req, res) => {
   if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
   try {
     const users = loadUsers()
     if (!users[req.params.username]) return res.status(404).json({ error: 'Usuario no encontrado' })
-    users[req.params.username].bp_zona = req.body.bp_zona || ''
+    const paises = req.body.bp_paises
+    if (!Array.isArray(paises) || !paises.every(p => typeof p === 'string')) {
+      return res.status(400).json({ error: 'bp_paises debe ser un array de strings' })
+    }
+    users[req.params.username].bp_paises = paises
     saveUsers(users)
     res.json({ success: true })
   } catch (e) {
@@ -692,6 +787,75 @@ app.patch('/api/admin/users/:username/zona', requireAuth, async (req, res) => {
   }
 })
 
+// Admin — recalcula en lote la etapa automática (Nueva/En Depuración/
+// En Enriquecimiento/Por Contactar) de TODOS los deals que estén hoy en una
+// etapa automática o sin etapa. Uso: backfill único tras desplegar esta
+// funcionalidad, o para resincronizar si algo se editó directo en HubSpot
+// sin pasar por el CRM (que es donde vive el recálculo en tiempo real).
+app.post('/api/admin/recompute-auto-stages', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  try {
+    const filterGroups = [
+      { filters: [{ propertyName: 'bp_estado_prospeccion', operator: 'IN', values: AUTO_STAGE_KEYS }] },
+      { filters: [{ propertyName: 'bp_estado_prospeccion', operator: 'NOT_HAS_PROPERTY' }] },
+    ]
+
+    let allDeals = []
+    let after
+    while (true) {
+      const r = await hs.post('/crm/v3/objects/deals/search', {
+        filterGroups, limit: 100, after, properties: ['bp_estado_prospeccion'],
+      })
+      allDeals.push(...(r.data.results || []))
+      after = r.data.paging?.next?.after
+      if (!after) break
+    }
+
+    const companyIdByDeal = {}
+    const BATCH = 100
+    for (let i = 0; i < allDeals.length; i += BATCH) {
+      const chunk = allDeals.slice(i, i + BATCH)
+      const r = await hs.post('/crm/v4/associations/deals/companies/batch/read', {
+        inputs: chunk.map(d => ({ id: d.id })),
+      })
+      ;(r.data.results || []).forEach(row => {
+        const first = row.to?.[0]?.toObjectId
+        if (first) companyIdByDeal[row.from.id] = String(first)
+      })
+    }
+    const uniqueCompanyIds = [...new Set(Object.values(companyIdByDeal))]
+
+    const results = []
+    for (const cid of uniqueCompanyIds) {
+      results.push(await recomputeDealStagesForCompany(cid))
+      await new Promise(r2 => setTimeout(r2, 150)) // respeta rate limit de HubSpot
+    }
+
+    const totalDealsUpdated = results.reduce((sum, r) => sum + (r.updatedDeals?.length || 0), 0)
+    const failedCompanies = results.filter(r => r.error).map(r => r.companyId)
+    res.json({
+      dealsEvaluados: allDeals.length,
+      companiesProcesadas: uniqueCompanyIds.length,
+      totalDealsActualizados: totalDealsUpdated,
+      companiesConError: failedCompanies.length,
+      results,
+    })
+  } catch (e) {
+    // HubSpot puede devolver el detalle del error en formas distintas según el
+    // endpoint (string, {message}, {errors: [...]}, etc) — nunca dejar que un
+    // objeto se cuele crudo en la respuesta (el frontend lo concatenaría como
+    // texto y mostraría literalmente "[object Object]").
+    const d = e.response?.data
+    const msg = (typeof d === 'string' && d)
+      || d?.message
+      || (Array.isArray(d?.errors) ? d.errors.map(x => x.message || JSON.stringify(x)).join('; ') : null)
+      || (d && typeof d === 'object' ? JSON.stringify(d) : null)
+      || e.message
+      || 'Error desconocido al recalcular etapas'
+    console.error('[recompute-auto-stages]', d || e.message)
+    res.status(e.response?.status || 500).json({ error: msg })
+  }
+})
 
 // Crear contacto en HubSpot y opcionalmente asociarlo a una empresa
 app.post('/api/hubspot/contacts', requireAuth, async (req, res) => {
@@ -712,6 +876,9 @@ app.post('/api/hubspot/contacts', requireAuth, async (req, res) => {
           {},
           { headers: { 'Content-Type': 'application/json' } }
         )
+        // Nuevo contacto con teléfono/email puede subir la etapa automática
+        // de los deals de esta empresa.
+        await recomputeDealStagesForCompany(_companyId)
       } catch (assocErr) {
         assocError = assocErr.response?.data || assocErr.message
         console.warn('[contacts] Error asociando empresa:', assocError)
@@ -731,7 +898,11 @@ app.get('/api/hubspot/metrics', requireAuth, async (req, res) => {
     const minus72hMs  = now - 72 * 60 * 60 * 1000
     const startOfMonthMs = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime()
 
-    const fg = (baseFilters) => applyOwnerFilter(req, [{ filters: [activeEventFilter(), ...baseFilters] }])
+    const fg = (baseFilters) => applyCountryFilter(
+      req,
+      applyOwnerFilter(req, [{ filters: [activeEventFilter(), ...baseFilters] }]),
+      'bp_evento_paises'
+    )
 
     const safeCount = async (filters) => {
       try {
@@ -1197,7 +1368,9 @@ function getUserMailer(username) {
     host: process.env.SMTP_HOST || 'smtp.resend.com',
     port,
     secure: port === 465,
+    requireTLS: port === 587,
     auth: { user: smtpAuthUser, pass: emailPass },
+    tls: { rejectUnauthorized: false },
   })
 }
 
@@ -1226,27 +1399,43 @@ async function getMsGraphToken() {
   return r.data.access_token
 }
 
-async function sendViaGraph(fromEmail, senderName, to, subject, bodyHtml) {
+async function sendViaGraph(fromEmail, senderName, to, subject, bodyHtml, attachments = [], cc = []) {
   const token = await getMsGraphToken()
   if (!token) throw new Error('Azure no configurado (AZURE_TENANT_ID / CLIENT_ID / CLIENT_SECRET)')
 
+  const message = {
+    subject,
+    body: { contentType: 'HTML', content: bodyHtml },
+    toRecipients: [{ emailAddress: { address: to } }],
+    from: { emailAddress: { name: senderName, address: fromEmail } }
+  }
+  if (cc.length) {
+    message.ccRecipients = cc.map(addr => ({ emailAddress: { address: addr } }))
+  }
+  if (attachments.length) {
+    message.attachments = attachments.map(a => ({
+      '@odata.type': '#microsoft.graph.fileAttachment',
+      name: a.filename,
+      contentType: a.contentType || 'application/octet-stream',
+      contentBytes: a.content, // base64, sin prefijo data:
+    }))
+  }
+
   await axios.post(
     `https://graph.microsoft.com/v1.0/users/${fromEmail}/sendMail`,
-    {
-      message: {
-        subject,
-        body: { contentType: 'HTML', content: bodyHtml },
-        toRecipients: [{ emailAddress: { address: to } }],
-        from: { emailAddress: { name: senderName, address: fromEmail } }
-      },
-      saveToSentItems: true
-    },
+    { message, saveToSentItems: true },
     { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } }
   )
 }
 
 // Verificar config de email del usuario autenticado
 app.get('/api/email/verify', requireAuth, async (req, res) => {
+  // Modo Resend API
+  if (process.env.RESEND_API_KEY) {
+    const fromEmail = getUserEmail(req.user.username) || process.env.RESEND_FROM || 'onboarding@resend.dev'
+    return res.json({ ok: true, user: fromEmail, mode: 'resend' })
+  }
+
   const emailUser = getUserEmail(req.user.username)
   if (!emailUser) return res.json({ ok: false, error: 'no_config' })
 
@@ -1266,6 +1455,34 @@ app.get('/api/email/verify', requireAuth, async (req, res) => {
   }
 })
 
+// ── Firma de email por usuario ──────────────────────────────────────────────
+const SIGNATURE_MAX_CHARS = 400_000 // ~300KB de HTML/imagen en base64
+
+app.get('/api/email/signature', requireAuth, async (req, res) => {
+  try {
+    const sig = await getSignature(req.user.username)
+    res.json({ html: sig?.html || '', persisted: kvEnabled() })
+  } catch (e) {
+    console.warn('[signature] error al leer:', e.message)
+    res.status(500).json({ error: e.message })
+  }
+})
+
+app.put('/api/email/signature', requireAuth, async (req, res) => {
+  try {
+    const { html } = req.body
+    if (typeof html !== 'string') return res.status(400).json({ error: 'Falta html' })
+    if (html.length > SIGNATURE_MAX_CHARS) {
+      return res.status(400).json({ error: 'La firma es muy pesada (reduce el tamaño de la imagen) — máx. ~300KB' })
+    }
+    await saveSignature(req.user.username, { html, updatedAt: new Date().toISOString() })
+    res.json({ success: true, persisted: kvEnabled() })
+  } catch (e) {
+    console.warn('[signature] error al guardar:', e.message)
+    res.status(500).json({ error: e.message })
+  }
+})
+
 // Admin: lista de usuarios con estado de email configurado
 app.get('/api/admin/email-status', requireAuth, async (req, res) => {
   if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
@@ -1279,55 +1496,154 @@ app.get('/api/admin/email-status', requireAuth, async (req, res) => {
   res.json(status)
 })
 
+// Sube un adjunto (base64) a la Files API de HubSpot y devuelve su fileId.
+// Requiere que el Private App tenga el scope "files" habilitado.
+async function uploadFileToHubSpot(filename, contentType, base64) {
+  const form = new FormData()
+  form.append('file', Buffer.from(base64, 'base64'), { filename, contentType: contentType || 'application/octet-stream' })
+  form.append('options', JSON.stringify({ access: 'PRIVATE' }))
+  form.append('folderPath', '/bepharma-crm-adjuntos')
+  const r = await hs.post('/files/v3/files', form, { headers: form.getHeaders() })
+  return r.data.id
+}
+
 // Enviar email + registrar en HubSpot como engagement
+const ATTACHMENTS_MAX_TOTAL_B64 = 3_500_000 // ~2.6MB reales — deja margen bajo el límite de 4mb del body
+
 app.post('/api/email/send', requireAuth, async (req, res) => {
   try {
-    const { to, subject, body, contactId, dealId, companyId } = req.body
-    if (!to || !subject || !body) {
+    const { to, cc, subject, body, bodyHtml: bodyHtmlIn, contactId, dealId, companyId, signatureHtml, attachments } = req.body
+
+    // Compat: el composer nuevo manda "bodyHtml" (ya formateado desde el editor
+    // enriquecido); el flujo viejo mandaba "body" en texto plano con \n.
+    const rawBodyHtml = bodyHtmlIn ?? (body ? body.replace(/\n/g, '<br>') : '')
+    const bodyText = String(rawBodyHtml || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+
+    if (!to || !subject || !bodyText) {
       return res.status(400).json({ error: 'Faltan campos: to, subject, body' })
     }
 
-    const emailUser = getUserEmail(req.user.username)
-    if (!emailUser) return res.status(400).json({ error: 'no_config' })
+    const ccList = Array.isArray(cc) ? cc.filter(Boolean) : String(cc || '').split(/[,;]/).map(s => s.trim()).filter(Boolean)
 
-    const bodyHtml = body.replace(/\n/g, '<br>')
+    // Adjuntos: [{ filename, contentType, content(base64 sin prefijo data:) }]
+    const validAttachments = Array.isArray(attachments) ? attachments.filter(a => a?.filename && a?.content) : []
+    const totalB64 = validAttachments.reduce((sum, a) => sum + (a.content?.length || 0), 0)
+    if (totalB64 > ATTACHMENTS_MAX_TOTAL_B64) {
+      return res.status(400).json({ error: 'Los adjuntos pesan demasiado en total (máx. ~2.5MB combinados)' })
+    }
 
-    if (process.env.AZURE_TENANT_ID && process.env.AZURE_CLIENT_ID && process.env.AZURE_CLIENT_SECRET) {
-      // ── Modo Microsoft Graph (Microsoft 365 OAuth) ────────────────────────
-      await sendViaGraph(emailUser, req.user.name, to, subject, bodyHtml)
+    const bodyHtml = rawBodyHtml + (signatureHtml ? `<br><br>${signatureHtml}` : '')
+
+    if (process.env.RESEND_API_KEY) {
+      // ── Modo Resend API ───────────────────────────────────────────────────
+      // EMAIL_USER_* por operador; si no existe, usa RESEND_FROM como fallback
+      const fromEmail = getUserEmail(req.user.username) || process.env.RESEND_FROM || 'onboarding@resend.dev'
+      const fromName  = req.user.name || 'BePharma'
+      await axios.post('https://api.resend.com/emails', {
+        from: `${fromName} <${fromEmail}>`,
+        to: [to],
+        ...(ccList.length ? { cc: ccList } : {}),
+        subject,
+        html: bodyHtml,
+        ...(validAttachments.length ? {
+          attachments: validAttachments.map(a => ({ filename: a.filename, content: a.content })),
+        } : {}),
+      }, {
+        headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` }
+      })
+    } else if (process.env.AZURE_TENANT_ID && process.env.AZURE_CLIENT_ID && process.env.AZURE_CLIENT_SECRET) {
+      // ── Modo Microsoft Graph ──────────────────────────────────────────────
+      const emailUser = getUserEmail(req.user.username)
+      if (!emailUser) return res.status(400).json({ error: 'no_config' })
+      await sendViaGraph(emailUser, req.user.name, to, subject, bodyHtml, validAttachments, ccList)
     } else {
       // ── Fallback: SMTP ────────────────────────────────────────────────────
+      const emailUser = getUserEmail(req.user.username)
+      if (!emailUser) return res.status(400).json({ error: 'no_config' })
       const mailer = getUserMailer(req.user.username)
       if (!mailer) return res.status(400).json({ error: 'no_config' })
       await mailer.sendMail({
         from: `${req.user.name} <${emailUser}>`,
         to, subject,
-        text: body,
-        html: bodyHtml
+        ...(ccList.length ? { cc: ccList.join(', ') } : {}),
+        text: bodyText,
+        html: bodyHtml,
+        ...(validAttachments.length ? {
+          attachments: validAttachments.map(a => ({
+            filename: a.filename,
+            content: Buffer.from(a.content, 'base64'),
+            contentType: a.contentType || undefined,
+          })),
+        } : {}),
       })
     }
 
-    // Registrar como engagement en HubSpot (independiente del método de envío)
+    const emailUser = getUserEmail(req.user.username) || (process.env.RESEND_FROM || 'onboarding@resend.dev')
+
+    // Subir adjuntos a la Files API de HubSpot (best-effort — si uno falla, se
+    // omite y sigue con los demás; nunca bloquea el registro del email en sí).
+    const uploadedFileIds = []
+    const failedUploads = []
+    if (validAttachments.length) {
+      const results = await Promise.all(validAttachments.map(a =>
+        uploadFileToHubSpot(a.filename, a.contentType, a.content)
+          .then(fileId => ({ ok: true, fileId }))
+          .catch(err => {
+            console.warn(`[email/send] fallo al subir adjunto "${a.filename}" a HubSpot Files:`, err.response?.data?.message || err.message)
+            return { ok: false, filename: a.filename }
+          })
+      ))
+      results.forEach(r => r.ok ? uploadedFileIds.push(r.fileId) : failedUploads.push(r.filename))
+    }
+
+    // Registrar como engagement en HubSpot (API v3 — /engagements/v1 esta deprecada
+    // por HubSpot y ya no asocia correctamente al deal, aunque no devuelva error)
+    let hubspotLogged = false
+    let hubspotLogError = null
     try {
-      await hs.post('/engagements/v1/engagements', {
-        engagement: { active: true, type: 'EMAIL', timestamp: Date.now() },
-        associations: {
-          contactIds: contactId ? [Number(contactId)] : [],
-          dealIds: dealId ? [Number(dealId)] : [],
-          companyIds: companyId ? [Number(companyId)] : []
+      const assocTypeIdMap = { contacts: 198, deals: 210, companies: 186 }
+      const associations = []
+      if (contactId) associations.push({ to: { id: Number(contactId) }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: assocTypeIdMap.contacts }] })
+      if (dealId) associations.push({ to: { id: Number(dealId) }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: assocTypeIdMap.deals }] })
+      if (companyId) associations.push({ to: { id: Number(companyId) }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: assocTypeIdMap.companies }] })
+
+      // Nota de texto como respaldo — útil aunque la subida a Files haya fallado
+      // (no existe una propiedad hs_email_* confirmada para CC en la API v3, así
+      // que se deja como referencia de texto en vez de arriesgar un campo inválido)
+      const ccNote = ccList.length ? `\n\nCC: ${ccList.join(', ')}` : ''
+      const attachmentNote = (validAttachments.length
+        ? `\n\n📎 Adjuntos: ${validAttachments.map(a => a.filename).join(', ')}` +
+          (failedUploads.length ? ` (no se pudieron adjuntar en HubSpot: ${failedUploads.join(', ')})` : '')
+        : '') + ccNote
+
+      const emailPayload = {
+        properties: {
+          hs_timestamp: new Date().toISOString(),
+          hs_email_direction: 'EMAIL',
+          hs_email_status: 'SENT',
+          hs_email_subject: subject,
+          hs_email_text: bodyText + attachmentNote,
+          hs_email_html: bodyHtml + (attachmentNote ? attachmentNote.replace(/\n/g, '<br>') : ''),
+          hubspot_owner_id: req.user.ownerId,
+          ...(uploadedFileIds.length ? { hs_attachment_ids: uploadedFileIds.join(';') } : {}),
         },
-        metadata: {
-          from: { email: emailUser, firstName: req.user.name },
-          to: [{ email: to }],
-          subject, text: body, html: bodyHtml,
-          status: 'SENT'
-        }
-      })
+      }
+      if (associations.length) emailPayload.associations = associations
+
+      await hs.post('/crm/v3/objects/emails', emailPayload)
+      hubspotLogged = true
     } catch (hsErr) {
+      hubspotLogError = hsErr.response?.data?.message || hsErr.message
       console.warn('HubSpot email log error:', hsErr.response?.data || hsErr.message)
     }
 
-    res.json({ success: true })
+    res.json({
+      success: true,
+      hubspotLogged,
+      hubspotLogError,
+      attachmentsUploaded: uploadedFileIds.length,
+      attachmentsFailed: failedUploads,
+    })
   } catch (e) {
     const d = e.response?.data
     const msg = d?.error?.message || d?.message || (typeof d?.error === 'string' ? d.error : null) || e.message || 'Error desconocido'
@@ -1527,7 +1843,7 @@ app.get('/api/reports/bp-summary', requireAuth, async (req, res) => {
       { propertyName: 'bp_ultima_actividad_operador', operator: 'LT', value: String(minus72hMs) },
       ...notTerminalFilters(),
     ]),
-    countPerOwner([{ propertyName: 'dealstage', operator: 'EQ', value: 'confirmada_bepharma' }]),
+    countPerOwner([{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: 'confirmada' }]),
     countPerOwner([{ propertyName: 'bp_decision_participacion', operator: 'EQ', value: 'participa_otro_evento' }]),
     countTasksPerOwner(),
     safeCount([{ propertyName: 'createdate', operator: 'GTE', value: String(startOfMonthMs) }]),
@@ -1625,12 +1941,24 @@ app.get('/api/reports/activity', requireAuth, async (req, res) => {
     const ownerIds = Object.keys(OWNERS)
 
     const countEngByOwner = async (engType) => {
+      const filters = [
+        { propertyName: 'hs_createdate', operator: 'GTE', value: since }
+      ]
+      // Las llamadas "calls" incluyen miles de registros basura QUEUED generados por
+      // la integracion nativa "Zadarma Calling, SMS, AI" (marcador automatico a
+      // numeros al azar, nunca conecta). Esos registros nunca representan actividad
+      // real del equipo, asi que se excluyen del conteo. Las llamadas reales
+      // (Make.com webhook o registro manual desde la app) siempre quedan en
+      // COMPLETED/NO_ANSWER, nunca QUEUED.
+      if (engType === 'calls') {
+        filters.push({ propertyName: 'hs_call_status', operator: 'NEQ', value: 'QUEUED' })
+      }
       const results = await Promise.all(ownerIds.map(ownerId =>
         hs.post(`/crm/v3/objects/${engType}/search`, {
           filterGroups: [{
             filters: [
               { propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerId },
-              { propertyName: 'hs_createdate', operator: 'GTE', value: since }
+              ...filters,
             ]
           }],
           limit: 1, properties: ['hs_createdate']
@@ -1640,13 +1968,17 @@ app.get('/api/reports/activity', requireAuth, async (req, res) => {
       return Object.fromEntries(results)
     }
 
+    // "Activo" = evento activo + estado no terminal (mismo criterio que /api/hubspot/metrics).
+    // Antes filtraba por dealstage (propiedad estandar de HubSpot que esta app no usa —
+    // el estado real vive en bp_estado_prospeccion), y NEQ contra un valor no poblado
+    // hace que HubSpot excluya el registro, dando siempre 0.
     const countDealsByOwner = () => Promise.all(ownerIds.map(ownerId =>
       hs.post('/crm/v3/objects/deals/search', {
         filterGroups: [{
           filters: [
             { propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerId },
-            { propertyName: 'dealstage', operator: 'NEQ', value: 'closedwon' },
-            { propertyName: 'dealstage', operator: 'NEQ', value: 'closedlost' }
+            activeEventFilter(),
+            ...notTerminalFilters(),
           ]
         }],
         limit: 1, properties: ['dealname']
@@ -1682,7 +2014,12 @@ app.get('/api/reports/calls', requireAuth, async (req, res) => {
   try {
     const { ownerId, days = 30 } = req.query
     const since = new Date(Date.now() - Number(days) * 24 * 60 * 60 * 1000).toISOString()
-    const filters = [{ propertyName: 'hs_createdate', operator: 'GTE', value: since }]
+    // Excluye llamadas QUEUED (basura del marcador automatico de la integracion
+    // "Zadarma Calling, SMS, AI") — ver nota en /api/reports/activity
+    const filters = [
+      { propertyName: 'hs_createdate', operator: 'GTE', value: since },
+      { propertyName: 'hs_call_status', operator: 'NEQ', value: 'QUEUED' },
+    ]
     if (ownerId) filters.push({ propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerId })
     const r = await hs.post('/crm/v3/objects/calls/search', {
       filterGroups: [{ filters }],

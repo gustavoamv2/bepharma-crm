@@ -77,12 +77,16 @@ function AppContent() {
   if (!user) return <LoginPage />
 
   // Supervisor actuando como operador → menú de operador
-  const isSupervisor = user.role === 'supervisor' && viewMode !== 'operator'
+  // (si canToggleView es false, el usuario nunca puede pasar a vista operador)
+  const isSupervisor = user.role === 'supervisor' && (viewMode !== 'operator' || user.canToggleView === false)
 
   return (
     <div className="layout">
       <aside className="sidebar">
-        <div className="sidebar-logo">Be<span>Pharma</span> CRM</div>
+        <div className="sidebar-logo" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <img src="/logo.png" alt="BePharma" style={{ width: 28, height: 28, objectFit: 'contain', flexShrink: 0 }} />
+          Be<span>Pharma</span> CRM
+        </div>
         <nav className="sidebar-nav">
           <div className="sidebar-section">Principal</div>
           <NavLink to="/" end className={({ isActive }) => isActive ? 'active' : ''}>
@@ -151,7 +155,7 @@ function AppContent() {
             </div>
             <div style={{ fontSize: 10, color: '#546e7a' }}>
               {user.role === 'supervisor'
-                ? (sessionStorage.getItem('bp_view_mode') === 'operator' ? 'Vista operador' : 'Supervisor')
+                ? (!isSupervisor ? 'Vista operador' : 'Supervisor')
                 : 'Operador'}
             </div>
           </div>

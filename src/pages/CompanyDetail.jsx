@@ -3,11 +3,9 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useQuery, useQueryClient } from 'react-query'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { ExternalLink, Mail, Pencil, PlusCircle } from 'lucide-react'
+import { ExternalLink, Pencil, PlusCircle } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
-import CallWidget from '../components/CallWidget'
-import EmailComposer from '../components/EmailComposer'
 import RecordModal, { DeleteButton } from '../components/RecordModal'
 import CreateTaskModal from '../components/CreateTaskModal'
 
@@ -31,7 +29,6 @@ export default function CompanyDetail() {
   const { id } = useParams()
   const nav = useNavigate()
   const qc = useQueryClient()
-  const [showEmail, setShowEmail] = useState(false)
   const [showEdit, setShowEdit]   = useState(false)
   const [showTask, setShowTask]   = useState(false)
   const [showDeal, setShowDeal]   = useState(false)
@@ -46,6 +43,7 @@ export default function CompanyDetail() {
   const contacts = company.associations?.contacts?.results || []
   const deals = company.associations?.deals?.results || []
   const portalId = '51580878'
+  const isBlacklisted = p.bp_lista_negra === 'true' || p.bp_lista_negra === true
 
   return (
     <>
@@ -60,15 +58,21 @@ export default function CompanyDetail() {
           </a>
         </div>
 
-        <div className="detail-grid">
-          <div className="detail-main">
+        {isBlacklisted && (
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14,
+            padding: '10px 14px', background: '#fff1f0', border: '1px solid #ffa39e',
+            borderRadius: 8, fontSize: 13, fontWeight: 600, color: '#a8071a'
+          }}>
+            ⛔ Empresa en Lista Negra — no contactar para futuros eventos
+          </div>
+        )}
+
+        <div className="detail-main">
             <div className="card">
               <div className="card-header">
                 <h2>{p.name}</h2>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  <button className="btn btn-ghost btn-sm" onClick={() => setShowEmail(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                    <Mail size={13} /> Email
-                  </button>
                   <button className="btn btn-ghost btn-sm" onClick={() => setShowEdit(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                     <Pencil size={13} /> Editar
                   </button>
@@ -117,7 +121,7 @@ export default function CompanyDetail() {
 
             <div className="card">
               <div className="card-header">
-                <h2>Eventos en pipeline ({deals.length})</h2>
+                <h2>Historial de eventos ({deals.length})</h2>
                 <button className="btn btn-primary btn-sm" onClick={() => setShowDeal(true)}
                   style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                   <PlusCircle size={13} /> Crear evento
@@ -131,14 +135,19 @@ export default function CompanyDetail() {
                 ) : deals.map(d => {
                   const dp = d.properties || {}
                   const BP_ESTADO = {
-                    nueva: 'Nueva', en_depuracion: 'En Depuración',
-                    contacto_enviado: 'Contacto enviado', en_seguimiento: 'En seguimiento',
-                    confirmada: '✅ Confirmada', no_participa: '❌ No participa',
+                    nueva: 'Nueva', en_depuracion: 'En Depuración', en_enriquecimiento: 'En Enriquecimiento',
+                    contacto_enviado: 'Por Contactar', en_seguimiento: 'En Seguimiento',
+                    confirmada: '✅ Confirmada', no_participa: '❌ No Participa',
                   }
                   return (
                     <button key={d.id} className="btn btn-ghost" style={{ justifyContent: 'flex-start', gap: 8 }}
                       onClick={() => nav(`/deals/${d.id}`)}>
                       💼 <strong>{dp.dealname || `Evento #${d.id}`}</strong>
+                      {dp.bp_evento_codigo && (
+                        <span style={{ fontSize: 11, color: 'var(--text-muted)', marginLeft: 4 }}>
+                          {dp.bp_evento_codigo}
+                        </span>
+                      )}
                       {dp.bp_estado_prospeccion && (
                         <span style={{ fontSize: 11, color: 'var(--text-muted)', marginLeft: 4 }}>
                           {BP_ESTADO[dp.bp_estado_prospeccion] || dp.bp_estado_prospeccion}
@@ -149,27 +158,8 @@ export default function CompanyDetail() {
                 })}
               </div>
             </div>
-          </div>
-
-          <div className="detail-side">
-            <CallWidget
-              phone={p.phone}
-              contactName={p.name}
-              objectType="companies"
-              objectId={id}
-              onActivityLogged={() => qc.invalidateQueries(['engagements-company', id])}
-            />
-          </div>
         </div>
       </div>
-
-      {showEmail && (
-        <EmailComposer
-          defaultSubject={`Contacto BePharma — ${p.name}`}
-          companyId={id}
-          onClose={() => setShowEmail(false)}
-        />
-      )}
 
       {showEdit && (
         <RecordModal

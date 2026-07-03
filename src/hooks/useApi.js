@@ -48,6 +48,21 @@ export const hubspot = {
   bulkUpdateStage: (ids, stage) => api.patch('/hubspot/companies/bulk-stage', { ids, stage }).then(r => r.data),
 }
 
+// Invalida las queries que alimentan el Dashboard (metrics/charts/deals-alertas).
+// HubSpot tarda unos segundos en reflejar un property update en su Search API
+// (índice con consistencia eventual), por eso una sola invalidación inmediata
+// puede traer datos todavía viejos si el usuario navega muy rápido. Por eso
+// invalidamos ya mismo y de nuevo un par de segundos después.
+export function invalidateDashboard(qc) {
+  const run = () => {
+    qc.invalidateQueries('metrics')
+    qc.invalidateQueries('charts')
+    qc.invalidateQueries('deals-alertas')
+  }
+  run()
+  setTimeout(run, 3000)
+}
+
 // ── Pipeline Kanban ───────────────────────────────────────────────────────────
 export const pipeline = {
   getDeals:    ()            => api.get('/pipeline/deals').then(r => r.data),
@@ -77,9 +92,10 @@ export const rocketreach = {
 export const admin = {
   getUsers:        ()                               => api.get('/admin/users').then(r => r.data),
   updateSip:       (username, sipExtension)         => api.patch(`/admin/users/${username}/sip`, { sipExtension }).then(r => r.data),
-  updateZona:      (username, bp_zona)              => api.patch(`/admin/users/${username}/zona`, { bp_zona }).then(r => r.data),
+  updatePaises:    (username, bp_paises)            => api.patch(`/admin/users/${username}/paises`, { bp_paises }).then(r => r.data),
   updateEmail:     (username, emailUser, emailPass) => api.patch(`/admin/users/${username}/email`, { emailUser, emailPass }).then(r => r.data),
   getIntegrations: ()                               => api.get('/admin/integrations').then(r => r.data),
+  recomputeAutoStages: ()                            => api.post('/admin/recompute-auto-stages').then(r => r.data),
 }
 
 // ── Email ─────────────────────────────────────────────────────────────────────

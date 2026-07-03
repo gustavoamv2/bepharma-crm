@@ -23,6 +23,16 @@ const OWNER_COLORS = [
   '#4fc3f7','#81c784','#ffb74d','#f48fb1','#ce93d8','#90caf9'
 ]
 
+const ESTADO_PROSPECCION_LABELS = {
+  nueva:              'Nueva',
+  en_depuracion:      'En Depuración',
+  en_enriquecimiento: 'En Enriquecimiento',
+  contacto_enviado:   'Por Contactar',
+  en_seguimiento:     'En Seguimiento',
+  confirmada:         'Confirmada',
+  no_participa:       'No Participa',
+}
+
 const PERIODS = [
   { label: 'Hoy',          days: 1 },
   { label: 'Esta semana',  days: 7 },
@@ -417,7 +427,9 @@ export default function ReportsPage() {
                       <Avatar name={owner.name} color={OWNER_COLORS[i % OWNER_COLORS.length]} />
                       <div>
                         <div style={{ fontWeight: 700, fontSize: 14 }}>{owner.name}</div>
-                        <div style={{ fontSize: 11, color: '#6b778c' }}>Operador</div>
+                        <div style={{ fontSize: 11, color: '#6b778c' }}>
+                          {['93615311', '93621022'].includes(owner.ownerId) ? 'Supervisor' : 'Operador'}
+                        </div>
                       </div>
                     </div>
                     <div className="owner-card-stats">
@@ -600,7 +612,7 @@ export default function ReportsPage() {
                               { propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado },
                             ]}}})}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 3 }}>
-                              <span>{estado}</span>
+                              <span>{ESTADO_PROSPECCION_LABELS[estado] || estado}</span>
                               <span style={{ fontWeight: 700, color: count > 0 ? '#0052cc' : '#6b778c' }}>{count}</span>
                             </div>
                             <div style={{ height: 8, background: '#f0f4f8', borderRadius: 4, overflow: 'hidden' }}>
@@ -624,7 +636,7 @@ export default function ReportsPage() {
                       { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
                       { propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerId },
                       { propertyName: 'bp_proximo_contacto', operator: 'LT', value: nowMs },
-                      { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada_bepharma' },
+                      { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada' },
                       { propertyName: 'dealstage', operator: 'NEQ', value: 'no_participa' },
                     ]}
                   />
@@ -637,7 +649,7 @@ export default function ReportsPage() {
                       { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
                       { propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerId },
                       { propertyName: 'bp_ultima_actividad_operador', operator: 'LT', value: minus72hMs },
-                      { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada_bepharma' },
+                      { propertyName: 'dealstage', operator: 'NEQ', value: 'confirmada' },
                       { propertyName: 'dealstage', operator: 'NEQ', value: 'no_participa' },
                     ]}
                   />
@@ -649,7 +661,7 @@ export default function ReportsPage() {
                     filterFn={(ownerId) => [
                       { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
                       { propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerId },
-                      { propertyName: 'dealstage', operator: 'EQ', value: 'confirmada_bepharma' },
+                      { propertyName: 'dealstage', operator: 'EQ', value: 'confirmada' },
                     ]}
                   />
                   <OwnerTable
