@@ -94,4 +94,4 @@ function applyCountryFilter(req, filterGroups, propertyName, { translate = false
   })
 }
 
-module.exports = { login, requireAuth, applyOwnerFilter, applyCountryFilter }
+module.exports = { login, requireAuth, applyOwnerFilter, applyCountryFilter, addFilterToGroups }

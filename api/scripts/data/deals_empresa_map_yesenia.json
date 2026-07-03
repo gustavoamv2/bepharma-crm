@@ -1,0 +1,5534 @@
+[
+  {
+    "dealname": "Triquim - BEPH-2026-09",
+    "domain": "triquim.com.ar"
+  },
+  {
+    "dealname": "Amarin Technologies - BEPH-2026-09",
+    "domain": "amarintech.com.ar"
+  },
+  {
+    "dealname": "Andrómaco - BEPH-2026-09",
+    "domain": "andromaco.com"
+  },
+  {
+    "dealname": "Aptar Pharma - BEPH-2026-09",
+    "domain": "aptar.com"
+  },
+  {
+    "dealname": "Budnik Regulatory Affairs - BEPH-2026-09",
+    "domain": "bpregulatoryaffairs.com"
+  },
+  {
+    "dealname": "Catalent Pharma Solutions - BEPH-2026-09",
+    "domain": "catalent.com"
+  },
+  {
+    "dealname": "Craveri - BEPH-2026-09",
+    "domain": "craveri.com.ar"
+  },
+  {
+    "dealname": "Doena Pharma - BEPH-2026-09",
+    "domain": "doenapharma.com"
+  },
+  {
+    "dealname": "Eriochem SA - BEPH-2026-09",
+    "domain": "erio.com.ar"
+  },
+  {
+    "dealname": "Gador - BEPH-2026-09",
+    "domain": "gador.com"
+  },
+  {
+    "dealname": "Grupo Biotoscana - BEPH-2026-09",
+    "domain": "biotoscana.com"
+  },
+  {
+    "dealname": "Laboratorio Ariston (Química Ariston) - BEPH-2026-09",
+    "domain": "ariston.com.ar"
+  },
+  {
+    "dealname": "Laboratorio Baliarda SA - BEPH-2026-09",
+    "domain": "baliarda.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Beta - BEPH-2026-09",
+    "domain": "beta.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Denver Farma / Denver Farma - BEPH-2026-09",
+    "domain": "denverfarma.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Soubeiran Chobet - BEPH-2026-09",
+    "domain": "soubeiran.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Temis Lostaló - BEPH-2026-09",
+    "domain": "temislostalo.com.ar"
+  },
+  {
+    "dealname": "Latincomm-Pharmaceuticals - BEPH-2026-09",
+    "domain": "latincomm.com"
+  },
+  {
+    "dealname": "Novocap, S.A. - BEPH-2026-09",
+    "domain": "novocap.com"
+  },
+  {
+    "dealname": "Savant Pharma / Vivunt - BEPH-2026-09",
+    "domain": "savantpharma.com"
+  },
+  {
+    "dealname": "Tuteur S.A.C.I.F.I.A / Vion Pharma - BEPH-2026-09",
+    "domain": "tuteur.com.ar"
+  },
+  {
+    "dealname": "Bria Pharma - BEPH-2026-09",
+    "domain": "briapharma.com.ar"
+  },
+  {
+    "dealname": "Farmanet S.A. - BEPH-2026-09",
+    "domain": "farmanet.com.ar"
+  },
+  {
+    "dealname": "Laboratorio Drawer - BEPH-2026-09",
+    "domain": "drawer.com.ar"
+  },
+  {
+    "dealname": "Laboratorio Lazar - BEPH-2026-09",
+    "domain": "lazar.com.ar"
+  },
+  {
+    "dealname": "Pharmanove - BEPH-2026-09",
+    "domain": "pharmanove.com"
+  },
+  {
+    "dealname": "Amega Biotech - BEPH-2026-09",
+    "domain": "amegabiotech.com"
+  },
+  {
+    "dealname": "AOM - Advanced Organic Materials S.A. - BEPH-2026-09",
+    "domain": "aomsa.com.ar"
+  },
+  {
+    "dealname": "Biosidus - BEPH-2026-09",
+    "domain": "biosidus.com.ar"
+  },
+  {
+    "dealname": "Biotenk S.A. / Droguería Latina - BEPH-2026-09",
+    "domain": "biotenk.com.ar"
+  },
+  {
+    "dealname": "Brix Medical Science - BEPH-2026-09",
+    "domain": "brix-lab.com"
+  },
+  {
+    "dealname": "Celnova Pharma - BEPH-2026-09",
+    "domain": "celnova.com.ar"
+  },
+  {
+    "dealname": "Conifarma - BEPH-2026-09",
+    "domain": "conifarma.com.ar"
+  },
+  {
+    "dealname": "Donato, Zurlo & Cia - BEPH-2026-09",
+    "domain": "donatozurlo.com.ar"
+  },
+  {
+    "dealname": "Everex Pharmaceuticals / Laboratorio Oriental - BEPH-2026-09",
+    "domain": "everex.com.uy"
+  },
+  {
+    "dealname": "FarmaGram - BEPH-2026-09",
+    "domain": "farmagram.com.ar"
+  },
+  {
+    "dealname": "Fecofar / Laboratorios Fecofar - BEPH-2026-09",
+    "domain": "fecofar.com.ar"
+  },
+  {
+    "dealname": "FranceLab Argentina - BEPH-2026-09",
+    "domain": "francelab.com.ar"
+  },
+  {
+    "dealname": "Gemabiotech - BEPH-2026-09",
+    "domain": "gemabiotech.com"
+  },
+  {
+    "dealname": "GeMePe S.A - BEPH-2026-09",
+    "domain": "gemepe.com.ar"
+  },
+  {
+    "dealname": "Géminis Farmacéutica - BEPH-2026-09",
+    "domain": "geminisfarmaceutica.com.ar"
+  },
+  {
+    "dealname": "Gerardo Ramón & Cía S.A.I.C. - BEPH-2026-09",
+    "domain": "gerardoramon.com.ar"
+  },
+  {
+    "dealname": "HBL Pharma - BEPH-2026-09",
+    "domain": "hlbpharma.com.ar"
+  },
+  {
+    "dealname": "IBC - Instituto Biológico Contemporaneo - BEPH-2026-09",
+    "domain": "laboratorioibc.com.ar"
+  },
+  {
+    "dealname": "Instituto Massone S.A - BEPH-2026-09",
+    "domain": "massone.com"
+  },
+  {
+    "dealname": "Investi Farma - BEPH-2026-09",
+    "domain": "wiri.la"
+  },
+  {
+    "dealname": "Laboratorio Dominguez - BEPH-2026-09",
+    "domain": "labdominguez.com.ar"
+  },
+  {
+    "dealname": "Laboratorio Eczane Pharma - BEPH-2026-09",
+    "domain": "eczane.com.ar"
+  },
+  {
+    "dealname": "Laboratorio Elea Phoenix - BEPH-2026-09",
+    "domain": "elea.com"
+  },
+  {
+    "dealname": "Laboratorio Eurolab - BEPH-2026-09",
+    "domain": "eurolab.com.ar"
+  },
+  {
+    "dealname": "Laboratorio Gramon / Gerardo Ramon & Cia - BEPH-2026-09",
+    "domain": "gramon.com.ar"
+  },
+  {
+    "dealname": "Laboratorio Hemoderivados – UNC - BEPH-2026-09",
+    "domain": "hemo.unc.edu.ar"
+  },
+  {
+    "dealname": "Laboratorio Kemex - BEPH-2026-09",
+    "domain": "kemexlab.com"
+  },
+  {
+    "dealname": "Laboratorios Bernabo - BEPH-2026-09",
+    "domain": "laboratoriosbernabo.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Biológica Argentina (Biol) - BEPH-2026-09",
+    "domain": "biol.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Buxton - BEPH-2026-09",
+    "domain": "buxton.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Cetus - BEPH-2026-09",
+    "domain": "cetus.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Fabra - BEPH-2026-09",
+    "domain": "fabra.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Ima, SAIC - BEPH-2026-09",
+    "domain": "ima-lab.com.ar"
+  },
+  {
+    "dealname": "Laboratorios IMVI - BEPH-2026-09",
+    "domain": "imvi.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Klonal - BEPH-2026-09",
+    "domain": "klonal.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Mar S.A. - BEPH-2026-09",
+    "domain": "laboratoriosmar.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Monserrat y Eclair S.A. - BEPH-2026-09",
+    "domain": "monserratyeclair.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Pablo Cassará - BEPH-2026-09",
+    "domain": "cassara.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Panalab - BEPH-2026-09",
+    "domain": "panalab.com"
+  },
+  {
+    "dealname": "Laboratorios Richet S.A. - BEPH-2026-09",
+    "domain": "richet.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Roemmers - BEPH-2026-09",
+    "domain": "roemmers.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Rontag SA - BEPH-2026-09",
+    "domain": "rontag.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Varifarma S.A. - BEPH-2026-09",
+    "domain": "varifarma.com"
+  },
+  {
+    "dealname": "Maprimed - BEPH-2026-09",
+    "domain": "maprimed.com.ar"
+  },
+  {
+    "dealname": "Olbia Pharma - BEPH-2026-09",
+    "domain": "olbiapharma.com"
+  },
+  {
+    "dealname": "Oxapharma - BEPH-2026-09",
+    "domain": "oxapharma.com.ar"
+  },
+  {
+    "dealname": "Química Luar SRL - BEPH-2026-09",
+    "domain": "quimicaluar.com.ar"
+  },
+  {
+    "dealname": "Rossmore Pharma - BEPH-2026-09",
+    "domain": "rossmorepharma.com"
+  },
+  {
+    "dealname": "Sinergium Biotech - BEPH-2026-09",
+    "domain": "sinergiumbiotech.com"
+  },
+  {
+    "dealname": "Vannier - BEPH-2026-09",
+    "domain": "vannier.com.ar"
+  },
+  {
+    "dealname": "Biocientifica S.A. Argentina - BEPH-2026-09",
+    "domain": "unlam.edu.ar"
+  },
+  {
+    "dealname": "Filaxis Farmacéutica S.A. (ex GP Pharm Argentina) - BEPH-2026-09",
+    "domain": "gp-pharm.com"
+  },
+  {
+    "dealname": "Framingham Pharma S.A. - BEPH-2026-09",
+    "domain": "framinghampharma.com"
+  },
+  {
+    "dealname": "Gihon Laboratorio S.A. - BEPH-2026-09",
+    "domain": "gihonlab.com"
+  },
+  {
+    "dealname": "Laboratorio Celtyc Argentina - BEPH-2026-09",
+    "domain": "celtyc.com.ar"
+  },
+  {
+    "dealname": "Laboratorio Endorpharma Argentina - BEPH-2026-09",
+    "domain": "endopharma.com"
+  },
+  {
+    "dealname": "Laboratorio Mar S.A. - BEPH-2026-09",
+    "domain": "laboratoriosmar.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Rivero Argentina - BEPH-2026-09",
+    "domain": "rivero.com.ar"
+  },
+  {
+    "dealname": "Therabel Pharma S.A. / Pharmatrix - BEPH-2026-09",
+    "domain": "therabelpharma.com.ar"
+  },
+  {
+    "dealname": "mAbxience - BEPH-2026-09",
+    "domain": "kreivohealth.com"
+  },
+  {
+    "dealname": "Biosintex Laboratorios - BEPH-2026-09",
+    "domain": "biosintex.com.ar"
+  },
+  {
+    "dealname": "Ferrer Argentina - BEPH-2026-09",
+    "domain": "ferrer.com"
+  },
+  {
+    "dealname": "Laboratorio Jayor S.R.L. - BEPH-2026-09",
+    "domain": "jayor.com.ar"
+  },
+  {
+    "dealname": "Droguería del Sud S.A. - BEPH-2026-09",
+    "domain": "delsud.com.ar"
+  },
+  {
+    "dealname": "Laboratorio Ingens S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Conderco S.A. - BEPH-2026-09",
+    "domain": "conderco.net"
+  },
+  {
+    "dealname": "Droguería Avantfar - BEPH-2026-09",
+    "domain": "avantfar.com.ar"
+  },
+  {
+    "dealname": "Droguería Garzon S.A. - BEPH-2026-09",
+    "domain": "drogueriagarzon.com"
+  },
+  {
+    "dealname": "Finadiet - BEPH-2026-09",
+    "domain": "finadiet.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Bayer Argentina - BEPH-2026-09",
+    "domain": "bayer.com"
+  },
+  {
+    "dealname": "Laboratorios Casasco - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Lafedar - BEPH-2026-09",
+    "domain": "lafedar.com"
+  },
+  {
+    "dealname": "Laboratorios Microsules Argentina - BEPH-2026-09",
+    "domain": "microsules.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Richmond - BEPH-2026-09",
+    "domain": "richmondlab.com"
+  },
+  {
+    "dealname": "Lilis - BEPH-2026-09",
+    "domain": "lilis.com.ar"
+  },
+  {
+    "dealname": "Syntex - BEPH-2026-09",
+    "domain": "syntexar.com"
+  },
+  {
+    "dealname": "Aerofarma Laboratorios - BEPH-2026-09",
+    "domain": "aerofarma.com.ar"
+  },
+  {
+    "dealname": "Agomat / Monroe Americana - BEPH-2026-09",
+    "domain": "agomat.com.ar"
+  },
+  {
+    "dealname": "Asoprofarma - BEPH-2026-09",
+    "domain": "asoprofarma.com"
+  },
+  {
+    "dealname": "Atlas farmacéutica / Abbott - BEPH-2026-09",
+    "domain": "abbott.com"
+  },
+  {
+    "dealname": "Austral Médica - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Carpe Scheider - BEPH-2026-09",
+    "domain": "carpescheider.com"
+  },
+  {
+    "dealname": "Disval - BEPH-2026-09",
+    "domain": "disval.com.ar"
+  },
+  {
+    "dealname": "Drofar - BEPH-2026-09",
+    "domain": "drofarma.com.ar"
+  },
+  {
+    "dealname": "Drogar - Droguería Argentina - BEPH-2026-09",
+    "domain": "drogarg.com.ar"
+  },
+  {
+    "dealname": "Droguería Cofaral - BEPH-2026-09",
+    "domain": "cofaral.com.ar"
+  },
+  {
+    "dealname": "Droguería Comarsa - BEPH-2026-09",
+    "domain": "drogueriacomarsa.com.ar"
+  },
+  {
+    "dealname": "Droguería Córdoba - BEPH-2026-09",
+    "domain": "cofarsur.net"
+  },
+  {
+    "dealname": "Droguería del Sol - BEPH-2026-09",
+    "domain": "drogueriadelsol.com"
+  },
+  {
+    "dealname": "Droguería del Plata - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería Farma Oeste - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería Insud - BEPH-2026-09",
+    "domain": "insudpharma.com"
+  },
+  {
+    "dealname": "Droguería Monroe Americana - BEPH-2026-09",
+    "domain": "monroeamericana.com.ar"
+  },
+  {
+    "dealname": "Droguería Suizo Argentina - BEPH-2026-09",
+    "domain": "suizoargentina.com"
+  },
+  {
+    "dealname": "Droguería Sur - BEPH-2026-09",
+    "domain": "drogueriasur.com.ar"
+  },
+  {
+    "dealname": "Dromex (Red Dromex, incluye Drugmex, Dromex Biotech, Dromex Innova) - BEPH-2026-09",
+    "domain": "dromex.com.ar"
+  },
+  {
+    "dealname": "Fada Pharma - Farmacología Argentina de Avanzada - BEPH-2026-09",
+    "domain": "fada.com.ar"
+  },
+  {
+    "dealname": "HealthTech - BEPH-2026-09",
+    "domain": "zafirus.tech"
+  },
+  {
+    "dealname": "Hospimed - BEPH-2026-09",
+    "domain": "hospimed.com.ar"
+  },
+  {
+    "dealname": "Insumed - BEPH-2026-09",
+    "domain": "insumed.com.ar"
+  },
+  {
+    "dealname": "ITS+ / Grupo Iraola - BEPH-2026-09",
+    "domain": "its-salud.com"
+  },
+  {
+    "dealname": "Ivax Argentina S.A. / TEVA argentina - BEPH-2026-09",
+    "domain": "teva.com.ar"
+  },
+  {
+    "dealname": "Laboratorio Dosa / Grupo Biotoscana - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorio Farmanor - BEPH-2026-09",
+    "domain": "farmanor.com.ar"
+  },
+  {
+    "dealname": "Laboratorio Pfizer Argentina - BEPH-2026-09",
+    "domain": "pfizer.com"
+  },
+  {
+    "dealname": "Laboratorios Aspen - BEPH-2026-09",
+    "domain": "aspen-lab.com"
+  },
+  {
+    "dealname": "Laboratorios Bagó - BEPH-2026-09",
+    "domain": "bago.com.ar"
+  },
+  {
+    "dealname": "Laboratorios Lafage - BEPH-2026-09",
+    "domain": "lab-lafage.com"
+  },
+  {
+    "dealname": "Laboratorios Poen - BEPH-2026-09",
+    "domain": "poen.net.ar"
+  },
+  {
+    "dealname": "Laboratorios Raffo Monte Verde - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Macor - BEPH-2026-09",
+    "domain": "macor.com.ar"
+  },
+  {
+    "dealname": "Pharmadorf  / Sanfer - BEPH-2026-09",
+    "domain": "pharmadorf.com.ar"
+  },
+  {
+    "dealname": "Raku - BEPH-2026-09",
+    "domain": "somosraku.com"
+  },
+  {
+    "dealname": "Sepid - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Servier - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Syemed - BEPH-2026-09",
+    "domain": "syemed.com.ar"
+  },
+  {
+    "dealname": "FarmaShopping - BEPH-2026-09",
+    "domain": "farmashoppingbolivia.com"
+  },
+  {
+    "dealname": "CAMSA Industria y Comercio S.A. - BEPH-2026-09",
+    "domain": "camsa.com.bo"
+  },
+  {
+    "dealname": "Laboratorios Crespal - BEPH-2026-09",
+    "domain": "crespal.com"
+  },
+  {
+    "dealname": "Sanat Pharma - BEPH-2026-09",
+    "domain": "sanatpharma.com"
+  },
+  {
+    "dealname": "Biadoxid Pharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Bolivian Pharmaceutical Supplier - BEPH-2026-09",
+    "domain": "bps.com.bo"
+  },
+  {
+    "dealname": "Droguería Inti - BEPH-2026-09",
+    "domain": "inti.com.bo"
+  },
+  {
+    "dealname": "Fensalus - BEPH-2026-09",
+    "domain": "fensalus.com.bo"
+  },
+  {
+    "dealname": "Gutiérrez & Cía. S.R.L. - BEPH-2026-09",
+    "domain": "gutierrezsrl.com"
+  },
+  {
+    "dealname": "Importadora Más Vida - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Agronat - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Alcos - BEPH-2026-09",
+    "domain": "grupoalcos.com"
+  },
+  {
+    "dealname": "Laboratorios Bagó de Bolivia S.A. - BEPH-2026-09",
+    "domain": "bago.com.bo"
+  },
+  {
+    "dealname": "Laboratorios IFA S.A. - BEPH-2026-09",
+    "domain": "laboratoriosifa.com"
+  },
+  {
+    "dealname": "Laboratorios PROCAPS - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Térbol - BEPH-2026-09",
+    "domain": "terbol.com.bo"
+  },
+  {
+    "dealname": "Promedical - BEPH-2026-09",
+    "domain": "promedical.com.bo"
+  },
+  {
+    "dealname": "Schmidts Pharma - BEPH-2026-09",
+    "domain": "schmidtspharma.com"
+  },
+  {
+    "dealname": "South American Express S.A. - BEPH-2026-09",
+    "domain": "saebolivia.com"
+  },
+  {
+    "dealname": "Laboratorios Vita S.A. - BEPH-2026-09",
+    "domain": "vita.com.bo"
+  },
+  {
+    "dealname": "IFARBO Ltda. — Industria Farmacéutica Boliviana - BEPH-2026-09",
+    "domain": "ifarbo.com"
+  },
+  {
+    "dealname": "Grupo Empresarial Valencia S.R.L. - BEPH-2026-09",
+    "domain": "gruval.com"
+  },
+  {
+    "dealname": "Megalabs Bolivia S.R.L. - BEPH-2026-09",
+    "domain": "megalabs.com.bo"
+  },
+  {
+    "dealname": "Medifarm Bolivia - BEPH-2026-09",
+    "domain": "biotecno.com.bo"
+  },
+  {
+    "dealname": "IMFAR S.R.L. - BEPH-2026-09",
+    "domain": "imfar.com.bo"
+  },
+  {
+    "dealname": "Laboratorios Cofar S.A. - BEPH-2026-09",
+    "domain": "cofar.com.bo"
+  },
+  {
+    "dealname": "Sae Pharmaceutical Company - BEPH-2026-09",
+    "domain": "sae.bo"
+  },
+  {
+    "dealname": "Laboratorios Esfasa - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "GLB Laboratorios Bolivia S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Biofarma S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pharmatech Boliviana S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorio Biosano - BEPH-2026-09",
+    "domain": "biosano.cl"
+  },
+  {
+    "dealname": "Deutsche Pharma (Grupo Roemmers) - BEPH-2026-09",
+    "domain": "deutschepharma.cl"
+  },
+  {
+    "dealname": "Hospifarma - BEPH-2026-09",
+    "domain": "hospifarma.cl"
+  },
+  {
+    "dealname": "Laboratorio Kampar - BEPH-2026-09",
+    "domain": "kampar.cl"
+  },
+  {
+    "dealname": "Med Care Connection - BEPH-2026-09",
+    "domain": "medcareconnection.com"
+  },
+  {
+    "dealname": "New Science Store - BEPH-2026-09",
+    "domain": "newscience.com.ar"
+  },
+  {
+    "dealname": "Winpharm SpA - BEPH-2026-09",
+    "domain": "winpharm.cl"
+  },
+  {
+    "dealname": "Laboratorio Libra Chile S.A. - BEPH-2026-09",
+    "domain": "lablibra.com"
+  },
+  {
+    "dealname": "Tecnofarma / Adium - BEPH-2026-09",
+    "domain": "tecnofarma.cl"
+  },
+  {
+    "dealname": "Alpes Laboratories / Alpes Chemie - BEPH-2026-09",
+    "domain": "alpeslab.cl"
+  },
+  {
+    "dealname": "Ascend Laboratories - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Axon Pharma - BEPH-2026-09",
+    "domain": "axon-pharma.com"
+  },
+  {
+    "dealname": "Azimuth Medical Devices - BEPH-2026-09",
+    "domain": "azimuthmd.com"
+  },
+  {
+    "dealname": "B & B Farmacéutica - BEPH-2026-09",
+    "domain": "bybfarmaceutica.cl"
+  },
+  {
+    "dealname": "Bestpharma S.A. - BEPH-2026-09",
+    "domain": "bph.cl"
+  },
+  {
+    "dealname": "Biosyntec - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Bioeq SpA & Alliancelab S.A. - BEPH-2026-09",
+    "domain": "bioeq.cl"
+  },
+  {
+    "dealname": "Biomedical Distribution Chile Ltda. - BEPH-2026-09",
+    "domain": "biomedicalchile.cl"
+  },
+  {
+    "dealname": "Corporación Farmacéutica Recalcine (CFR) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Diavsa Spa - BEPH-2026-09",
+    "domain": "diavsa.cl"
+  },
+  {
+    "dealname": "Difem Laboratorios - BEPH-2026-09",
+    "domain": "difem.cl"
+  },
+  {
+    "dealname": "Dispolab Farmacéutica - BEPH-2026-09",
+    "domain": "dispolab.com"
+  },
+  {
+    "dealname": "Distribuidora Farmage Ltda / Gedeon Richter Chile - BEPH-2026-09",
+    "domain": "gedeonrichter.com"
+  },
+  {
+    "dealname": "Dr. Reddy's Laboratories - BEPH-2026-09",
+    "domain": "drreddys.com"
+  },
+  {
+    "dealname": "Ethon Pharmaceuticals Spa - BEPH-2026-09",
+    "domain": "ethon.cl"
+  },
+  {
+    "dealname": "Exeltis Chile / Pharmavita SA - BEPH-2026-09",
+    "domain": "exeltis.com"
+  },
+  {
+    "dealname": "Farmacéutica Caribean Ltda. - BEPH-2026-09",
+    "domain": "caribeanpharma.cl"
+  },
+  {
+    "dealname": "Farmacéutica Esan - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Farmoquímica del Pacífico - BEPH-2026-09",
+    "domain": "fqp.cl"
+  },
+  {
+    "dealname": "Galderma Laboratorios - BEPH-2026-09",
+    "domain": "galderma.com"
+  },
+  {
+    "dealname": "GP Pharm / Laboratorios Raffo Chile - BEPH-2026-09",
+    "domain": "gppharm.com"
+  },
+  {
+    "dealname": "Hofmann Droguería - BEPH-2026-09",
+    "domain": "hofmann.cl"
+  },
+  {
+    "dealname": "Instituto Sanitas / Chemopharma (ahora parte de Saval) - BEPH-2026-09",
+    "domain": "sanitas.cl"
+  },
+  {
+    "dealname": "Interpharma S.A. - BEPH-2026-09",
+    "domain": "iphsa.cl"
+  },
+  {
+    "dealname": "Ltf-Labomed Farmacéutica Limitada - BEPH-2026-09",
+    "domain": "itf-labomed.cl"
+  },
+  {
+    "dealname": "Laboratorio Chile / TEVA - BEPH-2026-09",
+    "domain": "laboratoriochile.cl"
+  },
+  {
+    "dealname": "Laboratorio Emproquim - BEPH-2026-09",
+    "domain": "emproquim.cl"
+  },
+  {
+    "dealname": "Laboratorio Fresenius Kabi / Laboratorios Sanderson - BEPH-2026-09",
+    "domain": "fresenius-kabi.com"
+  },
+  {
+    "dealname": "Laboratorio Pasteur S.A. - BEPH-2026-09",
+    "domain": "lpasteur.cl"
+  },
+  {
+    "dealname": "Laboratorio Pharma Isa - BEPH-2026-09",
+    "domain": "pharmaisa.cl"
+  },
+  {
+    "dealname": "Laboratorio Ravepharma y Serviphar - BEPH-2026-09",
+    "domain": "ravepharma.cl"
+  },
+  {
+    "dealname": "Laboratorio Silesia / Grupo Grünenthal - BEPH-2026-09",
+    "domain": "grunenthal.com"
+  },
+  {
+    "dealname": "Laboratorio Valma - BEPH-2026-09",
+    "domain": "valma.cl"
+  },
+  {
+    "dealname": "Laboratorios EuroMed Chile / Eurofarma - BEPH-2026-09",
+    "domain": "eurofarma.com"
+  },
+  {
+    "dealname": "Laboratorios Garden House (Holding) / GHC Chile - Good Health Company - BEPH-2026-09",
+    "domain": "gardenhouse.cl"
+  },
+  {
+    "dealname": "Laboratorios Maver Ltda. - BEPH-2026-09",
+    "domain": "laboratoriosmaver.com"
+  },
+  {
+    "dealname": "Laboratorios Prater - BEPH-2026-09",
+    "domain": "labprater.cl"
+  },
+  {
+    "dealname": "Laboratorios Saval / Salvacorp - BEPH-2026-09",
+    "domain": "savalcorp.com"
+  },
+  {
+    "dealname": "Leguer - BEPH-2026-09",
+    "domain": "leguer.cl"
+  },
+  {
+    "dealname": "Medcell (Farmacéutica Medcell Ltda.) - BEPH-2026-09",
+    "domain": "medcell.cl"
+  },
+  {
+    "dealname": "Medipharm - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Milab / Mintlab - BEPH-2026-09",
+    "domain": "mintlab.cl"
+  },
+  {
+    "dealname": "Novafarma - BEPH-2026-09",
+    "domain": "novofarma.com"
+  },
+  {
+    "dealname": "Novo Nordisk Farmacéutica LTDA. - BEPH-2026-09",
+    "domain": "novonordisk.com"
+  },
+  {
+    "dealname": "OFTOMED - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "OPKO Chile - BEPH-2026-09",
+    "domain": "opko.com"
+  },
+  {
+    "dealname": "Pharma Investi / Megalabs de Chile - BEPH-2026-09",
+    "domain": "megalabs.cl"
+  },
+  {
+    "dealname": "Pharma Specialists - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pharmacorp - BEPH-2026-09",
+    "domain": "pharmacorp.cl"
+  },
+  {
+    "dealname": "Pharmamerica Ltda. - BEPH-2026-09",
+    "domain": "pharmamerica.cl"
+  },
+  {
+    "dealname": "Pharmatech Chile S.A. - BEPH-2026-09",
+    "domain": "pharmatech.cl"
+  },
+  {
+    "dealname": "Proquimsa - BEPH-2026-09",
+    "domain": "proquimsa.cl"
+  },
+  {
+    "dealname": "Redfarma - BEPH-2026-09",
+    "domain": "redfarma.cl"
+  },
+  {
+    "dealname": "Synthon Chile (antes: Laboratorios Rider) - BEPH-2026-09",
+    "domain": "synthon.cl"
+  },
+  {
+    "dealname": "Siegfried AG — Chile (absorbió Deutsche Pharma) - BEPH-2026-09",
+    "domain": "siegfriedchile.cl"
+  },
+  {
+    "dealname": "SPI Americas - BEPH-2026-09",
+    "domain": "spiamericas.com"
+  },
+  {
+    "dealname": "Advance Scientific Group - BEPH-2026-09",
+    "domain": "advancescientificgroup.com"
+  },
+  {
+    "dealname": "Altea Farmacéutica - BEPH-2026-09",
+    "domain": "alteafarma.com.co"
+  },
+  {
+    "dealname": "FAES Farma - BEPH-2026-09",
+    "domain": "faesfarma.com"
+  },
+  {
+    "dealname": "Closter Pharma / Grupo Closter - BEPH-2026-09",
+    "domain": "closterpharma.com"
+  },
+  {
+    "dealname": "Colompack - BEPH-2026-09",
+    "domain": "colompack.com"
+  },
+  {
+    "dealname": "Coopidrogas - BEPH-2026-09",
+    "domain": "coopidrogas.com.co"
+  },
+  {
+    "dealname": "Corpaul Farmacéutica / Corpaul - Medifarma Colombia - BEPH-2026-09",
+    "domain": "medifarma.com.pe"
+  },
+  {
+    "dealname": "Cyhlab - BEPH-2026-09",
+    "domain": "cyhlab.co"
+  },
+  {
+    "dealname": "Distrimedick - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Elixym Biopharmaceutical - BEPH-2026-09",
+    "domain": "elixymbiopharma.com.co"
+  },
+  {
+    "dealname": "EuroEtika - BEPH-2026-09",
+    "domain": "euroetika.com"
+  },
+  {
+    "dealname": "Genfar (Sanofi) - BEPH-2026-09",
+    "domain": "genfar.com"
+  },
+  {
+    "dealname": "Gimed - BEPH-2026-09",
+    "domain": "gimed.com.co"
+  },
+  {
+    "dealname": "IPCA Laboratories Limited — Sucursal Colombia - BEPH-2026-09",
+    "domain": "ipca.com"
+  },
+  {
+    "dealname": "Italpharma / Biogenerics - BEPH-2026-09",
+    "domain": "italpharma.com.co"
+  },
+  {
+    "dealname": "JGB - BEPH-2026-09",
+    "domain": "jgb.com.co"
+  },
+  {
+    "dealname": "Laboratorios Delta - BEPH-2026-09",
+    "domain": "labdelta.com"
+  },
+  {
+    "dealname": "Laboratorios Incobra - BEPH-2026-09",
+    "domain": "incobra.com"
+  },
+  {
+    "dealname": "Laboratorios Bussié S.A / Laboratorios Sanfer - BEPH-2026-09",
+    "domain": "bussie.com.co"
+  },
+  {
+    "dealname": "Laboratorios Ecar - BEPH-2026-09",
+    "domain": "ecar.com.co"
+  },
+  {
+    "dealname": "Laboratorios Legrand - BEPH-2026-09",
+    "domain": "laboratorioslegrand.com"
+  },
+  {
+    "dealname": "Medihosp S.A.S. - BEPH-2026-09",
+    "domain": "une.net.co"
+  },
+  {
+    "dealname": "MSN Labs Americas - BEPH-2026-09",
+    "domain": "msnlabs.com"
+  },
+  {
+    "dealname": "Newrona - BEPH-2026-09",
+    "domain": "newrona.net"
+  },
+  {
+    "dealname": "Orion Frontier Solutions - BEPH-2026-09",
+    "domain": "orionfrontier.com"
+  },
+  {
+    "dealname": "PHARMARKET - BEPH-2026-09",
+    "domain": "pharmarket.co"
+  },
+  {
+    "dealname": "Pharmasan - BEPH-2026-09",
+    "domain": "pharmasan.co"
+  },
+  {
+    "dealname": "Pharmetique Labs / Laboratorios La Santé - BEPH-2026-09",
+    "domain": "pharmetiquelabs.com"
+  },
+  {
+    "dealname": "PiSA Región Andina - BEPH-2026-09",
+    "domain": "pisa.com.mx"
+  },
+  {
+    "dealname": "Procaps / Softigel (Chemo) - BEPH-2026-09",
+    "domain": "procaps.com.co"
+  },
+  {
+    "dealname": "Proclin S.A. - BEPH-2026-09",
+    "domain": "proclinpharma.com"
+  },
+  {
+    "dealname": "Retycol S.A. - BEPH-2026-09",
+    "domain": "retycol.com.co"
+  },
+  {
+    "dealname": "Syntofarma - BEPH-2026-09",
+    "domain": "syntofarma.com"
+  },
+  {
+    "dealname": "Tecnoquímicas S.A. / Wasser Chemical S.A.S. - BEPH-2026-09",
+    "domain": "tecnoquimicas.com"
+  },
+  {
+    "dealname": "VionPharma / Tuteur - BEPH-2026-09",
+    "domain": "vionpharma.com"
+  },
+  {
+    "dealname": "Vitrofarma - BEPH-2026-09",
+    "domain": "vitalis.com.co"
+  },
+  {
+    "dealname": "Alcost Pharmaceutical - BEPH-2026-09",
+    "domain": "alcost.com.co"
+  },
+  {
+    "dealname": "Aquilabs Laboratorios - BEPH-2026-09",
+    "domain": "aquilabs.com.co"
+  },
+  {
+    "dealname": "Arbofarma - BEPH-2026-09",
+    "domain": "arbofarma.com"
+  },
+  {
+    "dealname": "Biochem Farmacéutica de Colombia - BEPH-2026-09",
+    "domain": "biochemfarmaceutica.com"
+  },
+  {
+    "dealname": "Cafarma - Calier Farmacéutica - BEPH-2026-09",
+    "domain": "calierfarma.com"
+  },
+  {
+    "dealname": "Chalver Laboratorios - BEPH-2026-09",
+    "domain": "chalver.com"
+  },
+  {
+    "dealname": "Coaspharma - BEPH-2026-09",
+    "domain": "coaspharma.co"
+  },
+  {
+    "dealname": "COFARMA - BEPH-2026-09",
+    "domain": "cofarma.com"
+  },
+  {
+    "dealname": "Data Pharmaceutical Services - BEPH-2026-09",
+    "domain": "adium.com.uy"
+  },
+  {
+    "dealname": "Farma de Colombia - BEPH-2026-09",
+    "domain": "farmadecolombia.com.co"
+  },
+  {
+    "dealname": "Gaffel Colombia - BEPH-2026-09",
+    "domain": "gaffel.com.co"
+  },
+  {
+    "dealname": "Garmisch Pharmaceutical - BEPH-2026-09",
+    "domain": "garmischpharmaceutical.com"
+  },
+  {
+    "dealname": "Gonher - BEPH-2026-09",
+    "domain": "stfgonher.com"
+  },
+  {
+    "dealname": "Grupo Amarey Nova Medical - BEPH-2026-09",
+    "domain": "grupoamarey.com"
+  },
+  {
+    "dealname": "Herson Distribuidores Farmacéuticos - BEPH-2026-09",
+    "domain": "herson.com.co"
+  },
+  {
+    "dealname": "Humax Pharmaceutical - BEPH-2026-09",
+    "domain": "humax.com.co"
+  },
+  {
+    "dealname": "Knovel Pharma S.A.S. - BEPH-2026-09",
+    "domain": "knovelpharma.com"
+  },
+  {
+    "dealname": "Laboratorio Científico Colombiano LACICO S.A. - BEPH-2026-09",
+    "domain": "lacico.com"
+  },
+  {
+    "dealname": "Laboratorios Alfarma S.A.S. - BEPH-2026-09",
+    "domain": "alpharma.com.co"
+  },
+  {
+    "dealname": "Laboratorios Best S.A.S. - BEPH-2026-09",
+    "domain": "laboratoriosbest.com"
+  },
+  {
+    "dealname": "Laboratorios Gerco / Laboratorios UrgoGerco - BEPH-2026-09",
+    "domain": "gerco.co"
+  },
+  {
+    "dealname": "Laboratorios Inverfarma Ltda. - BEPH-2026-09",
+    "domain": "inverfarma.com.co"
+  },
+  {
+    "dealname": "Laboratorios Merey - BEPH-2026-09",
+    "domain": "merey.co"
+  },
+  {
+    "dealname": "Laboratorios Ryan de Colombia S.A.S. - BEPH-2026-09",
+    "domain": "laboratoriosryan.com"
+  },
+  {
+    "dealname": "LAPROFF — Laboratorio Profesional Farmacéutico S.A. - BEPH-2026-09",
+    "domain": "laproff.com"
+  },
+  {
+    "dealname": "Memphis Laboratorios / Alianza California - BEPH-2026-09",
+    "domain": "alianzacalifornia.com"
+  },
+  {
+    "dealname": "Merquimia Colombia - BEPH-2026-09",
+    "domain": "merquimiacolombia.com"
+  },
+  {
+    "dealname": "Naturmega - BEPH-2026-09",
+    "domain": "naturmega.com.co"
+  },
+  {
+    "dealname": "Nevox Farma - BEPH-2026-09",
+    "domain": "nevoxfarma.co"
+  },
+  {
+    "dealname": "Novamed / Farmacapsulas - BEPH-2026-09",
+    "domain": "novamed.com.co"
+  },
+  {
+    "dealname": "Quibi - BEPH-2026-09",
+    "domain": "quibi.com.co"
+  },
+  {
+    "dealname": "Reprefarco - BEPH-2026-09",
+    "domain": "reprefarco.com"
+  },
+  {
+    "dealname": "Seven Pharma - BEPH-2026-09",
+    "domain": "sevenpharma.net"
+  },
+  {
+    "dealname": "Sumpharma - BEPH-2026-09",
+    "domain": "sumpharma.com.co"
+  },
+  {
+    "dealname": "Tecnofarma Colombia / Industrial Farmacéutica Unión de Vértices - BEPH-2026-09",
+    "domain": "adium.com.co"
+  },
+  {
+    "dealname": "Unidrogas S.A.S - BEPH-2026-09",
+    "domain": "unidrogas.com"
+  },
+  {
+    "dealname": "Vitalis SACI (Grupo AVE) - BEPH-2026-09",
+    "domain": "vitalis.com.co"
+  },
+  {
+    "dealname": "Zambon Colombia - BEPH-2026-09",
+    "domain": "zambongroup.com"
+  },
+  {
+    "dealname": "C.I. Laboratorios Improfarme S.A.S. - BEPH-2026-09",
+    "domain": "improfarme.com"
+  },
+  {
+    "dealname": "GENBIE S.A.S. - BEPH-2026-09",
+    "domain": "genbie.co"
+  },
+  {
+    "dealname": "Goram Laboratorios S.A.S. - BEPH-2026-09",
+    "domain": "goramlaboratorios.com"
+  },
+  {
+    "dealname": "Healthy America Colombia S.A.S. - BEPH-2026-09",
+    "domain": "healthyamerica.com.co"
+  },
+  {
+    "dealname": "Laboratorios Higietex S.A. - BEPH-2026-09",
+    "domain": "higietex.com"
+  },
+  {
+    "dealname": "Lumexpharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Molecular Farmacéutica MF S.A.S. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pharmaderm Colombia S.A.S. - BEPH-2026-09",
+    "domain": "pharmaderm.co"
+  },
+  {
+    "dealname": "Pharmaprix Colombia S.A.S. - BEPH-2026-09",
+    "domain": "pharmaprix.com.co"
+  },
+  {
+    "dealname": "Salus Pharma Labs S.A.S. - BEPH-2026-09",
+    "domain": "saluspharmalabs.com.co"
+  },
+  {
+    "dealname": "The Labs S.A.S. - BEPH-2026-09",
+    "domain": "laboratoriothelabs.com"
+  },
+  {
+    "dealname": "Tridex Farmacéutica S.A.S. - BEPH-2026-09",
+    "domain": "tridexsa.com"
+  },
+  {
+    "dealname": "HB Human Bioscience S.A.S. - BEPH-2026-09",
+    "domain": "hbhumanbioscience.com"
+  },
+  {
+    "dealname": "Fareva Villa Rica S.A.S. - BEPH-2026-09",
+    "domain": "fareva.com"
+  },
+  {
+    "dealname": "Ophtha — Especialidades Oftalmológicas S.A. - BEPH-2026-09",
+    "domain": "ophtha.com.co"
+  },
+  {
+    "dealname": "Laboratorios Proquident S.A. - BEPH-2026-09",
+    "domain": "proquident.com.co"
+  },
+  {
+    "dealname": "Laboratorios Sherleg S.A.S. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Bionutrec - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Grupo Biotoscana / Biotoscana Farma S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Health & Nutrition - BEPH-2026-09",
+    "domain": "sgs.com"
+  },
+  {
+    "dealname": "Nova Farma / Monarca Farma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Softgel Healthcare - BEPH-2026-09",
+    "domain": "softgelhealthcare.com"
+  },
+  {
+    "dealname": "Laboratorios Franco Colombiano - Lafrancol S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "BG Labs / Boettger Gruppe - BEPH-2026-09",
+    "domain": "bglabs.com.co"
+  },
+  {
+    "dealname": "Biogen - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Biopas - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorio Científico Colombiano Lacico / Labquifar - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Eurodrug Laboratories - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Astellas Pharma Colombia - BEPH-2026-09",
+    "domain": "astellas.com"
+  },
+  {
+    "dealname": "Bimedco - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Bio Pharm Laboratories - BEPH-2026-09",
+    "domain": "bphcr.com"
+  },
+  {
+    "dealname": "Celnova Pharma - BEPH-2026-09",
+    "domain": "celnova.com"
+  },
+  {
+    "dealname": "Ciclotron Colombia S.A.S. - BEPH-2026-09",
+    "domain": "ciclotroncolombia.com"
+  },
+  {
+    "dealname": "COGAS Ltda. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Comercializadora Ruecam S.A.S. - BEPH-2026-09",
+    "domain": "ruecam.com"
+  },
+  {
+    "dealname": "Farmacéutica Paraguaya / Aplicaciones Farmacéuticas Afavel S.A.S. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Farmalogica S.A.S. - BEPH-2026-09",
+    "domain": "unidossis.com"
+  },
+  {
+    "dealname": "G-C Farma Ltda. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Gled C Pharma S.A.S. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Heel Colombia - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Herbario Lab. - BEPH-2026-09",
+    "domain": "jmpharma.com.co"
+  },
+  {
+    "dealname": "Impofar Ltda. - BEPH-2026-09",
+    "domain": "impofar.com"
+  },
+  {
+    "dealname": "Laboratorio Homeopático Alemán S.A.S. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Galeno Química S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Novaderma - BEPH-2026-09",
+    "domain": "laboratoriosnovaderma.com"
+  },
+  {
+    "dealname": "Laboratorios Nutrivida S.A.S. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios OSA S.A.S. - BEPH-2026-09",
+    "domain": "laboratoriososa.com.co"
+  },
+  {
+    "dealname": "Laboratorios Phitother - BEPH-2026-09",
+    "domain": "phitother.com"
+  },
+  {
+    "dealname": "Laboratorios Pronabell - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios San Jorge - BEPH-2026-09",
+    "domain": "laboratoriosanjorge.com"
+  },
+  {
+    "dealname": "Norstray Nuart S.A.S. - BEPH-2026-09",
+    "domain": "norstraynuart.com"
+  },
+  {
+    "dealname": "Pharmayect - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Praxis Pharmaceutical - BEPH-2026-09",
+    "domain": "praxisph.com.co"
+  },
+  {
+    "dealname": "Quifarmed Laboratorios - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Quirumedicas S.A. - BEPH-2026-09",
+    "domain": "quirumedicas.com.co"
+  },
+  {
+    "dealname": "Riddhi Pharma S.A.S. - BEPH-2026-09",
+    "domain": "riddhipharma.com"
+  },
+  {
+    "dealname": "Salugran - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Savifar Laboratorio - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Colmed S.A. / Procaps - BEPH-2026-09",
+    "domain": "colmed.com.co"
+  },
+  {
+    "dealname": "BKMPharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Farmacias Cruz Verde / Evedisa - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Audifarma S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Drogas La Rebaja / Copservir Ltda. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Farmacias Pasteur S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Logifarma S.A.S. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorio Siegfried Colombia - BEPH-2026-09",
+    "domain": "siegfried.com.co"
+  },
+  {
+    "dealname": "Alcames Laboratorios Químicos de Centroamérica - BEPH-2026-09",
+    "domain": "alcames.com"
+  },
+  {
+    "dealname": "Bio Plus Care - BEPH-2026-09",
+    "domain": "biopluscare.com"
+  },
+  {
+    "dealname": "CONDEFA — Corporación Nacional de Farmacias - BEPH-2026-09",
+    "domain": "farmaciascondefa.com"
+  },
+  {
+    "dealname": "Corporación Newport Pharmaceuticals - BEPH-2026-09",
+    "domain": "newportcorp.net"
+  },
+  {
+    "dealname": "Dopamina Latam - BEPH-2026-09",
+    "domain": "dopaminacr.com"
+  },
+  {
+    "dealname": "Grupo Simed - BEPH-2026-09",
+    "domain": "gruposimed.com"
+  },
+  {
+    "dealname": "Grupo WC / Global Pharmed Int - BEPH-2026-09",
+    "domain": "grupowc.com"
+  },
+  {
+    "dealname": "Gutis Ltda - BEPH-2026-09",
+    "domain": "gutis.com"
+  },
+  {
+    "dealname": "Healthy Store, S.A. / Farmacias Don Gerardo - BEPH-2026-09",
+    "domain": "healthystorecr.net"
+  },
+  {
+    "dealname": "Laboratorio Raven - BEPH-2026-09",
+    "domain": "laboratorioraven.com"
+  },
+  {
+    "dealname": "Laboratorios Stein - BEPH-2026-09",
+    "domain": "lbs-cr.com"
+  },
+  {
+    "dealname": "Onco Farma - BEPH-2026-09",
+    "domain": "oncofarmacr.com"
+  },
+  {
+    "dealname": "Owaccess - BEPH-2026-09",
+    "domain": "owaccess.com"
+  },
+  {
+    "dealname": "Prime Pharmaceutical - BEPH-2026-09",
+    "domain": "primepharma.com"
+  },
+  {
+    "dealname": "Registra, S.A. (Pharmavision) - BEPH-2026-09",
+    "domain": "registracr.com"
+  },
+  {
+    "dealname": "Registra-2, S.R.L. - BEPH-2026-09",
+    "domain": "registra-2.com"
+  },
+  {
+    "dealname": "Infarma - BEPH-2026-09",
+    "domain": "infarmamedicamentos.com"
+  },
+  {
+    "dealname": "Laboratorio Phyto Costa Rica S.A. — Total Natural - BEPH-2026-09",
+    "domain": "total-natural.com"
+  },
+  {
+    "dealname": "MSG Pharma - BEPH-2026-09",
+    "domain": "drsanchezcr.com"
+  },
+  {
+    "dealname": "Novoxalfarma - BEPH-2026-09",
+    "domain": "novoxalfarma.com"
+  },
+  {
+    "dealname": "Altrebo - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Calox de Costa Rica - BEPH-2026-09",
+    "domain": "calox.com"
+  },
+  {
+    "dealname": "CEFA / Cuestamoras Salud / Grupo Dokka - BEPH-2026-09",
+    "domain": "grupodokka.com"
+  },
+  {
+    "dealname": "Chemo Centroamericana - BEPH-2026-09",
+    "domain": "grupochemo.com"
+  },
+  {
+    "dealname": "Corporacion Zumar - BEPH-2026-09",
+    "domain": "ice.co.cr"
+  },
+  {
+    "dealname": "CRIL Tech - BEPH-2026-09",
+    "domain": "cril-tech.com"
+  },
+  {
+    "dealname": "Diopsa — Distribuidora Óptica - BEPH-2026-09",
+    "domain": "diopsa.co.cr"
+  },
+  {
+    "dealname": "Distribuidora Alternativa / Dapharma - BEPH-2026-09",
+    "domain": "dapharmacr.com"
+  },
+  {
+    "dealname": "Disprofar, S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Ekimed - BEPH-2026-09",
+    "domain": "ekimed.com"
+  },
+  {
+    "dealname": "Farmacia Laboratorio y Droguería Mora - BEPH-2026-09",
+    "domain": "farmaciascr.com"
+  },
+  {
+    "dealname": "Farmavision - BEPH-2026-09",
+    "domain": "farmavision.com"
+  },
+  {
+    "dealname": "Grupo Farmanova Intermed / GFI Pharma Logistics - BEPH-2026-09",
+    "domain": "gficr.com"
+  },
+  {
+    "dealname": "Laboratorios Lisan, SA - BEPH-2026-09",
+    "domain": "lisancr.com"
+  },
+  {
+    "dealname": "Laboratorios Zepol - BEPH-2026-09",
+    "domain": "labzepol.com"
+  },
+  {
+    "dealname": "Grupo Ancla Laboratorios - BEPH-2026-09",
+    "domain": "grupoancla.co.cr"
+  },
+  {
+    "dealname": "Laboratorios Compañía Farmacéutica LACOFA - BEPH-2026-09",
+    "domain": "cofasa.com"
+  },
+  {
+    "dealname": "Go Pharma - BEPH-2026-09",
+    "domain": "gopharmasolutions.com"
+  },
+  {
+    "dealname": "NP Pharma Costa Rica / NavyPharma / Select Point S.A. - BEPH-2026-09",
+    "domain": "nppharmacr.com"
+  },
+  {
+    "dealname": "Nutrimed - BEPH-2026-09",
+    "domain": "nutrimedcr.com"
+  },
+  {
+    "dealname": "http://www.farmaciascr.com/ - BEPH-2026-09",
+    "domain": "farmaciascr.com"
+  },
+  {
+    "dealname": "Laboratorios Farma - BEPH-2026-09",
+    "domain": "grupofarma.com"
+  },
+  {
+    "dealname": "Laboratorio Costarricense de Metrología - BEPH-2026-09",
+    "domain": "lacomet.go.cr"
+  },
+  {
+    "dealname": "Primedical - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Capris Medica - BEPH-2026-09",
+    "domain": "capris.co.cr"
+  },
+  {
+    "dealname": "Gerard O. Elsner, Ltda. - BEPH-2026-09",
+    "domain": "gerardoelsner.com"
+  },
+  {
+    "dealname": "Ice Care Corporation - BEPH-2026-09",
+    "domain": "icecarecorp.com"
+  },
+  {
+    "dealname": "Saco Internacional, S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Alcon Centroamérica - BEPH-2026-09",
+    "domain": "alcon.com"
+  },
+  {
+    "dealname": "Alfamédica - BEPH-2026-09",
+    "domain": "alfamedicacr.com"
+  },
+  {
+    "dealname": "Biomur - BEPH-2026-09",
+    "domain": "biomur.net"
+  },
+  {
+    "dealname": "Dismedica - BEPH-2026-09",
+    "domain": "dismedica.net"
+  },
+  {
+    "dealname": "Dra. Scholler Laboratorio - BEPH-2026-09",
+    "domain": "schollercr.com"
+  },
+  {
+    "dealname": "Fide Laboratorios - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Medifarma - BEPH-2026-09",
+    "domain": "medipharmainc.com"
+  },
+  {
+    "dealname": "Medigray (Inversiones Oridama) - BEPH-2026-09",
+    "domain": "medigray.com"
+  },
+  {
+    "dealname": "Microtec Laboratorios - BEPH-2026-09",
+    "domain": "labmicrotec.com"
+  },
+  {
+    "dealname": "New Medical - BEPH-2026-09",
+    "domain": "newmedicalcr.com"
+  },
+  {
+    "dealname": "Nutricare - BEPH-2026-09",
+    "domain": "nutricare.co.cr"
+  },
+  {
+    "dealname": "Opharma Life - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Orthomed del Sol - BEPH-2026-09",
+    "domain": "orthomedcr.com"
+  },
+  {
+    "dealname": "Panamedical de Costa Rica, S.A. (PCR) - BEPH-2026-09",
+    "domain": "grupopanamedical.com"
+  },
+  {
+    "dealname": "VMG Healthcare Products, S.A. - BEPH-2026-09",
+    "domain": "vmg.co.cr"
+  },
+  {
+    "dealname": "Laboratorio Natural La Fuente SA - BEPH-2026-09",
+    "domain": "natural-lafuente.com"
+  },
+  {
+    "dealname": "Laboratorios Cenco — Cenco Lab - BEPH-2026-09",
+    "domain": "cencolab.cr"
+  },
+  {
+    "dealname": "http://www.cencolab.cr/ - BEPH-2026-09",
+    "domain": "cencolab.cr"
+  },
+  {
+    "dealname": "Bofadom - Bodega Farmacéutica Dominicana - BEPH-2026-09",
+    "domain": "bofadom.com.do"
+  },
+  {
+    "dealname": "Biosintesis Dominicana / Drodena / distribuidora Farach - BEPH-2026-09",
+    "domain": "laboratoriosalfa.com"
+  },
+  {
+    "dealname": "Camilo Labs / Farmatech - BEPH-2026-09",
+    "domain": "camilolabs.com"
+  },
+  {
+    "dealname": "Fri Farma / Santos & Ortiz Group - BEPH-2026-09",
+    "domain": "frifarma.com.do"
+  },
+  {
+    "dealname": "GASSO - BEPH-2026-09",
+    "domain": "gasso.com.do"
+  },
+  {
+    "dealname": "GFC Farma / Grupo Farmacéutico Crecemed - BEPH-2026-09",
+    "domain": "gfc.com.mx"
+  },
+  {
+    "dealname": "Laboratorios de Aplicaciones Médicas, S.R.L. - LAM - BEPH-2026-09",
+    "domain": "lam.com.do"
+  },
+  {
+    "dealname": "Laboratorios Dr. Collado, C. por A. - BEPH-2026-09",
+    "domain": "gruponajri.com.do"
+  },
+  {
+    "dealname": "Magnachem Internacional / Laboratorio Magnachem - BEPH-2026-09",
+    "domain": "email.com"
+  },
+  {
+    "dealname": "Megax - BEPH-2026-09",
+    "domain": "megaxbusiness.com"
+  },
+  {
+    "dealname": "Rofasa Farma - BEPH-2026-09",
+    "domain": "rofasa.com"
+  },
+  {
+    "dealname": "Accent Pharmaceuticals International SRL - BEPH-2026-09",
+    "domain": "accentla.com"
+  },
+  {
+    "dealname": "Acromax Dominicana, SA - BEPH-2026-09",
+    "domain": "acromax.com.do"
+  },
+  {
+    "dealname": "Ameripharma, Srl - BEPH-2026-09",
+    "domain": "ameripharmalab.com"
+  },
+  {
+    "dealname": "Aston Pharma - BEPH-2026-09",
+    "domain": "astonpharma.do"
+  },
+  {
+    "dealname": "C. Federico Gómez SRL / Grupo CFG - BEPH-2026-09",
+    "domain": "magnachem.com"
+  },
+  {
+    "dealname": "Continental Farmacéutica - BEPH-2026-09",
+    "domain": "contifarma.do"
+  },
+  {
+    "dealname": "CardioPharm - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Cardiotech Pharmaceutical - BEPH-2026-09",
+    "domain": "cardiotech.com.do"
+  },
+  {
+    "dealname": "Caribbean Farmaceutica - BEPH-2026-09",
+    "domain": "mpird.com"
+  },
+  {
+    "dealname": "Chemicals / Fraperco - BEPH-2026-09",
+    "domain": "claro.net.do"
+  },
+  {
+    "dealname": "Clinimed - BEPH-2026-09",
+    "domain": "clinimed.com.do"
+  },
+  {
+    "dealname": "Dinafa - BEPH-2026-09",
+    "domain": "dinafa.com"
+  },
+  {
+    "dealname": "Distribuidora Drotafarma S.R.L - BEPH-2026-09",
+    "domain": "drotafarma.com"
+  },
+  {
+    "dealname": "Distribuidora Leopharma, S. R. L. - BEPH-2026-09",
+    "domain": "grupoleopharma.com"
+  },
+  {
+    "dealname": "Distribuidora Peratri - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Dopharma Dominicana - BEPH-2026-09",
+    "domain": "dopharmadominicana.com"
+  },
+  {
+    "dealname": "Dr. Manelic Gassó - Pereyra S.R.L. - BEPH-2026-09",
+    "domain": "gassopereyra.do"
+  },
+  {
+    "dealname": "Elipesa, SRL - BEPH-2026-09",
+    "domain": "elipesa.com"
+  },
+  {
+    "dealname": "Ethical Pharmaceutical - Euro Limited - Fluter Domull - BEPH-2026-09",
+    "domain": "ethical.com.do"
+  },
+  {
+    "dealname": "Exels Farm / Infadomi - BEPH-2026-09",
+    "domain": "exeltis.com"
+  },
+  {
+    "dealname": "Farmaconal - BEPH-2026-09",
+    "domain": "farmaconal.com"
+  },
+  {
+    "dealname": "Farmatech Dominicana - BEPH-2026-09",
+    "domain": "pharmatech.com.do"
+  },
+  {
+    "dealname": "Farqui - Grupo Farmoquímica - BEPH-2026-09",
+    "domain": "farqui.com"
+  },
+  {
+    "dealname": "Font Gamundi - BEPH-2026-09",
+    "domain": "fg.com.do"
+  },
+  {
+    "dealname": "Global Skin Dominicana, SRL - BEPH-2026-09",
+    "domain": "globalskindom.com"
+  },
+  {
+    "dealname": "Gonzalez & Vicente Laboratorio (GV Laboratorios) - BEPH-2026-09",
+    "domain": "gvlaboratorio.com"
+  },
+  {
+    "dealname": "Grupo Fármacos Oriental Grufarco - BEPH-2026-09",
+    "domain": "grupofarmacosoriental.com.do"
+  },
+  {
+    "dealname": "Grupo Hospifar Srl - BEPH-2026-09",
+    "domain": "hospifar.com"
+  },
+  {
+    "dealname": "Gupharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Ibero Farmacos, S.R.L. - BEPH-2026-09",
+    "domain": "iberofarmacos.net"
+  },
+  {
+    "dealname": "Infaca - BEPH-2026-09",
+    "domain": "infaca.com"
+  },
+  {
+    "dealname": "Inmenol Industrial Laboratorios - BEPH-2026-09",
+    "domain": "inmenol.com.do"
+  },
+  {
+    "dealname": "Jocace - BEPH-2026-09",
+    "domain": "jocace.com.do"
+  },
+  {
+    "dealname": "Kettle Sanchez and Co - BEPH-2026-09",
+    "domain": "kettlesanchez.com"
+  },
+  {
+    "dealname": "LaboQuiDom Laboratorio Químico Dominicano S.A - BEPH-2026-09",
+    "domain": "laboquidom.com.do"
+  },
+  {
+    "dealname": "Laboratorio Farmaceutico Proquimed - BEPH-2026-09",
+    "domain": "proquimedpharma.com"
+  },
+  {
+    "dealname": "Laboratorio San Luis - BEPH-2026-09",
+    "domain": "labsanluis.com.do"
+  },
+  {
+    "dealname": "Laboratorios Elfa S.A. - BEPH-2026-09",
+    "domain": "laboratoriosalfa.com"
+  },
+  {
+    "dealname": "Laboratorios Feltrex - BEPH-2026-09",
+    "domain": "feltrex.com.do"
+  },
+  {
+    "dealname": "Laboratorios Hemcare - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Laprofar - BEPH-2026-09",
+    "domain": "laprofar.com"
+  },
+  {
+    "dealname": "Laboratorios Mallen / Dres. Mallen Guerra SA - BEPH-2026-09",
+    "domain": "mallengroup.com"
+  },
+  {
+    "dealname": "Laboratorios Orbis - BEPH-2026-09",
+    "domain": "orbis.com.do"
+  },
+  {
+    "dealname": "Laboratorios Pharmatech - BEPH-2026-09",
+    "domain": "pharmatech.com.do"
+  },
+  {
+    "dealname": "Laboratorios Rangel CXA - BEPH-2026-09",
+    "domain": "rangel.com.do"
+  },
+  {
+    "dealname": "Laboratorios Roldan Cxa - BEPH-2026-09",
+    "domain": "laboratoriosroldan.com"
+  },
+  {
+    "dealname": "Laboratorios Rysell - BEPH-2026-09",
+    "domain": "rysell.com"
+  },
+  {
+    "dealname": "Laboratorios Sintesis - BEPH-2026-09",
+    "domain": "laboratoriosintesis.com"
+  },
+  {
+    "dealname": "Laboratorios Sued - BEPH-2026-09",
+    "domain": "labsued.com"
+  },
+  {
+    "dealname": "Laboratorios Suiphar - BEPH-2026-09",
+    "domain": "suiphar.com"
+  },
+  {
+    "dealname": "Laboratorios Unión - BEPH-2026-09",
+    "domain": "laboratoriounion.cl"
+  },
+  {
+    "dealname": "Legacy Pharma, SRL - BEPH-2026-09",
+    "domain": "legacypharmard.com"
+  },
+  {
+    "dealname": "Leterago - BEPH-2026-09",
+    "domain": "leterago.com.do"
+  },
+  {
+    "dealname": "Luis E. Betances & Co. SAS - BEPH-2026-09",
+    "domain": "luisbetances.com"
+  },
+  {
+    "dealname": "Macrotech Farmacéutica - BEPH-2026-09",
+    "domain": "macrotech.com.do"
+  },
+  {
+    "dealname": "Medek Pharma - BEPH-2026-09",
+    "domain": "medekpharma.com"
+  },
+  {
+    "dealname": "Medifarma - BEPH-2026-09",
+    "domain": "medifarmasrl.com.do"
+  },
+  {
+    "dealname": "Megalabs - Roemmers - BEPH-2026-09",
+    "domain": "megalabs.com.do"
+  },
+  {
+    "dealname": "Nagada Company - BEPH-2026-09",
+    "domain": "nagada-rd.com"
+  },
+  {
+    "dealname": "Nutrifarma - BEPH-2026-09",
+    "domain": "nutrifarma.com.do"
+  },
+  {
+    "dealname": "Oscar Arenta Negron - BEPH-2026-09",
+    "domain": "oarenta.com"
+  },
+  {
+    "dealname": "Pharma AG trading - BEPH-2026-09",
+    "domain": "pharmaagtrading.com"
+  },
+  {
+    "dealname": "Profares - BEPH-2026-09",
+    "domain": "profaressrl.com"
+  },
+  {
+    "dealname": "Profarma Internacional - BEPH-2026-09",
+    "domain": "profarma.com.do"
+  },
+  {
+    "dealname": "Rowe / Delta de la Cruz / Laboratorio Panalab - BEPH-2026-09",
+    "domain": "rowe.com.do"
+  },
+  {
+    "dealname": "terago - BEPH-2026-09",
+    "domain": "laboratoriosunion.com"
+  },
+  {
+    "dealname": "Ultralab, SRL / Bionuclear - BEPH-2026-09",
+    "domain": "bionuclear.com.do"
+  },
+  {
+    "dealname": "Victoria Yeb - BEPH-2026-09",
+    "domain": "victoriayeb.com.do"
+  },
+  {
+    "dealname": "Quisqueyana Farmacéutica SRL - BEPH-2026-09",
+    "domain": "claro.net.do"
+  },
+  {
+    "dealname": "Sued & Fargesa - BEPH-2026-09",
+    "domain": "suedfargesa.com"
+  },
+  {
+    "dealname": "Vermis Pharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Britania - BEPH-2026-09",
+    "domain": "laboratoriosbritania.com"
+  },
+  {
+    "dealname": "Laboratorios Amadita - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Naveo SRL - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Dositec Pharma - BEPH-2026-09",
+    "domain": "dositec.com.do"
+  },
+  {
+    "dealname": "Medxim Dominicana - BEPH-2026-09",
+    "domain": "claro.net.do"
+  },
+  {
+    "dealname": "Padilla SA - BEPH-2026-09",
+    "domain": "padilla.com.do"
+  },
+  {
+    "dealname": "CEIMSA, SRL - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Grupo Tateyama - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Fenwal International Inc. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Mesoestetic - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Dyvenpro / Difare - Distribuidora Farmacéutica Ecuatoriana - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Ecuaquímica - BEPH-2026-09",
+    "domain": "ecuaquimica.com.ec"
+  },
+  {
+    "dealname": "Hospimedikka - BEPH-2026-09",
+    "domain": "hospimedikka.com"
+  },
+  {
+    "dealname": "Laboratorios Eurostaga - BEPH-2026-09",
+    "domain": "eurostaga.com"
+  },
+  {
+    "dealname": "Nature´s Garden / Laboratorios Carvagu, S.A - BEPH-2026-09",
+    "domain": "carvagu.com.ec"
+  },
+  {
+    "dealname": "Panijú - BEPH-2026-09",
+    "domain": "paniju.com"
+  },
+  {
+    "dealname": "Pharmedic - BEPH-2026-09",
+    "domain": "pharmedic-sa.com"
+  },
+  {
+    "dealname": "Laboratorios Alfer / Farmacéutica Ceballos - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Elifarma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Acromax Laboratorio Químico Farmacéutico S.A. / Leterago (socios) - BEPH-2026-09",
+    "domain": "acromax.com.ec"
+  },
+  {
+    "dealname": "Bagó del Ecuador - BEPH-2026-09",
+    "domain": "bago.com.ec"
+  },
+  {
+    "dealname": "Boticas Unidas del Ecuador - BEPH-2026-09",
+    "domain": "grupoecu.com"
+  },
+  {
+    "dealname": "China Sinopharm International - Shangai - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Disfasur - Distribuidora Farmacéutica Del Sur SA - BEPH-2026-09",
+    "domain": "disfasur.com.ec"
+  },
+  {
+    "dealname": "Escollanos - BEPH-2026-09",
+    "domain": "escollanos.com"
+  },
+  {
+    "dealname": "Eske Group - BEPH-2026-09",
+    "domain": "eske.ec"
+  },
+  {
+    "dealname": "Farmaenlace - BEPH-2026-09",
+    "domain": "farmaenlace.com"
+  },
+  {
+    "dealname": "Farmalemana - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Farmayala Pharmaceutical Company - BEPH-2026-09",
+    "domain": "farmayala.com"
+  },
+  {
+    "dealname": "Fresenius Kabi - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Grupo Unipharm - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Ifi Promesa - BEPH-2026-09",
+    "domain": "ifi-promesa.com.ec"
+  },
+  {
+    "dealname": "Impexpharm - BEPH-2026-09",
+    "domain": "impexpharm.com"
+  },
+  {
+    "dealname": "Indeurec - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Interpharm / Siegfried - BEPH-2026-09",
+    "domain": "interpharm.com.ec"
+  },
+  {
+    "dealname": "James Brown Pharma - BEPH-2026-09",
+    "domain": "jamesbrownpharma.com"
+  },
+  {
+    "dealname": "Kronos Laboratorios CIA. LTDA. - BEPH-2026-09",
+    "domain": "kronoslaboratorios.com"
+  },
+  {
+    "dealname": "Laboratorio Farmacéutico GM - BEPH-2026-09",
+    "domain": "laboratoriosgm.com"
+  },
+  {
+    "dealname": "Laboratorio Química Ariston Ecuador - BEPH-2026-09",
+    "domain": "qariston.com"
+  },
+  {
+    "dealname": "Laboratorios Industriales Farmacéuticos Ecuatorianos LIFE - BEPH-2026-09",
+    "domain": "life.com.ec"
+  },
+  {
+    "dealname": "Laboratorios Rocnarf S.A. - BEPH-2026-09",
+    "domain": "rocnarf.com"
+  },
+  {
+    "dealname": "Laboratorios Siegfried, S.A. - BEPH-2026-09",
+    "domain": "siegfried.com.ec"
+  },
+  {
+    "dealname": "Lamosan Laboratorio Farmacéutico - BEPH-2026-09",
+    "domain": "lamosan.com.ec"
+  },
+  {
+    "dealname": "Leterago del Ecuador - BEPH-2026-09",
+    "domain": "leterago.com.ec"
+  },
+  {
+    "dealname": "Medicamenta Ecuatoriana - BEPH-2026-09",
+    "domain": "medicamenta.com.ec"
+  },
+  {
+    "dealname": "Megat Pharmaceutical - BEPH-2026-09",
+    "domain": "megat.com.ec"
+  },
+  {
+    "dealname": "Naturpharma, S.A. - BEPH-2026-09",
+    "domain": "naturpharma.com.ec"
+  },
+  {
+    "dealname": "Neofarmaco Ecuador - BEPH-2026-09",
+    "domain": "neofarmaco.com"
+  },
+  {
+    "dealname": "Oxialfarm, Laboratorio Farmacéutico Ecuador - BEPH-2026-09",
+    "domain": "oxialfarm.com"
+  },
+  {
+    "dealname": "Pharmedical - BEPH-2026-09",
+    "domain": "pharmedical.net"
+  },
+  {
+    "dealname": "Promidens - BEPH-2026-09",
+    "domain": "promidens.com"
+  },
+  {
+    "dealname": "Prophar Medicamentos / Laboratorios Nifa - BEPH-2026-09",
+    "domain": "prophar.com"
+  },
+  {
+    "dealname": "Quality World Consulting - BEPH-2026-09",
+    "domain": "qualitycons.com"
+  },
+  {
+    "dealname": "Qualipharm Laboratorio Farmacéutico - BEPH-2026-09",
+    "domain": "grupoetical.com"
+  },
+  {
+    "dealname": "RESOLFARMA - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Ruiz Pharma / PharmaVida - BEPH-2026-09",
+    "domain": "ruizpharma.com"
+  },
+  {
+    "dealname": "🌟Sanfer - BEPH-2026-09",
+    "domain": "sanfer.com.co"
+  },
+  {
+    "dealname": "Simedpharma S.A. / Pharmacore - BEPH-2026-09",
+    "domain": "pharmacore.com.ec"
+  },
+  {
+    "dealname": "Welkom Medicamentos de Especialidad - BEPH-2026-09",
+    "domain": "welkom.com.ec"
+  },
+  {
+    "dealname": "XANUM - BEPH-2026-09",
+    "domain": "xanum.xyz"
+  },
+  {
+    "dealname": "Bassa - BEPH-2026-09",
+    "domain": "bassa.com.ec"
+  },
+  {
+    "dealname": "Corporación GPF / Farmacias Fybeca - BEPH-2026-09",
+    "domain": "corporaciongpf.com"
+  },
+  {
+    "dealname": "MCG Diagnostica - BEPH-2026-09",
+    "domain": "mcgdiagnostica.com.ec"
+  },
+  {
+    "dealname": "Nipro Medical - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Ancalmo Internacional (Hessel) - BEPH-2026-09",
+    "domain": "ancalmo.com"
+  },
+  {
+    "dealname": "Droguería Integral / Montreal S.A. de C.V. - BEPH-2026-09",
+    "domain": "drogueriaintegralsv.com"
+  },
+  {
+    "dealname": "Droguería Morazán - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería Santa Lucia - BEPH-2026-09",
+    "domain": "drogueriasantalucia.com"
+  },
+  {
+    "dealname": "Droguería Universal - BEPH-2026-09",
+    "domain": "drogueriauniversal.com"
+  },
+  {
+    "dealname": "Gamma Laboratories - BEPH-2026-09",
+    "domain": "gammalaboratories.com"
+  },
+  {
+    "dealname": "Grupo Americana / Droguería Americana - BEPH-2026-09",
+    "domain": "americana.com.sv"
+  },
+  {
+    "dealname": "Grupo Carosa / Laboratorios Carosa - BEPH-2026-09",
+    "domain": "grupocarosa.com"
+  },
+  {
+    "dealname": "Grupo Jomi - BEPH-2026-09",
+    "domain": "grupojomi.com"
+  },
+  {
+    "dealname": "Inversiones Hospitalarias INHOSPI - BEPH-2026-09",
+    "domain": "inhospi.com"
+  },
+  {
+    "dealname": "Laboratorios Fardel / Grupo Guardado - BEPH-2026-09",
+    "domain": "grupoguardado.com.sv"
+  },
+  {
+    "dealname": "Laboratorios Medikem, SA de CV - BEPH-2026-09",
+    "domain": "medikem.com"
+  },
+  {
+    "dealname": "Sinquimia - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Corporación Cefa - BEPH-2026-09",
+    "domain": "cefaelsalvador.com.sv"
+  },
+  {
+    "dealname": "Farmacéutica RODIM — División Distribución - BEPH-2026-09",
+    "domain": "gruporodim.com"
+  },
+  {
+    "dealname": "DIMEDIC - BEPH-2026-09",
+    "domain": "dimedicslv.com"
+  },
+  {
+    "dealname": "Droguería y Laboratorio Falmar - BEPH-2026-09",
+    "domain": "falmar.biz"
+  },
+  {
+    "dealname": "Grupo Paill / Paill Laboratorios - BEPH-2026-09",
+    "domain": "paill.com"
+  },
+  {
+    "dealname": "Grupo Razel / Laboratorios Razel - BEPH-2026-09",
+    "domain": "gruporazel.com"
+  },
+  {
+    "dealname": "Laboratorio DB, S.A. de C.V. - BEPH-2026-09",
+    "domain": "laboratoriodb.com"
+  },
+  {
+    "dealname": "Laboratorio Farmacéutico Solaris - BEPH-2026-09",
+    "domain": "laboratoriosolaris.com"
+  },
+  {
+    "dealname": "Laboratorio y Droguería Interpharmas, S.A. de C.V. - BEPH-2026-09",
+    "domain": "interpharmas.com"
+  },
+  {
+    "dealname": "Laboratorios Arsal / Arsal Laboratorios - BEPH-2026-09",
+    "domain": "arsal.com.sv"
+  },
+  {
+    "dealname": "Laboratorios Biogalenic - BEPH-2026-09",
+    "domain": "biogalenic.com.sv"
+  },
+  {
+    "dealname": "Laboratorios Cofasa, S.A. de C.V. - BEPH-2026-09",
+    "domain": "labcofasa.com"
+  },
+  {
+    "dealname": "Laboratorios HealthCo - BEPH-2026-09",
+    "domain": "vape.com.sv"
+  },
+  {
+    "dealname": "Laboratorios Suizos - BEPH-2026-09",
+    "domain": "labsuizos.com"
+  },
+  {
+    "dealname": "Laboratorios Tecnofarma / Medical Pharma - BEPH-2026-09",
+    "domain": "medicalpharma.com.sv"
+  },
+  {
+    "dealname": "Laboratorios Vides, S.A. de C.V. (Ovides) - BEPH-2026-09",
+    "domain": "ojvides.com"
+  },
+  {
+    "dealname": "Laboratorios Vijosa - BEPH-2026-09",
+    "domain": "vijosa.com"
+  },
+  {
+    "dealname": "Luminova Pharma Group - BEPH-2026-09",
+    "domain": "medwell-int.com"
+  },
+  {
+    "dealname": "Meditech Laboratories / Droguerías Farmix - BEPH-2026-09",
+    "domain": "meditechlaboratories.com"
+  },
+  {
+    "dealname": "Biokemical S.A. de C.V. - BEPH-2026-09",
+    "domain": "biokemical.com.sv"
+  },
+  {
+    "dealname": "C. Imberton, S.A. de C.V. - BEPH-2026-09",
+    "domain": "cimberton.com"
+  },
+  {
+    "dealname": "Distribuidora Zablah / Grupo Zablah - BEPH-2026-09",
+    "domain": "diszasa.com"
+  },
+  {
+    "dealname": "Droguería Vital Medical - BEPH-2026-09",
+    "domain": "vitalmedical.sv"
+  },
+  {
+    "dealname": "Droguería y Laboratorio Pharmalat S.A. - BEPH-2026-09",
+    "domain": "pharmalat.net"
+  },
+  {
+    "dealname": "EUROSAL / Droguería Eurosalvadoreña S.A. de C.V. - BEPH-2026-09",
+    "domain": "eurosal.co"
+  },
+  {
+    "dealname": "Laboratorios Argüello, S.A. de C.V. - BEPH-2026-09",
+    "domain": "laboratoriosarguello.com"
+  },
+  {
+    "dealname": "Laboratorios Generix S.A. - BEPH-2026-09",
+    "domain": "generix.com.sv"
+  },
+  {
+    "dealname": "Laboratorios López S.A. de C.V. - BEPH-2026-09",
+    "domain": "procapsgroup.com"
+  },
+  {
+    "dealname": "Laboratorios Marceli S.A. de C.V. - BEPH-2026-09",
+    "domain": "laboratoriosmarceli.com"
+  },
+  {
+    "dealname": "Laboratorios Pharmedic - BEPH-2026-09",
+    "domain": "labpharmedic.com"
+  },
+  {
+    "dealname": "Laboratorios S&M - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería Centroamericana / Farmacia Esmeralda - BEPH-2026-09",
+    "domain": "drogueriacentroamericana.com"
+  },
+  {
+    "dealname": "Laboratorios Latiz Pharma, S.A. de C.V. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Optilab S.A de C.V. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "WHR Laboratorios El Salvador - BEPH-2026-09",
+    "domain": "whrelsalvador.com"
+  },
+  {
+    "dealname": "Laboratorio Ophtha El Salvador - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Intas Pharmaceuticals - BEPH-2026-09",
+    "domain": "intaspharma.com"
+  },
+  {
+    "dealname": "Laboratorios Salvat - BEPH-2026-09",
+    "domain": "svt.com"
+  },
+  {
+    "dealname": "Marnys - Martinez Nieto - BEPH-2026-09",
+    "domain": "marnys.com"
+  },
+  {
+    "dealname": "Reig Jofre Group - BEPH-2026-09",
+    "domain": "reigjofre.com"
+  },
+  {
+    "dealname": "Acofarma - BEPH-2026-09",
+    "domain": "acofarma.com"
+  },
+  {
+    "dealname": "ADALVO - BEPH-2026-09",
+    "domain": "adalvo.com"
+  },
+  {
+    "dealname": "Adamed - BEPH-2026-09",
+    "domain": "adamed.com"
+  },
+  {
+    "dealname": "Aldo-Unión, S.A. - BEPH-2026-09",
+    "domain": "aldo-union.com"
+  },
+  {
+    "dealname": "Airplan - BEPH-2026-09",
+    "domain": "airplan-sa.com"
+  },
+  {
+    "dealname": "Bioiberica S.A. - BEPH-2026-09",
+    "domain": "bioiberica.com"
+  },
+  {
+    "dealname": "Biopharma Synergies S.l. - BEPH-2026-09",
+    "domain": "bpsynergies.com"
+  },
+  {
+    "dealname": "Bordas - BEPH-2026-09",
+    "domain": "bordas-sa.com"
+  },
+  {
+    "dealname": "Cantabria Labs (IFC - Industrial Farmaceutica Cantabria, S.A.) - BEPH-2026-09",
+    "domain": "cantabrialabs.es"
+  },
+  {
+    "dealname": "Chemo Iberica / Insudpharma - BEPH-2026-09",
+    "domain": "chemogroup.com"
+  },
+  {
+    "dealname": "Cloverty / HC Clover / Aplicaps / - BEPH-2026-09",
+    "domain": "aplicaps.com"
+  },
+  {
+    "dealname": "Coetus Pharma - BEPH-2026-09",
+    "domain": "coetuspharma.com"
+  },
+  {
+    "dealname": "Cofares / Farline - BEPH-2026-09",
+    "domain": "cofares.es"
+  },
+  {
+    "dealname": "CuraLife Spain SL - BEPH-2026-09",
+    "domain": "curalife.com"
+  },
+  {
+    "dealname": "Cyndea Pharma / Cinfa Innova - BEPH-2026-09",
+    "domain": "cyndeapharma.com"
+  },
+  {
+    "dealname": "Directsalud / ABC Farma Internacional, S.L. - BEPH-2026-09",
+    "domain": "abcfarma.com"
+  },
+  {
+    "dealname": "Efarmes S.A.U. - BEPH-2026-09",
+    "domain": "lacer.es"
+  },
+  {
+    "dealname": "Entera Health - BEPH-2026-09",
+    "domain": "essentiaproteins.com"
+  },
+  {
+    "dealname": "Esteve - BEPH-2026-09",
+    "domain": "esteve.com"
+  },
+  {
+    "dealname": "Farmaprojects / Nova Diet - BEPH-2026-09",
+    "domain": "farmaprojects.com"
+  },
+  {
+    "dealname": "Galenicum Health - BEPH-2026-09",
+    "domain": "galenicum.com"
+  },
+  {
+    "dealname": "Geiser Pharma, S.L. - BEPH-2026-09",
+    "domain": "geiserpharma.com"
+  },
+  {
+    "dealname": "Gentec Pharmaceuticals - BEPH-2026-09",
+    "domain": "gentec.es"
+  },
+  {
+    "dealname": "Grupo Profármaco - Mefasa Farma - BEPH-2026-09",
+    "domain": "grupoprofarmaco.com"
+  },
+  {
+    "dealname": "Grupo Uriach (\"Uriak\") / Noucor - BEPH-2026-09",
+    "domain": "uriach.com"
+  },
+  {
+    "dealname": "GxMed Healthcare - BEPH-2026-09",
+    "domain": "gxmed.com"
+  },
+  {
+    "dealname": "Hartington Pharmaceutical - BEPH-2026-09",
+    "domain": "hartington.org"
+  },
+  {
+    "dealname": "HeathTech BioActives - BEPH-2026-09",
+    "domain": "htba.com"
+  },
+  {
+    "dealname": "ICG Farma México - BEPH-2026-09",
+    "domain": "icgfarma.com.mx"
+  },
+  {
+    "dealname": "ICON Group / Avanzia Pharma - BEPH-2026-09",
+    "domain": "icongroup.health"
+  },
+  {
+    "dealname": "Interquim, S.A. /  (Ferrer) / Farmhispania Group - BEPH-2026-09",
+    "domain": "ferrer.com"
+  },
+  {
+    "dealname": "Invent Farma (Laboratorios Lesvi SL) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "IQVIA - BEPH-2026-09",
+    "domain": "iqvia.com"
+  },
+  {
+    "dealname": "Kern Pharma / Actafarma / Grupo Indukern - BEPH-2026-09",
+    "domain": "kernpharma.com"
+  },
+  {
+    "dealname": "Labiana - BEPH-2026-09",
+    "domain": "labiana.com"
+  },
+  {
+    "dealname": "Laboratorios Averroes - BEPH-2026-09",
+    "domain": "labsaverroes.com"
+  },
+  {
+    "dealname": "Laboratorios Feltor / ANJAC Health & Beauty Group - BEPH-2026-09",
+    "domain": "feltor.com"
+  },
+  {
+    "dealname": "Laboratorios Grand Fontaine - BEPH-2026-09",
+    "domain": "grandfontaine.eu"
+  },
+  {
+    "dealname": "Laboratorios Normon - BEPH-2026-09",
+    "domain": "normon.com"
+  },
+  {
+    "dealname": "Laboratorios Viñas - BEPH-2026-09",
+    "domain": "vinas.es"
+  },
+  {
+    "dealname": "MapBiopharma - BEPH-2026-09",
+    "domain": "mapbiopharma.es"
+  },
+  {
+    "dealname": "Medichem / Combino Pharm - BEPH-2026-09",
+    "domain": "medichem.es"
+  },
+  {
+    "dealname": "Menarini - BEPH-2026-09",
+    "domain": "menarini.es"
+  },
+  {
+    "dealname": "Mitelos Bioscience, SL - BEPH-2026-09",
+    "domain": "mitelos.com"
+  },
+  {
+    "dealname": "Neuraxpharm Iberia  Laboratorios Lesvi - BEPH-2026-09",
+    "domain": "neuraxpharm.com"
+  },
+  {
+    "dealname": "OtCEM Pharmaceuticals S.L - BEPH-2026-09",
+    "domain": "otcempharma.com"
+  },
+  {
+    "dealname": "Pharmathen - BEPH-2026-09",
+    "domain": "pharmathen.com"
+  },
+  {
+    "dealname": "Pharmex Advanced Laboratories - BEPH-2026-09",
+    "domain": "pharmex.es"
+  },
+  {
+    "dealname": "Plameca - BEPH-2026-09",
+    "domain": "plameca.com"
+  },
+  {
+    "dealname": "Qualix Pharma - BEPH-2026-09",
+    "domain": "qualixpharma.com"
+  },
+  {
+    "dealname": "Reiner Medical - BEPH-2026-09",
+    "domain": "reiner.es"
+  },
+  {
+    "dealname": "STE Pharmaceuticals - BEPH-2026-09",
+    "domain": "stepharmaceuticals.com"
+  },
+  {
+    "dealname": "Tamarang Pharmaceuticals S.A. (Farmhispania Group) - BEPH-2026-09",
+    "domain": "tamarang.es"
+  },
+  {
+    "dealname": "TOWA International Holding - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Unolab Manufacturing - BEPH-2026-09",
+    "domain": "unolab.es"
+  },
+  {
+    "dealname": "Zinereo Pharma / Biofabri S.L. - BEPH-2026-09",
+    "domain": "zinereopharma.com"
+  },
+  {
+    "dealname": "Arafarma Group - BEPH-2026-09",
+    "domain": "arafarma.com"
+  },
+  {
+    "dealname": "Pharmactive Biotech Products, S.L. - BEPH-2026-09",
+    "domain": "pharmactive.eu"
+  },
+  {
+    "dealname": "Qualipharma - BEPH-2026-09",
+    "domain": "qualipharmagroup.com"
+  },
+  {
+    "dealname": "Tecnalia Research & Innovation - BEPH-2026-09",
+    "domain": "tecnalia.com"
+  },
+  {
+    "dealname": "Unipharma - BEPH-2026-09",
+    "domain": "unipharma.com"
+  },
+  {
+    "dealname": "Winmed Nordics y Winmed España - BEPH-2026-09",
+    "domain": "winmed.com"
+  },
+  {
+    "dealname": "Laboratorio Estedi - BEPH-2026-09",
+    "domain": "estedi.es"
+  },
+  {
+    "dealname": "3P Biopharmaceuticals - BEPH-2026-09",
+    "domain": "3pbio.com"
+  },
+  {
+    "dealname": "53Biologics - BEPH-2026-09",
+    "domain": "53biologics.com"
+  },
+  {
+    "dealname": "AB Biotics - BEPH-2026-09",
+    "domain": "ab-biotics.com"
+  },
+  {
+    "dealname": "Ababor Pharmaceuticals - BEPH-2026-09",
+    "domain": "ababorpharma.com"
+  },
+  {
+    "dealname": "Adistafarma - BEPH-2026-09",
+    "domain": "adistafarma.es"
+  },
+  {
+    "dealname": "ADL BioPharma / Wacker Leon - BEPH-2026-09",
+    "domain": "wacker.com"
+  },
+  {
+    "dealname": "AGC Pharma Chemicals - BEPH-2026-09",
+    "domain": "agc.com"
+  },
+  {
+    "dealname": "Alcala Farma / Synerlab - BEPH-2026-09",
+    "domain": "synerlab.com"
+  },
+  {
+    "dealname": "Alifarma - BEPH-2026-09",
+    "domain": "alifarma.com"
+  },
+  {
+    "dealname": "Altan pertenece a Ethypharm - BEPH-2026-09",
+    "domain": "altanpharma.com"
+  },
+  {
+    "dealname": "Aristo Pharma Iberia - BEPH-2026-09",
+    "domain": "aristo-iberia.com"
+  },
+  {
+    "dealname": "Asacpharma - BEPH-2026-09",
+    "domain": "asac.net"
+  },
+  {
+    "dealname": "Aora health - BEPH-2026-09",
+    "domain": "aorahealth.com"
+  },
+  {
+    "dealname": "Aurora Intelligent Nutrition - BEPH-2026-09",
+    "domain": "aurorainutrition.com"
+  },
+  {
+    "dealname": "Axelis Healthcare, S.L. - BEPH-2026-09",
+    "domain": "axelishealthcare.com"
+  },
+  {
+    "dealname": "Barosa Labs - BEPH-2026-09",
+    "domain": "barosalabs.com"
+  },
+  {
+    "dealname": "Bella Aurora Labs - BEPH-2026-09",
+    "domain": "bellaurora.com"
+  },
+  {
+    "dealname": "Bexen Bioservices - BEPH-2026-09",
+    "domain": "bexenmedical.com"
+  },
+  {
+    "dealname": "BCN Farma - BEPH-2026-09",
+    "domain": "bcnfarma.com"
+  },
+  {
+    "dealname": "BCN Peptides - BEPH-2026-09",
+    "domain": "bcnpeptides.com"
+  },
+  {
+    "dealname": "Bioithas - BEPH-2026-09",
+    "domain": "bioithas.com"
+  },
+  {
+    "dealname": "BIOLAN Health - BEPH-2026-09",
+    "domain": "biolanhealth.com"
+  },
+  {
+    "dealname": "BNS Boston Nutraceutical Science - BEPH-2026-09",
+    "domain": "vitaldin.com"
+  },
+  {
+    "dealname": "Brill Pharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Brudylab - BEPH-2026-09",
+    "domain": "brudylab.com"
+  },
+  {
+    "dealname": "Curapath - BEPH-2026-09",
+    "domain": "curapath.com"
+  },
+  {
+    "dealname": "Curida - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Deiters Laboratorios - BEPH-2026-09",
+    "domain": "labdeiters.com"
+  },
+  {
+    "dealname": "Dentaid - BEPH-2026-09",
+    "domain": "dentaid.es"
+  },
+  {
+    "dealname": "Deretil - BEPH-2026-09",
+    "domain": "deretil.com"
+  },
+  {
+    "dealname": "Dermofarm - BEPH-2026-09",
+    "domain": "dermofarm.com"
+  },
+  {
+    "dealname": "Devicare - BEPH-2026-09",
+    "domain": "devicare.com"
+  },
+  {
+    "dealname": "Diater - BEPH-2026-09",
+    "domain": "diater.com"
+  },
+  {
+    "dealname": "Disproquima - BEPH-2026-09",
+    "domain": "disproquima.com"
+  },
+  {
+    "dealname": "Endoret (BTI Biotechnology Institute) - BEPH-2026-09",
+    "domain": "bti-implant.es"
+  },
+  {
+    "dealname": "Eladiet - BEPH-2026-09",
+    "domain": "eladiet.com"
+  },
+  {
+    "dealname": "Entema Laboratorios - BEPH-2026-09",
+    "domain": "entema.es"
+  },
+  {
+    "dealname": "Ercros - BEPH-2026-09",
+    "domain": "ercros.es"
+  },
+  {
+    "dealname": "Extendis Pharma - BEPH-2026-09",
+    "domain": "extendispharma.com"
+  },
+  {
+    "dealname": "FAES Farma - BEPH-2026-09",
+    "domain": "faes.es"
+  },
+  {
+    "dealname": "FARDI - BEPH-2026-09",
+    "domain": "fardi.es"
+  },
+  {
+    "dealname": "Farmahispania - BEPH-2026-09",
+    "domain": "fhrt.com"
+  },
+  {
+    "dealname": "Farmalider - BEPH-2026-09",
+    "domain": "farmalider.com"
+  },
+  {
+    "dealname": "Farmasierra / Grupo Farmasierra - BEPH-2026-09",
+    "domain": "farmasierra.com"
+  },
+  {
+    "dealname": "Genové Dermatologics - BEPH-2026-09",
+    "domain": "genove.com"
+  },
+  {
+    "dealname": "Glyco Science - BEPH-2026-09",
+    "domain": "glycoscience.es"
+  },
+  {
+    "dealname": "Gebro Pharma / grupo Gebro Holding / Laboratorios Gebro Pharma - BEPH-2026-09",
+    "domain": "gebro.es"
+  },
+  {
+    "dealname": "gh Gema Herrerías - BEPH-2026-09",
+    "domain": "gemaherrerias.com"
+  },
+  {
+    "dealname": "Greenbis Labs - BEPH-2026-09",
+    "domain": "greenbislabs.com"
+  },
+  {
+    "dealname": "Grow in Health - BEPH-2026-09",
+    "domain": "growinhealth.eu"
+  },
+  {
+    "dealname": "Grupo Juste - BEPH-2026-09",
+    "domain": "grupojuste.com"
+  },
+  {
+    "dealname": "Hebron - BEPH-2026-09",
+    "domain": "hebronsa.es"
+  },
+  {
+    "dealname": "Heis Global - BEPH-2026-09",
+    "domain": "heisglobal.com"
+  },
+  {
+    "dealname": "Hipra - BEPH-2026-09",
+    "domain": "hipra.com"
+  },
+  {
+    "dealname": "i+Med - BEPH-2026-09",
+    "domain": "imasmed.com"
+  },
+  {
+    "dealname": "Iberhome - BEPH-2026-09",
+    "domain": "iberhome.es"
+  },
+  {
+    "dealname": "Inibisa Group - BEPH-2026-09",
+    "domain": "inibsa.com"
+  },
+  {
+    "dealname": "Inke - BEPH-2026-09",
+    "domain": "inke.es"
+  },
+  {
+    "dealname": "Inmunotek - BEPH-2026-09",
+    "domain": "inmunotek.com"
+  },
+  {
+    "dealname": "Interpharma - BEPH-2026-09",
+    "domain": "interpharma.es"
+  },
+  {
+    "dealname": "Inves Biofarm - BEPH-2026-09",
+    "domain": "invesbiofarm.com"
+  },
+  {
+    "dealname": "Isomed Farma SL - BEPH-2026-09",
+    "domain": "isomed.com"
+  },
+  {
+    "dealname": "Italfármaco / Laboratorios Effik, S.A. - BEPH-2026-09",
+    "domain": "itfsp.com"
+  },
+  {
+    "dealname": "Kinsy - BEPH-2026-09",
+    "domain": "kinsy.es"
+  },
+  {
+    "dealname": "La Colina Comercio Farmaceutico - BEPH-2026-09",
+    "domain": "lacolinapharma.com"
+  },
+  {
+    "dealname": "Laboratorio Aragó - BEPH-2026-09",
+    "domain": "laboratorioarago.com"
+  },
+  {
+    "dealname": "Laboratorios Alter - BEPH-2026-09",
+    "domain": "grupo-alter.com"
+  },
+  {
+    "dealname": "Laboratorios Angelini Pharma España - BEPH-2026-09",
+    "domain": "angelini.es"
+  },
+  {
+    "dealname": "Laboratorios Archivel Farma S.L. - BEPH-2026-09",
+    "domain": "archivelfarma.com"
+  },
+  {
+    "dealname": "Laboratorios Arcol - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Argenol - BEPH-2026-09",
+    "domain": "laboratorios-argenol.com"
+  },
+  {
+    "dealname": "Laboratorios ERN - BEPH-2026-09",
+    "domain": "ern.es"
+  },
+  {
+    "dealname": "Laboratorios Heel España - BEPH-2026-09",
+    "domain": "heel.es"
+  },
+  {
+    "dealname": "Laboratorios LETI - BEPH-2026-09",
+    "domain": "leti.com"
+  },
+  {
+    "dealname": "Laboratorios Ojer Pharma - BEPH-2026-09",
+    "domain": "ojerpharma.com"
+  },
+  {
+    "dealname": "Laboratorios Rovi - BEPH-2026-09",
+    "domain": "rovi.es"
+  },
+  {
+    "dealname": "Laboratorios Rubió - BEPH-2026-09",
+    "domain": "labrubio.com"
+  },
+  {
+    "dealname": "Laboratorios Seid - BEPH-2026-09",
+    "domain": "lab-seid.com"
+  },
+  {
+    "dealname": "Laboratorios Vilardell - BEPH-2026-09",
+    "domain": "labvilardell.com"
+  },
+  {
+    "dealname": "Laboratorios Vir - BEPH-2026-09",
+    "domain": "vir.es"
+  },
+  {
+    "dealname": "LACER - BEPH-2026-09",
+    "domain": "lacer.es"
+  },
+  {
+    "dealname": "Lainomedical - BEPH-2026-09",
+    "domain": "lainomedical.com"
+  },
+  {
+    "dealname": "Leo Pharma - BEPH-2026-09",
+    "domain": "leo-pharma.com"
+  },
+  {
+    "dealname": "Liof Pharma - BEPH-2026-09",
+    "domain": "liofpharma.com"
+  },
+  {
+    "dealname": "MartiDerm - BEPH-2026-09",
+    "domain": "martiderm.com"
+  },
+  {
+    "dealname": "Maxmind Pharmaceuticals - BEPH-2026-09",
+    "domain": "maxmindpharma.es"
+  },
+  {
+    "dealname": "Mayla Pharmaceuticals - BEPH-2026-09",
+    "domain": "mayla.es"
+  },
+  {
+    "dealname": "Menadiona - BEPH-2026-09",
+    "domain": "menadiona.com"
+  },
+  {
+    "dealname": "Mendisa, Laboratorios Medicamentos Internacionales - BEPH-2026-09",
+    "domain": "medinsa.com"
+  },
+  {
+    "dealname": "Mesoestetic Pharma Group - BEPH-2026-09",
+    "domain": "mesoestetic.com"
+  },
+  {
+    "dealname": "Mifarma / Atida - BEPH-2026-09",
+    "domain": "mifarma.es"
+  },
+  {
+    "dealname": "Moehs Fine Chemicals - BEPH-2026-09",
+    "domain": "moehs.es"
+  },
+  {
+    "dealname": "Natac - BEPH-2026-09",
+    "domain": "natacgroup.com"
+  },
+  {
+    "dealname": "Neftis Laboratorios - BEPH-2026-09",
+    "domain": "neftislaboratorios.com"
+  },
+  {
+    "dealname": "NodePharm - BEPH-2026-09",
+    "domain": "nodepharm.com"
+  },
+  {
+    "dealname": "Noucor - BEPH-2026-09",
+    "domain": "noucor.com"
+  },
+  {
+    "dealname": "Noventure S.L. - BEPH-2026-09",
+    "domain": "noventure.com"
+  },
+  {
+    "dealname": "Peroxfarma - BEPH-2026-09",
+    "domain": "peroxfarma.com"
+  },
+  {
+    "dealname": "Olyan Farma - BEPH-2026-09",
+    "domain": "olyanfarma.com"
+  },
+  {
+    "dealname": "Ordesa / Laboratorios Ordesa - BEPH-2026-09",
+    "domain": "ordesalab.com"
+  },
+  {
+    "dealname": "Ionfarma - BEPH-2026-09",
+    "domain": "ern.es"
+  },
+  {
+    "dealname": "Laboratorios BABÉ - BEPH-2026-09",
+    "domain": "laboratoriosbabe.com"
+  },
+  {
+    "dealname": "Laboratorios BOHM - BEPH-2026-09",
+    "domain": "bohm.es"
+  },
+  {
+    "dealname": "Laboratorios Clarben - BEPH-2026-09",
+    "domain": "clarben.com"
+  },
+  {
+    "dealname": "Laboratorios Héber Pharma España - BEPH-2026-09",
+    "domain": "heberfarma.com"
+  },
+  {
+    "dealname": "Laboratorios KIN - BEPH-2026-09",
+    "domain": "kin.es"
+  },
+  {
+    "dealname": "Laboratorios Medical - BEPH-2026-09",
+    "domain": "laboratoriosmedical.com"
+  },
+  {
+    "dealname": "Laboratorios Ubiopharma (antes Alcor) - BEPH-2026-09",
+    "domain": "ubiopharma.com"
+  },
+  {
+    "dealname": "Luxmetique - BEPH-2026-09",
+    "domain": "luxmetique.com"
+  },
+  {
+    "dealname": "Martínez Llenas - BEPH-2026-09",
+    "domain": "martinezllenas.com"
+  },
+  {
+    "dealname": "Minoryx Therapeutics - BEPH-2026-09",
+    "domain": "minoryx.com"
+  },
+  {
+    "dealname": "NTD Labs - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Nucliber - BEPH-2026-09",
+    "domain": "nucliber.es"
+  },
+  {
+    "dealname": "Oryzon Genomics - BEPH-2026-09",
+    "domain": "oryzon.com"
+  },
+  {
+    "dealname": "Palobiofarma SL - BEPH-2026-09",
+    "domain": "palobiofarma.com"
+  },
+  {
+    "dealname": "Phergal - BEPH-2026-09",
+    "domain": "phergal.com"
+  },
+  {
+    "dealname": "PlusQuam Pharma - BEPH-2026-09",
+    "domain": "plusquampharma.com"
+  },
+  {
+    "dealname": "Prima-Derm - BEPH-2026-09",
+    "domain": "primaderm.com"
+  },
+  {
+    "dealname": "Proteos Biotech / pbserum - BEPH-2026-09",
+    "domain": "pbserum.com"
+  },
+  {
+    "dealname": "Serra Pamies - BEPH-2026-09",
+    "domain": "lsp.es"
+  },
+  {
+    "dealname": "SOM Biotech - BEPH-2026-09",
+    "domain": "sombiotech.com"
+  },
+  {
+    "dealname": "Pharma14 - BEPH-2026-09",
+    "domain": "pharma14.com"
+  },
+  {
+    "dealname": "Pharmalink S.L. - BEPH-2026-09",
+    "domain": "pharmalink.es"
+  },
+  {
+    "dealname": "Persan Farma - BEPH-2026-09",
+    "domain": "persanfarma.com"
+  },
+  {
+    "dealname": "Prim - BEPH-2026-09",
+    "domain": "prim.es"
+  },
+  {
+    "dealname": "Probelte Pharma - BEPH-2026-09",
+    "domain": "probeltepharma.es"
+  },
+  {
+    "dealname": "Procare Health - BEPH-2026-09",
+    "domain": "procarehealth.com"
+  },
+  {
+    "dealname": "Qilu Pharma Europe - BEPH-2026-09",
+    "domain": "qilu-pharma.es"
+  },
+  {
+    "dealname": "Quality Chemicals - BEPH-2026-09",
+    "domain": "qualitychemicals.com"
+  },
+  {
+    "dealname": "Recipharm - BEPH-2026-09",
+    "domain": "recipharm.com"
+  },
+  {
+    "dealname": "Reiwa Healthcare - BEPH-2026-09",
+    "domain": "reiwaheathcare.eu"
+  },
+  {
+    "dealname": "Rioja Nature Pharma - BEPH-2026-09",
+    "domain": "naturepharma.es"
+  },
+  {
+    "dealname": "Sanofi - BEPH-2026-09",
+    "domain": "sanofi.com"
+  },
+  {
+    "dealname": "Sawes Pharma - BEPH-2026-09",
+    "domain": "sawespharma.com"
+  },
+  {
+    "dealname": "Select Botanical - BEPH-2026-09",
+    "domain": "selectbotanical.com"
+  },
+  {
+    "dealname": "Sincromed - BEPH-2026-09",
+    "domain": "sincromed.es"
+  },
+  {
+    "dealname": "Suanfarma - BEPH-2026-09",
+    "domain": "suanfarma.com"
+  },
+  {
+    "dealname": "Tegor Laboratorios - BEPH-2026-09",
+    "domain": "tegorlaboratorios.com"
+  },
+  {
+    "dealname": "UQUIFA - BEPH-2026-09",
+    "domain": "uquifa.com"
+  },
+  {
+    "dealname": "Vivunt Pharma Europe - BEPH-2026-09",
+    "domain": "virixene.com"
+  },
+  {
+    "dealname": "Zafire Labs - BEPH-2026-09",
+    "domain": "zafirelabs.com"
+  },
+  {
+    "dealname": "Almirall S.A. - BEPH-2026-09",
+    "domain": "almirall.com"
+  },
+  {
+    "dealname": "PharmaMar S.A. - BEPH-2026-09",
+    "domain": "pharmamar.com"
+  },
+  {
+    "dealname": "Laboratorios Liconsa S.A. - BEPH-2026-09",
+    "domain": "liconsa.es"
+  },
+  {
+    "dealname": "VIVEbiotech S.L. - BEPH-2026-09",
+    "domain": "vivebiotech.com"
+  },
+  {
+    "dealname": "Tradichem S.L. - BEPH-2026-09",
+    "domain": "tradichem.com"
+  },
+  {
+    "dealname": "Urquima S.A. - BEPH-2026-09",
+    "domain": "urquima.es"
+  },
+  {
+    "dealname": "Ardena Pamplona (Idifarma) - BEPH-2026-09",
+    "domain": "ardena.com"
+  },
+  {
+    "dealname": "Bioinicia - BEPH-2026-09",
+    "domain": "bioinicia.com"
+  },
+  {
+    "dealname": "ManaPharma - BEPH-2026-09",
+    "domain": "manapharma.net"
+  },
+  {
+    "dealname": "Pharma Hermetic - BEPH-2026-09",
+    "domain": "pharmahermetic.com"
+  },
+  {
+    "dealname": "DASA - BEPH-2026-09",
+    "domain": "dasa.com.gt"
+  },
+  {
+    "dealname": "Avis Pharma - BEPH-2026-09",
+    "domain": "avis.com.gt"
+  },
+  {
+    "dealname": "Becofarma - BEPH-2026-09",
+    "domain": "becofarma.com"
+  },
+  {
+    "dealname": "Caliquímica - BEPH-2026-09",
+    "domain": "farmaquimica.com"
+  },
+  {
+    "dealname": "CENDIS - Centro Distribuidor, S.A. - BEPH-2026-09",
+    "domain": "centrodistribuidor.com"
+  },
+  {
+    "dealname": "Donovan Werke - BEPH-2026-09",
+    "domain": "donovanwerke.com"
+  },
+  {
+    "dealname": "Droguería La Botica / La Botica Droguería - BEPH-2026-09",
+    "domain": "laboticagt.com"
+  },
+  {
+    "dealname": "Droguería Latinoamericana SA - DROLAT / REQCA S.A. - BEPH-2026-09",
+    "domain": "jpyasociados.com"
+  },
+  {
+    "dealname": "Droguería Sainsa - BEPH-2026-09",
+    "domain": "sagarfarma.com"
+  },
+  {
+    "dealname": "Global Medical Logistics - BEPH-2026-09",
+    "domain": "gmedical.net"
+  },
+  {
+    "dealname": "Grupo Lamfer / Med Pharma / Laboratorios Lamfer - BEPH-2026-09",
+    "domain": "lamfer.com"
+  },
+  {
+    "dealname": "Grupo Menarini, Centroamérica y El Caribe / LANFER - BEPH-2026-09",
+    "domain": "menarini-ca.com"
+  },
+  {
+    "dealname": "Grupo Unipharm (suc GUA) / Novoswiss / MedWell - BEPH-2026-09",
+    "domain": "grupounipharm.com"
+  },
+  {
+    "dealname": "Henie Lab - BEPH-2026-09",
+    "domain": "porsalud.net"
+  },
+  {
+    "dealname": "Italpharma Guatemala / Marpel Pharma / Strikapharma - BEPH-2026-09",
+    "domain": "italpharmagt.com"
+  },
+  {
+    "dealname": "Laboratorios Fórmulas Farmacéuticas - LAFOFA - BEPH-2026-09",
+    "domain": "grupoformulas.com.gt"
+  },
+  {
+    "dealname": "Laboratorios Intecfa - Industria Técnico Farmacéutica - BEPH-2026-09",
+    "domain": "intecfa.com"
+  },
+  {
+    "dealname": "Laboratorios Lancasco - BEPH-2026-09",
+    "domain": "lancasco.com"
+  },
+  {
+    "dealname": "Laboratorios Ruipharma, S.A. - BEPH-2026-09",
+    "domain": "ruipharma.com"
+  },
+  {
+    "dealname": "Lotus Pharma - BEPH-2026-09",
+    "domain": "lotuspharmalatam.com"
+  },
+  {
+    "dealname": "Luminova Pharma Group - MedWell - BEPH-2026-09",
+    "domain": "luminovapg.com"
+  },
+  {
+    "dealname": "Moba Productos Farmacéuticos - BEPH-2026-09",
+    "domain": "mobapharma.com"
+  },
+  {
+    "dealname": "Piersan Centroamericana - BEPH-2026-09",
+    "domain": "piersan.com"
+  },
+  {
+    "dealname": "Plenitud 365 - BEPH-2026-09",
+    "domain": "plenitud365.com"
+  },
+  {
+    "dealname": "Proveedora Médica y Farmacéutica PROMEFA - BEPH-2026-09",
+    "domain": "promefarm.com.gt"
+  },
+  {
+    "dealname": "Solfasa - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pharmavision - Droguería Pharmavision - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Adamed Laboratorios - BEPH-2026-09",
+    "domain": "adamed-farma.es"
+  },
+  {
+    "dealname": "Agefinsa - BEPH-2026-09",
+    "domain": "agefinsa.com"
+  },
+  {
+    "dealname": "Agencias J.L. Cohen - BEPH-2026-09",
+    "domain": "jicohen.com"
+  },
+  {
+    "dealname": "Agencias Moeller - BEPH-2026-09",
+    "domain": "agenciasmoeller.com"
+  },
+  {
+    "dealname": "AMDIGO Healthcare - BEPH-2026-09",
+    "domain": "amdigohealthcare.com"
+  },
+  {
+    "dealname": "Amicelco - BEPH-2026-09",
+    "domain": "amicelco.com.gt"
+  },
+  {
+    "dealname": "Asofarma Centroamérica y el Caribe - BEPH-2026-09",
+    "domain": "adiumcac.com"
+  },
+  {
+    "dealname": "Binnovo - BEPH-2026-09",
+    "domain": "binnopharmgroup.ru"
+  },
+  {
+    "dealname": "Biomed - BEPH-2026-09",
+    "domain": "biomed-pharma.ca"
+  },
+  {
+    "dealname": "BMA Pharma - BEPH-2026-09",
+    "domain": "servir.com.gt"
+  },
+  {
+    "dealname": "Bofasa - Bodega Farmacéutica - BEPH-2026-09",
+    "domain": "bofasa.com"
+  },
+  {
+    "dealname": "Centrino Pharma - BEPH-2026-09",
+    "domain": "greenproducts.gt"
+  },
+  {
+    "dealname": "Cheminter - BEPH-2026-09",
+    "domain": "cheminter.com.gt"
+  },
+  {
+    "dealname": "Coide S.A. - BEPH-2026-09",
+    "domain": "coide.com.gt"
+  },
+  {
+    "dealname": "Diprohim - BEPH-2026-09",
+    "domain": "diprohim.com"
+  },
+  {
+    "dealname": "Distribuidora Médica Nacional S.A. - DIMENA - BEPH-2026-09",
+    "domain": "dimedica.net"
+  },
+  {
+    "dealname": "Distribuidora Rehfarma - BEPH-2026-09",
+    "domain": "rehfarma.com"
+  },
+  {
+    "dealname": "Droguería Colón - BEPH-2026-09",
+    "domain": "drogueriacolon.com"
+  },
+  {
+    "dealname": "Droguería Dilasa - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería Italiana - BEPH-2026-09",
+    "domain": "drogueriaitaliana.com"
+  },
+  {
+    "dealname": "Droguería y Distribuidora Pharmar - BEPH-2026-09",
+    "domain": "pharmargt.com"
+  },
+  {
+    "dealname": "Hazel Pharma - BEPH-2026-09",
+    "domain": "hazelpharma.com"
+  },
+  {
+    "dealname": "Laboratorio Therfam - BEPH-2026-09",
+    "domain": "therfam.com"
+  },
+  {
+    "dealname": "Laboratorio Vizcaíno - BEPH-2026-09",
+    "domain": "vizcainosa.com"
+  },
+  {
+    "dealname": "Laboratorios Farmeco - BEPH-2026-09",
+    "domain": "farmeco.com.gt"
+  },
+  {
+    "dealname": "Laboratorios Infasa - BEPH-2026-09",
+    "domain": "mayancorporation.com.gt"
+  },
+  {
+    "dealname": "Laboratorios Innova - BEPH-2026-09",
+    "domain": "labinnovagt.com"
+  },
+  {
+    "dealname": "Laboratorios Pharland Guatemala - BEPH-2026-09",
+    "domain": "laboratoriospharland.com.gt"
+  },
+  {
+    "dealname": "Laboratorios Santa Fé - BEPH-2026-09",
+    "domain": "santafelab.com"
+  },
+  {
+    "dealname": "Laboratorios Supharma - BEPH-2026-09",
+    "domain": "supharma-ca.com"
+  },
+  {
+    "dealname": "Laboratorios Unidos GT - BEPH-2026-09",
+    "domain": "labsunidos.com"
+  },
+  {
+    "dealname": "Lanco Medical Group - BEPH-2026-09",
+    "domain": "lancomedicalgroup.com"
+  },
+  {
+    "dealname": "Leterago - BEPH-2026-09",
+    "domain": "leterago.com.gt"
+  },
+  {
+    "dealname": "Mediproducts - BEPH-2026-09",
+    "domain": "mediproducts.com.gt"
+  },
+  {
+    "dealname": "Mercafarma / Merca Farma - BEPH-2026-09",
+    "domain": "grupomercafarma.com"
+  },
+  {
+    "dealname": "Norvanda Healthcare - BEPH-2026-09",
+    "domain": "norvanda.com"
+  },
+  {
+    "dealname": "Pharmavida - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Productos Farmacéuticos de Centroamérica, S.A. / PROFACASA - BEPH-2026-09",
+    "domain": "agexport.org.gt"
+  },
+  {
+    "dealname": "Resco, S.A. - BEPH-2026-09",
+    "domain": "resco.com.gt"
+  },
+  {
+    "dealname": "Richam Internacional - BEPH-2026-09",
+    "domain": "richam.com"
+  },
+  {
+    "dealname": "Selectpharma - BEPH-2026-09",
+    "domain": "selectpharma.com.gt"
+  },
+  {
+    "dealname": "Skin Pharma - BEPH-2026-09",
+    "domain": "skinpharma-sa.com"
+  },
+  {
+    "dealname": "Trinomed Internacional, S.A. - BEPH-2026-09",
+    "domain": "trinomedinternacional.com"
+  },
+  {
+    "dealname": "Wellco Corporation - BEPH-2026-09",
+    "domain": "wellcopharma.com"
+  },
+  {
+    "dealname": "Xentury Global - BEPH-2026-09",
+    "domain": "xenturyglobal.com"
+  },
+  {
+    "dealname": "Alfa Farmacéutica, S.A. / Laboratorio Frycia - BEPH-2026-09",
+    "domain": "frycia.com"
+  },
+  {
+    "dealname": "Corporación Phara - BEPH-2026-09",
+    "domain": "corporacionphara.com"
+  },
+  {
+    "dealname": "Droguería Landívar / Land-Gruppe - BEPH-2026-09",
+    "domain": "droguerialandivar.com.gt"
+  },
+  {
+    "dealname": "KER S.A. - BEPH-2026-09",
+    "domain": "kersa.com.gt"
+  },
+  {
+    "dealname": "Laboratorio Industrial San Cristóbal, S.A. - BEPH-2026-09",
+    "domain": "laboratoriosancristobal.com"
+  },
+  {
+    "dealname": "Laboratorios Bonin - BEPH-2026-09",
+    "domain": "laboratoriosbonin.com"
+  },
+  {
+    "dealname": "Labymed - BEPH-2026-09",
+    "domain": "labymed.com.gt"
+  },
+  {
+    "dealname": "Loralva Laboratorios - BEPH-2026-09",
+    "domain": "loralva.com"
+  },
+  {
+    "dealname": "Pharma Bios - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pharmadel, S.A. / Laboratorios y Droguería Pharmadel - BEPH-2026-09",
+    "domain": "pharmadel.com.gt"
+  },
+  {
+    "dealname": "SG Pharma / SG Medicinas / Spruyt Gihlem Pharmaceutical - BEPH-2026-09",
+    "domain": "sgmedicinas.com"
+  },
+  {
+    "dealname": "Dogma Farma - BEPH-2026-09",
+    "domain": "dogmafarma.com"
+  },
+  {
+    "dealname": "Lafco Laboratorios - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "🌟 Quinfica - BEPH-2026-09",
+    "domain": "quinfica.com"
+  },
+  {
+    "dealname": "Repinsa, Representaciones Industriales - BEPH-2026-09",
+    "domain": "repinsa.com.gt"
+  },
+  {
+    "dealname": "HC Group - BEPH-2026-09",
+    "domain": "healthcc.net"
+  },
+  {
+    "dealname": "Laboratorio Farcon - BEPH-2026-09",
+    "domain": "fedefarma.org"
+  },
+  {
+    "dealname": "Asofarma Centroamérica y el Caribe - BEPH-2026-09",
+    "domain": "asofarma-ca.com"
+  },
+  {
+    "dealname": "Distribuidora de Productos Farmacéuticos S.A. Diprofarma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería Continental, S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios I.C.A. (Industriales Centroamericanos) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Ledelft, S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Oftisol - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Fedefarma - BEPH-2026-09",
+    "domain": "fedefarma.org"
+  },
+  {
+    "dealname": "Comité Gremial de Distribuidores de Productos Farmacéuticos - Cogrefarma - BEPH-2026-09",
+    "domain": "ccg.gt"
+  },
+  {
+    "dealname": "Eurofarma Guatemala / Laboratorios LAPRIN - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería COBAN - BEPH-2026-09",
+    "domain": "cobanhn.com"
+  },
+  {
+    "dealname": "Eyl Comercial SA — ECSA - BEPH-2026-09",
+    "domain": "ecsa.hn"
+  },
+  {
+    "dealname": "Droguería y Laboratorio Henie Farma S. de R.L. - BEPH-2026-09",
+    "domain": "henielab.com"
+  },
+  {
+    "dealname": "Infarma - BEPH-2026-09",
+    "domain": "infarma.hn"
+  },
+  {
+    "dealname": "Droguería Guardado - BEPH-2026-09",
+    "domain": "drogueriaguardado.com"
+  },
+  {
+    "dealname": "Anphar Corp / Anpfor - BEPH-2026-09",
+    "domain": "anphar-corp.com"
+  },
+  {
+    "dealname": "Droguería Humana S.A. - BEPH-2026-09",
+    "domain": "drogueriahumana.com"
+  },
+  {
+    "dealname": "Laboratorios Droguería Nacional S.A. de C.V. - BEPH-2026-09",
+    "domain": "droguerianacional.com"
+  },
+  {
+    "dealname": "Phar Med Sales Honduras - BEPH-2026-09",
+    "domain": "pharmedsales.com"
+  },
+  {
+    "dealname": "Laboratorios Andifar - BEPH-2026-09",
+    "domain": "andifar.com"
+  },
+  {
+    "dealname": "Laboratorio Americana - BEPH-2026-09",
+    "domain": "damericana.com"
+  },
+  {
+    "dealname": "Laboratorios MC / MC Farmacéutica - BEPH-2026-09",
+    "domain": "mc-farmaceutica.com"
+  },
+  {
+    "dealname": "Grupo Pharmaetica - BEPH-2026-09",
+    "domain": "pharmaetica.com"
+  },
+  {
+    "dealname": "Laboratorios Francelia - BEPH-2026-09",
+    "domain": "labfrancelia.com"
+  },
+  {
+    "dealname": "Laboratorios Finlay - BEPH-2026-09",
+    "domain": "finlay.hn"
+  },
+  {
+    "dealname": "Quimicas Handal de Centroamérica - BEPH-2026-09",
+    "domain": "quimicashandal.com"
+  },
+  {
+    "dealname": "Laboratorios Farsiman / Benessi Labs - BEPH-2026-09",
+    "domain": "farsiman.com"
+  },
+  {
+    "dealname": "Laboratorios Everest - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Karnel - BEPH-2026-09",
+    "domain": "karnel.net"
+  },
+  {
+    "dealname": "Laboratorios Calox Honduras - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "GASPRO Honduras S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "CORINFAR S.A. — Corporación Industrial Farmacéutica - BEPH-2026-09",
+    "domain": "corinfar.com"
+  },
+  {
+    "dealname": "Droguería Benpharma S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería Bendición y Salud S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería Europea — Adiuvo - BEPH-2026-09",
+    "domain": "fahorro.biz"
+  },
+  {
+    "dealname": "Droguería Lagomac - BEPH-2026-09",
+    "domain": "lagomac.com"
+  },
+  {
+    "dealname": "Droguería Medilab - BEPH-2026-09",
+    "domain": "medilab.hn"
+  },
+  {
+    "dealname": "Droguería Servimedica - BEPH-2026-09",
+    "domain": "drogueriaservimedica.com"
+  },
+  {
+    "dealname": "Dromeinter / Grupo Simka - BEPH-2026-09",
+    "domain": "dromeinter.com"
+  },
+  {
+    "dealname": "Farmacéutica Internacional S.A. de C.V. — FARINTER - BEPH-2026-09",
+    "domain": "farinter.hn"
+  },
+  {
+    "dealname": "Farmacias Kielsa - BEPH-2026-09",
+    "domain": "kielsa.com"
+  },
+  {
+    "dealname": "Grupo Hasther - BEPH-2026-09",
+    "domain": "hasther.com"
+  },
+  {
+    "dealname": "Grupo Pharma Internacional / Laboratorio Pharma Internacional S. de R.L. - BEPH-2026-09",
+    "domain": "pharmainternacional.com"
+  },
+  {
+    "dealname": "Laboratorios Quimifar - BEPH-2026-09",
+    "domain": "quimifar.hn"
+  },
+  {
+    "dealname": "Medex Honduras - BEPH-2026-09",
+    "domain": "expertosenmedicamentos.com"
+  },
+  {
+    "dealname": "Laboratorio Cosmética Internacional S.A. de C.V. (COINSA) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Stein Corp / Denk Pharma Honduras - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Anaprofarh - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Holistic Bienestar y Salud Integral - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "DICOSA — Distribuidora Comercial S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Interfarma Honduras - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Suppleo - BEPH-2026-09",
+    "domain": "suppleo.co"
+  },
+  {
+    "dealname": "Distribuidora Central - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "INFRA de Honduras S.A. de C.V. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Helifa / HELIFARMA - BEPH-2026-09",
+    "domain": "paill.com"
+  },
+  {
+    "dealname": "Solfahsa S.A. de C.V. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "ALTASA / Representaciones Farmacéuticas de Nicaragua (REFANIC) - BEPH-2026-09",
+    "domain": "altasa.com.ni"
+  },
+  {
+    "dealname": "Importaciones Farmacéuticas IMFARSA / Biopharma - BEPH-2026-09",
+    "domain": "imfarsa.com.ni"
+  },
+  {
+    "dealname": "Silguer, S.A. - BEPH-2026-09",
+    "domain": "silguer.com"
+  },
+  {
+    "dealname": "Apotex Nicaragua S.A. - BEPH-2026-09",
+    "domain": "apotex.com"
+  },
+  {
+    "dealname": "Casa Terán - BEPH-2026-09",
+    "domain": "casateran.com"
+  },
+  {
+    "dealname": "COFARCA — Corporación Farmacéutica de Centro América, S.A. - BEPH-2026-09",
+    "domain": "cofarca.net"
+  },
+  {
+    "dealname": "Comercial Genie Peñalba - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Didelsa - BEPH-2026-09",
+    "domain": "didelsa.com.ni"
+  },
+  {
+    "dealname": "Discarsa - BEPH-2026-09",
+    "domain": "discarsani.com"
+  },
+  {
+    "dealname": "Distribuidora César Guerrero L. S.A. (DICEGSA) - BEPH-2026-09",
+    "domain": "dicegsa.com.ni"
+  },
+  {
+    "dealname": "Droguería Rocha - BEPH-2026-09",
+    "domain": "drogueriarocha.com"
+  },
+  {
+    "dealname": "Farcosa Distribuidora - BEPH-2026-09",
+    "domain": "farcosa.com.ni"
+  },
+  {
+    "dealname": "Farmanet - BEPH-2026-09",
+    "domain": "farmanet.com.ni"
+  },
+  {
+    "dealname": "FarmaValue - BEPH-2026-09",
+    "domain": "fvalue.biz"
+  },
+  {
+    "dealname": "Generic Pharma - BEPH-2026-09",
+    "domain": "ni.genericphar.com"
+  },
+  {
+    "dealname": "Laboratorio Ferson de Nicaragua - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorio Vilfil - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios CEGUEL - BEPH-2026-09",
+    "domain": "ceguel.com.ni"
+  },
+  {
+    "dealname": "Laboratorios Generifar - BEPH-2026-09",
+    "domain": "generifar.com.ni"
+  },
+  {
+    "dealname": "Laboratorios Isnaya - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Ramos S.A. (Lab RARPE) - BEPH-2026-09",
+    "domain": "ramos.com.ni"
+  },
+  {
+    "dealname": "Los Paisas - BEPH-2026-09",
+    "domain": "lospaisas.com.ni"
+  },
+  {
+    "dealname": "NeoEthicals - BEPH-2026-09",
+    "domain": "neoethicals.com.ni"
+  },
+  {
+    "dealname": "Solka Laboratorios - BEPH-2026-09",
+    "domain": "labsolka.com.ni"
+  },
+  {
+    "dealname": "Unimark - BEPH-2026-09",
+    "domain": "unimarksa.com"
+  },
+  {
+    "dealname": "Laboratorios Bengoechea - BEPH-2026-09",
+    "domain": "labbengoechea.com.ni"
+  },
+  {
+    "dealname": "Leterago Nicaragua - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Norvich Nicaragua - BEPH-2026-09",
+    "domain": "norvichnicaragua.com"
+  },
+  {
+    "dealname": "Novameb - BEPH-2026-09",
+    "domain": "novamebsa.com"
+  },
+  {
+    "dealname": "Panzyma Laboratories - BEPH-2026-09",
+    "domain": "panzyma.com"
+  },
+  {
+    "dealname": "Pharbus S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pharmainsa — Fármacos Internacionales de Nicaragua - BEPH-2026-09",
+    "domain": "pharmainsa.com"
+  },
+  {
+    "dealname": "Probiotic - BEPH-2026-09",
+    "domain": "probiotic-sa.com"
+  },
+  {
+    "dealname": "Proquinfa - BEPH-2026-09",
+    "domain": "proquinfa.com"
+  },
+  {
+    "dealname": "Instituto Latinoamericano de Biotecnología Mechnikov - BEPH-2026-09",
+    "domain": "mechnikov.org"
+  },
+  {
+    "dealname": "Laboratorio Zymma S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Farmamedica Nicaragua - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Nicaragua Industrial Candies — NICSA - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Salud y Belleza - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Acino Pharma AG / Acino Latinoamericana (Panamá) - BEPH-2026-09",
+    "domain": "arceralifesciences.com"
+  },
+  {
+    "dealname": "Agencias Celmar - BEPH-2026-09",
+    "domain": "acelmar.com"
+  },
+  {
+    "dealname": "Corporación IMPA-DOEL, S.A. - BEPH-2026-09",
+    "domain": "impadoel.com"
+  },
+  {
+    "dealname": "DESA - Distribuidora Especializada, S.A. - BEPH-2026-09",
+    "domain": "cwpanama.net"
+  },
+  {
+    "dealname": "DHC Internacional SA - BEPH-2026-09",
+    "domain": "dhcinternacional.com"
+  },
+  {
+    "dealname": "Distribuidora Profarma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "DRGR - Droguería Ramón González Revilla, S.A. - BEPH-2026-09",
+    "domain": "drogueria-revilla.com"
+  },
+  {
+    "dealname": "Droguería Saro, S.A. - BEPH-2026-09",
+    "domain": "drogueriasaro.com"
+  },
+  {
+    "dealname": "Eurosalud - BEPH-2026-09",
+    "domain": "gsmedica.com"
+  },
+  {
+    "dealname": "Nutrimed Panamá - BEPH-2026-09",
+    "domain": "nutrimedpa.com"
+  },
+  {
+    "dealname": "Procter & Gamble - BEPH-2026-09",
+    "domain": "shared.pg.com"
+  },
+  {
+    "dealname": "Quimifar, S.A. - BEPH-2026-09",
+    "domain": "quimifar.com"
+  },
+  {
+    "dealname": "Reprico - BEPH-2026-09",
+    "domain": "reprico.com"
+  },
+  {
+    "dealname": "Serfasa - BEPH-2026-09",
+    "domain": "serfasa.com"
+  },
+  {
+    "dealname": "TC Pharma - BEPH-2026-09",
+    "domain": "tcpharmapanama.com"
+  },
+  {
+    "dealname": "GMP & Associates - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Canalab - BEPH-2026-09",
+    "domain": "canal-lab.com"
+  },
+  {
+    "dealname": "AAA Medical Distribution, S.A. - BEPH-2026-09",
+    "domain": "aaamedicaldistribution.com"
+  },
+  {
+    "dealname": "Bioexport Panamá - BEPH-2026-09",
+    "domain": "bioexportpanama.com"
+  },
+  {
+    "dealname": "CG Haseth & Cia - BEPH-2026-09",
+    "domain": "grupodehaseth.com"
+  },
+  {
+    "dealname": "Distribuidora Undeli, S.A. / Marhowil Universal - BEPH-2026-09",
+    "domain": "cableonda.net"
+  },
+  {
+    "dealname": "Droguería e Importadora Alemana SA de Panamá - BEPH-2026-09",
+    "domain": "drogueriaalemana.com"
+  },
+  {
+    "dealname": "Droguería Opunsa, S.A. - BEPH-2026-09",
+    "domain": "opunsa.com"
+  },
+  {
+    "dealname": "Farmazona, S.A. - BEPH-2026-09",
+    "domain": "farmazona.com"
+  },
+  {
+    "dealname": "Gencept - BEPH-2026-09",
+    "domain": "genceptlabs.com"
+  },
+  {
+    "dealname": "Imedesa Compañía Importadora de Medicamentos - BEPH-2026-09",
+    "domain": "imedzona.com"
+  },
+  {
+    "dealname": "iMEDICA Panamá - BEPH-2026-09",
+    "domain": "imedicasa.net"
+  },
+  {
+    "dealname": "J. Cain & Co., S.A. - BEPH-2026-09",
+    "domain": "jcain.com"
+  },
+  {
+    "dealname": "Kol Pharma - BEPH-2026-09",
+    "domain": "kolpharma.com"
+  },
+  {
+    "dealname": "LAFSA Laboratorios Farmacéuticos SA - BEPH-2026-09",
+    "domain": "lafsa.com.pa"
+  },
+  {
+    "dealname": "Laboratorio GDI Pharma, S.A. / Soluciones Farmacéuticas - BEPH-2026-09",
+    "domain": "gdipanama.com"
+  },
+  {
+    "dealname": "Laboratorios Palm - BEPH-2026-09",
+    "domain": "laboratoriospalm.com"
+  },
+  {
+    "dealname": "Laboratorios Prieto - BEPH-2026-09",
+    "domain": "laboratoriosprieto.com"
+  },
+  {
+    "dealname": "Laboratorios Rigar - BEPH-2026-09",
+    "domain": "dmdrigar.com"
+  },
+  {
+    "dealname": "Medipan - BEPH-2026-09",
+    "domain": "medipan.com.pa"
+  },
+  {
+    "dealname": "PANAMED - Compañía Panameña de Medicamentos, S.A. - BEPH-2026-09",
+    "domain": "panamed.com.pa"
+  },
+  {
+    "dealname": "Panafarma - BEPH-2026-09",
+    "domain": "panafarma.com"
+  },
+  {
+    "dealname": "Pharma Alliance - BEPH-2026-09",
+    "domain": "pharmaalliance.net"
+  },
+  {
+    "dealname": "Pharma Chimique - BEPH-2026-09",
+    "domain": "phachisa.com"
+  },
+  {
+    "dealname": "PharmaSupply - BEPH-2026-09",
+    "domain": "pharmasupplypa.com"
+  },
+  {
+    "dealname": "PMF Panamá - BEPH-2026-09",
+    "domain": "pmfpanama.com"
+  },
+  {
+    "dealname": "Us Pharmacy Group - BEPH-2026-09",
+    "domain": "uspsg.com"
+  },
+  {
+    "dealname": "Xellia Pharmaceuticals - BEPH-2026-09",
+    "domain": "xellia.com"
+  },
+  {
+    "dealname": "Abastecedora Médica (ABAMED) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Atfarma S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Distribuidora Trans Pharma, S.A. / Leterago - BEPH-2026-09",
+    "domain": "leterago.com.pa"
+  },
+  {
+    "dealname": "Eurotrade Latinoamericana, S.A. - BEPH-2026-09",
+    "domain": "eurotradesl.com"
+  },
+  {
+    "dealname": "Promed Medical - BEPH-2026-09",
+    "domain": "yourcompany.example.com"
+  },
+  {
+    "dealname": "Alvirey Pharma Group S.A. - BEPH-2026-09",
+    "domain": "alvireypharma.com"
+  },
+  {
+    "dealname": "Medical Brands International - BEPH-2026-09",
+    "domain": "medicalbrandsinternational.com"
+  },
+  {
+    "dealname": "Medimex, S.A. - BEPH-2026-09",
+    "domain": "medimexsa.com"
+  },
+  {
+    "dealname": "Kibou Pharma - BEPH-2026-09",
+    "domain": "kiboupharma.com"
+  },
+  {
+    "dealname": "Agencias Motta, S.A. - BEPH-2026-09",
+    "domain": "agmotta.com"
+  },
+  {
+    "dealname": "Comfar Saeca - BEPH-2026-09",
+    "domain": "comfar.com.py"
+  },
+  {
+    "dealname": "El Alamo - BEPH-2026-09",
+    "domain": "elalamo.com.py"
+  },
+  {
+    "dealname": "Eticos C.E.I.S.A. - BEPH-2026-09",
+    "domain": "eticos.com.py"
+  },
+  {
+    "dealname": "Guayaki S.A. / Laboratorios IMEG - BEPH-2026-09",
+    "domain": "guayaki.com.py"
+  },
+  {
+    "dealname": "Prosalud Farma - BEPH-2026-09",
+    "domain": "promefa.com"
+  },
+  {
+    "dealname": "Indufar CISA - BEPH-2026-09",
+    "domain": "indufar.com.py"
+  },
+  {
+    "dealname": "Bioethic Pharma - BEPH-2026-09",
+    "domain": "bioethicpharma.com.py"
+  },
+  {
+    "dealname": "Botica Magistral S.R.L. - BEPH-2026-09",
+    "domain": "botica.com.py"
+  },
+  {
+    "dealname": "Scavone Hnos. — Laboratorios Catedral - BEPH-2026-09",
+    "domain": "farmavone.com.py"
+  },
+  {
+    "dealname": "Tassos - BEPH-2026-09",
+    "domain": "tassos.com.py"
+  },
+  {
+    "dealname": "Farmedis - BEPH-2026-09",
+    "domain": "farmedis.com.py"
+  },
+  {
+    "dealname": "La Química Farmacéutica S.A. - BEPH-2026-09",
+    "domain": "lqf.com.py"
+  },
+  {
+    "dealname": "Farmacia Americana - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "NL Pharma - BEPH-2026-09",
+    "domain": "nlpharma.com.py"
+  },
+  {
+    "dealname": "Boller S.A. - BEPH-2026-09",
+    "domain": "boller.com.py"
+  },
+  {
+    "dealname": "Droguería Italquímica S.A. - BEPH-2026-09",
+    "domain": "italquimica.com.py"
+  },
+  {
+    "dealname": "Dutriec S.A. - BEPH-2026-09",
+    "domain": "dutriec.com.py"
+  },
+  {
+    "dealname": "Laboratorios LASCA (Vicente Scavone y Cía.) - BEPH-2026-09",
+    "domain": "lasca.com.py"
+  },
+  {
+    "dealname": "Laboratorios Almos S.A. - BEPH-2026-09",
+    "domain": "laboratoriosalmos.com.py"
+  },
+  {
+    "dealname": "Quimfa S.A. / Bioerix - BEPH-2026-09",
+    "domain": "quimfa.com.py"
+  },
+  {
+    "dealname": "Laboratorio Bagó Paraguay - BEPH-2026-09",
+    "domain": "bago.com.py"
+  },
+  {
+    "dealname": "Mather Company - BEPH-2026-09",
+    "domain": "mathercompany.com.py"
+  },
+  {
+    "dealname": "Dallas S.A. - BEPH-2026-09",
+    "domain": "dallas.com.py"
+  },
+  {
+    "dealname": "Diproan S.R.L. - BEPH-2026-09",
+    "domain": "diproan.com.py"
+  },
+  {
+    "dealname": "Heisecke Y Cía. S.A.C.I. - BEPH-2026-09",
+    "domain": "hcgrupo.com"
+  },
+  {
+    "dealname": "Laboratorios Galeno S.A. - BEPH-2026-09",
+    "domain": "galeno.com.py"
+  },
+  {
+    "dealname": "Index SACI - BEPH-2026-09",
+    "domain": "index.com.py"
+  },
+  {
+    "dealname": "Swiss Pharma Group - BEPH-2026-09",
+    "domain": "swisspharma.com.py"
+  },
+  {
+    "dealname": "Científica Ragusa S.A. - BEPH-2026-09",
+    "domain": "cientificaragusa.com"
+  },
+  {
+    "dealname": "Cassanello / Laboratorio Luis Cassanello - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Distribuidora A.M. Bustos e Hijos - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "La Policlínica Distribuidora - BEPH-2026-09",
+    "domain": "lapoliclinica.com"
+  },
+  {
+    "dealname": "Lysis Pharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "PSi Paraguay - BEPH-2026-09",
+    "domain": "psiparaguay.com.py"
+  },
+  {
+    "dealname": "VyT Farma Paraguay - BEPH-2026-09",
+    "domain": "vytfarma.com.py"
+  },
+  {
+    "dealname": "Laboratorios Delta - BEPH-2026-09",
+    "domain": "hipuu.com.py"
+  },
+  {
+    "dealname": "Farmacenter - BEPH-2026-09",
+    "domain": "farmacenter.com.py"
+  },
+  {
+    "dealname": "Punto Farma - BEPH-2026-09",
+    "domain": "puntofarma.com.py"
+  },
+  {
+    "dealname": "Medicine - BEPH-2026-09",
+    "domain": "medicine.com.py"
+  },
+  {
+    "dealname": "Laboratorios Regeneratum S.R.L. - BEPH-2026-09",
+    "domain": "regeneratum.com"
+  },
+  {
+    "dealname": "MedoPharm - BEPH-2026-09",
+    "domain": "medopharm.com.py"
+  },
+  {
+    "dealname": "Promepar S.A. - BEPH-2026-09",
+    "domain": "promepar.com.py"
+  },
+  {
+    "dealname": "Laboratorios Pan - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Millet Paraguayos - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Adium Paraguay (ex Farmacéutica Paraguaya / Fapasa) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Megalabs Paraguay - BEPH-2026-09",
+    "domain": "megalabs.com.py"
+  },
+  {
+    "dealname": "Innovapharma S.R.L. - BEPH-2026-09",
+    "domain": "innovapharma.com.py"
+  },
+  {
+    "dealname": "Roemmers Paraguay S.A.C.I. / Corporación - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "CADISFARMA (Cámara de Distribuidores Farmacéuticos) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "DPM S.R.L. - BEPH-2026-09",
+    "domain": "dpm.com.py"
+  },
+  {
+    "dealname": "Euroquímica S.A. - BEPH-2026-09",
+    "domain": "euroquimica.com.py"
+  },
+  {
+    "dealname": "Interlabo S.R.L. - BEPH-2026-09",
+    "domain": "interlabo.com.py"
+  },
+  {
+    "dealname": "Medical Supply S.A. - BEPH-2026-09",
+    "domain": "medsupar.com.py"
+  },
+  {
+    "dealname": "Promofarma S.A. - BEPH-2026-09",
+    "domain": "promofarma.com.py"
+  },
+  {
+    "dealname": "José Ruoti y Cía. S.A. - BEPH-2026-09",
+    "domain": "ruoticia.com.py"
+  },
+  {
+    "dealname": "Khairi S.A. - BEPH-2026-09",
+    "domain": "khairi.com.uy"
+  },
+  {
+    "dealname": "Gramón Paraguay S.A. - BEPH-2026-09",
+    "domain": "gramon.com.py"
+  },
+  {
+    "dealname": "Distribuidora Estrella del Norte - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Farmacéutica Paraguaya / Fapasa - BEPH-2026-09",
+    "domain": "adium.com.py"
+  },
+  {
+    "dealname": "Macro Science - BEPH-2026-09",
+    "domain": "macroscience.com.py"
+  },
+  {
+    "dealname": "Laboratorios Catedral Pharmetica - BEPH-2026-09",
+    "domain": "laboratorioscatedral.com.py"
+  },
+  {
+    "dealname": "Laboratorios As Farm - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorio CIN - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorio Clinical - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Bilac Farmacéutica - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Materprim CRL - BEPH-2026-09",
+    "domain": "materprim.com.py"
+  },
+  {
+    "dealname": "Laboratorios Benavente - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Millet - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Sigran Internacional SRL - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Roslym - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Industria Química Farmacéutica - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "AC Farma / Laboratorios AC Farma - BEPH-2026-09",
+    "domain": "acfarma.com"
+  },
+  {
+    "dealname": "BMC Farma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Corporación Boticas Perú - BEPH-2026-09",
+    "domain": "boticasperu.com.pe"
+  },
+  {
+    "dealname": "Farmaniacos - BEPH-2026-09",
+    "domain": "farmaniacos.com"
+  },
+  {
+    "dealname": "Farmavita Group - BEPH-2026-09",
+    "domain": "asg.com.co"
+  },
+  {
+    "dealname": "Instituto Quimioterápico - IQ Farma - BEPH-2026-09",
+    "domain": "iqfarma.com"
+  },
+  {
+    "dealname": "Laboratorios Elifarma, SA - BEPH-2026-09",
+    "domain": "elifarma.com"
+  },
+  {
+    "dealname": "Laboratorios Lansier - BEPH-2026-09",
+    "domain": "lansier.com"
+  },
+  {
+    "dealname": "Laboratorios Pharmed Corporation - BEPH-2026-09",
+    "domain": "pharmedcorporation.com"
+  },
+  {
+    "dealname": "Laboratorios Portugal / Portugal - BEPH-2026-09",
+    "domain": "laboratoriosportugal.com"
+  },
+  {
+    "dealname": "Laboratorios Delfarma SAC - BEPH-2026-09",
+    "domain": "delfarma.net"
+  },
+  {
+    "dealname": "MK Pharma - Corporacion MK Farmacéutica del Norte - BEPH-2026-09",
+    "domain": "mkpharma.com.pe"
+  },
+  {
+    "dealname": "Alkopharma Laboratorio Farmacéutico - BEPH-2026-09",
+    "domain": "asgmedical.com.pe"
+  },
+  {
+    "dealname": "ASG Medical - BEPH-2026-09",
+    "domain": "asgmedical.com.pe"
+  },
+  {
+    "dealname": "Bonapharm - BEPH-2026-09",
+    "domain": "bonapharm.com.pe"
+  },
+  {
+    "dealname": "Botica Magistral Firstmed Pharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Boticas y Salud - BEPH-2026-09",
+    "domain": "boticasysalud.com"
+  },
+  {
+    "dealname": "Corpol - BEPH-2026-09",
+    "domain": "corpol.com.pe"
+  },
+  {
+    "dealname": "Dimexa - BEPH-2026-09",
+    "domain": "dimexa.com.pe"
+  },
+  {
+    "dealname": "Droguería Dicar - BEPH-2026-09",
+    "domain": "drogueriadicar.com.pe"
+  },
+  {
+    "dealname": "Droguería Drofarma - BEPH-2026-09",
+    "domain": "drofarma.com.pe"
+  },
+  {
+    "dealname": "Droguería Farmachal - BEPH-2026-09",
+    "domain": "farmachal.com.pe"
+  },
+  {
+    "dealname": "D&M Pharma Perú - BEPH-2026-09",
+    "domain": "dympharmaperu.com"
+  },
+  {
+    "dealname": "Eske Group / Droguería Laboratorio Baxley Group SAC - BEPH-2026-09",
+    "domain": "eskegroup.com"
+  },
+  {
+    "dealname": "Eurolabs - BEPH-2026-09",
+    "domain": "eurolabs.pe"
+  },
+  {
+    "dealname": "Farmacéutica OtarvasQ - BEPH-2026-09",
+    "domain": "otarvasq.com"
+  },
+  {
+    "dealname": "Genslab Pharmaceutical - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "GOMED Pharmaceuticals - BEPH-2026-09",
+    "domain": "gomed.pe"
+  },
+  {
+    "dealname": "Importaciones Bedok - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Labofta - BEPH-2026-09",
+    "domain": "labofta.com"
+  },
+  {
+    "dealname": "Laboratorio Biopas - BEPH-2026-09",
+    "domain": "swixxbiopharma.com"
+  },
+  {
+    "dealname": "Laboratorio H&K Pharma - BEPH-2026-09",
+    "domain": "hkpharma.pe"
+  },
+  {
+    "dealname": "Laboratorio Induquímica - BEPH-2026-09",
+    "domain": "induquimica.com.pe"
+  },
+  {
+    "dealname": "Laboratorios Americanos - LABOT Laboratorios S.A.C. - BEPH-2026-09",
+    "domain": "labot.com.pe"
+  },
+  {
+    "dealname": "Pharma Hosting - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pharmaris - BEPH-2026-09",
+    "domain": "pharmaris.com"
+  },
+  {
+    "dealname": "Q Pharma SAC / Global Med Farma - BEPH-2026-09",
+    "domain": "globalmedfarma.com"
+  },
+  {
+    "dealname": "Roxfarma Laboratorio Farmacéutico - BEPH-2026-09",
+    "domain": "roxfarma.com"
+  },
+  {
+    "dealname": "Sebal Farma - BEPH-2026-09",
+    "domain": "sebalgroup.com"
+  },
+  {
+    "dealname": "Tecnofarma del Perú S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Vitaline - BEPH-2026-09",
+    "domain": "vitaline.com.pe"
+  },
+  {
+    "dealname": "Vitapharma / Keyfarm - BEPH-2026-09",
+    "domain": "keyfarm.com.pe"
+  },
+  {
+    "dealname": "Yargo Internacional - BEPH-2026-09",
+    "domain": "yargointernacional.com"
+  },
+  {
+    "dealname": "Droguería Kuresa (División Farma) - BEPH-2026-09",
+    "domain": "pegafan.com"
+  },
+  {
+    "dealname": "Jobal Pharma E.I.R.L. - BEPH-2026-09",
+    "domain": "jobalpharma.com.pe"
+  },
+  {
+    "dealname": "Laboratorio Medico Biologicos H. Colichon S.A.C. (Colichon) - BEPH-2026-09",
+    "domain": "laboratorioscolichon.com"
+  },
+  {
+    "dealname": "M&M Productos Médicos y Farmacéuticos - BEPH-2026-09",
+    "domain": "mym.com.pe"
+  },
+  {
+    "dealname": "Sherfarma S.A. - BEPH-2026-09",
+    "domain": "sherfarma.com"
+  },
+  {
+    "dealname": "Cifarma S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Grunenthal Peruana S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "https://www.oqcorp.com.pe/oqcorp/ - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "OQ Pharma - BEPH-2026-09",
+    "domain": "maperu.com.pe"
+  },
+  {
+    "dealname": "ABBA SAC - BEPH-2026-09",
+    "domain": "abba.com.pe"
+  },
+  {
+    "dealname": "Bagó Perú - BEPH-2026-09",
+    "domain": "bagoperu.com.pe"
+  },
+  {
+    "dealname": "Hersil - BEPH-2026-09",
+    "domain": "hersil.com.pe"
+  },
+  {
+    "dealname": "Medifarma - BEPH-2026-09",
+    "domain": "caipsa.com.pe"
+  },
+  {
+    "dealname": "A. Jaime Rojas - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "ALBIS .S.A. / Cifarma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Advantage Medical - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Anglo Trading - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Asefarm SAC - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Atilio Palmieri - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Beramed - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "BioPro Perú - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Biosafe Industries - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Bio Reg Pharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Braco inversiones s.a.c. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Bran Medical - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería Peruana Pharmaceutical SAC - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Caferma SAC - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Centro Homeopático Drs. Corbacho - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Cepco S.A.C. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Cifarma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Difarlib Distribuidora Farmaceutica La Libertad, Srl - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Distribuidora Las Americas - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "DMD Perú - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Doctor Andreu - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería Anemfarma SAC - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería MYM - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Dubonp, S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Eckerd Perú - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "EUROFARMA - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Euro Latina Healthcare - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Farmakonsuma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Gabblan - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Hanai SRL - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "HomeoPerú Botikas - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Keyfarma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorio Atral (Grupo Atral-Cipan) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios FitoSana - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorio Intipharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorio Tabbler - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Farmacéuticos Markos SA - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Midaf - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios M&G Vida Natural - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Quilla Perú - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Roster S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios REFASA Carrion-Eurofarma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Lukoll - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Master Farma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Medicas Peru - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Medphar Sac Peru - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Medrock - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Mifarma (pertenece al grupo Quicorp) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Oli Med - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "P & G Distribuidores S.R.L. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pereda Distribuidores - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "PERFAR Droguerias - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Perufarma S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pharma Consulting S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pharma Solutions Peru - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Phymed - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "PRIMUS MEDICAL - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Quiarsa - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Quimica Suiza Industrial - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Santa Natura - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Scop del Perú - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Sherfarma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Tarrillo Barba - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Tecnológica de Alimentos - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Unilene - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "World Pharma S.A.C. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "YORMAXS - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "MANA PHARMA S.L. - BEPH-2026-09",
+    "domain": "manapharma.net"
+  },
+  {
+    "dealname": "Covex S.A. - BEPH-2026-09",
+    "domain": "covex.es"
+  },
+  {
+    "dealname": "VIVUNT Oncology - BEPH-2026-09",
+    "domain": "vivunt.es"
+  },
+  {
+    "dealname": "Caillon & Hamonet - BEPH-2026-09",
+    "domain": "caillon.com.uy"
+  },
+  {
+    "dealname": "Laboratorios Servimedic — Megalabs - BEPH-2026-09",
+    "domain": "servimedic.com.uy"
+  },
+  {
+    "dealname": "Roemmers Uruguay — Megalabs - BEPH-2026-09",
+    "domain": "megalabs.com.uy"
+  },
+  {
+    "dealname": "NPS Uruguay — NutriPharma Solutions - BEPH-2026-09",
+    "domain": "nps.uy"
+  },
+  {
+    "dealname": "Selby / Terry S.A. - BEPH-2026-09",
+    "domain": "selby.com.uy"
+  },
+  {
+    "dealname": "Adium Uruguay - BEPH-2026-09",
+    "domain": "adium.com.uy"
+  },
+  {
+    "dealname": "Fármaco Uruguayo — Medifarma - BEPH-2026-09",
+    "domain": "fu.com.uy"
+  },
+  {
+    "dealname": "Gramon Bagó de Uruguay - BEPH-2026-09",
+    "domain": "gramonbago.com.uy"
+  },
+  {
+    "dealname": "Laboratorio Ion S.A. - BEPH-2026-09",
+    "domain": "laboratorioion.com"
+  },
+  {
+    "dealname": "Laboratorios Celsius S.A. - BEPH-2026-09",
+    "domain": "celsius.com.uy"
+  },
+  {
+    "dealname": "Urufarma S.A. - BEPH-2026-09",
+    "domain": "urufarma.com.uy"
+  },
+  {
+    "dealname": "Laboratorios Dispert - BEPH-2026-09",
+    "domain": "adinet.com.uy"
+  },
+  {
+    "dealname": "Lazar S.A. - BEPH-2026-09",
+    "domain": "lazar.com.uy"
+  },
+  {
+    "dealname": "Szabo Siegfried - BEPH-2026-09",
+    "domain": "szabo.com.uy"
+  },
+  {
+    "dealname": "Noas Farma Uruguay S.A. - BEPH-2026-09",
+    "domain": "noasfarma.com.uy"
+  },
+  {
+    "dealname": "ICU Vita S.A. - BEPH-2026-09",
+    "domain": "icuvita.com.uy"
+  },
+  {
+    "dealname": "Cibeles - BEPH-2026-09",
+    "domain": "cibeles.com.uy"
+  },
+  {
+    "dealname": "Efa Laboratorios Asociados — Antia Moll & Cia. - BEPH-2026-09",
+    "domain": "efa.com.uy"
+  },
+  {
+    "dealname": "Spefar S.A. - BEPH-2026-09",
+    "domain": "spefar.com"
+  },
+  {
+    "dealname": "Prolab - BEPH-2026-09",
+    "domain": "laboratorioprolab.com"
+  },
+  {
+    "dealname": "Promofarma SRL. - BEPH-2026-09",
+    "domain": "promofarma.com.uy"
+  },
+  {
+    "dealname": "Rinque Pharma - BEPH-2026-09",
+    "domain": "rinque.com"
+  },
+  {
+    "dealname": "Ebromar Lab - BEPH-2026-09",
+    "domain": "ebromar.com.uy"
+  },
+  {
+    "dealname": "Nolver S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Segena Labs / Lankpharma - BEPH-2026-09",
+    "domain": "lankpharma.com"
+  },
+  {
+    "dealname": "Meditech Uruguay Ltda. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pharmazona / Stitipharma - BEPH-2026-09",
+    "domain": "pharmazona.com.uy"
+  },
+  {
+    "dealname": "Baliarda - BEPH-2026-09",
+    "domain": "baliarda.com.uy"
+  },
+  {
+    "dealname": "Novophar Quimfa - BEPH-2026-09",
+    "domain": "novophar.com.uy"
+  },
+  {
+    "dealname": "Laboratorios Haymann — Megalabs - BEPH-2026-09",
+    "domain": "haymann.com.uy"
+  },
+  {
+    "dealname": "Higia - BEPH-2026-09",
+    "domain": "higia.com.uy"
+  },
+  {
+    "dealname": "Laboratorios Abies - BEPH-2026-09",
+    "domain": "laboratoriosabies.com.uy"
+  },
+  {
+    "dealname": "ARCOS Biomedical - BEPH-2026-09",
+    "domain": "arcos.com.uy"
+  },
+  {
+    "dealname": "Coxery Laboratorio - BEPH-2026-09",
+    "domain": "coxery.com.uy"
+  },
+  {
+    "dealname": "Siac - BEPH-2026-09",
+    "domain": "siac.com.uy"
+  },
+  {
+    "dealname": "Blau Farmaceutica - BEPH-2026-09",
+    "domain": "blaufarma.com.uy"
+  },
+  {
+    "dealname": "Biotoscana / Knight - BEPH-2026-09",
+    "domain": "grupobiotoscana.com"
+  },
+  {
+    "dealname": "Laboratorios Microsules Uruguay - BEPH-2026-09",
+    "domain": "laboratoriosmicrosules.com"
+  },
+  {
+    "dealname": "D4 Logística & Distribución - BEPH-2026-09",
+    "domain": "d4.uy"
+  },
+  {
+    "dealname": "Farmalog - BEPH-2026-09",
+    "domain": "farmalog.com.uy"
+  },
+  {
+    "dealname": "Blossom Pharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Apiter - BEPH-2026-09",
+    "domain": "apiter.com"
+  },
+  {
+    "dealname": "Biocontrolled / Grupo Leti - BEPH-2026-09",
+    "domain": "grupoleti.com"
+  },
+  {
+    "dealname": "Laboratorios Valmorca - BEPH-2026-09",
+    "domain": "valmorca.com.ve"
+  },
+  {
+    "dealname": "Saga Lifesciences Limited - BEPH-2026-09",
+    "domain": "sagalifesciences.com"
+  },
+  {
+    "dealname": "Superfharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "SYACLLC, C.A - BEPH-2026-09",
+    "domain": "syacllc.com"
+  },
+  {
+    "dealname": "Laboratorio Behrens - BEPH-2026-09",
+    "domain": "labbehrens.com"
+  },
+  {
+    "dealname": "Cafar Laboratorios (Cía. Anónima Farmacéutica Cafar) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Dronena S.A. - BEPH-2026-09",
+    "domain": "dronena.com"
+  },
+  {
+    "dealname": "FC Pharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Genia Care - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Insumos Metrópolis - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorio Cofasa - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Buka - BEPH-2026-09",
+    "domain": "laboratoriosbuka.com"
+  },
+  {
+    "dealname": "Laboratorios Chemycal's Soma - BEPH-2026-09",
+    "domain": "soma.com.ve"
+  },
+  {
+    "dealname": "Laboratorios Oftalmi - BEPH-2026-09",
+    "domain": "oftalmi.com"
+  },
+  {
+    "dealname": "Laboratorios Roemmers / Megalabs - BEPH-2026-09",
+    "domain": "megalabs.com.ve"
+  },
+  {
+    "dealname": "Laboratorios Ronava - BEPH-2026-09",
+    "domain": "farma.com.ve"
+  },
+  {
+    "dealname": "Laboratorios SAUDE - BEPH-2026-09",
+    "domain": "laboratoriosaude.com"
+  },
+  {
+    "dealname": "Laboratorios Vargas, SA / Grupo Vargas - BEPH-2026-09",
+    "domain": "laboratoriosvargas.com"
+  },
+  {
+    "dealname": "Laboratorios Vincenti - BEPH-2026-09",
+    "domain": "vincentilab.com"
+  },
+  {
+    "dealname": "Laboratorios Vivax Pharmaceuticals - BEPH-2026-09",
+    "domain": "vivax.com.ve"
+  },
+  {
+    "dealname": "Polinac Laboratorios Politécnicos Nacionales - BEPH-2026-09",
+    "domain": "laboratoriospolinac.com"
+  },
+  {
+    "dealname": "Roussel de Venezuela - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "SM Pharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Zuoz Pharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Elmor S.A. - BEPH-2026-09",
+    "domain": "elmor.com.ve"
+  },
+  {
+    "dealname": "Laboratorios Spefar Venezolanos S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Klinos C.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Kimiceg C.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "CCM Farma (Representaciones Farmacéuticas CCM C.A.) - BEPH-2026-09",
+    "domain": "ccmfarma.com"
+  },
+  {
+    "dealname": "Apolo Farma C.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería del Oeste C.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería VAAMED - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pharmed Enterprises C.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería Pharmastat C.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería Supplyfar - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Adium Venezuela (ex-Laboratorios Nolver) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pharmetique Labs / La Santé Venezuela - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Global Farma Venezuela S.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Grupo COBECA (Droguería Cobeca) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería CER, C.A. (Drocerca) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Grupo JL de Venezuela (Droguería JL) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Droguería Farmacéutica de Venezuela (DFV) - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Balker C.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "AVPharma C.A. - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Ravel Casa de Representación - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Pediatrics Pharma - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Convit Group - Vitalaps - BEPH-2026-09",
+    "domain": "convitgroup.com"
+  },
+  {
+    "dealname": "Laboratorios Biopas - BEPH-2026-09",
+    "domain": ""
+  },
+  {
+    "dealname": "Laboratorios Leti SAV / Grupo Leti - BEPH-2026-09",
+    "domain": "leti.com.ve"
+  }
+]

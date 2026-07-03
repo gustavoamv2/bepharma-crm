@@ -96,6 +96,7 @@ export const admin = {
   updateEmail:     (username, emailUser, emailPass) => api.patch(`/admin/users/${username}/email`, { emailUser, emailPass }).then(r => r.data),
   getIntegrations: ()                               => api.get('/admin/integrations').then(r => r.data),
   recomputeAutoStages: ()                            => api.post('/admin/recompute-auto-stages').then(r => r.data),
+  getEmailStatus:  ()                               => api.get('/admin/email-status').then(r => r.data),
 }
 
 // ── Email ─────────────────────────────────────────────────────────────────────

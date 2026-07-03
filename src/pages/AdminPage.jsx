@@ -21,6 +21,18 @@ const ROLE_BADGE = {
   operator:   { label: 'Operador',   bg: '#deebff', color: '#0052cc' },
 }
 
+// Direcciones @bepharma.org reales de cada usuario (mismas usadas en HubSpot
+// como owner) — se usan para prellenar el campo de correo y que sea más
+// difícil equivocarse de dirección al configurar EMAIL_USER_* por operador.
+const KNOWN_EMAILS = {
+  roberto: 'rmartinez@bepharma.org',
+  yesenia: 'yesenia@bepharma.org',
+  angel:   'international@bepharma.org',
+  gracie:  'worldwide@bepharma.org',
+  carlos:  'information@bepharma.org',
+  sara:    'global@bepharma.org',
+}
+
 function IntegrationStatus() {
   const [refetchKey, setRefetchKey] = useState(0)
   const { data, isLoading, error } = useQuery(
@@ -110,6 +122,9 @@ export default function AdminPage() {
   const { data: users, isLoading } = useQuery('admin-users', admin.getUsers)
 
   const isSupervisor = user?.role === 'supervisor'
+
+  const { data: emailStatus } = useQuery('admin-email-status', admin.getEmailStatus, { enabled: isSupervisor })
+  const emailStatusByUser = Object.fromEntries((emailStatus || []).map(s => [s.username, s]))
 
   // Filas visibles: supervisor ve todos, operador solo se ve a sí mismo
   const visibleUsers = isSupervisor
@@ -414,34 +429,49 @@ export default function AdminPage() {
             <h2 style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <Mail size={15} style={{ color: '#42a5f5' }} /> Configuración de Correo por Usuario
             </h2>
-            <span style={{ fontSize: 11, color: '#6b778c' }}>Outlook / Office 365 · smtp.office365.com:587</span>
+            <span style={{ fontSize: 11, color: '#6b778c' }}>Define de qué buzón sale cada correo enviado desde el CRM</span>
           </div>
           <div className="card-body">
             <p style={{ fontSize: 12, color: '#6b778c', marginBottom: 14 }}>
-              Ingresa el correo y contraseña de cada usuario. Copia el comando generado y ejecútalo en PowerShell desde la carpeta <code>bepharma-crm</code> para configurarlo en Vercel.
+              Cada usuario debe tener su propio <code>EMAIL_USER_&#123;usuario&#125;</code> en Vercel — si no lo tiene, sus correos salen por el remitente por defecto (badge amarillo abajo) en vez de su propia dirección.
+              Con Resend (modo actual) <strong>no hace falta contraseña</strong>, solo el correo. Copia el comando generado y ejecútalo en PowerShell desde la carpeta <code>bepharma-crm</code>.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {visibleUsers.map(u => {
                 const f = emailForm[u.username] || {}
                 const isOpen = showEmailCmd === u.username
-                const cmd = `echo "${f.user || 'CORREO@empresa.com'}" | vercel env add EMAIL_USER_${u.username.toUpperCase()} production --force\necho "${f.pass || 'CONTRASENA'}" | vercel env add EMAIL_PASS_${u.username.toUpperCase()} production --force`
+                const emailValue = f.user ?? KNOWN_EMAILS[u.username] ?? 'CORREO@empresa.com'
+                const cmd = `echo "${emailValue}" | vercel env add EMAIL_USER_${u.username.toUpperCase()} production --force`
+                  + (f.pass ? `\necho "${f.pass}" | vercel env add EMAIL_PASS_${u.username.toUpperCase()} production --force` : '')
+                const st = emailStatusByUser[u.username]
                 return (
                   <div key={u.username} style={{ border: '1px solid #e2e8f0', borderRadius: 8, padding: 12 }}>
                     <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr 1fr auto', gap: 10, alignItems: 'center' }}>
                       <div>
                         <div style={{ fontWeight: 600, fontSize: 13 }}>{u.name}</div>
                         <div style={{ fontSize: 11, color: '#6b778c' }}>@{u.username}</div>
+                        {st && (
+                          <div style={{
+                            marginTop: 4, fontSize: 10, fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 3,
+                            padding: '1px 6px', borderRadius: 10,
+                            background: st.configured ? '#e3fcef' : '#fff3cd',
+                            color: st.configured ? '#006644' : '#8a6914',
+                          }}>
+                            {st.configured ? <Check size={9} /> : <AlertTriangle size={9} />}
+                            {st.configured ? st.emailUser : 'Sin EMAIL_USER_* — envía por el remitente por defecto'}
+                          </div>
+                        )}
                       </div>
                       <input
                         type="email"
                         placeholder="correo@empresa.com"
-                        value={f.user || ''}
+                        value={f.user ?? KNOWN_EMAILS[u.username] ?? ''}
                         onChange={e => setEmailField(u.username, 'user', e.target.value)}
                         style={{ padding: '6px 8px', border: '1px solid #dfe1e6', borderRadius: 5, fontSize: 13 }}
                       />
                       <input
                         type="password"
-                        placeholder="Contraseña Outlook"
+                        placeholder="Solo si usas SMTP/Graph — Resend no la necesita"
                         value={f.pass || ''}
                         onChange={e => setEmailField(u.username, 'pass', e.target.value)}
                         style={{ padding: '6px 8px', border: '1px solid #dfe1e6', borderRadius: 5, fontSize: 13 }}

@@ -8,6 +8,7 @@ import { hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import RecordModal from '../components/RecordModal'
 import { useAuth } from '../contexts/AuthContext'
+import { COUNTRIES } from '../constants/countries'
 
 const fmt = (v) => v ? format(parseISO(v), 'dd MMM yy', { locale: es }) : '—'
 
@@ -36,6 +37,8 @@ export default function CompanyList() {
   const [history, setHistory] = useState([])
   const [showCreate, setShowCreate] = useState(false)
   const [hideBlacklist, setHideBlacklist] = useState(true)
+  const [countryFilter, setCountryFilter] = useState('') // valor en inglés (propiedad HubSpot 'country')
+  const [contactsFilter, setContactsFilter] = useState('') // '' | 'with' | 'without'
 
   // Pre-filter from Dashboard company pipeline navigation
   const stageFilter = location.state?.stage || null
@@ -43,10 +46,13 @@ export default function CompanyList() {
   const filters = []
   if (search) filters.push({ propertyName: 'name', operator: 'CONTAINS_TOKEN', value: search })
   if (stageFilter) filters.push({ propertyName: 'bp_etapa_empresa', operator: 'EQ', value: stageFilter })
+  if (countryFilter) filters.push({ propertyName: 'country', operator: 'EQ', value: countryFilter })
+
+  const resetPaging = () => { setAfter(null); setHistory([]) }
 
   const { data, isLoading, error } = useQuery(
-    ['companies', search, after],
-    () => hubspot.searchCompanies({ filters, sorts: [{ propertyName: 'hs_lastmodifieddate', direction: 'DESCENDING' }], limit: 25, after }),
+    ['companies', search, countryFilter, contactsFilter, after],
+    () => hubspot.searchCompanies({ filters, contactsFilter: contactsFilter || undefined, sorts: [{ propertyName: 'hs_lastmodifieddate', direction: 'DESCENDING' }], limit: 25, after }),
     { keepPreviousData: true }
   )
 
@@ -66,7 +72,26 @@ export default function CompanyList() {
       } />
       <div className="content">
         <div className="search-bar" style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <input placeholder="Buscar empresa…" value={search} onChange={e => { setSearch(e.target.value); setAfter(null); setHistory([]) }} style={{ flex: 1 }} />
+          <input placeholder="Buscar empresa…" value={search} onChange={e => { setSearch(e.target.value); resetPaging() }} style={{ flex: 1 }} />
+          <select
+            value={countryFilter}
+            onChange={e => { setCountryFilter(e.target.value); resetPaging() }}
+            style={{ flex: '0 0 150px', width: 150, fontSize: 12, padding: '6px 8px', borderRadius: 6, border: '1px solid #dfe1e6', color: '#42526e' }}
+          >
+            <option value="">Todos los países</option>
+            {COUNTRIES.map(c => (
+              <option key={c.en} value={c.en}>{c.label}</option>
+            ))}
+          </select>
+          <select
+            value={contactsFilter}
+            onChange={e => { setContactsFilter(e.target.value); resetPaging() }}
+            style={{ flex: '0 0 150px', width: 150, fontSize: 12, padding: '6px 8px', borderRadius: 6, border: '1px solid #dfe1e6', color: '#42526e' }}
+          >
+            <option value="">Con o sin contactos</option>
+            <option value="with">Con contactos</option>
+            <option value="without">Sin contactos</option>
+          </select>
           <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#6b778c', flexShrink: 0, cursor: 'pointer', whiteSpace: 'nowrap' }}>
             <input
               type="checkbox"

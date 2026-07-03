@@ -11,7 +11,7 @@ const nodemailer = require('nodemailer')
 const fs = require('fs')
 const path = require('path')
 const FormData = require('form-data')
-const { login, requireAuth, applyOwnerFilter, applyCountryFilter } = require('./auth')
+const { login, requireAuth, applyOwnerFilter, applyCountryFilter, addFilterToGroups } = require('./auth')
 const { requireWebhookToken } = require('./middleware/webhookAuth')
 const { errorHandler } = require('./middleware/errorHandler')
 const { loadUsers, saveUsers } = require('./usersStore')
@@ -184,10 +184,28 @@ app.get('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
 
 // Empresas – búsqueda (sin filtro de owner: las empresas son registros compartidos;
 // sí se restringen por país cuando el operador tiene países asignados en su config)
+// contactsFilter: 'with' → solo empresas con contactos asociados (num_associated_contacts > 0)
+//                 'without' → solo empresas sin contactos (propiedad ausente o en 0)
+function withContactsFilter(filterGroups, contactsFilter) {
+  if (contactsFilter === 'with') {
+    return addFilterToGroups(filterGroups, { propertyName: 'num_associated_contacts', operator: 'GT', value: '0' })
+  }
+  if (contactsFilter === 'without') {
+    const base = filterGroups.length ? filterGroups : [{ filters: [] }]
+    return base.flatMap(group => ([
+      { ...group, filters: [...(group.filters || []), { propertyName: 'num_associated_contacts', operator: 'NOT_HAS_PROPERTY' }] },
+      { ...group, filters: [...(group.filters || []), { propertyName: 'num_associated_contacts', operator: 'EQ', value: '0' }] },
+    ]))
+  }
+  return filterGroups
+}
+
 app.post('/api/hubspot/companies/search', requireAuth, async (req, res) => {
   try {
-    const { filters = [], sorts = [], limit = 50, after, properties: customProps } = req.body
-    const filterGroups = applyCountryFilter(req, filters.length ? [{ filters }] : [], 'country', { translate: true })
+    const { filters = [], sorts = [], limit = 50, after, properties: customProps, contactsFilter } = req.body
+    let filterGroups = filters.length ? [{ filters }] : []
+    filterGroups = withContactsFilter(filterGroups, contactsFilter)
+    filterGroups = applyCountryFilter(req, filterGroups, 'country', { translate: true })
     const r = await hs.post('/crm/v3/objects/companies/search', {
       filterGroups,
       sorts,

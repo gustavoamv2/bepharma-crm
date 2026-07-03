@@ -1,0 +1,3723 @@
+[
+  {
+    "companyId": "56494382448",
+    "nombreSugerido": "Laboratoires Théa",
+    "nombresCandidatos": [
+      "Laboratoires Théa"
+    ],
+    "numContactos": 9,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56462732560",
+    "nombreSugerido": "ProductLife Group",
+    "nombresCandidatos": [
+      "ProductLife Group"
+    ],
+    "numContactos": 6,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56496845585",
+    "nombreSugerido": "Laboratoire CCD",
+    "nombresCandidatos": [
+      "Laboratoire CCD"
+    ],
+    "numContactos": 6,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56483303697",
+    "nombreSugerido": "Belize Pharma Supplies Ltd",
+    "nombresCandidatos": [
+      "Belize Pharma Supplies Ltd"
+    ],
+    "numContactos": 5,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485051204",
+    "nombreSugerido": "Farmahispania",
+    "nombresCandidatos": [
+      "Farmahispania"
+    ],
+    "numContactos": 5,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56491042964",
+    "nombreSugerido": "Drogueria Betances, LLC",
+    "nombresCandidatos": [
+      "Drogueria Betances, LLC"
+    ],
+    "numContactos": 5,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495468634",
+    "nombreSugerido": "Fundacion Fiocruz",
+    "nombresCandidatos": [
+      "Fundacion Fiocruz"
+    ],
+    "numContactos": 5,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495608977",
+    "nombreSugerido": "Alembic Pharmaceuticals Ltd.",
+    "nombresCandidatos": [
+      "Alembic Pharmaceuticals Ltd."
+    ],
+    "numContactos": 5,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56496390146",
+    "nombreSugerido": "Herbarium Laboratório Botânico",
+    "nombresCandidatos": [
+      "Herbarium Laboratório Botânico"
+    ],
+    "numContactos": 5,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466273705",
+    "nombreSugerido": "Gerolymatos International S.A.",
+    "nombresCandidatos": [
+      "Gerolymatos International S.A."
+    ],
+    "numContactos": 4,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466419871",
+    "nombreSugerido": "Avalon Pharma (Middle East Pharmaceutical Industries Co.)",
+    "nombresCandidatos": [
+      "Avalon Pharma (Middle East Pharmaceutical Industries Co.)"
+    ],
+    "numContactos": 4,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466872758",
+    "nombreSugerido": "Dixons Pharmaceuticals UK Ltd",
+    "nombresCandidatos": [
+      "Dixons Pharmaceuticals UK Ltd"
+    ],
+    "numContactos": 4,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467471640",
+    "nombreSugerido": "Hemolab Pharma",
+    "nombresCandidatos": [
+      "Hemolab Pharma"
+    ],
+    "numContactos": 4,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473448004",
+    "nombreSugerido": "Coaspharma",
+    "nombresCandidatos": [
+      "Coaspharma"
+    ],
+    "numContactos": 4,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474504852",
+    "nombreSugerido": "Innogene Kalbiotech",
+    "nombresCandidatos": [
+      "Innogene Kalbiotech"
+    ],
+    "numContactos": 4,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476711478",
+    "nombreSugerido": "Medifarma",
+    "nombresCandidatos": [
+      "Medifarma"
+    ],
+    "numContactos": 4,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56484395788",
+    "nombreSugerido": "Ice Care Corporation",
+    "nombresCandidatos": [
+      "Ice Care Corporation"
+    ],
+    "numContactos": 4,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485377063",
+    "nombreSugerido": "Laboratorios Biogalenic",
+    "nombresCandidatos": [
+      "Laboratorios Biogalenic"
+    ],
+    "numContactos": 4,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488426050",
+    "nombreSugerido": "Protina Pharmazeutische GmbH",
+    "nombresCandidatos": [
+      "Protina Pharmazeutische GmbH"
+    ],
+    "numContactos": 4,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56490111541",
+    "nombreSugerido": "Tiefenbacher API",
+    "nombresCandidatos": [
+      "Tiefenbacher API"
+    ],
+    "numContactos": 4,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56492887564",
+    "nombreSugerido": "Porton Pharma Solutions Ltd.",
+    "nombresCandidatos": [
+      "Porton Pharma Solutions Ltd."
+    ],
+    "numContactos": 4,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56498305335",
+    "nombreSugerido": "Ali Al-Suwaidi Trading",
+    "nombresCandidatos": [
+      "Ali Al-Suwaidi Trading"
+    ],
+    "numContactos": 4,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56461982075",
+    "nombreSugerido": "Anphar Corp / Anpfor",
+    "nombresCandidatos": [
+      "Anphar Corp / Anpfor"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465223304",
+    "nombreSugerido": "Union Chemical & Pharmaceutical",
+    "nombresCandidatos": [
+      "Union Chemical & Pharmaceutical"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465533306",
+    "nombreSugerido": "Specialized Therapeutics",
+    "nombresCandidatos": [
+      "Specialized Therapeutics"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466597274",
+    "nombreSugerido": "Sterling Pharma Solutions",
+    "nombresCandidatos": [
+      "Sterling Pharma Solutions"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466598560",
+    "nombreSugerido": "Grupo Biotoscana",
+    "nombresCandidatos": [
+      "Grupo Biotoscana"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466712498",
+    "nombreSugerido": "Steripharma",
+    "nombresCandidatos": [
+      "Steripharma"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467319102",
+    "nombreSugerido": "Szabo Siegfried",
+    "nombresCandidatos": [
+      "Szabo Siegfried"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467626893",
+    "nombreSugerido": "Evolve Biologics",
+    "nombresCandidatos": [
+      "Evolve Biologics"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469518871",
+    "nombreSugerido": "Endoret (BTI Biotechnology Institute)",
+    "nombresCandidatos": [
+      "Endoret (BTI Biotechnology Institute)"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56470183606",
+    "nombreSugerido": "Acebright Pharmaceuticals",
+    "nombresCandidatos": [
+      "Acebright Pharmaceuticals"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56470658840",
+    "nombreSugerido": null,
+    "nombresCandidatos": [
+      "Grupo Azevedos",
+      "Sofarimex"
+    ],
+    "numContactos": 3,
+    "ambiguous": true
+  },
+  {
+    "companyId": "56471280182",
+    "nombreSugerido": "Cyhlab",
+    "nombresCandidatos": [
+      "Cyhlab"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56472820849",
+    "nombreSugerido": "Laboratorio Química Ariston Ecuador",
+    "nombresCandidatos": [
+      "Laboratorio Química Ariston Ecuador"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473287292",
+    "nombreSugerido": "Medicell Pharmaceutical",
+    "nombresCandidatos": [
+      "Medicell Pharmaceutical"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473736552",
+    "nombreSugerido": "Efa Laboratorios Asociados — Antia Moll & Cia.",
+    "nombresCandidatos": [
+      "Efa Laboratorios Asociados — Antia Moll & Cia."
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474198071",
+    "nombreSugerido": "Delta Pharma (Delta Pharmaceutical Industries S.A.E.)",
+    "nombresCandidatos": [
+      "Delta Pharma (Delta Pharmaceutical Industries S.A.E.)"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476703925",
+    "nombreSugerido": "NovoScience Consulting",
+    "nombresCandidatos": [
+      "NovoScience Consulting"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476878744",
+    "nombreSugerido": "Kéri Pharma Hungary Kft.",
+    "nombresCandidatos": [
+      "Kéri Pharma Hungary Kft."
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478121112",
+    "nombreSugerido": "Italfármaco / Laboratorios Effik, S.A.",
+    "nombresCandidatos": [
+      "Italfármaco / Laboratorios Effik, S.A."
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56479789918",
+    "nombreSugerido": "ZüriPharm",
+    "nombresCandidatos": [
+      "ZüriPharm"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481918254",
+    "nombreSugerido": "Medi-Radiopharma Co. Ltd. (MRP)",
+    "nombresCandidatos": [
+      "Medi-Radiopharma Co. Ltd. (MRP)"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481919028",
+    "nombreSugerido": "La Química Farmacéutica S.A.",
+    "nombresCandidatos": [
+      "La Química Farmacéutica S.A."
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56483471245",
+    "nombreSugerido": "Orchidia Pharmaceutical Industries",
+    "nombresCandidatos": [
+      "Orchidia Pharmaceutical Industries"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485377058",
+    "nombreSugerido": "Laboratorio Hemoderivados – UNC",
+    "nombresCandidatos": [
+      "Laboratorio Hemoderivados – UNC"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485983542",
+    "nombreSugerido": "Alliance Pharmaceuticals Ltd",
+    "nombresCandidatos": [
+      "Alliance Pharmaceuticals Ltd"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488573032",
+    "nombreSugerido": "Aver Generics Limited",
+    "nombresCandidatos": [
+      "Aver Generics Limited"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488894344",
+    "nombreSugerido": "Marjan Farma",
+    "nombresCandidatos": [
+      "Marjan Farma"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488897074",
+    "nombreSugerido": "Laboratoires SMB",
+    "nombresCandidatos": [
+      "Laboratoires SMB"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56490285492",
+    "nombreSugerido": "IQUEGO",
+    "nombresCandidatos": [
+      "IQUEGO"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56491351075",
+    "nombreSugerido": "C.O.C Farmaceutici S.R.L.",
+    "nombresCandidatos": [
+      "C.O.C Farmaceutici S.R.L."
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56491675212",
+    "nombreSugerido": "Italfarmaco",
+    "nombresCandidatos": [
+      "Italfarmaco"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494068026",
+    "nombreSugerido": "Rioja Nature Pharma",
+    "nombresCandidatos": [
+      "Rioja Nature Pharma"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494379054",
+    "nombreSugerido": "Kyorin Pharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "Kyorin Pharmaceutical Co., Ltd."
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495471717",
+    "nombreSugerido": "Clonmel Healthcare",
+    "nombresCandidatos": [
+      "Clonmel Healthcare"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56496387201",
+    "nombreSugerido": "Solopharm (LLC Grotex)",
+    "nombresCandidatos": [
+      "Solopharm (LLC Grotex)"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56497445126",
+    "nombreSugerido": "Vietnam Medical Import-Export Joint Stock Company (VIMEDIMEX VN)",
+    "nombresCandidatos": [
+      "Vietnam Medical Import-Export Joint Stock Company (VIMEDIMEX VN)"
+    ],
+    "numContactos": 3,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56461977526",
+    "nombreSugerido": "Stallergenes SAS",
+    "nombresCandidatos": [
+      "Stallergenes SAS"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56464743436",
+    "nombreSugerido": "Axess Pharma",
+    "nombresCandidatos": [
+      "Axess Pharma"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465054506",
+    "nombreSugerido": "Laboratorio Farmaceutico S.I.T",
+    "nombresCandidatos": [
+      "Laboratorio Farmaceutico S.I.T"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465539731",
+    "nombreSugerido": "Laboratorios Chemycal's Soma",
+    "nombresCandidatos": [
+      "Laboratorios Chemycal's Soma"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466110993",
+    "nombreSugerido": "JeoMed Sağlık (solo línea farma)",
+    "nombresCandidatos": [
+      "JeoMed Sağlık (solo línea farma)"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466715720",
+    "nombreSugerido": "RAFARM S.A.",
+    "nombresCandidatos": [
+      "RAFARM S.A."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466866545",
+    "nombreSugerido": "Allied Pharma / Aurora Medical",
+    "nombresCandidatos": [
+      "Allied Pharma / Aurora Medical"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466869882",
+    "nombreSugerido": "Hormosan Pharma GmbH",
+    "nombresCandidatos": [
+      "Hormosan Pharma GmbH"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467030536",
+    "nombreSugerido": "Coetus Pharma",
+    "nombresCandidatos": [
+      "Coetus Pharma"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467473977",
+    "nombreSugerido": "Hamapharm d.o.o.",
+    "nombresCandidatos": [
+      "Hamapharm d.o.o."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467951796",
+    "nombreSugerido": "Genovate Biotechnology Co., Ltd.",
+    "nombresCandidatos": [
+      "Genovate Biotechnology Co., Ltd."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467953015",
+    "nombreSugerido": "Laboratorios Abies",
+    "nombresCandidatos": [
+      "Laboratorios Abies"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469050397",
+    "nombreSugerido": "Future Pharmaceutical Industries (FPI / Future Pharma)",
+    "nombresCandidatos": [
+      "Future Pharmaceutical Industries (FPI / Future Pharma)"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469201574",
+    "nombreSugerido": "Arvatera Pharmaceuticals",
+    "nombresCandidatos": [
+      "Arvatera Pharmaceuticals"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469371158",
+    "nombreSugerido": "Laboratorios Rubió",
+    "nombresCandidatos": [
+      "Laboratorios Rubió"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56470661944",
+    "nombreSugerido": null,
+    "nombresCandidatos": [
+      "JGL d.d.",
+      "JGL d.d. (Jadran Galenski Laboratorij)"
+    ],
+    "numContactos": 2,
+    "ambiguous": true
+  },
+  {
+    "companyId": "56470974988",
+    "nombreSugerido": "Livzon Pharmaceutical Group Inc.",
+    "nombresCandidatos": [
+      "Livzon Pharmaceutical Group Inc."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56471273127",
+    "nombreSugerido": "Highnoon Laboratories Limited",
+    "nombresCandidatos": [
+      "Highnoon Laboratories Limited"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56471425427",
+    "nombreSugerido": "Eurofins Alphora",
+    "nombresCandidatos": [
+      "Eurofins Alphora"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56472218209",
+    "nombreSugerido": "Italpharma / Biogenerics",
+    "nombresCandidatos": [
+      "Italpharma / Biogenerics"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473150014",
+    "nombreSugerido": "ADMA Biologics, Inc.",
+    "nombresCandidatos": [
+      "ADMA Biologics, Inc."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473736550",
+    "nombreSugerido": "Prolab",
+    "nombresCandidatos": [
+      "Prolab"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474195040",
+    "nombreSugerido": "NPS",
+    "nombresCandidatos": [
+      "NPS"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474512004",
+    "nombreSugerido": "PT Guardian Pharmatama",
+    "nombresCandidatos": [
+      "PT Guardian Pharmatama"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474797967",
+    "nombreSugerido": "Bracco Group",
+    "nombresCandidatos": [
+      "Bracco Group"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474956457",
+    "nombreSugerido": "Bahiafarma",
+    "nombresCandidatos": [
+      "Bahiafarma"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56475110989",
+    "nombreSugerido": "Eurosalud",
+    "nombresCandidatos": [
+      "Eurosalud"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56475470894",
+    "nombreSugerido": "Sothema",
+    "nombresCandidatos": [
+      "Sothema"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56475619604",
+    "nombreSugerido": "Dong-A ST Co., Ltd.",
+    "nombresCandidatos": [
+      "Dong-A ST Co., Ltd."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56475776672",
+    "nombreSugerido": "Pharmaswiss d.o.o.",
+    "nombresCandidatos": [
+      "Pharmaswiss d.o.o."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56475944606",
+    "nombreSugerido": "Galena Farmacêutica",
+    "nombresCandidatos": [
+      "Galena Farmacêutica"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476401683",
+    "nombreSugerido": "Pharmaderm Colombia S.A.S.",
+    "nombresCandidatos": [
+      "Pharmaderm Colombia S.A.S."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476566793",
+    "nombreSugerido": "Eagle Pharmacy, Inc. (503B Outsourcing Facility)",
+    "nombresCandidatos": [
+      "Eagle Pharmacy, Inc. (503B Outsourcing Facility)"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476706975",
+    "nombreSugerido": "Crescita Therapeutics",
+    "nombresCandidatos": [
+      "Crescita Therapeutics"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56477172907",
+    "nombreSugerido": "ROYCE PHARMA MANUFACTURING SDN BHD",
+    "nombresCandidatos": [
+      "ROYCE PHARMA MANUFACTURING SDN BHD"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56477653092",
+    "nombreSugerido": "Nassau Agencies (1995) Ltd",
+    "nombresCandidatos": [
+      "Nassau Agencies (1995) Ltd"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56477653095",
+    "nombreSugerido": "Egyptian International Pharmaceutical Industries Co. (EIPICO)",
+    "nombresCandidatos": [
+      "Egyptian International Pharmaceutical Industries Co. (EIPICO)"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478263080",
+    "nombreSugerido": "Eriochem SA",
+    "nombresCandidatos": [
+      "Eriochem SA"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478563506",
+    "nombreSugerido": "Jointown Pharma",
+    "nombresCandidatos": [
+      "Jointown Pharma"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478875741",
+    "nombreSugerido": "Laboratorios Maver Ltda.",
+    "nombresCandidatos": [
+      "Laboratorios Maver Ltda."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56479498356",
+    "nombreSugerido": null,
+    "nombresCandidatos": [
+      "Laboratorios Farma SA",
+      "Laboratorios Ronava"
+    ],
+    "numContactos": 2,
+    "ambiguous": true
+  },
+  {
+    "companyId": "56479498900",
+    "nombreSugerido": "Hipra",
+    "nombresCandidatos": [
+      "Hipra"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56480874844",
+    "nombreSugerido": "GMP Manufacturing Ltd",
+    "nombresCandidatos": [
+      "GMP Manufacturing Ltd"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481293452",
+    "nombreSugerido": "Dongying Tiandong Pharmaceutical Co.,Ltd",
+    "nombresCandidatos": [
+      "Dongying Tiandong Pharmaceutical Co.,Ltd"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481300088",
+    "nombreSugerido": "YSP SOUTHEAST ASIA HOLDING BERHAD",
+    "nombresCandidatos": [
+      "YSP SOUTHEAST ASIA HOLDING BERHAD"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481434649",
+    "nombreSugerido": "H2 Pharma",
+    "nombresCandidatos": [
+      "H2 Pharma"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481751681",
+    "nombreSugerido": "Labormed (Zentiva / Sanofi)",
+    "nombresCandidatos": [
+      "Labormed (Zentiva / Sanofi)"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481751682",
+    "nombreSugerido": "Rameda (Tenth of Ramadan for Pharmaceutical and Diagnostic Products)",
+    "nombresCandidatos": [
+      "Rameda (Tenth of Ramadan for Pharmaceutical and Diagnostic Products)"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481917547",
+    "nombreSugerido": "Orion Corporation / Orion Pharma",
+    "nombresCandidatos": [
+      "Orion Corporation / Orion Pharma"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56482518422",
+    "nombreSugerido": "Savior Lifetec Corporation",
+    "nombresCandidatos": [
+      "Savior Lifetec Corporation"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56482996127",
+    "nombreSugerido": "Haw Par Corporation",
+    "nombresCandidatos": [
+      "Haw Par Corporation"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56483919891",
+    "nombreSugerido": "Gonher",
+    "nombresCandidatos": [
+      "Gonher"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56484394569",
+    "nombreSugerido": "Pharco Pharmaceuticals",
+    "nombresCandidatos": [
+      "Pharco Pharmaceuticals"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56484548620",
+    "nombreSugerido": "Williams & Halls EHF.",
+    "nombresCandidatos": [
+      "Williams & Halls EHF."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56484553010",
+    "nombreSugerido": "Laboratorios Industriales Farmacéuticos Ecuatorianos LIFE",
+    "nombresCandidatos": [
+      "Laboratorios Industriales Farmacéuticos Ecuatorianos LIFE"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56484553015",
+    "nombreSugerido": "Bonapharm",
+    "nombresCandidatos": [
+      "Bonapharm"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485377066",
+    "nombreSugerido": "Covex S.A.",
+    "nombresCandidatos": [
+      "Covex S.A."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485511693",
+    "nombreSugerido": "Tamarang Pharmaceuticals S.A. (Farmhispania Group)",
+    "nombresCandidatos": [
+      "Tamarang Pharmaceuticals S.A. (Farmhispania Group)"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56487063312",
+    "nombreSugerido": "PT Ferron Par Pharmaceuticals",
+    "nombresCandidatos": [
+      "PT Ferron Par Pharmaceuticals"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56487390589",
+    "nombreSugerido": "River Stone Biotech Inc.",
+    "nombresCandidatos": [
+      "River Stone Biotech Inc."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56487991989",
+    "nombreSugerido": "Laboratorio Kemex",
+    "nombresCandidatos": [
+      "Laboratorio Kemex"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488426056",
+    "nombreSugerido": "PolyPid Ltd.",
+    "nombresCandidatos": [
+      "PolyPid Ltd."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488737395",
+    "nombreSugerido": "HANDOK",
+    "nombresCandidatos": [
+      "HANDOK"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488744554",
+    "nombreSugerido": "Tepnel Pharma Services",
+    "nombresCandidatos": [
+      "Tepnel Pharma Services"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488898450",
+    "nombreSugerido": "Laboratorios Karnel",
+    "nombresCandidatos": [
+      "Laboratorios Karnel"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56489515284",
+    "nombreSugerido": "AJ Vaccines A/S",
+    "nombresCandidatos": [
+      "AJ Vaccines A/S"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56489650179",
+    "nombreSugerido": "Amarin Technologies",
+    "nombresCandidatos": [
+      "Amarin Technologies"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56489827847",
+    "nombreSugerido": "Rowa Pharmaceuticals Ltd",
+    "nombresCandidatos": [
+      "Rowa Pharmaceuticals Ltd"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56489967661",
+    "nombreSugerido": "Saigon Pharmaceutical Company Limited (SAPHARCO)",
+    "nombresCandidatos": [
+      "Saigon Pharmaceutical Company Limited (SAPHARCO)"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56489970507",
+    "nombreSugerido": "AqVida GmbH",
+    "nombresCandidatos": [
+      "AqVida GmbH"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56489973043",
+    "nombreSugerido": "Ajinomoto Bio-Pharma Services (AjiBio)",
+    "nombresCandidatos": [
+      "Ajinomoto Bio-Pharma Services (AjiBio)"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56490108448",
+    "nombreSugerido": "Geropharm",
+    "nombresCandidatos": [
+      "Geropharm"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56490282079",
+    "nombreSugerido": null,
+    "nombresCandidatos": [
+      "LASCO Pharmaceutical Division (LASCO Distributors)",
+      "Pronova Corporation"
+    ],
+    "numContactos": 2,
+    "ambiguous": true
+  },
+  {
+    "companyId": "56490420906",
+    "nombreSugerido": "Protagonist Therapeutics, Inc.",
+    "nombresCandidatos": [
+      "Protagonist Therapeutics, Inc."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56490580565",
+    "nombreSugerido": "Medipan",
+    "nombresCandidatos": [
+      "Medipan"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56490751833",
+    "nombreSugerido": "Celnova Pharma",
+    "nombresCandidatos": [
+      "Celnova Pharma"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56490751835",
+    "nombreSugerido": "Laboratorios Generix S.A.",
+    "nombresCandidatos": [
+      "Laboratorios Generix S.A."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56491678555",
+    "nombreSugerido": "Finzelberg GmbH & Co. KG",
+    "nombresCandidatos": [
+      "Finzelberg GmbH & Co. KG"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56491816496",
+    "nombreSugerido": "Upsher-Smith Laboratories, LLC",
+    "nombresCandidatos": [
+      "Upsher-Smith Laboratories, LLC"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56492124506",
+    "nombreSugerido": "Laboratoires CDM Lavoisier",
+    "nombresCandidatos": [
+      "Laboratoires CDM Lavoisier"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56492439166",
+    "nombreSugerido": "Qualcare Limited",
+    "nombresCandidatos": [
+      "Qualcare Limited"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56492445187",
+    "nombreSugerido": "Laboratorio Endorpharma Argentina",
+    "nombresCandidatos": [
+      "Laboratorio Endorpharma Argentina"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56493657776",
+    "nombreSugerido": "Pharmatec Pakistan (Pvt.) Ltd.",
+    "nombresCandidatos": [
+      "Pharmatec Pakistan (Pvt.) Ltd."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56493821049",
+    "nombreSugerido": "Bene Arzneimittel GmbH",
+    "nombresCandidatos": [
+      "Bene Arzneimittel GmbH"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56493824385",
+    "nombreSugerido": "B.GRIMM Pharma Co., Ltd.",
+    "nombresCandidatos": [
+      "B.GRIMM Pharma Co., Ltd."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56493983556",
+    "nombreSugerido": "Pharmaceutical Solutions Industry Ltd. (PSI)",
+    "nombresCandidatos": [
+      "Pharmaceutical Solutions Industry Ltd. (PSI)"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494224987",
+    "nombreSugerido": "Adoc",
+    "nombresCandidatos": [
+      "Adoc"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495011859",
+    "nombreSugerido": "Laboratorio Induquímica",
+    "nombresCandidatos": [
+      "Laboratorio Induquímica"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495472975",
+    "nombreSugerido": "DRGR - Droguería Ramón González Revilla, S.A.",
+    "nombresCandidatos": [
+      "DRGR - Droguería Ramón González Revilla, S.A."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495615748",
+    "nombreSugerido": "XEPA-SOUL PATTINSON (MALAYSIA) SDN BHD",
+    "nombresCandidatos": [
+      "XEPA-SOUL PATTINSON (MALAYSIA) SDN BHD"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56496069046",
+    "nombreSugerido": "So.Se.PHARM",
+    "nombresCandidatos": [
+      "So.Se.PHARM"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56496394631",
+    "nombreSugerido": "Tecnoquímicas S.A. / Wasser Chemical S.A.S.",
+    "nombresCandidatos": [
+      "Tecnoquímicas S.A. / Wasser Chemical S.A.S."
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56497133436",
+    "nombreSugerido": "SciGen",
+    "nombresCandidatos": [
+      "SciGen"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56497305695",
+    "nombreSugerido": "SK pharmteco (Ireland)",
+    "nombresCandidatos": [
+      "SK pharmteco (Ireland)"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56497306931",
+    "nombreSugerido": "Rowe / Delta de la Cruz / Laboratorio Panalab",
+    "nombresCandidatos": [
+      "Rowe / Delta de la Cruz / Laboratorio Panalab"
+    ],
+    "numContactos": 2,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56461813351",
+    "nombreSugerido": "Phytopharm Klęka S.A.",
+    "nombresCandidatos": [
+      "Phytopharm Klęka S.A."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56461981519",
+    "nombreSugerido": "AVERROES PHARMACEUTICALS SDN BHD",
+    "nombresCandidatos": [
+      "AVERROES PHARMACEUTICALS SDN BHD"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56462113630",
+    "nombreSugerido": "Biofrontera AG",
+    "nombresCandidatos": [
+      "Biofrontera AG"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56462265404",
+    "nombreSugerido": "Dongkoo Bio & Pharma Co., Ltd.",
+    "nombresCandidatos": [
+      "Dongkoo Bio & Pharma Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56462271138",
+    "nombreSugerido": "Mendisa, Laboratorios Medicamentos Internacionales",
+    "nombresCandidatos": [
+      "Mendisa, Laboratorios Medicamentos Internacionales"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56462447382",
+    "nombreSugerido": "Biohit Healthcare / Biohit Oyj",
+    "nombresCandidatos": [
+      "Biohit Healthcare / Biohit Oyj"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56462448948",
+    "nombreSugerido": "Laboratorio Farmacéutico Solaris",
+    "nombresCandidatos": [
+      "Laboratorio Farmacéutico Solaris"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56462587927",
+    "nombreSugerido": "Laboratorios Soubeiran Chobet",
+    "nombresCandidatos": [
+      "Laboratorios Soubeiran Chobet"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56464149252",
+    "nombreSugerido": "Laboratorios Rigar",
+    "nombresCandidatos": [
+      "Laboratorios Rigar"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56464149253",
+    "nombreSugerido": "Laboratorios Sintesis",
+    "nombresCandidatos": [
+      "Laboratorios Sintesis"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56464149254",
+    "nombreSugerido": "Distribuidora Undeli, S.A. / Marhowil Universal",
+    "nombresCandidatos": [
+      "Distribuidora Undeli, S.A. / Marhowil Universal"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56464910926",
+    "nombreSugerido": "Suzhou Dawnrays Pharmaceutical Co., Ltd. (Dawnrays Holdings)",
+    "nombresCandidatos": [
+      "Suzhou Dawnrays Pharmaceutical Co., Ltd. (Dawnrays Holdings)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56464914047",
+    "nombreSugerido": "Olympe Healthcare",
+    "nombresCandidatos": [
+      "Olympe Healthcare"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465059950",
+    "nombreSugerido": "Pharma Marine AS",
+    "nombresCandidatos": [
+      "Pharma Marine AS"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465229586",
+    "nombreSugerido": "Palla Pharma Norway",
+    "nombresCandidatos": [
+      "Palla Pharma Norway"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465229587",
+    "nombreSugerido": "Marcyrl Pharmaceutical Industries",
+    "nombresCandidatos": [
+      "Marcyrl Pharmaceutical Industries"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465229589",
+    "nombreSugerido": "Wilshire Pharmaceuticals / Wilshire Rx (Azurity)",
+    "nombresCandidatos": [
+      "Wilshire Pharmaceuticals / Wilshire Rx (Azurity)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465369387",
+    "nombreSugerido": "Efroze Chemical Industries (Pvt.) Ltd.",
+    "nombresCandidatos": [
+      "Efroze Chemical Industries (Pvt.) Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465372999",
+    "nombreSugerido": "Lifeway",
+    "nombresCandidatos": [
+      "Lifeway"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465376083",
+    "nombreSugerido": "Bristol Laboratories Ltd",
+    "nombresCandidatos": [
+      "Bristol Laboratories Ltd"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465376848",
+    "nombreSugerido": "Atlantic Laboratories Corporation Ltd.",
+    "nombresCandidatos": [
+      "Atlantic Laboratories Corporation Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465539178",
+    "nombreSugerido": "Vertex Pharmaceuticals Incorporated",
+    "nombresCandidatos": [
+      "Vertex Pharmaceuticals Incorporated"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465670557",
+    "nombreSugerido": "Lianoning North Peak Pharmaceutical",
+    "nombresCandidatos": [
+      "Lianoning North Peak Pharmaceutical"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465676096",
+    "nombreSugerido": "Polfa TZF (Tarchomin)",
+    "nombresCandidatos": [
+      "Polfa TZF (Tarchomin)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56465676631",
+    "nombreSugerido": "Everex Pharmaceuticals / Laboratorio Oriental",
+    "nombresCandidatos": [
+      "Everex Pharmaceuticals / Laboratorio Oriental"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466110992",
+    "nombreSugerido": "Huaren Pharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "Huaren Pharmaceutical Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466266625",
+    "nombreSugerido": "Medsafe Ltd",
+    "nombresCandidatos": [
+      "Medsafe Ltd"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466590856",
+    "nombreSugerido": "Strides Pharma Global Pte Ltd",
+    "nombresCandidatos": [
+      "Strides Pharma Global Pte Ltd"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466715724",
+    "nombreSugerido": "Berlin Pharmaceutical Industry Co., Ltd.",
+    "nombresCandidatos": [
+      "Berlin Pharmaceutical Industry Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56466866546",
+    "nombreSugerido": "Vidipha Central Pharmaceutical JSC",
+    "nombresCandidatos": [
+      "Vidipha Central Pharmaceutical JSC"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467022617",
+    "nombreSugerido": "Celltrion Healthcare Co., Ltd.",
+    "nombresCandidatos": [
+      "Celltrion Healthcare Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467029306",
+    "nombreSugerido": "PHARMAQ Analytiq AS",
+    "nombresCandidatos": [
+      "PHARMAQ Analytiq AS"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467029910",
+    "nombreSugerido": "Thai Nakorn Patana Co., Ltd.",
+    "nombresCandidatos": [
+      "Thai Nakorn Patana Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467029911",
+    "nombreSugerido": "Continental-Pharm Co., Ltd.",
+    "nombresCandidatos": [
+      "Continental-Pharm Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467172394",
+    "nombreSugerido": "Biropharma Kft.",
+    "nombresCandidatos": [
+      "Biropharma Kft."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467315882",
+    "nombreSugerido": "Laboratoires Iprad",
+    "nombresCandidatos": [
+      "Laboratoires Iprad"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467319099",
+    "nombreSugerido": "Unidrogas S.A.S",
+    "nombresCandidatos": [
+      "Unidrogas S.A.S"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467468606",
+    "nombreSugerido": "Sichuan Kelun-Biotech Biopharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "Sichuan Kelun-Biotech Biopharmaceutical Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467471638",
+    "nombreSugerido": "Helsinn Group",
+    "nombresCandidatos": [
+      "Helsinn Group"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467624053",
+    "nombreSugerido": "Zhejiang Hisoar Pharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "Zhejiang Hisoar Pharmaceutical Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467624054",
+    "nombreSugerido": "Kissei Pharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "Kissei Pharmaceutical Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467797683",
+    "nombreSugerido": "Bavarian Nordic A/S",
+    "nombresCandidatos": [
+      "Bavarian Nordic A/S"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467948972",
+    "nombreSugerido": "International Medical Company (IMC / Kulud Pharmacy)",
+    "nombresCandidatos": [
+      "International Medical Company (IMC / Kulud Pharmacy)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467948974",
+    "nombreSugerido": "Novocol Pharma",
+    "nombresCandidatos": [
+      "Novocol Pharma"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467952464",
+    "nombreSugerido": "Natur Produkt Zdrovit",
+    "nombresCandidatos": [
+      "Natur Produkt Zdrovit"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467953018",
+    "nombreSugerido": "Droguería Europea — Adiuvo",
+    "nombresCandidatos": [
+      "Droguería Europea — Adiuvo"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56467953019",
+    "nombreSugerido": "NPS Uruguay — NutriPharma Solutions",
+    "nombresCandidatos": [
+      "NPS Uruguay — NutriPharma Solutions"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56468899081",
+    "nombreSugerido": "Cafarma - Calier Farmacéutica",
+    "nombresCandidatos": [
+      "Cafarma - Calier Farmacéutica"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56468899082",
+    "nombreSugerido": "Laboratorio DB, S.A. de C.V.",
+    "nombresCandidatos": [
+      "Laboratorio DB, S.A. de C.V."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469050765",
+    "nombreSugerido": "AIN MEDICARE SDN BHD",
+    "nombresCandidatos": [
+      "AIN MEDICARE SDN BHD"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469209005",
+    "nombreSugerido": "Aspen Oss B.V. (Aspen API)",
+    "nombresCandidatos": [
+      "Aspen Oss B.V. (Aspen API)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469366817",
+    "nombreSugerido": "Stella Pharmaceutical",
+    "nombresCandidatos": [
+      "Stella Pharmaceutical"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469371159",
+    "nombreSugerido": "Los Paisas",
+    "nombresCandidatos": [
+      "Los Paisas"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469683051",
+    "nombreSugerido": "Akums Drugs & Pharmaceuticals Ltd.",
+    "nombresCandidatos": [
+      "Akums Drugs & Pharmaceuticals Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469683054",
+    "nombreSugerido": "MerapLion",
+    "nombresCandidatos": [
+      "MerapLion"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469683061",
+    "nombreSugerido": "Mir-Pharm LLC",
+    "nombresCandidatos": [
+      "Mir-Pharm LLC"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469875458",
+    "nombreSugerido": "R-Pharm",
+    "nombresCandidatos": [
+      "R-Pharm"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469880974",
+    "nombreSugerido": "Labo Phytophar",
+    "nombresCandidatos": [
+      "Labo Phytophar"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56469881867",
+    "nombreSugerido": "Blau Farmaceutica",
+    "nombresCandidatos": [
+      "Blau Farmaceutica"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56470056806",
+    "nombreSugerido": "Odin Pharmaceuticals LLC",
+    "nombresCandidatos": [
+      "Odin Pharmaceuticals LLC"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56470183608",
+    "nombreSugerido": "Lijun International Pharmaceutical (Holdings) Co. Ltd.",
+    "nombresCandidatos": [
+      "Lijun International Pharmaceutical (Holdings) Co. Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56470338397",
+    "nombreSugerido": "Ozon (Togliatti plant)",
+    "nombresCandidatos": [
+      "Ozon (Togliatti plant)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56470344202",
+    "nombreSugerido": "Pharma Investi / Megalabs de Chile",
+    "nombresCandidatos": [
+      "Pharma Investi / Megalabs de Chile"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56470663230",
+    "nombreSugerido": "Laboratorios Argüello, S.A. de C.V.",
+    "nombresCandidatos": [
+      "Laboratorios Argüello, S.A. de C.V."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56471120281",
+    "nombreSugerido": "Laboratorios Bussié S.A / Laboratorios Sanfer",
+    "nombresCandidatos": [
+      "Laboratorios Bussié S.A / Laboratorios Sanfer"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56471422784",
+    "nombreSugerido": "SAEHAN Pharm. Co., Ltd.",
+    "nombresCandidatos": [
+      "SAEHAN Pharm. Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56471425428",
+    "nombreSugerido": "BioSyent Pharma",
+    "nombresCandidatos": [
+      "BioSyent Pharma"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56471587587",
+    "nombreSugerido": "Mannai Medical & Scientific",
+    "nombresCandidatos": [
+      "Mannai Medical & Scientific"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56471737119",
+    "nombreSugerido": "Indian Immunologicals Limited",
+    "nombresCandidatos": [
+      "Indian Immunologicals Limited"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56471740753",
+    "nombreSugerido": "Intermeios",
+    "nombresCandidatos": [
+      "Intermeios"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56471743917",
+    "nombreSugerido": "🌟AVE & BSI",
+    "nombresCandidatos": [
+      "🌟AVE & BSI"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56471891716",
+    "nombreSugerido": "Hetero Drugs Ltd.",
+    "nombresCandidatos": [
+      "Hetero Drugs Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56471899028",
+    "nombreSugerido": "Infarma",
+    "nombresCandidatos": [
+      "Infarma"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56472055705",
+    "nombreSugerido": "Tanabe Pharma Corporation",
+    "nombresCandidatos": [
+      "Tanabe Pharma Corporation"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56472062789",
+    "nombreSugerido": "Laboratorios Pharmatech",
+    "nombresCandidatos": [
+      "Laboratorios Pharmatech"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56472211026",
+    "nombreSugerido": "Indus Pharma (Pvt.) Ltd.",
+    "nombresCandidatos": [
+      "Indus Pharma (Pvt.) Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56472213849",
+    "nombreSugerido": "Drossapharm",
+    "nombresCandidatos": [
+      "Drossapharm"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56472218211",
+    "nombreSugerido": "DESA - Distribuidora Especializada, S.A.",
+    "nombresCandidatos": [
+      "DESA - Distribuidora Especializada, S.A."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56472218212",
+    "nombreSugerido": "Global Medical Logistics",
+    "nombresCandidatos": [
+      "Global Medical Logistics"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56472358063",
+    "nombreSugerido": "Laboratorios Elmor S.A.",
+    "nombresCandidatos": [
+      "Laboratorios Elmor S.A."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56472820851",
+    "nombreSugerido": "ICG Farma México",
+    "nombresCandidatos": [
+      "ICG Farma México"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473143223",
+    "nombreSugerido": "Novast Laboratories Ltd. (Novast Holdings)",
+    "nombresCandidatos": [
+      "Novast Laboratories Ltd. (Novast Holdings)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473143297",
+    "nombreSugerido": "Korea Pharma Co., Ltd.",
+    "nombresCandidatos": [
+      "Korea Pharma Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473149331",
+    "nombreSugerido": "Amneal Pharmaceuticals / InvaGen (NY ops)",
+    "nombresCandidatos": [
+      "Amneal Pharmaceuticals / InvaGen (NY ops)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473290644",
+    "nombreSugerido": "Clinigen South Africa / Equity Pharmaceuticals",
+    "nombresCandidatos": [
+      "Clinigen South Africa / Equity Pharmaceuticals"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473444002",
+    "nombreSugerido": "CellChem Pharmaceuticals",
+    "nombresCandidatos": [
+      "CellChem Pharmaceuticals"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473729203",
+    "nombreSugerido": "Price Premier Products",
+    "nombresCandidatos": [
+      "Price Premier Products"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473735793",
+    "nombreSugerido": "Labofarm Sp. z o.o.",
+    "nombresCandidatos": [
+      "Labofarm Sp. z o.o."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473736548",
+    "nombreSugerido": "Boticas Unidas del Ecuador",
+    "nombresCandidatos": [
+      "Boticas Unidas del Ecuador"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473865744",
+    "nombreSugerido": "Lucky Core Industries Limited",
+    "nombresCandidatos": [
+      "Lucky Core Industries Limited"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56473868333",
+    "nombreSugerido": "Generation Sante",
+    "nombresCandidatos": [
+      "Generation Sante"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474044712",
+    "nombreSugerido": "ABL Europe",
+    "nombresCandidatos": [
+      "ABL Europe"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474048558",
+    "nombreSugerido": "Advance Pharmaceutical Manufacturing Co., Ltd.",
+    "nombresCandidatos": [
+      "Advance Pharmaceutical Manufacturing Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474049179",
+    "nombreSugerido": "Laboratorios Vides, S.A. de C.V. (Ovides)",
+    "nombresCandidatos": [
+      "Laboratorios Vides, S.A. de C.V. (Ovides)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474192154",
+    "nombreSugerido": "Zhejiang Charioteer Pharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "Zhejiang Charioteer Pharmaceutical Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474504844",
+    "nombreSugerido": "Anqiu Lu'an Pharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "Anqiu Lu'an Pharmaceutical Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474512006",
+    "nombreSugerido": "Galephar Pharmaceutical Research",
+    "nombresCandidatos": [
+      "Galephar Pharmaceutical Research"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474953329",
+    "nombreSugerido": "Al Rai Pharmaceutical Factory (Al Rai Pharma)",
+    "nombresCandidatos": [
+      "Al Rai Pharmaceutical Factory (Al Rai Pharma)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474953332",
+    "nombreSugerido": "Tanabe Pharma Corporation",
+    "nombresCandidatos": [
+      "Tanabe Pharma Corporation"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56474956458",
+    "nombreSugerido": "Raz Pharmaceutics",
+    "nombresCandidatos": [
+      "Raz Pharmaceutics"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56475278478",
+    "nombreSugerido": "Tianjin Tianan Pharmaceuticals Co., Ltd.",
+    "nombresCandidatos": [
+      "Tianjin Tianan Pharmaceuticals Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56475281507",
+    "nombreSugerido": "Opus Pharmaceuticals (Pty) Ltd",
+    "nombresCandidatos": [
+      "Opus Pharmaceuticals (Pty) Ltd"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56475285774",
+    "nombreSugerido": "South American Express S.A.",
+    "nombresCandidatos": [
+      "South American Express S.A."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56475470896",
+    "nombreSugerido": "Brasterápica",
+    "nombresCandidatos": [
+      "Brasterápica"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56475625769",
+    "nombreSugerido": "Generic Pharma",
+    "nombresCandidatos": [
+      "Generic Pharma"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56475948424",
+    "nombreSugerido": "Nevox Farma",
+    "nombresCandidatos": [
+      "Nevox Farma"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56475948425",
+    "nombreSugerido": "Kern Pharma / Actafarma / Grupo Indukern",
+    "nombresCandidatos": [
+      "Kern Pharma / Actafarma / Grupo Indukern"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476254767",
+    "nombreSugerido": "Solopharm (LLC Grotex)",
+    "nombresCandidatos": [
+      "Solopharm (LLC Grotex)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476254772",
+    "nombreSugerido": "INIST ST. Co., Ltd.",
+    "nombresCandidatos": [
+      "INIST ST. Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476254773",
+    "nombreSugerido": "PMI BioPharma Solutions",
+    "nombresCandidatos": [
+      "PMI BioPharma Solutions"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476261001",
+    "nombreSugerido": "SPS Medical Company Limited",
+    "nombresCandidatos": [
+      "SPS Medical Company Limited"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476560305",
+    "nombreSugerido": "JCR Pharmaceuticals Co., Ltd.",
+    "nombresCandidatos": [
+      "JCR Pharmaceuticals Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476560309",
+    "nombreSugerido": "Sovereign Pharmaceuticals",
+    "nombresCandidatos": [
+      "Sovereign Pharmaceuticals"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476568239",
+    "nombreSugerido": "Laboratorios Delfarma SAC",
+    "nombresCandidatos": [
+      "Laboratorios Delfarma SAC"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476878159",
+    "nombreSugerido": "Amarox Limited",
+    "nombresCandidatos": [
+      "Amarox Limited"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56476878747",
+    "nombreSugerido": "Twins Manufacturing Chemists",
+    "nombresCandidatos": [
+      "Twins Manufacturing Chemists"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56477647030",
+    "nombreSugerido": "Huarui Pharmaceutical",
+    "nombresCandidatos": [
+      "Huarui Pharmaceutical"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56477653807",
+    "nombreSugerido": "Siam Pharmaceutical Co., Ltd. / Siam Pharmaceutical Group",
+    "nombresCandidatos": [
+      "Siam Pharmaceutical Co., Ltd. / Siam Pharmaceutical Group"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478116868",
+    "nombreSugerido": "EG Labo Groupe STADA",
+    "nombresCandidatos": [
+      "EG Labo Groupe STADA"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478119829",
+    "nombreSugerido": "SEDICO Pharmaceuticals",
+    "nombresCandidatos": [
+      "SEDICO Pharmaceuticals"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478119830",
+    "nombreSugerido": "Excelsior Pharmatech Labs / Excelsior Biopharma Inc.",
+    "nombresCandidatos": [
+      "Excelsior Pharmatech Labs / Excelsior Biopharma Inc."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478121114",
+    "nombreSugerido": "Pharmazona / Stitipharma",
+    "nombresCandidatos": [
+      "Pharmazona / Stitipharma"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478421548",
+    "nombreSugerido": "BioMeds",
+    "nombresCandidatos": [
+      "BioMeds"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478421550",
+    "nombreSugerido": "Tonghua Dongbao Pharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "Tonghua Dongbao Pharmaceutical Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478421553",
+    "nombreSugerido": "Scorpius BioManufacturing → Velocity Bioworks",
+    "nombresCandidatos": [
+      "Scorpius BioManufacturing → Velocity Bioworks"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478563508",
+    "nombreSugerido": "Pharmedic Pharmaceutical Medicinal JSC",
+    "nombresCandidatos": [
+      "Pharmedic Pharmaceutical Medicinal JSC"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478566953",
+    "nombreSugerido": "PNP Pharmaceuticals",
+    "nombresCandidatos": [
+      "PNP Pharmaceuticals"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478874378",
+    "nombreSugerido": "Ovelle Pharmaceuticals",
+    "nombresCandidatos": [
+      "Ovelle Pharmaceuticals"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56478875010",
+    "nombreSugerido": "Erawan Pharmaceutical Research and Laboratory Co., Ltd.",
+    "nombresCandidatos": [
+      "Erawan Pharmaceutical Research and Laboratory Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56479014321",
+    "nombreSugerido": "HBL Pharma",
+    "nombresCandidatos": [
+      "HBL Pharma"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56479014323",
+    "nombreSugerido": "Droguería Universal",
+    "nombresCandidatos": [
+      "Droguería Universal"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56479494912",
+    "nombreSugerido": "Lohmann & Rauscher International GmbH & Co. KG",
+    "nombresCandidatos": [
+      "Lohmann & Rauscher International GmbH & Co. KG"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56479498355",
+    "nombreSugerido": "AVERROES PHARMACEUTICALS SDN BHD",
+    "nombresCandidatos": [
+      "AVERROES PHARMACEUTICALS SDN BHD"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56479648921",
+    "nombreSugerido": "Pharmarctica",
+    "nombresCandidatos": [
+      "Pharmarctica"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56479652875",
+    "nombreSugerido": "Apipol-Farma Sp. z o.o.",
+    "nombresCandidatos": [
+      "Apipol-Farma Sp. z o.o."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56479793689",
+    "nombreSugerido": "VMG Healthcare Products, S.A.",
+    "nombresCandidatos": [
+      "VMG Healthcare Products, S.A."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56480251463",
+    "nombreSugerido": "Bio Pharm Laboratories",
+    "nombresCandidatos": [
+      "Bio Pharm Laboratories"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481026077",
+    "nombreSugerido": "HC & PR Pharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "HC & PR Pharmaceutical Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481026665",
+    "nombreSugerido": "Orion Frontier Solutions",
+    "nombresCandidatos": [
+      "Orion Frontier Solutions"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481026667",
+    "nombreSugerido": "Droguería Opunsa, S.A.",
+    "nombresCandidatos": [
+      "Droguería Opunsa, S.A."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481126033",
+    "nombreSugerido": "Lipa Pharmaceuticals",
+    "nombresCandidatos": [
+      "Lipa Pharmaceuticals"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481129577",
+    "nombreSugerido": "ElaDum Pharma S.R.L.",
+    "nombresCandidatos": [
+      "ElaDum Pharma S.R.L."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481589906",
+    "nombreSugerido": "Grupo Amarey Nova Medical",
+    "nombresCandidatos": [
+      "Grupo Amarey Nova Medical"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481751679",
+    "nombreSugerido": "Reponex Pharmaceuticals A/S",
+    "nombresCandidatos": [
+      "Reponex Pharmaceuticals A/S"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481911628",
+    "nombreSugerido": "Opocrin S.p.A.",
+    "nombresCandidatos": [
+      "Opocrin S.p.A."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481911633",
+    "nombreSugerido": "Pharma Line SRL",
+    "nombresCandidatos": [
+      "Pharma Line SRL"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481914737",
+    "nombreSugerido": "3Z Pharmaceuticals",
+    "nombresCandidatos": [
+      "3Z Pharmaceuticals"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481918260",
+    "nombreSugerido": "AB Cernelle",
+    "nombresCandidatos": [
+      "AB Cernelle"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56481919026",
+    "nombreSugerido": "Pharma Investi / Megalabs de Chile",
+    "nombresCandidatos": [
+      "Pharma Investi / Megalabs de Chile"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56482208697",
+    "nombreSugerido": "DPM S.R.L.",
+    "nombresCandidatos": [
+      "DPM S.R.L."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56482996125",
+    "nombreSugerido": "Hoechst Pakistan Limited",
+    "nombresCandidatos": [
+      "Hoechst Pakistan Limited"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56482996128",
+    "nombreSugerido": "Probiotical",
+    "nombresCandidatos": [
+      "Probiotical"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56482999192",
+    "nombreSugerido": "Macleods Pharmaceuticals South Africa (Macleods India)",
+    "nombresCandidatos": [
+      "Macleods Pharmaceuticals South Africa (Macleods India)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56483002963",
+    "nombreSugerido": "Adexa Pharma SAS",
+    "nombresCandidatos": [
+      "Adexa Pharma SAS"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56483003712",
+    "nombreSugerido": "Garmisch Pharmaceutical",
+    "nombresCandidatos": [
+      "Garmisch Pharmaceutical"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56483003715",
+    "nombreSugerido": "Droguería Lagomac",
+    "nombresCandidatos": [
+      "Droguería Lagomac"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56483303699",
+    "nombreSugerido": "ReyesCo Limited",
+    "nombresCandidatos": [
+      "ReyesCo Limited"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56483472808",
+    "nombreSugerido": "Medex Honduras",
+    "nombresCandidatos": [
+      "Medex Honduras"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56483912547",
+    "nombreSugerido": "China Resources Double-Crane",
+    "nombresCandidatos": [
+      "China Resources Double-Crane"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56483919892",
+    "nombreSugerido": "Laboratorios Alter",
+    "nombresCandidatos": [
+      "Laboratorios Alter"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56484220789",
+    "nombreSugerido": "JINYANG PHARM. Co., Ltd.",
+    "nombresCandidatos": [
+      "JINYANG PHARM. Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56484224011",
+    "nombreSugerido": "Can-Fite Bio Pharma",
+    "nombresCandidatos": [
+      "Can-Fite Bio Pharma"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56484228198",
+    "nombreSugerido": "Retycol S.A.",
+    "nombresCandidatos": [
+      "Retycol S.A."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56484394577",
+    "nombreSugerido": "ProPhase Labs, Inc.",
+    "nombresCandidatos": [
+      "ProPhase Labs, Inc."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56484395158",
+    "nombreSugerido": "Simtra BioPharma Solutions",
+    "nombresCandidatos": [
+      "Simtra BioPharma Solutions"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56484553012",
+    "nombreSugerido": "Caribbean Farmaceutica",
+    "nombresCandidatos": [
+      "Caribbean Farmaceutica"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56484687525",
+    "nombreSugerido": "Chemicals / Fraperco",
+    "nombresCandidatos": [
+      "Chemicals / Fraperco"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485044256",
+    "nombreSugerido": "Olon",
+    "nombresCandidatos": [
+      "Olon"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485376338",
+    "nombreSugerido": "Tamro Sweden",
+    "nombresCandidatos": [
+      "Tamro Sweden"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485377061",
+    "nombreSugerido": "Laboratorios Marceli S.A. de C.V.",
+    "nombresCandidatos": [
+      "Laboratorios Marceli S.A. de C.V."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485377062",
+    "nombreSugerido": "Herbario Lab.",
+    "nombresCandidatos": [
+      "Herbario Lab."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485510676",
+    "nombreSugerido": "Medilom & Co",
+    "nombresCandidatos": [
+      "Medilom & Co"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485674331",
+    "nombreSugerido": "Garguar Lab Co., Ltd.",
+    "nombresCandidatos": [
+      "Garguar Lab Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485983541",
+    "nombreSugerido": "Eagle Pharmacy, Inc. (503B Outsourcing Facility)",
+    "nombresCandidatos": [
+      "Eagle Pharmacy, Inc. (503B Outsourcing Facility)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56485984256",
+    "nombreSugerido": "Grupo Farmacéutico de Tijuana",
+    "nombresCandidatos": [
+      "Grupo Farmacéutico de Tijuana"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56486129307",
+    "nombreSugerido": "A.L. Medi-Market",
+    "nombresCandidatos": [
+      "A.L. Medi-Market"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56486132616",
+    "nombreSugerido": "Vitalis SACI (Grupo AVE)",
+    "nombresCandidatos": [
+      "Vitalis SACI (Grupo AVE)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56486299826",
+    "nombreSugerido": "Bionativa",
+    "nombresCandidatos": [
+      "Bionativa"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56486303068",
+    "nombreSugerido": "Farmix",
+    "nombresCandidatos": [
+      "Farmix"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56486307419",
+    "nombreSugerido": "Cloverty / HC Clover / Aplicaps /",
+    "nombresCandidatos": [
+      "Cloverty / HC Clover / Aplicaps /"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56486439786",
+    "nombreSugerido": "Polypeptide Group",
+    "nombresCandidatos": [
+      "Polypeptide Group"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56486441834",
+    "nombreSugerido": "Uniphar Group",
+    "nombresCandidatos": [
+      "Uniphar Group"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56487056983",
+    "nombreSugerido": "Humanwell PuraCap Pharmaceutical (Wuhan) Co., Ltd.",
+    "nombresCandidatos": [
+      "Humanwell PuraCap Pharmaceutical (Wuhan) Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56487056985",
+    "nombreSugerido": "Biem İlaç",
+    "nombresCandidatos": [
+      "Biem İlaç"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56487218697",
+    "nombreSugerido": "Framingham Pharma S.A.",
+    "nombresCandidatos": [
+      "Framingham Pharma S.A."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56487529989",
+    "nombreSugerido": "Eurofins Alphora",
+    "nombresCandidatos": [
+      "Eurofins Alphora"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56487534111",
+    "nombreSugerido": "Tegor Laboratorios",
+    "nombresCandidatos": [
+      "Tegor Laboratorios"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56487836945",
+    "nombreSugerido": "October Pharma S.A.E.",
+    "nombresCandidatos": [
+      "October Pharma S.A.E."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56487837760",
+    "nombreSugerido": "Drofar",
+    "nombresCandidatos": [
+      "Drofar"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488146958",
+    "nombreSugerido": "Laboratorios Midet",
+    "nombresCandidatos": [
+      "Laboratorios Midet"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488422809",
+    "nombreSugerido": "Skopinsky Pharmaceutical Plant",
+    "nombresCandidatos": [
+      "Skopinsky Pharmaceutical Plant"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488428938",
+    "nombreSugerido": "Strathclyde Pharmaceuticals",
+    "nombresCandidatos": [
+      "Strathclyde Pharmaceuticals"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488429608",
+    "nombreSugerido": "USP Zdrowie Sp. z o.o.",
+    "nombresCandidatos": [
+      "USP Zdrowie Sp. z o.o."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488737389",
+    "nombreSugerido": "Sichuan Huiyu Pharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "Sichuan Huiyu Pharmaceutical Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488740771",
+    "nombreSugerido": "Laboratorios Medinfar",
+    "nombresCandidatos": [
+      "Laboratorios Medinfar"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488890977",
+    "nombreSugerido": "Beijing Tide Pharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "Beijing Tide Pharmaceutical Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488894355",
+    "nombreSugerido": "Mibe GmbH Arzneimittel",
+    "nombresCandidatos": [
+      "Mibe GmbH Arzneimittel"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56488898441",
+    "nombreSugerido": "Orthomed del Sol",
+    "nombresCandidatos": [
+      "Orthomed del Sol"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56489032791",
+    "nombreSugerido": "Beijing SL Pharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "Beijing SL Pharmaceutical Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56489512239",
+    "nombreSugerido": "Silvestrini Promotions",
+    "nombresCandidatos": [
+      "Silvestrini Promotions"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56489515283",
+    "nombreSugerido": "Adamas Pharmaceuticals (Supernus)",
+    "nombresCandidatos": [
+      "Adamas Pharmaceuticals (Supernus)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56489820979",
+    "nombreSugerido": "Recordati",
+    "nombresCandidatos": [
+      "Recordati"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56489973047",
+    "nombreSugerido": "El Nile Co. for Pharmaceuticals and Chemical Industries",
+    "nombresCandidatos": [
+      "El Nile Co. for Pharmaceuticals and Chemical Industries"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56489973838",
+    "nombreSugerido": "Verco S.A.",
+    "nombresCandidatos": [
+      "Verco S.A."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56489973839",
+    "nombreSugerido": "Jelfa S.A.",
+    "nombresCandidatos": [
+      "Jelfa S.A."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56490289997",
+    "nombreSugerido": "Grupo Hasther",
+    "nombresCandidatos": [
+      "Grupo Hasther"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56490574687",
+    "nombreSugerido": "Xiamen Origin Biotech",
+    "nombresCandidatos": [
+      "Xiamen Origin Biotech"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56490744963",
+    "nombreSugerido": "Pharmasyntez-Nord",
+    "nombresCandidatos": [
+      "Pharmasyntez-Nord"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56490890636",
+    "nombreSugerido": "Otsuka Pharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "Otsuka Pharmaceutical Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56491043368",
+    "nombreSugerido": "Laboratorio GDI Pharma, S.A. / Soluciones Farmacéuticas",
+    "nombresCandidatos": [
+      "Laboratorio GDI Pharma, S.A. / Soluciones Farmacéuticas"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56491200326",
+    "nombreSugerido": "Reiwa Healthcare",
+    "nombresCandidatos": [
+      "Reiwa Healthcare"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56491503724",
+    "nombreSugerido": "Medisky Pharmaceuticals",
+    "nombresCandidatos": [
+      "Medisky Pharmaceuticals"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56491675215",
+    "nombreSugerido": "Medsintez Plant",
+    "nombresCandidatos": [
+      "Medsintez Plant"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56491822381",
+    "nombreSugerido": "Ultimovacs ASA",
+    "nombresCandidatos": [
+      "Ultimovacs ASA"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56491973244",
+    "nombreSugerido": "Green Pharmaceutical Co., Ltd.",
+    "nombresCandidatos": [
+      "Green Pharmaceutical Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56491980924",
+    "nombreSugerido": "LaboQuiDom Laboratorio Químico Dominicano S.A",
+    "nombresCandidatos": [
+      "LaboQuiDom Laboratorio Químico Dominicano S.A"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56492124507",
+    "nombreSugerido": "UNIMED PHARMA spol. s r.o.",
+    "nombresCandidatos": [
+      "UNIMED PHARMA spol. s r.o."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56492126633",
+    "nombreSugerido": "Asamedic",
+    "nombresCandidatos": [
+      "Asamedic"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56492272291",
+    "nombreSugerido": "Tai Guk Pharm. Co., Ltd.",
+    "nombresCandidatos": [
+      "Tai Guk Pharm. Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56492446572",
+    "nombreSugerido": "Legacy Pharma, SRL",
+    "nombresCandidatos": [
+      "Legacy Pharma, SRL"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56492578920",
+    "nombreSugerido": "Dalim Biotech",
+    "nombresCandidatos": [
+      "Dalim Biotech"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56492887565",
+    "nombreSugerido": "Gen İlaç ve Sağlık Ürünleri A.Ş.",
+    "nombresCandidatos": [
+      "Gen İlaç ve Sağlık Ürünleri A.Ş."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56493049384",
+    "nombreSugerido": "CSC Pharmaceutical International",
+    "nombresCandidatos": [
+      "CSC Pharmaceutical International"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56493049388",
+    "nombreSugerido": "Agimexpharm Pharmaceutical JSC",
+    "nombresCandidatos": [
+      "Agimexpharm Pharmaceutical JSC"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56493990066",
+    "nombreSugerido": "Vetprom AD",
+    "nombresCandidatos": [
+      "Vetprom AD"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56493990067",
+    "nombreSugerido": "InsuLife",
+    "nombresCandidatos": [
+      "InsuLife"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56493991724",
+    "nombreSugerido": "Mayla Pharmaceuticals",
+    "nombresCandidatos": [
+      "Mayla Pharmaceuticals"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494221667",
+    "nombreSugerido": "Hisamitsu Pharmaceutical Co., Inc.",
+    "nombresCandidatos": [
+      "Hisamitsu Pharmaceutical Co., Inc."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494229366",
+    "nombreSugerido": "Naturmega",
+    "nombresCandidatos": [
+      "Naturmega"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494229375",
+    "nombreSugerido": "Laboratorio Vizcaíno",
+    "nombresCandidatos": [
+      "Laboratorio Vizcaíno"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494382446",
+    "nombreSugerido": "Gerot Lannach GmbH / G.L. Pharma GmbH",
+    "nombresCandidatos": [
+      "Gerot Lannach GmbH / G.L. Pharma GmbH"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494385694",
+    "nombreSugerido": "Calliditas",
+    "nombresCandidatos": [
+      "Calliditas"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494386341",
+    "nombreSugerido": "Bestpharma S.A.",
+    "nombresCandidatos": [
+      "Bestpharma S.A."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494538859",
+    "nombreSugerido": "Fidia Farmaceutici",
+    "nombresCandidatos": [
+      "Fidia Farmaceutici"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494692197",
+    "nombreSugerido": "Gadal Laboratories Inc.",
+    "nombresCandidatos": [
+      "Gadal Laboratories Inc."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494695539",
+    "nombreSugerido": "Laboratoire Bailly-Creat",
+    "nombresCandidatos": [
+      "Laboratoire Bailly-Creat"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494849593",
+    "nombreSugerido": "Cifarma",
+    "nombresCandidatos": [
+      "Cifarma"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56494854148",
+    "nombreSugerido": "Infarma",
+    "nombresCandidatos": [
+      "Infarma"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495004304",
+    "nombreSugerido": "Tianjin Pharmaceutical Holdings Co., Ltd. (Tianjin Pharm)",
+    "nombresCandidatos": [
+      "Tianjin Pharmaceutical Holdings Co., Ltd. (Tianjin Pharm)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495011855",
+    "nombreSugerido": "Prime Pharmaceutical",
+    "nombresCandidatos": [
+      "Prime Pharmaceutical"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495298855",
+    "nombreSugerido": "Marcyrl Pharmaceutical Industries",
+    "nombresCandidatos": [
+      "Marcyrl Pharmaceutical Industries"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495465368",
+    "nombreSugerido": "SK Chemicals Co., Ltd.",
+    "nombresCandidatos": [
+      "SK Chemicals Co., Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495465372",
+    "nombreSugerido": "XL Laboratories Pvt. Ltd.",
+    "nombresCandidatos": [
+      "XL Laboratories Pvt. Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495471720",
+    "nombreSugerido": "EGPI – Egyptian Group for Pharmaceutical Industries",
+    "nombresCandidatos": [
+      "EGPI – Egyptian Group for Pharmaceutical Industries"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495472973",
+    "nombreSugerido": "Laboratorios Sintesis",
+    "nombresCandidatos": [
+      "Laboratorios Sintesis"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495608979",
+    "nombreSugerido": "PSK Pharma (Rus BioPharm Group)",
+    "nombresCandidatos": [
+      "PSK Pharma (Rus BioPharm Group)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495616274",
+    "nombreSugerido": "Tassos",
+    "nombresCandidatos": [
+      "Tassos"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495766141",
+    "nombreSugerido": "Scilife Pharma (Pvt.) Ltd.",
+    "nombresCandidatos": [
+      "Scilife Pharma (Pvt.) Ltd."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495769661",
+    "nombreSugerido": "Lekhim Group",
+    "nombresCandidatos": [
+      "Lekhim Group"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495773511",
+    "nombreSugerido": "BIOCARE MANUFACTURING SDN BHD",
+    "nombresCandidatos": [
+      "BIOCARE MANUFACTURING SDN BHD"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495774067",
+    "nombreSugerido": "Farmacia Laboratorio y Droguería Mora",
+    "nombresCandidatos": [
+      "Farmacia Laboratorio y Droguería Mora"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56495928113",
+    "nombreSugerido": "WALA Heilmittel GmbH",
+    "nombresCandidatos": [
+      "WALA Heilmittel GmbH"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56496076386",
+    "nombreSugerido": "Altan pertenece a Ethypharm",
+    "nombresCandidatos": [
+      "Altan pertenece a Ethypharm"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56496387199",
+    "nombreSugerido": "Berat Beran İlaç Sanayi ve Tic. Ltd. Şti.",
+    "nombresCandidatos": [
+      "Berat Beran İlaç Sanayi ve Tic. Ltd. Şti."
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56496842786",
+    "nombreSugerido": "Sunshine Lake Pharma Co., Ltd. (HEC Group — excl. HEC Pharm)",
+    "nombresCandidatos": [
+      "Sunshine Lake Pharma Co., Ltd. (HEC Group — excl. HEC Pharm)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56496842790",
+    "nombreSugerido": "Bio Health Link (Lactomin)",
+    "nombresCandidatos": [
+      "Bio Health Link (Lactomin)"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56496848722",
+    "nombreSugerido": "Proquifa",
+    "nombresCandidatos": [
+      "Proquifa"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56497448475",
+    "nombreSugerido": "Doha Drug Store",
+    "nombresCandidatos": [
+      "Doha Drug Store"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56498309757",
+    "nombreSugerido": "D4 Logística & Distribución",
+    "nombresCandidatos": [
+      "D4 Logística & Distribución"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  },
+  {
+    "companyId": "56498444908",
+    "nombreSugerido": "Deva Pharmaceutique",
+    "nombresCandidatos": [
+      "Deva Pharmaceutique"
+    ],
+    "numContactos": 1,
+    "ambiguous": false
+  }
+]

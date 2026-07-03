@@ -551,12 +551,12 @@ export default function Dashboard() {
               <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 {team.map(op => (
                   <div key={op.name}
-                    style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid var(--border)', fontSize: 12, cursor: 'pointer' }}
+                    style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '6px 0', borderBottom: '1px solid var(--border)', fontSize: 12, cursor: 'pointer' }}
                     onClick={() => nav('/deals', { state: { filter: { filters: [{ propertyName: 'hubspot_owner_id', operator: 'EQ', value: op.ownerId }] } } })}
                     title={`Ver deals de ${op.name}`}
                   >
-                    <span style={{ fontWeight: 600 }}>{op.name}</span>
-                    <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>{op.paises}</span>
+                    <span style={{ fontWeight: 600, flexShrink: 0, minWidth: 60 }}>{op.name}</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: 11, flex: 1, textAlign: 'right' }}>{op.paises}</span>
                   </div>
                 ))}
               </div>
