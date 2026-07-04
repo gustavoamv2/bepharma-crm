@@ -96,6 +96,12 @@ export default function ContactDetail() {
                       </a>
                     } />
                   )}
+                  {p.bp_notas_contacto && (
+                    <div className="prop-item" style={{ gridColumn: '1 / -1' }}>
+                      <div className="prop-label">Anotaciones / Notas del contacto</div>
+                      <div className="prop-value" style={{ whiteSpace: 'pre-wrap' }}>{p.bp_notas_contacto}</div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

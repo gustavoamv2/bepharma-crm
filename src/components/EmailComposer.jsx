@@ -87,6 +87,9 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
   const [signatureHtml, setSignatureHtml] = useState('')
   const [showSigEditor, setShowSigEditor] = useState(false)
 
+  const [templates, setTemplates] = useState([]) // [{ id, name, subject, bodyHtml }]
+  const [selectedTemplate, setSelectedTemplate] = useState('')
+
   const [attachments, setAttachments] = useState([]) // [{ id, filename, contentType, sizeBytes, base64 }]
   const fileInputRef = useRef(null)
   const bodyRef = useRef(null)
@@ -107,7 +110,56 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
     axios.get('/api/email/signature')
       .then(r => setSignatureHtml(r.data?.html || ''))
       .catch(() => { /* sin firma configurada — no bloquea el composer */ })
+
+    axios.get('/api/email/templates')
+      .then(r => setTemplates(r.data?.templates || []))
+      .catch(() => { /* sin plantillas — no bloquea el composer */ })
   }, [])
+
+  // Destinatarios seleccionados a partir del texto "Para" (permite más de
+  // un correo precargado a la vez, separados por coma)
+  const toEmails = to.split(',').map(s => s.trim()).filter(Boolean)
+  const toggleToEmail = (email) => {
+    setTo(toEmails.includes(email)
+      ? toEmails.filter(e => e !== email).join(', ')
+      : [...toEmails, email].join(', '))
+  }
+
+  const applyTemplate = (id) => {
+    setSelectedTemplate(id)
+    const t = templates.find(t => t.id === id)
+    if (!t) return
+    if (t.subject) setSubject(t.subject)
+    if (bodyRef.current) bodyRef.current.innerHTML = t.bodyHtml || ''
+  }
+
+  const saveAsTemplate = async () => {
+    const name = window.prompt('Nombre de la plantilla:')
+    if (!name?.trim()) return
+    const bodyHtml = bodyRef.current?.innerHTML || ''
+    const newTemplate = { id: `tmpl_${Date.now()}`, name: name.trim(), subject, bodyHtml }
+    const next = [...templates, newTemplate]
+    setTemplates(next)
+    setSelectedTemplate(newTemplate.id)
+    try {
+      await axios.put('/api/email/templates', { templates: next })
+      toast('Plantilla guardada', 'success')
+    } catch (e) {
+      toast('No se pudo guardar la plantilla: ' + (e.response?.data?.error || e.message), 'error')
+    }
+  }
+
+  const deleteTemplate = async (id) => {
+    const next = templates.filter(t => t.id !== id)
+    setTemplates(next)
+    if (selectedTemplate === id) setSelectedTemplate('')
+    try {
+      await axios.put('/api/email/templates', { templates: next })
+      toast('Plantilla eliminada', 'success')
+    } catch (e) {
+      toast('No se pudo eliminar la plantilla: ' + (e.response?.data?.error || e.message), 'error')
+    }
+  }
 
   useEffect(() => {
     const handler = (e) => { if (e.key === 'Escape' && !showSigEditor) onClose() }
@@ -217,36 +269,69 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
 
         <div style={{ flex: 1, overflow: 'auto', padding: 18, display: 'flex', flexDirection: 'column', gap: 10 }}>
 
-          {/* Chips de selección rápida de email */}
+          {/* Chips de selección rápida de email — clic para agregar/quitar,
+              permite seleccionar más de un destinatario precargado a la vez */}
           {emailOptions.length > 1 && (
             <div style={{ paddingBottom: 10, borderBottom: '1px solid #e2e8f0' }}>
-              <div style={{ fontSize: 11, color: '#6b778c', fontWeight: 600, marginBottom: 6 }}>Enviar a:</div>
+              <div style={{ fontSize: 11, color: '#6b778c', fontWeight: 600, marginBottom: 6 }}>
+                Enviar a (clic para agregar/quitar):
+              </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                {emailOptions.map(opt => (
-                  <button
-                    key={opt.email}
-                    onClick={() => setTo(opt.email)}
-                    style={{
-                      padding: '4px 10px', borderRadius: 20, fontSize: 12, cursor: 'pointer',
-                      border: `1px solid ${to === opt.email ? '#0052cc' : '#dfe1e6'}`,
-                      background: to === opt.email ? '#e6f0ff' : '#f4f5f7',
-                      color: to === opt.email ? '#0052cc' : '#344563',
-                      fontWeight: to === opt.email ? 600 : 400,
-                    }}
-                  >
-                    {opt.label} — {opt.email}
-                  </button>
-                ))}
+                {emailOptions.map(opt => {
+                  const active = toEmails.includes(opt.email)
+                  return (
+                    <button
+                      key={opt.email}
+                      type="button"
+                      onClick={() => toggleToEmail(opt.email)}
+                      style={{
+                        padding: '4px 10px', borderRadius: 20, fontSize: 12, cursor: 'pointer',
+                        border: `1px solid ${active ? '#0052cc' : '#dfe1e6'}`,
+                        background: active ? '#e6f0ff' : '#f4f5f7',
+                        color: active ? '#0052cc' : '#344563',
+                        fontWeight: active ? 600 : 400,
+                      }}
+                    >
+                      {active ? '✓ ' : ''}{opt.label} — {opt.email}
+                    </button>
+                  )
+                })}
               </div>
             </div>
           )}
+
+          {/* Plantillas de email */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', paddingBottom: 10, borderBottom: '1px solid #e2e8f0' }}>
+            <span style={{ fontSize: 11, color: '#6b778c', fontWeight: 600 }}>Plantilla:</span>
+            <select
+              value={selectedTemplate}
+              onChange={e => applyTemplate(e.target.value)}
+              style={{ fontSize: 12, border: '1px solid #dfe1e6', borderRadius: 5, padding: '4px 6px', background: '#fff' }}
+            >
+              <option value="">— Ninguna —</option>
+              {templates.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+            </select>
+            <button type="button" className="btn btn-ghost btn-sm" onClick={saveAsTemplate}>
+              Guardar como plantilla
+            </button>
+            {selectedTemplate && (
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                onClick={() => deleteTemplate(selectedTemplate)}
+                style={{ color: '#de350b' }}
+              >
+                Eliminar plantilla
+              </button>
+            )}
+          </div>
 
           <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: 8, gap: 10 }}>
             <span style={{ fontSize: 12, color: '#6b778c', fontWeight: 600, minWidth: 40 }}>Para</span>
             <input
               value={to}
               onChange={e => setTo(e.target.value)}
-              placeholder="contacto@empresa.com"
+              placeholder="contacto@empresa.com, otro@empresa.com"
               style={{ border: 'none', outline: 'none', fontSize: 13, flex: 1, padding: 0 }}
             />
             {!showCc && (

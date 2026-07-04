@@ -3,11 +3,13 @@ import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { format, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { Plus, X, BarChart2 } from 'lucide-react'
+import { Plus, X, BarChart2, FileSpreadsheet } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import RecordModal from '../components/RecordModal'
 import { BarChart } from '../components/Charts'
+import { useToast } from '../hooks/useToast'
+import { COUNTRIES } from '../constants/countries'
 
 const fmt = (v) => v ? format(parseISO(v), 'dd MMM yy', { locale: es }) : '—'
 
@@ -23,28 +25,59 @@ const QUALITY_LABELS = {
 }
 const QUALITY_COLOR = '#de350b'
 
+// Descarga un blob en el navegador con el nombre de archivo dado
+function downloadBlob(blob, filename) {
+  const url = window.URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  window.URL.revokeObjectURL(url)
+}
+
 export default function ContactList() {
   const nav = useNavigate()
   const qc = useQueryClient()
+  const { addToast } = useToast()
   const [search, setSearch] = useState('')
   const [after, setAfter] = useState(null)
   const [history, setHistory] = useState([])
   const [showCreate, setShowCreate] = useState(false)
-  const [qualityFilter, setQualityFilter] = useState('')
+  // Checkboxes multi-select de calidad de datos (combinables entre sí con OR)
+  const [qualityFilters, setQualityFilters] = useState([])
+  const [exporting, setExporting] = useState(false)
+  const toggleQuality = (key) => {
+    setQualityFilters(prev => prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key])
+    resetPaging()
+  }
 
   const resetPaging = () => { setAfter(null); setHistory([]) }
+
+  // Búsqueda por nombre, apellido, teléfono, empresa y país (país acepta
+  // tanto el valor en inglés como escribir el nombre en español, ej. "México").
+  const matchingCountryValues = search
+    ? COUNTRIES.filter(c =>
+        c.label.toLowerCase().includes(search.toLowerCase()) ||
+        c.en.toLowerCase().includes(search.toLowerCase())
+      ).map(c => c.en)
+    : []
 
   const filterGroups = search ? [
     { filters: [{ propertyName: 'firstname', operator: 'CONTAINS_TOKEN', value: search }] },
     { filters: [{ propertyName: 'lastname',  operator: 'CONTAINS_TOKEN', value: search }] },
     { filters: [{ propertyName: 'phone',     operator: 'CONTAINS_TOKEN', value: search }] },
+    { filters: [{ propertyName: 'company',   operator: 'CONTAINS_TOKEN', value: search }] },
+    { filters: [{ propertyName: 'country',   operator: 'CONTAINS_TOKEN', value: search }] },
+    ...matchingCountryValues.map(v => ({ filters: [{ propertyName: 'country', operator: 'EQ', value: v }] })),
   ] : undefined
 
   const { data, isLoading, error } = useQuery(
-    ['contacts', search, qualityFilter, after],
+    ['contacts', search, qualityFilters, after],
     () => hubspot.searchContacts({
       filterGroups,
-      qualityFilter: qualityFilter || undefined,
+      qualityFilters: qualityFilters.length ? qualityFilters : undefined,
       sorts: [{ propertyName: 'hs_lastmodifieddate', direction: 'DESCENDING' }],
       limit: 25,
       after,
@@ -53,8 +86,8 @@ export default function ContactList() {
   )
 
   // El gráfico "Calidad de datos" refleja la búsqueda activa del listado —
-  // no incluye qualityFilter a propósito, para seguir mostrando la
-  // distribución completa aunque haya una barra ya seleccionada.
+  // no incluye qualityFilters a propósito, para seguir mostrando la
+  // distribución completa aunque haya un check ya seleccionado.
   const { data: qualityMetrics } = useQuery(
     ['contacts-quality-metrics', search],
     () => hubspot.getContactQualityMetrics({ search: search || undefined }),
@@ -67,42 +100,82 @@ export default function ContactList() {
   const contacts = data?.results || []
   const nextAfter = data?.paging?.next?.after
 
+  const filtroResumenParts = []
+  if (search) filtroResumenParts.push(`Búsqueda: "${search}"`)
+  if (qualityFilters.length) filtroResumenParts.push(qualityFilters.map(k => QUALITY_LABELS[k]).join(' o '))
+  const filtroResumen = filtroResumenParts.join('; ')
+
+  const handleExport = async () => {
+    setExporting(true)
+    try {
+      const blob = await hubspot.exportContacts({
+        filterGroups,
+        qualityFilters: qualityFilters.length ? qualityFilters : undefined,
+        filtroResumen,
+      })
+      downloadBlob(blob, `BePharma_Contactos_${new Date().toISOString().slice(0, 10)}.xlsx`)
+    } catch (e) {
+      addToast('No se pudo generar el Excel: ' + (e.response?.data?.error || e.message), 'error')
+    } finally {
+      setExporting(false)
+    }
+  }
+
   return (
     <>
       <Topbar title="Contactos" action={
-        <button className="btn btn-primary btn-sm" onClick={() => setShowCreate(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-          <Plus size={13} /> Nuevo contacto
-        </button>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button className="btn btn-ghost btn-sm" onClick={handleExport} disabled={exporting} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+            <FileSpreadsheet size={13} /> {exporting ? 'Generando…' : 'Exportar a Excel'}
+          </button>
+          <button className="btn btn-primary btn-sm" onClick={() => setShowCreate(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+            <Plus size={13} /> Nuevo contacto
+          </button>
+        </div>
       } />
       <div className="content">
-        {/* Gráfico de calidad de datos — clic en una barra filtra el listado de abajo */}
+        {/* Gráfico de calidad de datos — clic en una barra o en un checkbox
+            agrega/quita ese criterio del filtro (se pueden combinar varios) */}
         <div className="card" style={{ marginBottom: 14 }}>
           <div className="card-header">
             <h2 style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <BarChart2 size={14} style={{ color: QUALITY_COLOR }} />
               Calidad de datos
             </h2>
-            <span style={{ fontSize: 11, color: '#6b778c' }}>clic en una barra para filtrar el listado</span>
+            <span style={{ fontSize: 11, color: '#6b778c' }}>clic en una barra o un check para filtrar (combinable)</span>
           </div>
           <div className="card-body" style={{ padding: '12px 16px' }}>
             <BarChart
               data={qualityChartData}
               color={QUALITY_COLOR}
-              onBarClick={(bar) => { setQualityFilter(bar.key); resetPaging() }}
+              onBarClick={(bar) => toggleQuality(bar.key)}
             />
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 10, paddingTop: 10, borderTop: '1px solid #f0f1f3' }}>
+              {Object.entries(QUALITY_LABELS).map(([key, label]) => (
+                <label key={key} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#42526e', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={qualityFilters.includes(key)}
+                    onChange={() => toggleQuality(key)}
+                    style={{ accentColor: QUALITY_COLOR, width: 14, height: 14 }}
+                  />
+                  {label}
+                </label>
+              ))}
+            </div>
           </div>
         </div>
 
         <div className="search-bar" style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <input placeholder="Buscar por nombre, apellido o teléfono…" value={search} onChange={e => { setSearch(e.target.value); resetPaging() }} style={{ flex: 1 }} />
-          {qualityFilter && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#fff1f0', borderRadius: 6, padding: '4px 10px', fontSize: 12, fontWeight: 600, color: '#de350b', flexShrink: 0 }}>
-              {QUALITY_LABELS[qualityFilter]}
-              <button onClick={() => { setQualityFilter(''); resetPaging() }} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#de350b', padding: 0, display: 'flex' }}>
+          <input placeholder="Buscar por nombre, apellido, teléfono, empresa o país…" value={search} onChange={e => { setSearch(e.target.value); resetPaging() }} style={{ flex: 1 }} />
+          {qualityFilters.map(key => (
+            <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#fff1f0', borderRadius: 6, padding: '4px 10px', fontSize: 12, fontWeight: 600, color: '#de350b', flexShrink: 0 }}>
+              {QUALITY_LABELS[key]}
+              <button onClick={() => toggleQuality(key)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#de350b', padding: 0, display: 'flex' }}>
                 <X size={13} />
               </button>
             </div>
-          )}
+          ))}
         </div>
 
         <div className="card">

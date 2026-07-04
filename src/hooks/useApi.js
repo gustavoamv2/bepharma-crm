@@ -43,6 +43,12 @@ export const hubspot = {
   getCompanyQualityMetrics: (params) => api.get('/hubspot/companies/quality-metrics', { params }).then(r => r.data),
   getContactQualityMetrics: (params) => api.get('/hubspot/contacts/quality-metrics', { params }).then(r => r.data),
 
+  // Exportar a Excel — el backend pagina TODOS los resultados que cumplen
+  // los filtros (no solo la página visible) y arma el .xlsx con logo BePharma
+  // + evento activo + resumen de filtros. Devuelve el blob para descargar.
+  exportCompanies: (body) => api.post('/hubspot/companies/export', body, { responseType: 'blob' }).then(r => r.data),
+  exportContacts:  (body) => api.post('/hubspot/contacts/export',  body, { responseType: 'blob' }).then(r => r.data),
+
   createNote:      (objectType, objectId, body, noteType = 'NOTE') =>
     api.post('/hubspot/notes', { objectType, objectId, body, noteType }).then(r => r.data),
   logCall:         (data)     => api.post('/hubspot/calls/log', data).then(r => r.data),

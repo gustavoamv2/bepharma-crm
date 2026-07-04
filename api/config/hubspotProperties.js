@@ -53,6 +53,8 @@ const COMPANY_PROPERTIES = [
   'num_associated_contacts',
   'num_associated_deals',
   'bp_lista_negra',
+  'bp_participo_eventos',
+  'bp_estado_aprobacion',
 ]
 
 // Definición única de los 5 indicadores de "calidad de datos" de Empresas
@@ -109,6 +111,7 @@ const CONTACT_PROPERTIES = [
   'bp_empresa_actual_texto',
   'bp_fecha_cambio_empresa',
   'bp_notas_movilidad_contacto',
+  'bp_notas_contacto',
 ]
 
 // Definición única de los 5 indicadores de "calidad de datos" de Contactos

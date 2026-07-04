@@ -6,6 +6,7 @@ import { hubspot, invalidateDashboard } from '../hooks/useApi'
 import { useAuth } from '../contexts/AuthContext'
 import Topbar from '../components/Topbar'
 import { DonutChart } from '../components/Charts'
+import { COUNTRIES } from '../constants/countries'
 
 const ACTIVE_EVENT = 'BEPH-2026-09'
 
@@ -134,8 +135,15 @@ export default function DealList() {
   const [estado, setEstado] = useState('')
   const [alerta, setAlerta] = useState('')
   const [ownerFilter, setOwnerFilter] = useState('')
+  const [countryFilter, setCountryFilter] = useState('') // valor en español, igual que se guarda bp_evento_paises
   const [after, setAfter] = useState(null)
   const [history, setHistory] = useState([])
+
+  // En vista de operador, el filtro de país solo debe listar los países que
+  // ese operador tiene configurados (user.bp_paises) — igual que en Empresas.
+  const availableCountries = (!isSupervisor && user?.bp_paises?.length)
+    ? COUNTRIES.filter(c => user.bp_paises.includes(c.label))
+    : COUNTRIES
 
   const resetPage = () => { setAfter(null); setHistory([]) }
 
@@ -150,12 +158,13 @@ export default function DealList() {
     if (alerta === 'sin_alerta') filters.push({ propertyName: 'bp_estado_alerta', operator: 'NOT_HAS_PROPERTY' })
     else if (alerta) filters.push({ propertyName: 'bp_estado_alerta', operator: 'EQ', value: alerta })
     if (ownerFilter) filters.push({ propertyName: 'hubspot_owner_id',      operator: 'EQ', value: ownerFilter })
+    if (countryFilter) filters.push({ propertyName: 'bp_evento_paises',    operator: 'EQ', value: countryFilter })
     if (search)      filters.push({ propertyName: 'dealname',              operator: 'CONTAINS_TOKEN', value: search })
     return filters
   }
 
   const { data, isLoading, error } = useQuery(
-    ['deals', search, estado, alerta, ownerFilter, after, preFilter],
+    ['deals', search, estado, alerta, ownerFilter, countryFilter, after, preFilter],
     () => hubspot.searchDeals({
       filters: buildFilters(),
       sorts: [{ propertyName: 'bp_ultima_actividad_operador', direction: 'DESCENDING' }],
@@ -245,6 +254,12 @@ export default function DealList() {
               ))}
             </select>
           )}
+          <select value={countryFilter} onChange={e => { setCountryFilter(e.target.value); resetPage() }}>
+            <option value="">Todos los países</option>
+            {availableCountries.map(c => (
+              <option key={c.label} value={c.label}>{c.label}</option>
+            ))}
+          </select>
           {preFilter && (
             <button className="btn btn-ghost btn-sm" onClick={() => nav('/deals', { state: null })}>
               x Quitar filtro rapido
@@ -268,6 +283,7 @@ export default function DealList() {
                       <th>Evento</th>
                       <th>Owner</th>
                       <th>Zona</th>
+                      <th>País</th>
                       <th>Estado</th>
                       <th>Proximo contacto</th>
                       <th>Ult. actividad</th>
@@ -285,6 +301,7 @@ export default function DealList() {
                           <td style={{ fontWeight: 500 }}>{p.dealname || '(sin nombre)'}</td>
                           <td style={{ fontSize: 12 }}>{OWNER_NAMES[p.hubspot_owner_id] || '—'}</td>
                           <td style={{ fontSize: 12 }}>{p.bp_zona || '—'}</td>
+                          <td style={{ fontSize: 12 }}>{p.bp_evento_paises || '—'}</td>
                           <td style={{ fontSize: 12 }}>{ESTADO_LABELS[p.bp_estado_prospeccion] || p.bp_estado_prospeccion || '—'}</td>
                           <td style={{ fontSize: 12, color: isOverdue ? 'var(--danger)' : undefined }}>
                             {isOverdue && <Calendar size={11} style={{ marginRight: 3, verticalAlign: 'middle' }} />}

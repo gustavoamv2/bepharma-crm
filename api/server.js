@@ -16,6 +16,8 @@ const { requireWebhookToken } = require('./middleware/webhookAuth')
 const { errorHandler } = require('./middleware/errorHandler')
 const { loadUsers, saveUsers } = require('./usersStore')
 const { getSignature, saveSignature, kvEnabled } = require('./signatureStore')
+const { getTemplates: getEmailTemplates, saveTemplates: saveEmailTemplates, kvEnabled: templatesKvEnabled } = require('./emailTemplatesStore')
+const { buildReportWorkbook, workbookToBuffer } = require('./services/excelExport.service')
 
 const app = express()
 
@@ -289,12 +291,37 @@ function withQualityFilter(filterGroups, qualityFilter, defs = COMPANY_QUALITY_F
   return base.flatMap(group => def.orFilters.map(f => ({ filters: [...(group.filters || []), f] })))
 }
 
+// Version multi-select de withQualityFilter — usada por los checkboxes del
+// listado (CompanyList/ContactList), que permiten combinar varios criterios
+// de calidad a la vez (ej. "Sin contacto" + "Sin teléfono"). Semántica: el
+// registro debe cumplir el filtro existente Y (any de los criterios
+// seleccionados) — mismo patrón OR-entre-grupos que la versión singular,
+// solo que unifica los orFilters de todas las keys elegidas.
+function withQualityFilters(filterGroups, keys, defs = COMPANY_QUALITY_FILTERS) {
+  const list = Array.isArray(keys) ? keys.filter(k => defs[k]) : []
+  if (!list.length) return filterGroups
+  const allOrFilters = list.flatMap(k => defs[k].orFilters)
+  const base = filterGroups.length ? filterGroups : [{ filters: [] }]
+  return base.flatMap(group => allOrFilters.map(f => ({ filters: [...(group.filters || []), f] })))
+}
+
+// Normaliza qualityFilters recibido por query o body — acepta array (JSON
+// body) o CSV (query string, ej. ?qualityFilters=sinContacto,sinTelefono).
+function parseQualityFilters(raw) {
+  if (Array.isArray(raw)) return raw
+  if (typeof raw === 'string' && raw.trim()) return raw.split(',').map(s => s.trim()).filter(Boolean)
+  return []
+}
+
 app.post('/api/hubspot/companies/search', requireAuth, async (req, res) => {
   try {
-    const { filters = [], sorts = [], limit = 50, after, properties: customProps, contactsFilter, qualityFilter } = req.body
+    const { filters = [], sorts = [], limit = 50, after, properties: customProps, contactsFilter, qualityFilter, qualityFilters } = req.body
     let filterGroups = filters.length ? [{ filters }] : []
     filterGroups = withContactsFilter(filterGroups, contactsFilter)
-    filterGroups = withQualityFilter(filterGroups, qualityFilter)
+    const qfList = parseQualityFilters(qualityFilters)
+    filterGroups = qfList.length
+      ? withQualityFilters(filterGroups, qfList)
+      : withQualityFilter(filterGroups, qualityFilter)
     filterGroups = applyCountryFilter(req, filterGroups, 'country', { translate: true })
     const r = await hs.post('/crm/v3/objects/companies/search', {
       filterGroups,
@@ -344,6 +371,101 @@ app.get('/api/hubspot/companies/quality-metrics', requireAuth, async (req, res) 
     await delay(260)
   }
   res.json(metrics)
+})
+
+// Etiquetas para el reporte Excel — mismas claves que bp_etapa_empresa
+const COMPANY_STAGE_LABELS_XLS = {
+  nueva: 'Nueva', depuracion: 'Depuración', enriquecimiento: 'Enriquecimiento',
+  calificada: 'Calificada', contactada: 'Contactada', seguimiento: 'Seguimiento',
+  confirmada: 'Confirmada', descartada: 'Descartada',
+}
+
+const COMPANY_EXPORT_COLUMNS = [
+  { header: 'Empresa',              key: 'name',             width: 32 },
+  { header: 'Dominio',               key: 'domain',           width: 24 },
+  { header: 'Teléfono',              key: 'phone',            width: 18 },
+  { header: 'País',                  key: 'country',          width: 18 },
+  { header: 'Ciudad',                key: 'city',             width: 18 },
+  { header: 'Industria',             key: 'industry',         width: 22 },
+  { header: 'Etapa',                 key: 'etapa',            width: 16 },
+  { header: 'Contactos asociados',   key: 'contactos',        width: 16 },
+  { header: 'Eventos asociados',     key: 'eventos',          width: 15 },
+  { header: 'Participó en eventos',  key: 'participoEventos', width: 16 },
+  { header: 'Lista negra',           key: 'listaNegra',        width: 12 },
+  { header: 'Creada',                key: 'creada',           width: 14 },
+]
+
+// Reporte Excel del listado de Empresas — respeta los mismos filtros que
+// /companies/search (búsqueda, país, con/sin contactos, calidad de datos
+// multi-select) pero pagina TODOS los resultados (hasta un tope razonable)
+// en vez de una sola página, y arma un .xlsx con logo BePharma + evento
+// activo + resumen de filtros (recibido del cliente, que ya conoce las
+// etiquetas legibles de cada filtro).
+app.post('/api/hubspot/companies/export', requireAuth, async (req, res) => {
+  try {
+    const { filters = [], contactsFilter, qualityFilter, qualityFilters, filtroResumen } = req.body
+    let filterGroups = filters.length ? [{ filters }] : []
+    filterGroups = withContactsFilter(filterGroups, contactsFilter)
+    const qfList = parseQualityFilters(qualityFilters)
+    filterGroups = qfList.length
+      ? withQualityFilters(filterGroups, qfList)
+      : withQualityFilter(filterGroups, qualityFilter)
+    filterGroups = applyCountryFilter(req, filterGroups, 'country', { translate: true })
+
+    const MAX_PAGES = 40 // hasta 4000 empresas (100 x 40)
+    const sleep = (ms) => new Promise(r => setTimeout(r, ms))
+    const allCompanies = []
+    let after
+    for (let page = 0; page < MAX_PAGES; page++) {
+      if (page > 0) await sleep(260)
+      const r = await hs.post('/crm/v3/objects/companies/search', {
+        filterGroups,
+        sorts: [{ propertyName: 'name', direction: 'ASCENDING' }],
+        limit: 100,
+        after,
+        properties: COMPANY_PROPERTIES,
+      })
+      allCompanies.push(...(r.data.results || []))
+      after = r.data.paging?.next?.after
+      if (!after) break
+    }
+
+    const rows = allCompanies.map(c => {
+      const p = c.properties || {}
+      return {
+        name: p.name || '(sin nombre)',
+        domain: p.domain || '',
+        phone: p.phone || '',
+        country: p.country || '',
+        city: p.city || '',
+        industry: p.industry || '',
+        etapa: COMPANY_STAGE_LABELS_XLS[p.bp_etapa_empresa] || p.bp_etapa_empresa || '',
+        contactos: Number(p.num_associated_contacts) || 0,
+        eventos: Number(p.num_associated_deals) || 0,
+        participoEventos: (p.bp_participo_eventos === 'true' || p.bp_participo_eventos === true) ? 'Sí' : 'No',
+        listaNegra: (p.bp_lista_negra === 'true' || p.bp_lista_negra === true) ? 'Sí' : 'No',
+        creada: p.createdate ? new Date(Number(p.createdate) || p.createdate).toLocaleDateString('es-MX') : '',
+      }
+    })
+
+    const workbook = await buildReportWorkbook({
+      sheetName: 'Empresas',
+      title: 'BePharma CRM — Reporte de Empresas',
+      eventoActivo: ACTIVE_EVENT,
+      filtroResumen,
+      generadoPor: req.user?.username,
+      columns: COMPANY_EXPORT_COLUMNS,
+      rows,
+    })
+    const buffer = await workbookToBuffer(workbook)
+
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    res.setHeader('Content-Disposition', `attachment; filename="BePharma_Empresas_${ACTIVE_EVENT}_${Date.now()}.xlsx"`)
+    res.send(Buffer.from(buffer))
+  } catch (e) {
+    console.error('[companies/export] Error:', e.response?.data || e.message)
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
 })
 
 // Búsqueda rápida de empresas por nombre (DEBE ir antes de /:id)
@@ -432,11 +554,14 @@ app.get('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
 // Contactos – búsqueda
 app.post('/api/hubspot/contacts/search', requireAuth, async (req, res) => {
   try {
-    const { filters = [], filterGroups: fgBody, sorts = [], limit = 50, after, qualityFilter } = req.body
-    // fgBody permite OR entre propiedades (nombre, apellido, teléfono)
+    const { filters = [], filterGroups: fgBody, sorts = [], limit = 50, after, qualityFilter, qualityFilters } = req.body
+    // fgBody permite OR entre propiedades (nombre, apellido, teléfono, país, empresa)
     const baseGroups = fgBody || (filters.length ? [{ filters }] : [])
     let filterGroups = applyOwnerFilter(req, baseGroups)
-    filterGroups = withQualityFilter(filterGroups, qualityFilter, CONTACT_QUALITY_FILTERS)
+    const qfList = parseQualityFilters(qualityFilters)
+    filterGroups = qfList.length
+      ? withQualityFilters(filterGroups, qfList, CONTACT_QUALITY_FILTERS)
+      : withQualityFilter(filterGroups, qualityFilter, CONTACT_QUALITY_FILTERS)
     filterGroups = applyCountryFilter(req, filterGroups, 'country', { translate: true })
     const r = await hs.post('/crm/v3/objects/contacts/search', {
       filterGroups,
@@ -486,6 +611,84 @@ app.get('/api/hubspot/contacts/quality-metrics', requireAuth, async (req, res) =
     await delay(260)
   }
   res.json(metrics)
+})
+
+const CONTACT_EXPORT_COLUMNS = [
+  { header: 'Nombre',      key: 'nombre',  width: 26 },
+  { header: 'Email',       key: 'email',   width: 28 },
+  { header: 'Teléfono',    key: 'telefono', width: 18 },
+  { header: 'Cargo',       key: 'cargo',   width: 22 },
+  { header: 'Empresa',     key: 'empresa', width: 28 },
+  { header: 'País',        key: 'pais',    width: 18 },
+  { header: 'Anotaciones', key: 'notas',   width: 42 },
+  { header: 'Creado',      key: 'creado',  width: 14 },
+]
+
+// Reporte Excel del listado de Contactos — mismo criterio que
+// /contacts/search (búsqueda, calidad de datos multi-select), pagina todos
+// los resultados y arma el .xlsx con logo BePharma + evento activo +
+// resumen de filtros.
+app.post('/api/hubspot/contacts/export', requireAuth, async (req, res) => {
+  try {
+    const { filters = [], filterGroups: fgBody, qualityFilter, qualityFilters, filtroResumen } = req.body
+    const baseGroups = fgBody || (filters.length ? [{ filters }] : [])
+    let filterGroups = applyOwnerFilter(req, baseGroups)
+    const qfList = parseQualityFilters(qualityFilters)
+    filterGroups = qfList.length
+      ? withQualityFilters(filterGroups, qfList, CONTACT_QUALITY_FILTERS)
+      : withQualityFilter(filterGroups, qualityFilter, CONTACT_QUALITY_FILTERS)
+    filterGroups = applyCountryFilter(req, filterGroups, 'country', { translate: true })
+
+    const MAX_PAGES = 40 // hasta 4000 contactos (100 x 40)
+    const sleep = (ms) => new Promise(r => setTimeout(r, ms))
+    const allContacts = []
+    let after
+    for (let page = 0; page < MAX_PAGES; page++) {
+      if (page > 0) await sleep(260)
+      const r = await hs.post('/crm/v3/objects/contacts/search', {
+        filterGroups,
+        sorts: [{ propertyName: 'firstname', direction: 'ASCENDING' }],
+        limit: 100,
+        after,
+        properties: CONTACT_PROPERTIES,
+      })
+      allContacts.push(...(r.data.results || []))
+      after = r.data.paging?.next?.after
+      if (!after) break
+    }
+
+    const rows = allContacts.map(c => {
+      const p = c.properties || {}
+      return {
+        nombre: [p.firstname, p.lastname].filter(Boolean).join(' ') || '(sin nombre)',
+        email: p.email || '',
+        telefono: p.phone || '',
+        cargo: p.jobtitle || '',
+        empresa: p.company || '',
+        pais: p.country || '',
+        notas: p.bp_notas_contacto || '',
+        creado: p.createdate ? new Date(Number(p.createdate) || p.createdate).toLocaleDateString('es-MX') : '',
+      }
+    })
+
+    const workbook = await buildReportWorkbook({
+      sheetName: 'Contactos',
+      title: 'BePharma CRM — Reporte de Contactos',
+      eventoActivo: ACTIVE_EVENT,
+      filtroResumen,
+      generadoPor: req.user?.username,
+      columns: CONTACT_EXPORT_COLUMNS,
+      rows,
+    })
+    const buffer = await workbookToBuffer(workbook)
+
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    res.setHeader('Content-Disposition', `attachment; filename="BePharma_Contactos_${ACTIVE_EVENT}_${Date.now()}.xlsx"`)
+    res.send(Buffer.from(buffer))
+  } catch (e) {
+    console.error('[contacts/export] Error:', e.response?.data || e.message)
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
 })
 
 // Contacto – detalle
@@ -723,6 +926,28 @@ app.post('/api/hubspot/deals', requireAuth, async (req, res) => {
     const { _companyId, ...rest } = req.body
     const props = { ...rest }
     if (!props.hubspot_owner_id) props.hubspot_owner_id = req.user.ownerId
+
+    // Empresas en lista negra no deben recibir nuevos eventos/deals — se
+    // marcan para NO contactar en futuros eventos (ver bp_lista_negra).
+    if (_companyId) {
+      try {
+        const companyCheck = await hs.get(`/crm/v3/objects/companies/${_companyId}`, {
+          params: { properties: 'name,bp_lista_negra' },
+        })
+        const cp = companyCheck.data?.properties || {}
+        if (cp.bp_lista_negra === 'true' || cp.bp_lista_negra === true) {
+          return res.status(403).json({
+            error: `"${cp.name || 'Esta empresa'}" está en Lista Negra — no se pueden crear nuevos eventos/deals para ella.`,
+          })
+        }
+      } catch (checkErr) {
+        // Si la verificación falla por un error transitorio, no bloqueamos la
+        // creación (mismo criterio permisivo que el resto del endpoint) —
+        // solo logueamos para no ocultar el problema.
+        console.warn('[deals] No se pudo verificar lista negra de la empresa:', checkErr.response?.data || checkErr.message)
+      }
+    }
+
     const r = await hs.post('/crm/v3/objects/deals', { properties: props })
     const dealId = r.data.id
     // Si viene _companyId, crear la asociación deal → empresa
@@ -778,9 +1003,47 @@ app.delete('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
 // ──────────────────────────────────────────────────────────────────────────────
 // CRUD COMPANIES
 // ──────────────────────────────────────────────────────────────────────────────
+// Los operadores pueden crear empresas (antes solo supervisores), pero quedan
+// en bp_estado_aprobacion="pendiente" hasta que un supervisor las revise —
+// se crea automáticamente una tarea para los supervisores avisando de la
+// empresa nueva a aprobar. Las empresas creadas por un supervisor quedan
+// "aprobada" de una vez (no necesitan revisión de sí mismos).
 app.post('/api/hubspot/companies', requireAuth, async (req, res) => {
   try {
-    const r = await hs.post('/crm/v3/objects/companies', { properties: req.body })
+    const isOperator = req.user.role === 'operator'
+    const properties = { ...req.body }
+    properties.bp_estado_aprobacion = isOperator ? 'pendiente' : (properties.bp_estado_aprobacion || 'aprobada')
+
+    const r = await hs.post('/crm/v3/objects/companies', { properties })
+    const companyId = r.data?.id
+
+    // Tarea de aprobación para supervisores — best-effort: si falla, la
+    // empresa igual queda creada (no se bloquea la creación por esto).
+    if (isOperator && companyId) {
+      try {
+        const allUsers = Object.values(loadUsers())
+        const supervisorIds = allUsers.filter(u => u.role === 'supervisor').map(u => u.ownerId)
+        const dueDateMs = Date.now() + 24 * 60 * 60 * 1000 // vencimiento: 24h
+        await hs.post('/crm/v3/objects/tasks', {
+          properties: {
+            hs_task_subject: `Aprobar empresa nueva: ${properties.name || '(sin nombre)'}`,
+            hs_task_body: `${req.user.name || req.user.username} creó esta empresa y está pendiente de aprobación.`,
+            hs_timestamp: new Date(dueDateMs).toISOString(),
+            hs_task_reminders: String(dueDateMs),
+            hs_task_priority: 'MEDIUM',
+            hs_task_status: 'NOT_STARTED',
+            hubspot_owner_id: supervisorIds[0] || req.user.ownerId,
+          },
+          associations: [{
+            to: { id: companyId },
+            types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 192 }],
+          }],
+        })
+      } catch (taskErr) {
+        console.warn('[companies] No se pudo crear la tarea de aprobación:', taskErr.response?.data || taskErr.message)
+      }
+    }
+
     res.json(r.data)
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
@@ -790,6 +1053,10 @@ app.post('/api/hubspot/companies', requireAuth, async (req, res) => {
 app.patch('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
   try {
     const { _companyId, ...properties } = req.body
+    // Solo supervisores pueden aprobar/rechazar empresas
+    if (req.user.role === 'operator' && 'bp_estado_aprobacion' in properties) {
+      return res.status(403).json({ error: 'Solo los supervisores pueden aprobar o rechazar empresas.' })
+    }
     const r = await hs.patch(`/crm/v3/objects/companies/${req.params.id}`, { properties })
     // Si cambió el teléfono/email de la empresa (o cualquier otra edición),
     // recalcular la etapa automática de sus deals — barato hacerlo siempre
@@ -1651,10 +1918,14 @@ async function sendViaGraph(fromEmail, senderName, to, subject, bodyHtml, attach
   const token = await getMsGraphToken()
   if (!token) throw new Error('Azure no configurado (AZURE_TENANT_ID / CLIENT_ID / CLIENT_SECRET)')
 
+  // "to" puede venir como string único o como array de varias direcciones
+  // (selección múltiple de destinatarios precargados en el composer)
+  const toList = Array.isArray(to) ? to : String(to).split(/[,;]/).map(s => s.trim()).filter(Boolean)
+
   const message = {
     subject,
     body: { contentType: 'HTML', content: bodyHtml },
-    toRecipients: [{ emailAddress: { address: to } }],
+    toRecipients: toList.map(addr => ({ emailAddress: { address: addr } })),
     from: { emailAddress: { name: senderName, address: fromEmail } }
   }
   if (cc.length) {
@@ -1731,6 +2002,41 @@ app.put('/api/email/signature', requireAuth, async (req, res) => {
   }
 })
 
+// ── Plantillas de email por usuario ─────────────────────────────────────────
+// Lista completa de { id, name, subject, bodyHtml } por usuario — el cliente
+// maneja el array (agregar/editar/eliminar) y guarda la lista completa con
+// un solo PUT, igual de simple que la firma de arriba.
+const TEMPLATES_MAX_COUNT = 30
+const TEMPLATES_MAX_CHARS = 500_000
+
+app.get('/api/email/templates', requireAuth, async (req, res) => {
+  try {
+    const templates = await getEmailTemplates(req.user.username)
+    res.json({ templates, persisted: templatesKvEnabled() })
+  } catch (e) {
+    console.warn('[email-templates] error al leer:', e.message)
+    res.status(500).json({ error: e.message })
+  }
+})
+
+app.put('/api/email/templates', requireAuth, async (req, res) => {
+  try {
+    const { templates } = req.body
+    if (!Array.isArray(templates)) return res.status(400).json({ error: 'Falta templates (array)' })
+    if (templates.length > TEMPLATES_MAX_COUNT) {
+      return res.status(400).json({ error: `Máximo ${TEMPLATES_MAX_COUNT} plantillas` })
+    }
+    if (JSON.stringify(templates).length > TEMPLATES_MAX_CHARS) {
+      return res.status(400).json({ error: 'Las plantillas ocupan demasiado espacio — reduce el contenido' })
+    }
+    await saveEmailTemplates(req.user.username, templates)
+    res.json({ success: true, persisted: templatesKvEnabled() })
+  } catch (e) {
+    console.warn('[email-templates] error al guardar:', e.message)
+    res.status(500).json({ error: e.message })
+  }
+})
+
 // Admin: lista de usuarios con estado de email configurado
 app.get('/api/admin/email-status', requireAuth, async (req, res) => {
   if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
@@ -1772,6 +2078,10 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
     }
 
     const ccList = Array.isArray(cc) ? cc.filter(Boolean) : String(cc || '').split(/[,;]/).map(s => s.trim()).filter(Boolean)
+    // "to" permite más de un destinatario precargado a la vez (separados por
+    // coma) — se normaliza a un array de direcciones individuales para los
+    // proveedores (Resend/Graph) que lo requieren así.
+    const toList = String(to || '').split(/[,;]/).map(s => s.trim()).filter(Boolean)
 
     // Adjuntos: [{ filename, contentType, content(base64 sin prefijo data:) }]
     const validAttachments = Array.isArray(attachments) ? attachments.filter(a => a?.filename && a?.content) : []
@@ -1789,7 +2099,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
       const fromName  = req.user.name || 'BePharma'
       await axios.post('https://api.resend.com/emails', {
         from: `${fromName} <${fromEmail}>`,
-        to: [to],
+        to: toList,
         ...(ccList.length ? { cc: ccList } : {}),
         subject,
         html: bodyHtml,
@@ -1803,7 +2113,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
       // ── Modo Microsoft Graph ──────────────────────────────────────────────
       const emailUser = getUserEmail(req.user.username)
       if (!emailUser) return res.status(400).json({ error: 'no_config' })
-      await sendViaGraph(emailUser, req.user.name, to, subject, bodyHtml, validAttachments, ccList)
+      await sendViaGraph(emailUser, req.user.name, toList, subject, bodyHtml, validAttachments, ccList)
     } else {
       // ── Fallback: SMTP ────────────────────────────────────────────────────
       const emailUser = getUserEmail(req.user.username)
@@ -1812,7 +2122,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
       if (!mailer) return res.status(400).json({ error: 'no_config' })
       await mailer.sendMail({
         from: `${req.user.name} <${emailUser}>`,
-        to, subject,
+        to: toList.join(', '), subject,
         ...(ccList.length ? { cc: ccList.join(', ') } : {}),
         text: bodyText,
         html: bodyHtml,

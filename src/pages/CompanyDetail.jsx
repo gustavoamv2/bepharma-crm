@@ -6,9 +6,10 @@ import { es } from 'date-fns/locale'
 import { ExternalLink, Pencil, PlusCircle, ListChecks } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
-import RecordModal, { DeleteButton } from '../components/RecordModal'
+import RecordModal, { DeleteButton, ACTIVE_EVENT } from '../components/RecordModal'
 import CreateTaskModal from '../components/CreateTaskModal'
 import { useAuth } from '../contexts/AuthContext'
+import { useToast } from '../hooks/useToast'
 
 
 const safeFmt = (v) => {
@@ -31,9 +32,11 @@ export default function CompanyDetail() {
   const nav = useNavigate()
   const qc = useQueryClient()
   const { user } = useAuth()
+  const { addToast } = useToast()
   const [showEdit, setShowEdit]   = useState(false)
   const [showTask, setShowTask]   = useState(false)
   const [showDeal, setShowDeal]   = useState(false)
+  const [approving, setApproving] = useState(false)
 
   const { data: company, isLoading, error } = useQuery(['company', id], () => hubspot.getCompany(id))
 
@@ -46,6 +49,24 @@ export default function CompanyDetail() {
   const deals = company.associations?.deals?.results || []
   const portalId = '51580878'
   const isBlacklisted = p.bp_lista_negra === 'true' || p.bp_lista_negra === true
+  const isSupervisor = user?.role === 'supervisor'
+  const aprobacion = p.bp_estado_aprobacion || ''
+  const isPendingApproval = aprobacion === 'pendiente'
+  const isRejected = aprobacion === 'rechazada'
+
+  const setAprobacion = async (estado) => {
+    setApproving(true)
+    try {
+      await hubspot.updateCompany(id, { bp_estado_aprobacion: estado })
+      addToast(estado === 'aprobada' ? 'Empresa aprobada' : 'Empresa rechazada', 'success')
+      qc.invalidateQueries(['company', id])
+      qc.invalidateQueries(['companies'])
+    } catch (e) {
+      addToast(e.response?.data?.error || 'No se pudo actualizar el estado', 'error')
+    } finally {
+      setApproving(false)
+    }
+  }
 
   // Mismos 5 indicadores de calidad de datos que el gráfico de Empresas
   // (ver COMPANY_QUALITY_FILTERS en api/config/hubspotProperties.js) —
@@ -78,6 +99,31 @@ export default function CompanyDetail() {
             borderRadius: 8, fontSize: 13, fontWeight: 600, color: '#a8071a'
           }}>
             ⛔ Empresa en Lista Negra — no contactar para futuros eventos
+          </div>
+        )}
+
+        {(isPendingApproval || isRejected) && (
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginBottom: 14,
+            padding: '10px 14px',
+            background: isPendingApproval ? '#fff8e1' : '#fff1f0',
+            border: `1px solid ${isPendingApproval ? '#f59e0b' : '#ffa39e'}`,
+            borderRadius: 8, fontSize: 13, fontWeight: 600,
+            color: isPendingApproval ? '#92400e' : '#a8071a',
+          }}>
+            <span>
+              {isPendingApproval ? '⏳ Pendiente de aprobación por un supervisor' : '❌ Empresa rechazada por un supervisor'}
+            </span>
+            {isSupervisor && isPendingApproval && (
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button className="btn btn-primary btn-sm" disabled={approving} onClick={() => setAprobacion('aprobada')}>
+                  ✅ Aprobar
+                </button>
+                <button className="btn btn-ghost btn-sm" disabled={approving} onClick={() => setAprobacion('rechazada')} style={{ color: '#de350b' }}>
+                  ❌ Rechazar
+                </button>
+              </div>
+            )}
           </div>
         )}
 
@@ -119,6 +165,9 @@ export default function CompanyDetail() {
                   <Prop label="Empleados" value={p.numberofemployees} />
                   <Prop label="Ingresos anuales" value={p.annualrevenue ? `$${Number(p.annualrevenue).toLocaleString('es-MX')}` : null} />
                   <Prop label="Lifecycle stage" value={p.lifecyclestage} />
+                  <Prop label="Participó en Eventos" value={
+                    (p.bp_participo_eventos === 'true' || p.bp_participo_eventos === true) ? '📅 Sí' : 'No'
+                  } />
                   <Prop label="Creada" value={safeFmt(p.createdate)} />
                   {p.description && (
                     <div className="prop-item" style={{ gridColumn: '1 / -1' }}>
@@ -152,8 +201,12 @@ export default function CompanyDetail() {
             <div className="card">
               <div className="card-header">
                 <h2>Historial de eventos ({deals.length})</h2>
-                <button className="btn btn-primary btn-sm" onClick={() => setShowDeal(true)}
-                  style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                <button
+                  className="btn btn-primary btn-sm"
+                  onClick={() => setShowDeal(true)}
+                  disabled={isBlacklisted}
+                  title={isBlacklisted ? 'Empresa en Lista Negra — no se pueden crear nuevos eventos' : undefined}
+                  style={{ display: 'flex', alignItems: 'center', gap: 5, opacity: isBlacklisted ? 0.5 : 1, cursor: isBlacklisted ? 'not-allowed' : 'pointer' }}>
                   <PlusCircle size={13} /> Crear evento
                 </button>
               </div>
@@ -215,9 +268,12 @@ export default function CompanyDetail() {
           type="deal"
           companyId={id}
           defaults={{
-            bp_evento_codigo: 'BEPH-2026-09',
+            bp_evento_codigo: ACTIVE_EVENT,
             bp_estado_prospeccion: 'nueva',
-            dealname: p.name,
+            // Prefijado con el código del evento que se está trabajando
+            // actualmente, para que quede claro a qué evento pertenece el
+            // deal apenas se crea (ej. "BEPH-2026-09 - Acme Pharma").
+            dealname: `${ACTIVE_EVENT} - ${p.name}`,
           }}
           onClose={() => setShowDeal(false)}
           onSaved={(result) => {

@@ -3,11 +3,12 @@ import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { format, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { Plus, X, BarChart2 } from 'lucide-react'
+import { Plus, X, BarChart2, FileSpreadsheet } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import RecordModal from '../components/RecordModal'
 import { useAuth } from '../contexts/AuthContext'
+import { useToast } from '../hooks/useToast'
 import { COUNTRIES } from '../constants/countries'
 import { BarChart } from '../components/Charts'
 
@@ -36,11 +37,24 @@ const QUALITY_LABELS = {
 }
 const QUALITY_COLOR = '#de350b'
 
+// Descarga un blob en el navegador con el nombre de archivo dado
+function downloadBlob(blob, filename) {
+  const url = window.URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  window.URL.revokeObjectURL(url)
+}
+
 export default function CompanyList() {
   const nav = useNavigate()
   const location = useLocation()
   const qc = useQueryClient()
   const { user } = useAuth()
+  const { addToast } = useToast()
   // Solo supervisores pueden crear empresas nuevas. Respeta bp_view_mode para
   // que un supervisor simulando "vista operador" tampoco vea el boton.
   const viewMode = sessionStorage.getItem('bp_view_mode') || ''
@@ -52,7 +66,14 @@ export default function CompanyList() {
   const [hideBlacklist, setHideBlacklist] = useState(true)
   const [countryFilter, setCountryFilter] = useState('') // valor en inglés (propiedad HubSpot 'country')
   const [contactsFilter, setContactsFilter] = useState('') // '' | 'with' | 'without'
-  const [qualityFilter, setQualityFilter] = useState('') // '' | sinContacto | sinTelefono | sinPaginaWeb | sinCorreo | sinEventos
+  // Checkboxes multi-select de calidad de datos (combinables entre sí con OR) —
+  // clic en una barra del gráfico también agrega/quita de este mismo set.
+  const [qualityFilters, setQualityFilters] = useState([]) // ej. ['sinContacto', 'sinTelefono']
+  const [exporting, setExporting] = useState(false)
+  const toggleQuality = (key) => {
+    setQualityFilters(prev => prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key])
+    resetPaging()
+  }
 
   // En vista de operador, el filtro de país solo debe listar los países que
   // ese operador tiene configurados (user.bp_paises) — el resto del catálogo
@@ -72,11 +93,11 @@ export default function CompanyList() {
   const resetPaging = () => { setAfter(null); setHistory([]) }
 
   const { data, isLoading, error } = useQuery(
-    ['companies', search, countryFilter, contactsFilter, qualityFilter, after],
+    ['companies', search, countryFilter, contactsFilter, qualityFilters, after],
     () => hubspot.searchCompanies({
       filters,
       contactsFilter: contactsFilter || undefined,
-      qualityFilter: qualityFilter || undefined,
+      qualityFilters: qualityFilters.length ? qualityFilters : undefined,
       sorts: [{ propertyName: 'hs_lastmodifieddate', direction: 'DESCENDING' }],
       limit: 25,
       after,
@@ -105,14 +126,44 @@ export default function CompanyList() {
   const companies = hideBlacklist ? allCompanies.filter(c => c.properties.bp_lista_negra !== 'true') : allCompanies
   const nextAfter = data?.paging?.next?.after
 
+  // Resumen legible de los filtros activos — se manda al backend para que
+  // quede impreso en el encabezado del Excel exportado.
+  const filtroResumenParts = []
+  if (search) filtroResumenParts.push(`Búsqueda: "${search}"`)
+  if (countryFilter) filtroResumenParts.push(`País: ${availableCountries.find(c => c.en === countryFilter)?.label || countryFilter}`)
+  if (contactsFilter) filtroResumenParts.push(contactsFilter === 'with' ? 'Con contactos' : 'Sin contactos')
+  if (qualityFilters.length) filtroResumenParts.push(qualityFilters.map(k => QUALITY_LABELS[k]).join(' o '))
+  if (hideBlacklist) filtroResumenParts.push('Excluyendo lista negra')
+  const filtroResumen = filtroResumenParts.join('; ')
+
+  const handleExport = async () => {
+    setExporting(true)
+    try {
+      const blob = await hubspot.exportCompanies({
+        filters,
+        contactsFilter: contactsFilter || undefined,
+        qualityFilters: qualityFilters.length ? qualityFilters : undefined,
+        filtroResumen,
+      })
+      downloadBlob(blob, `BePharma_Empresas_${new Date().toISOString().slice(0, 10)}.xlsx`)
+    } catch (e) {
+      addToast('No se pudo generar el Excel: ' + (e.response?.data?.error || e.message), 'error')
+    } finally {
+      setExporting(false)
+    }
+  }
+
   return (
     <>
       <Topbar title="Empresas" action={
-        isSupervisor && (
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button className="btn btn-ghost btn-sm" onClick={handleExport} disabled={exporting} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+            <FileSpreadsheet size={13} /> {exporting ? 'Generando…' : 'Exportar a Excel'}
+          </button>
           <button className="btn btn-primary btn-sm" onClick={() => setShowCreate(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
             <Plus size={13} /> Nueva empresa
           </button>
-        )
+        </div>
       } />
       <div className="content">
         <div className="search-bar" style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
@@ -153,31 +204,45 @@ export default function CompanyList() {
               </button>
             </div>
           )}
-          {qualityFilter && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#fff1f0', borderRadius: 6, padding: '4px 10px', fontSize: 12, fontWeight: 600, color: '#de350b', flexShrink: 0 }}>
-              {QUALITY_LABELS[qualityFilter]}
-              <button onClick={() => { setQualityFilter(''); resetPaging() }} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#de350b', padding: 0, display: 'flex' }}>
+          {qualityFilters.map(key => (
+            <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#fff1f0', borderRadius: 6, padding: '4px 10px', fontSize: 12, fontWeight: 600, color: '#de350b', flexShrink: 0 }}>
+              {QUALITY_LABELS[key]}
+              <button onClick={() => toggleQuality(key)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#de350b', padding: 0, display: 'flex' }}>
                 <X size={13} />
               </button>
             </div>
-          )}
+          ))}
         </div>
 
-        {/* Gráfico de calidad de datos — clic en una barra filtra el listado de abajo */}
+        {/* Gráfico de calidad de datos — clic en una barra o en un checkbox
+            agrega/quita ese criterio del filtro (se pueden combinar varios) */}
         <div className="card" style={{ marginBottom: 14 }}>
           <div className="card-header">
             <h2 style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <BarChart2 size={14} style={{ color: QUALITY_COLOR }} />
               Calidad de datos
             </h2>
-            <span style={{ fontSize: 11, color: '#6b778c' }}>clic en una barra para filtrar el listado</span>
+            <span style={{ fontSize: 11, color: '#6b778c' }}>clic en una barra o un check para filtrar (combinable)</span>
           </div>
           <div className="card-body" style={{ padding: '12px 16px' }}>
             <BarChart
               data={qualityChartData}
               color={QUALITY_COLOR}
-              onBarClick={(bar) => { setQualityFilter(bar.key); resetPaging() }}
+              onBarClick={(bar) => toggleQuality(bar.key)}
             />
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 10, paddingTop: 10, borderTop: '1px solid #f0f1f3' }}>
+              {Object.entries(QUALITY_LABELS).map(([key, label]) => (
+                <label key={key} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#42526e', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={qualityFilters.includes(key)}
+                    onChange={() => toggleQuality(key)}
+                    style={{ accentColor: QUALITY_COLOR, width: 14, height: 14 }}
+                  />
+                  {label}
+                </label>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -249,7 +314,13 @@ export default function CompanyList() {
         <RecordModal
           type="company"
           onClose={() => setShowCreate(false)}
-          onSaved={(r) => { qc.invalidateQueries(['companies']); nav(`/companies/${r.id}`) }}
+          onSaved={(r) => {
+            qc.invalidateQueries(['companies'])
+            if (user?.role === 'operator') {
+              addToast('Empresa creada · pendiente de aprobación por un supervisor', 'default')
+            }
+            nav(`/companies/${r.id}`)
+          }}
         />
       )}
     </>

@@ -293,7 +293,11 @@ const COMPANY_FIELDS = [
   ]},
   { key: 'numberofemployees', label: 'Nº empleados', type: 'number' },
   { key: 'description', label: 'Descripción',        type: 'textarea' },
+  { key: 'bp_participo_eventos', label: 'Participó en Eventos', type: 'checkbox',
+    icon: '📅', activeColor: '#166534', activeBg: '#f0fdf4', activeBorder: '#86efac',
+    helpText: 'Marca manual — la empresa ya participó en algún evento BePharma (histórico o confirmado). No se calcula solo a partir de los deals asociados.' },
   { key: 'bp_lista_negra', label: 'Lista negra',     type: 'checkbox',
+    icon: '⛔', activeColor: '#172b4d', activeBg: '#fff1f0', activeBorder: '#ffa39e',
     helpText: 'No contactar a esta empresa en futuros eventos. La empresa sigue en la base de datos, pero se marca visualmente para excluirla al armar listas de prospección.' },
 ]
 
@@ -305,6 +309,8 @@ const CONTACT_FIELDS = [
   { key: 'jobtitle',  label: 'Cargo',     type: 'text' },
   { key: 'company',   label: 'Empresa',   type: 'company-search' },
   { key: 'hs_linkedin_url', label: 'LinkedIn URL', type: 'text', placeholder: 'https://linkedin.com/in/...' },
+  { key: 'bp_notas_contacto', label: 'Anotaciones / Notas del contacto', type: 'textarea',
+    placeholder: 'Preferencias, observaciones de llamadas, etc.' },
 ]
 
 const SCHEMAS = { deal: DEAL_FIELDS, company: COMPANY_FIELDS, contact: CONTACT_FIELDS }
@@ -720,16 +726,23 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
                   </label>
                 )}
                 {f.type === 'checkbox' ? (
-                  <div style={{ padding: '10px 12px', background: form[f.key] ? '#fff1f0' : '#f7f8fa', border: `1px solid ${form[f.key] ? '#ffa39e' : '#dfe1e6'}`, borderRadius: 6 }}>
+                  <div style={{
+                    padding: '10px 12px',
+                    background: form[f.key] ? (f.activeBg || '#fff1f0') : '#f7f8fa',
+                    border: `1px solid ${form[f.key] ? (f.activeBorder || '#ffa39e') : '#dfe1e6'}`,
+                    borderRadius: 6,
+                  }}>
                     <label style={{ display: 'flex', alignItems: 'flex-start', gap: 8, cursor: 'pointer', fontSize: 13 }}>
                       <input
                         type="checkbox"
                         checked={!!form[f.key]}
                         onChange={e => set(f.key, e.target.checked)}
-                        style={{ marginTop: 2, accentColor: '#de350b', width: 15, height: 15, flexShrink: 0 }}
+                        style={{ marginTop: 2, accentColor: f.activeColor || '#de350b', width: 15, height: 15, flexShrink: 0 }}
                       />
                       <span>
-                        <span style={{ fontWeight: 600, color: '#172b4d' }}>⛔ {f.label}</span>
+                        <span style={{ fontWeight: 600, color: form[f.key] ? (f.activeColor || '#172b4d') : '#172b4d' }}>
+                          {f.icon ? `${f.icon} ` : ''}{f.label}
+                        </span>
                         {f.helpText && <div style={{ fontSize: 11, color: '#6b778c', marginTop: 2 }}>{f.helpText}</div>}
                       </span>
                     </label>
