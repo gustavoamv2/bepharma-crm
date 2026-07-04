@@ -9,7 +9,7 @@ import Topbar from '../components/Topbar'
 import RecordModal from '../components/RecordModal'
 import { useAuth } from '../contexts/AuthContext'
 import { useToast } from '../hooks/useToast'
-import { COUNTRIES } from '../constants/countries'
+import { COUNTRIES, COUNTRY_EN_BY_LABEL } from '../constants/countries'
 import { BarChart } from '../components/Charts'
 
 const fmt = (v) => v ? format(parseISO(v), 'dd MMM yy', { locale: es }) : '—'
@@ -88,7 +88,12 @@ export default function CompanyList() {
   const filters = []
   if (search) filters.push({ propertyName: 'name', operator: 'CONTAINS_TOKEN', value: search })
   if (stageFilter) filters.push({ propertyName: 'bp_etapa_empresa', operator: 'EQ', value: stageFilter })
-  if (countryFilter) filters.push({ propertyName: 'country', operator: 'EQ', value: countryFilter })
+  // La propiedad 'country' en HubSpot se guarda en español (ej. "España",
+  // "Estados Unidos"), no en inglés — se confirmó el 04-jul-2026 comparando
+  // conteos reales. countryFilter ahora lleva el label en español (ver
+  // dropdown más abajo); se agrega también la variante en inglés por si algún
+  // registro puntual quedó en ese idioma (enriquecimiento externo).
+  if (countryFilter) filters.push({ propertyName: 'country', operator: 'IN', values: [...new Set([countryFilter, COUNTRY_EN_BY_LABEL[countryFilter] || countryFilter])] })
 
   const resetPaging = () => { setAfter(null); setHistory([]) }
 
@@ -130,7 +135,7 @@ export default function CompanyList() {
   // quede impreso en el encabezado del Excel exportado.
   const filtroResumenParts = []
   if (search) filtroResumenParts.push(`Búsqueda: "${search}"`)
-  if (countryFilter) filtroResumenParts.push(`País: ${availableCountries.find(c => c.en === countryFilter)?.label || countryFilter}`)
+  if (countryFilter) filtroResumenParts.push(`País: ${countryFilter}`)
   if (contactsFilter) filtroResumenParts.push(contactsFilter === 'with' ? 'Con contactos' : 'Sin contactos')
   if (qualityFilters.length) filtroResumenParts.push(qualityFilters.map(k => QUALITY_LABELS[k]).join(' o '))
   if (hideBlacklist) filtroResumenParts.push('Excluyendo lista negra')
@@ -175,7 +180,7 @@ export default function CompanyList() {
           >
             <option value="">Todos los países</option>
             {availableCountries.map(c => (
-              <option key={c.en} value={c.en}>{c.label}</option>
+              <option key={c.label} value={c.label}>{c.label}</option>
             ))}
           </select>
           <select

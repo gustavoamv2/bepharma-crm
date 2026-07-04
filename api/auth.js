@@ -152,8 +152,20 @@ function applyOwnerFilter(req, filterGroups) {
 // Restringe resultados a los países asignados al operador (req.user.bp_paises).
 // propertyName: propiedad de HubSpot donde vive el país en ese objeto
 //   (ej. 'bp_evento_paises' en deals, 'country' en empresas/contactos).
-// translate: si true, convierte los países (guardados en español) a su
-//   equivalente en inglés antes de filtrar (así están guardados 'country').
+// translate: se mantiene por compatibilidad de la firma, pero YA NO reemplaza
+//   el label en español por su equivalente en inglés — se confirmó (04-jul-2026,
+//   validación de conteos por operador) que la propiedad 'country' de
+//   empresas/contactos en HubSpot está guardada en ESPAÑOL (ej. "España",
+//   "Estados Unidos", "México"), igual que bp_paises, NO en inglés como decía
+//   el comentario original de labelsToEnglish(). Traducir a inglés hacía que
+//   cualquier país cuyo nombre difiera entre idiomas (España→Spain, Estados
+//   Unidos→United States, Alemania→Germany, etc., no solo un acento) dejara
+//   de matchear — le borraba a cada operador la mayoría de sus empresas reales
+//   (ej. Sara: 234 con la traducción vs 1,360 reales sin ella). Ahora se
+//   filtra SIEMPRE por el label en español (el valor real) y, cuando
+//   translate=true, se agrega ADEMÁS la variante en inglés por si algún
+//   registro puntual (enriquecido por Apollo/RocketReach) quedó en inglés —
+//   así no se pierde ningún caso real ni se reintroduce el bug original.
 // Si el operador no tiene países asignados, no se agrega ningún filtro
 // (comportamiento igual al actual, sin restricción) para no dejar a nadie
 // sin ver nada por una configuración incompleta.
@@ -161,7 +173,7 @@ function applyCountryFilter(req, filterGroups, propertyName, { translate = false
   if (!isActingAsOperator(req)) return filterGroups
   const paises = req.user?.bp_paises
   if (!Array.isArray(paises) || paises.length === 0) return filterGroups
-  const values = translate ? labelsToEnglish(paises) : paises
+  const values = translate ? [...new Set([...paises, ...labelsToEnglish(paises)])] : paises
   return addFilterToGroups(filterGroups, {
     propertyName,
     operator: 'IN',

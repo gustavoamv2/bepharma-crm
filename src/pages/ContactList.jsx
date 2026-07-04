@@ -59,11 +59,14 @@ export default function ContactList() {
 
   // Búsqueda por nombre, apellido, teléfono, empresa y país (país acepta
   // tanto el valor en inglés como escribir el nombre en español, ej. "México").
+  // La propiedad 'country' en HubSpot se guarda en español (confirmado
+  // 04-jul-2026) — se agrega igual la variante en inglés por los pocos
+  // registros puntuales que quedaron en ese idioma (enriquecimiento externo).
   const matchingCountryValues = search
     ? COUNTRIES.filter(c =>
         c.label.toLowerCase().includes(search.toLowerCase()) ||
         c.en.toLowerCase().includes(search.toLowerCase())
-      ).map(c => c.en)
+      ).flatMap(c => [c.label, c.en])
     : []
 
   const filterGroups = search ? [
