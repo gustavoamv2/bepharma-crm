@@ -165,12 +165,19 @@ export default function DealList() {
     { keepPreviousData: true }
   )
 
-  // Las gráficas reflejan los filtros activos del listado (búsqueda, operador)
-  // — cada gráfica excluye su propia dimensión (ver /api/hubspot/charts) para
-  // que un clic no la deje con una sola barra.
+  // Las gráficas reflejan los filtros activos del listado (búsqueda, operador,
+  // el filtro rápido que llega por navegación desde el Dashboard) — cada
+  // gráfica excluye su propia dimensión (ver /api/hubspot/charts) para que un
+  // clic no la deje con una sola barra.
   const { data: chartsData } = useQuery(
-    ['charts', user?.username, viewMode, search, estado, alerta, ownerFilter],
-    () => hubspot.charts({ search: search || undefined, estado: estado || undefined, alerta: alerta || undefined, ownerFilter: ownerFilter || undefined }),
+    ['charts', user?.username, viewMode, search, estado, alerta, ownerFilter, preFilter],
+    () => hubspot.charts({
+      search: search || undefined,
+      estado: estado || undefined,
+      alerta: alerta || undefined,
+      ownerFilter: ownerFilter || undefined,
+      extraFilters: (preFilter && !estado) ? JSON.stringify(preFilter.filters || []) : undefined,
+    }),
     { staleTime: 60_000, keepPreviousData: true }
   )
 

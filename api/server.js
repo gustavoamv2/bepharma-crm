@@ -878,10 +878,20 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
   // gráfica (p.ej. el gráfico "Estado" no se filtra a sí mismo por `estado`,
   // si no cada clic dejaría una sola barra con datos) pero sí incluye los
   // demás filtros activos (búsqueda, operador, la otra dimensión).
-  const { search, ownerFilter, estado, alerta } = req.query
+  const { search, ownerFilter, estado, alerta, extraFilters } = req.query
   const commonExtra = []
   if (search)      commonExtra.push({ propertyName: 'dealname',         operator: 'CONTAINS_TOKEN', value: search })
   if (ownerFilter) commonExtra.push({ propertyName: 'hubspot_owner_id', operator: 'EQ',             value: ownerFilter })
+  // Filtro rápido que viene de un quick-link del Dashboard (p.ej. "Mis
+  // callbacks vencidos" / "Sin actividad +72h" en vista operador) — DealList
+  // lo aplica al listado via location.state.filter; sin esto, el gráfico se
+  // quedaba mostrando el total sin filtrar aunque el listado sí filtrara.
+  if (extraFilters) {
+    try {
+      const parsed = JSON.parse(extraFilters)
+      if (Array.isArray(parsed)) commonExtra.push(...parsed)
+    } catch { /* ignora JSON invalido */ }
+  }
 
   const estadoExtra = estado ? [{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado }] : []
   const alertaExtra = alerta

@@ -581,6 +581,11 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
         Object.entries(defaults).forEach(([k, v]) => {
           if (!(k in props) && v) props[k] = v
         })
+        // Todo evento nuevo debe quedar en el evento que se está prospectando
+        // actualmente (BEPH-2026-09) por defecto — no depende de que quien
+        // abra el modal se acuerde de pasar `defaults.bp_evento_codigo`, así
+        // cualquier punto de creación de deals (presente o futuro) lo hereda.
+        if (!props.bp_evento_codigo) props.bp_evento_codigo = ACTIVE_EVENT
       }
     }
 
