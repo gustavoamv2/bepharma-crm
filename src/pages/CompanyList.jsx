@@ -268,14 +268,22 @@ export default function CompanyList() {
                     </tr>
                   </thead>
                   <tbody>
-                    {companies.map(c => (
+                    {companies.map(c => {
+                      const isBlacklisted = c.properties.bp_lista_negra === 'true'
+                      const hasParticipated = c.properties.bp_participo_eventos === 'true'
+                      return (
                       <tr key={c.id} className="clickable" onClick={() => nav(`/companies/${c.id}`)}
-                        style={c.properties.bp_lista_negra === 'true' ? { background: '#fff1f0' } : undefined}>
+                        style={isBlacklisted ? { background: '#fff1f0' } : hasParticipated ? { background: '#f0fdfa' } : undefined}>
                         <td style={{ fontWeight: 500 }}>
                           {c.properties.name || '(sin nombre)'}
-                          {c.properties.bp_lista_negra === 'true' && (
+                          {isBlacklisted && (
                             <span style={{ marginLeft: 6, fontSize: 10, fontWeight: 700, color: '#a8071a', background: '#ffccc7', padding: '1px 6px', borderRadius: 10 }}>
                               ⛔ LISTA NEGRA
+                            </span>
+                          )}
+                          {!isBlacklisted && hasParticipated && (
+                            <span style={{ marginLeft: 6, fontSize: 10, fontWeight: 700, color: '#0f766e', background: '#ccfbf1', padding: '1px 6px', borderRadius: 10 }}>
+                              📅 PARTICIPÓ ANTES
                             </span>
                           )}
                         </td>
@@ -294,7 +302,8 @@ export default function CompanyList() {
                         <td>{c.properties.phone || '—'}</td>
                         <td>{fmt(c.properties.createdate)}</td>
                       </tr>
-                    ))}
+                      )
+                    })}
                   </tbody>
                 </table>
               </div>

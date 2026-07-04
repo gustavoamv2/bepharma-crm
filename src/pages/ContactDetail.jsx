@@ -42,6 +42,7 @@ export default function ContactDetail() {
   const fullName = [p.firstname, p.lastname].filter(Boolean).join(' ') || 'Contacto'
   const companies = contact.associations?.companies?.results || []
   const deals = contact.associations?.deals?.results || []
+  const hasParticipated = companies.some(c => c.properties?.bp_participo_eventos === 'true' || c.properties?.bp_participo_eventos === true)
   const portalId = '51580878'
   const linkedin = p.hs_linkedin_url || p.linkedin_bio
 
@@ -58,9 +59,19 @@ export default function ContactDetail() {
           </a>
         </div>
 
+        {hasParticipated && (
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14,
+            padding: '10px 14px', background: '#e6fffa', border: '1px solid #38b2ac',
+            borderRadius: 8, fontSize: 13, fontWeight: 600, color: '#0f766e'
+          }}>
+            📅 La empresa vinculada ya participó en eventos anteriores de BePharma
+          </div>
+        )}
+
         <div className="detail-grid">
           <div className="detail-main">
-            <div className="card">
+            <div className="card" style={hasParticipated ? { borderLeft: '4px solid #38b2ac' } : undefined}>
               <div className="card-header">
                 <h2>{fullName}</h2>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -107,21 +118,29 @@ export default function ContactDetail() {
             </div>
 
             {companies.length > 0 && (
-              <div className="card">
+              <div className="card" style={hasParticipated ? { borderLeft: '4px solid #38b2ac' } : undefined}>
                 <div className="card-header"><h2>Empresa vinculada</h2></div>
                 <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  {companies.map(c => (
-                    <button key={c.id} className="btn btn-ghost" style={{ justifyContent: 'flex-start' }}
-                      onClick={() => nav(`/companies/${c.id}`)}>
-                      {c.properties?.name || `Empresa #${c.id}`}
-                    </button>
-                  ))}
+                  {companies.map(c => {
+                    const participated = c.properties?.bp_participo_eventos === 'true' || c.properties?.bp_participo_eventos === true
+                    return (
+                      <button key={c.id} className="btn btn-ghost" style={{ justifyContent: 'flex-start', gap: 8 }}
+                        onClick={() => nav(`/companies/${c.id}`)}>
+                        {c.properties?.name || `Empresa #${c.id}`}
+                        {participated && (
+                          <span style={{ fontSize: 10, fontWeight: 700, color: '#0f766e', background: '#ccfbf1', padding: '1px 6px', borderRadius: 10 }}>
+                            📅 PARTICIPÓ ANTES
+                          </span>
+                        )}
+                      </button>
+                    )
+                  })}
                 </div>
               </div>
             )}
 
             {deals.length > 0 && (
-              <div className="card">
+              <div className="card" style={hasParticipated ? { borderLeft: '4px solid #38b2ac' } : undefined}>
                 <div className="card-header"><h2>Eventos ({deals.length})</h2></div>
                 <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                   {deals.map(d => (

@@ -49,6 +49,7 @@ export default function CompanyDetail() {
   const deals = company.associations?.deals?.results || []
   const portalId = '51580878'
   const isBlacklisted = p.bp_lista_negra === 'true' || p.bp_lista_negra === true
+  const hasParticipated = p.bp_participo_eventos === 'true' || p.bp_participo_eventos === true
   const isSupervisor = user?.role === 'supervisor'
   const aprobacion = p.bp_estado_aprobacion || ''
   const isPendingApproval = aprobacion === 'pendiente'
@@ -91,6 +92,16 @@ export default function CompanyDetail() {
             <ExternalLink size={12} />
           </a>
         </div>
+
+        {hasParticipated && (
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14,
+            padding: '10px 14px', background: '#e6fffa', border: '1px solid #38b2ac',
+            borderRadius: 8, fontSize: 13, fontWeight: 600, color: '#0f766e'
+          }}>
+            📅 Empresa que ya participó en eventos anteriores de BePharma
+          </div>
+        )}
 
         {isBlacklisted && (
           <div style={{
@@ -142,7 +153,7 @@ export default function CompanyDetail() {
         )}
 
         <div className="detail-main">
-            <div className="card">
+            <div className="card" style={hasParticipated ? { borderLeft: '4px solid #38b2ac' } : undefined}>
               <div className="card-header">
                 <h2>{p.name}</h2>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -180,7 +191,7 @@ export default function CompanyDetail() {
             </div>
 
             {contacts.length > 0 && (
-              <div className="card">
+              <div className="card" style={hasParticipated ? { borderLeft: '4px solid #38b2ac' } : undefined}>
                 <div className="card-header"><h2>Contactos ({contacts.length})</h2></div>
                 <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                   {contacts.map(c => {
@@ -198,7 +209,7 @@ export default function CompanyDetail() {
               </div>
             )}
 
-            <div className="card">
+            <div className="card" style={hasParticipated ? { borderLeft: '4px solid #38b2ac' } : undefined}>
               <div className="card-header">
                 <h2>Historial de eventos ({deals.length})</h2>
                 <button

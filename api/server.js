@@ -209,7 +209,7 @@ app.get('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
       try {
         const cr = await hs.post('/crm/v3/objects/companies/batch/read', {
           inputs: uniqueCompanyIds.map(id => ({ id })),
-          properties: ['name', 'domain', 'phone', 'email'],
+          properties: ['name', 'domain', 'phone', 'email', 'bp_participo_eventos'],
         })
         const byId = Object.fromEntries((cr.data.results || []).map(c => [c.id, c]))
         deal.associations.companies.results = uniqueCompanyIds.map(id => byId[id]).filter(Boolean)
@@ -709,7 +709,7 @@ app.get('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
       try {
         const cr = await hs.post('/crm/v3/objects/companies/batch/read', {
           inputs: uniqueCompanyIds.map(id => ({ id })),
-          properties: ['name', 'domain'],
+          properties: ['name', 'domain', 'bp_participo_eventos'],
         })
         const byId = Object.fromEntries((cr.data.results || []).map(c => [c.id, c]))
         contact.associations.companies.results = uniqueCompanyIds
