@@ -125,11 +125,11 @@ export function DonutChart({ data, onSliceClick, centerLabel = '', defaultColor 
         <text x={cx} y={cy - 6} textAnchor="middle" fontSize={18} fontWeight="700" fill="#172b4d">{total}</text>
         {centerLabel && <text x={cx} y={cx + 10} textAnchor="middle" fontSize={9} fill="#6b778c">{centerLabel}</text>}
       </svg>
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <div style={{ flex: '0 1 auto', maxWidth: 200, display: 'flex', flexDirection: 'column', gap: 4 }}>
         {slices.map((s, i) => (
           <div key={i}
             style={{
-              display: 'flex', alignItems: 'center', gap: 6, fontSize: 11,
+              display: 'flex', alignItems: 'center', gap: 8, fontSize: 11,
               cursor: onSliceClick ? 'pointer' : 'default',
               opacity: hovered === null || hovered === i ? 1 : 0.5,
               transition: 'opacity .1s'
@@ -139,8 +139,8 @@ export function DonutChart({ data, onSliceClick, centerLabel = '', defaultColor 
             onMouseLeave={() => setHovered(null)}
           >
             <div style={{ width: 10, height: 10, borderRadius: 2, background: s.color || defaultColor, flexShrink: 0 }} />
-            <span style={{ color: '#6b778c', flex: 1 }}>{s.label}</span>
-            <span style={{ fontWeight: 600, color: '#172b4d' }}>{s.count}</span>
+            <span style={{ color: '#6b778c', whiteSpace: 'nowrap' }}>{s.label}</span>
+            <span style={{ fontWeight: 600, color: '#172b4d', marginLeft: 'auto' }}>{s.count}</span>
           </div>
         ))}
       </div>

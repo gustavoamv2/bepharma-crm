@@ -26,8 +26,31 @@ const STAGE_LABELS = {
   confirmada:      'Confirmada',
   no_participa:    'No Participa',
 }
+// Versión corta solo para el eje del gráfico de barras (7 columnas angostas):
+// evita que palabras largas como "Enriquecimiento" invadan la columna vecina.
+// La leyenda del donut sigue usando el nombre completo (STAGE_LABELS).
+const STAGE_LABELS_SHORT = {
+  nueva:            'Nueva',
+  en_depuracion:   'Depuración',
+  en_enriquecimiento: 'Enriquec.',
+  contacto_enviado: 'Contactar',
+  en_seguimiento:  'Seguim.',
+  confirmada:      'Confirmada',
+  no_participa:    'No particip.',
+}
 
 const ACTIVE_EVENT = 'BEPH-2026-09'
+
+// Mapa ownerId → nombre de operador (mismo mapeo que DealList.jsx), usado en
+// las tablas de Alertas y Tareas pendientes de la vista supervisor.
+const OWNER_NAMES = {
+  '93615311': 'Roberto',
+  '93621022': 'Yesenia',
+  '93771980': 'Angel',
+  '93771979': 'Gracie',
+  '93771981': 'Carlos',
+  '73112880': 'Sara',
+}
 
 const ESTADO_LABELS = {
   nueva:            'Nueva',
@@ -104,7 +127,7 @@ export default function Dashboard() {
         { propertyName: 'bp_evento_codigo', operator: 'EQ', value: ACTIVE_EVENT },
         { propertyName: 'bp_estado_alerta', operator: 'HAS_PROPERTY' },
       ],
-      properties: ['dealname', 'bp_estado_alerta', 'bp_estado_prospeccion', 'hs_lastmodifieddate'],
+      properties: ['dealname', 'bp_estado_alerta', 'bp_estado_prospeccion', 'hs_lastmodifieddate', 'hubspot_owner_id'],
       limit: 25,
       // La Search API de HubSpot solo admite UN campo de orden por request
       // (mandar 2 devuelve VALIDATION_ERROR "Only one sort field is allowed"
@@ -346,7 +369,7 @@ export default function Dashboard() {
                 <div>
                   <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Eventos por etapa</div>
                   <BarChart
-                    data={chartsData.byStage?.map(s => ({ ...s, label: STAGE_LABELS[s.key] || s.label }))}
+                    data={chartsData.byStage?.map(s => ({ ...s, label: STAGE_LABELS_SHORT[s.key] || s.label }))}
                     color="#0052cc"
                     onBarClick={handleBarClick}
                   />
@@ -403,6 +426,7 @@ export default function Dashboard() {
                     <th>Evento / empresa</th>
                     <th>Alerta</th>
                     <th>Estado</th>
+                    <th>Operador</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -421,6 +445,9 @@ export default function Dashboard() {
                         </td>
                         <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>
                           {STAGE_LABELS[p.bp_estado_prospeccion] || p.bp_estado_prospeccion || '—'}
+                        </td>
+                        <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+                          {OWNER_NAMES[p.hubspot_owner_id] || '—'}
                         </td>
                       </tr>
                     )
@@ -456,7 +483,7 @@ export default function Dashboard() {
                 <thead>
                   <tr>
                     <th>Tarea</th>
-                    <th>Vinculado a</th>
+                    <th>Operador</th>
                     <th>Vence</th>
                     <th>Prioridad</th>
                   </tr>
@@ -470,9 +497,10 @@ export default function Dashboard() {
                     const goTo = assoc && TASK_ASSOC_PATH[assoc.type] ? `${TASK_ASSOC_PATH[assoc.type]}/${assoc.id}` : null
                     return (
                       <tr key={t.id} className={goTo ? 'clickable' : ''} style={{ cursor: goTo ? 'pointer' : 'default' }}
-                        onClick={() => goTo && nav(goTo)}>
+                        onClick={() => goTo && nav(goTo)}
+                        title={assoc?.name ? `Vinculado a: ${assoc.name}` : undefined}>
                         <td style={{ fontWeight: 500 }}>{p.hs_task_subject || '(sin asunto)'}</td>
-                        <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>{assoc?.name || '—'}</td>
+                        <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>{OWNER_NAMES[p.hubspot_owner_id] || '—'}</td>
                         <td style={{ fontSize: 12, color: isOverdue ? 'var(--danger)' : undefined, display: 'flex', alignItems: 'center', gap: 4 }}>
                           {isOverdue && <Calendar size={11} />}
                           {due && !isNaN(due) ? due.toLocaleString('es-MX', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '—'}
