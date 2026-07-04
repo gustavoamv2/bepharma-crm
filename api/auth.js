@@ -25,7 +25,8 @@ async function login(username, password) {
     ownerId: user.ownerId,     // HubSpot owner ID
     sipExtension: user.sipExtension || '',  // Zadarma SIP extension
     bp_paises: Array.isArray(user.bp_paises) ? user.bp_paises : [],  // Países BePharma asignados al operador
-    canToggleView: user.canToggleView !== false  // false = solo vista supervisor, sin toggle a vista operador
+    canToggleView: user.canToggleView !== false,  // false = solo vista supervisor, sin toggle a vista operador
+    defaultView: user.defaultView || null  // vista con la que debe arrancar al iniciar sesión (ej. 'operator')
   }
 
   const token = jwt.sign(payload, SECRET, { expiresIn: TOKEN_TTL })

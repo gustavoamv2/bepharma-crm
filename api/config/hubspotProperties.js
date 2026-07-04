@@ -51,8 +51,44 @@ const COMPANY_PROPERTIES = [
   'bp_zona',
   'description',
   'num_associated_contacts',
+  'num_associated_deals',
   'bp_lista_negra',
 ]
+
+// Definición única de los 5 indicadores de "calidad de datos" de Empresas
+// (usado por /api/hubspot/companies/quality-metrics para las gráficas y por
+// /api/hubspot/companies/search vía ?qualityFilter= para filtrar el listado
+// al hacer clic en una barra — ambos leen de aquí para no duplicar criterio).
+// orFilters con más de un elemento = condiciones unidas por OR entre sí
+// (ej. "sin contacto" = no tiene la propiedad O la tiene en 0).
+const COMPANY_QUALITY_FILTERS = {
+  sinContacto: {
+    label: 'Sin contacto',
+    orFilters: [
+      { propertyName: 'num_associated_contacts', operator: 'NOT_HAS_PROPERTY' },
+      { propertyName: 'num_associated_contacts', operator: 'EQ', value: '0' },
+    ],
+  },
+  sinTelefono: {
+    label: 'Sin teléfono',
+    orFilters: [{ propertyName: 'phone', operator: 'NOT_HAS_PROPERTY' }],
+  },
+  sinPaginaWeb: {
+    label: 'Sin página web',
+    orFilters: [{ propertyName: 'domain', operator: 'NOT_HAS_PROPERTY' }],
+  },
+  sinCorreo: {
+    label: 'Sin correo',
+    orFilters: [{ propertyName: 'bp_email_empresa', operator: 'NOT_HAS_PROPERTY' }],
+  },
+  sinEventos: {
+    label: 'Sin eventos',
+    orFilters: [
+      { propertyName: 'num_associated_deals', operator: 'NOT_HAS_PROPERTY' },
+      { propertyName: 'num_associated_deals', operator: 'EQ', value: '0' },
+    ],
+  },
+}
 
 const CONTACT_PROPERTIES = [
   'firstname',
@@ -64,6 +100,7 @@ const CONTACT_PROPERTIES = [
   'country',
   'createdate',
   'hubspot_owner_id',
+  'hs_linkedin_url',
   'bp_rol_en_empresa',
   'bp_estado_relacion_empresa',
   'bp_fecha_verificacion_empresa',
@@ -73,6 +110,17 @@ const CONTACT_PROPERTIES = [
   'bp_fecha_cambio_empresa',
   'bp_notas_movilidad_contacto',
 ]
+
+// Definición única de los 5 indicadores de "calidad de datos" de Contactos
+// (mismo patrón que COMPANY_QUALITY_FILTERS — usado por
+// /api/hubspot/contacts/quality-metrics y por ?qualityFilter= en /search).
+const CONTACT_QUALITY_FILTERS = {
+  sinCorreo:   { label: 'Sin correo',    orFilters: [{ propertyName: 'email', operator: 'NOT_HAS_PROPERTY' }] },
+  sinTelefono: { label: 'Sin teléfono',  orFilters: [{ propertyName: 'phone', operator: 'NOT_HAS_PROPERTY' }] },
+  sinCargo:    { label: 'Sin cargo',     orFilters: [{ propertyName: 'jobtitle', operator: 'NOT_HAS_PROPERTY' }] },
+  sinEmpresa:  { label: 'Sin empresa',   orFilters: [{ propertyName: 'company', operator: 'NOT_HAS_PROPERTY' }] },
+  sinLinkedin: { label: 'Sin LinkedIn',  orFilters: [{ propertyName: 'hs_linkedin_url', operator: 'NOT_HAS_PROPERTY' }] },
+}
 
 // Etapas del pipeline BePharma - Eventos
 // Claves: valores internos de HubSpot dealstage
@@ -121,6 +169,8 @@ module.exports = {
   PIPELINE_STAGES,
   TERMINAL_STAGES,
   AUTO_STAGE_KEYS,
+  COMPANY_QUALITY_FILTERS,
+  CONTACT_QUALITY_FILTERS,
   activeEventFilter,
   notTerminalFilters,
 }

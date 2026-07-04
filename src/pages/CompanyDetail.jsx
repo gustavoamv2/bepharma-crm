@@ -3,11 +3,12 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useQuery, useQueryClient } from 'react-query'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { ExternalLink, Pencil, PlusCircle } from 'lucide-react'
+import { ExternalLink, Pencil, PlusCircle, ListChecks } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import RecordModal, { DeleteButton } from '../components/RecordModal'
 import CreateTaskModal from '../components/CreateTaskModal'
+import { useAuth } from '../contexts/AuthContext'
 
 
 const safeFmt = (v) => {
@@ -29,6 +30,7 @@ export default function CompanyDetail() {
   const { id } = useParams()
   const nav = useNavigate()
   const qc = useQueryClient()
+  const { user } = useAuth()
   const [showEdit, setShowEdit]   = useState(false)
   const [showTask, setShowTask]   = useState(false)
   const [showDeal, setShowDeal]   = useState(false)
@@ -44,6 +46,17 @@ export default function CompanyDetail() {
   const deals = company.associations?.deals?.results || []
   const portalId = '51580878'
   const isBlacklisted = p.bp_lista_negra === 'true' || p.bp_lista_negra === true
+
+  // Mismos 5 indicadores de calidad de datos que el gráfico de Empresas
+  // (ver COMPANY_QUALITY_FILTERS en api/config/hubspotProperties.js) —
+  // acá se calculan en el cliente con lo que ya trae la ficha, sin llamada extra.
+  const missingBadges = [
+    !p.phone && 'Sin teléfono',
+    !p.domain && 'Sin página web',
+    !p.bp_email_empresa && 'Sin correo',
+    contacts.length === 0 && 'Sin contacto',
+    deals.length === 0 && 'Sin eventos',
+  ].filter(Boolean)
 
   return (
     <>
@@ -68,6 +81,20 @@ export default function CompanyDetail() {
           </div>
         )}
 
+        {missingBadges.length > 0 && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
+            {missingBadges.map(b => (
+              <span key={b} style={{
+                fontSize: 11, fontWeight: 600, color: '#b45309',
+                background: '#fff8e1', border: '1px solid #f59e0b',
+                borderRadius: 10, padding: '2px 10px',
+              }}>
+                {b}
+              </span>
+            ))}
+          </div>
+        )}
+
         <div className="detail-main">
             <div className="card">
               <div className="card-header">
@@ -75,6 +102,9 @@ export default function CompanyDetail() {
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   <button className="btn btn-ghost btn-sm" onClick={() => setShowEdit(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                     <Pencil size={13} /> Editar
+                  </button>
+                  <button className="btn btn-ghost btn-sm" onClick={() => setShowTask(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                    <ListChecks size={13} /> Tarea
                   </button>
                   <DeleteButton type="company" id={id} name={p.name} onDeleted={() => nav('/companies')} />
                 </div>
@@ -176,6 +206,7 @@ export default function CompanyDetail() {
           associatedObjectType="companies"
           associatedObjectId={id}
           associatedObjectName={p.name}
+          defaultAssignee={user?.ownerId}
         />
       )}
 

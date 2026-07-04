@@ -1,0 +1,5828 @@
+[
+  {
+    "bp_id_unico": "BP-CAR-00001",
+    "name": "Aristo Pharma GmbH",
+    "domain": "aristo-pharma.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00002",
+    "name": "Bene Arzneimittel GmbH",
+    "domain": "bene-arzneimittel.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00003",
+    "name": "Denk Pharma",
+    "domain": "denkingredients.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00004",
+    "name": "GMEP Medical Technology GmbH",
+    "domain": "gmep-medical.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00005",
+    "name": "G. Pohl-Boskamp",
+    "domain": "pohl-boskamp.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00006",
+    "name": "InfectoPharm Arzneimittel und Consilium GmbH",
+    "domain": "infectopharm.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00007",
+    "name": "Life Couriers",
+    "domain": "lifecouriers.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00008",
+    "name": "Riemser Pharma",
+    "domain": "riemser.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00009",
+    "name": "Walter Krebs",
+    "domain": "walter-krebs.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00010",
+    "name": "Animares GmbH",
+    "domain": "animares.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00011",
+    "name": "Esteve Pharmaceuticals GMBH\nTiene sus oficinas centrales en ESPAÑA",
+    "domain": "esteve.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00012",
+    "name": "Grünenthal GmbH",
+    "domain": "grunenthal.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00013",
+    "name": "Hermes Arzneimittel GmbH",
+    "domain": "hermes-arzneimittel.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00014",
+    "name": "Hermes Pharma",
+    "domain": "hermes-pharma.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00015",
+    "name": "Luye Pharma AG",
+    "domain": "luyepharma.eu",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00016",
+    "name": "Qualifyze",
+    "domain": "qualifyze.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00017",
+    "name": "Tiefenbacher API",
+    "domain": "tiefenbacher.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00018",
+    "name": "Wöerwag Pharma",
+    "domain": "woerwagpharma.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00019",
+    "name": "Medice",
+    "domain": "medice.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00020",
+    "name": "Repha GmbH Biologische Arzneimittel",
+    "domain": "repha.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00021",
+    "name": "ChemCon GmbH",
+    "domain": "chemcon.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00022",
+    "name": "Bionorica",
+    "domain": "bionorica.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00023",
+    "name": "Aenova Pharmaceuticals Ltd",
+    "domain": "aenova-group.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00024",
+    "name": "Artesan Pharma GmbH & Co. KG",
+    "domain": "artesan.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00025",
+    "name": "Centax Pharma GmbH",
+    "domain": "centaxpharma.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00026",
+    "name": "Dermapharm AG\nPRIOR",
+    "domain": "dermapharm.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00027",
+    "name": "Dr. Reddys Laboratoires",
+    "domain": "drreddys.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00028",
+    "name": "Dr. Willmar Schwabe GmbH & Co KG\nPRIOR",
+    "domain": "schwabe-group.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00029",
+    "name": "DuDeChem GmbH",
+    "domain": "dudechem.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00030",
+    "name": "Ebiga-vision GmbH",
+    "domain": "ebiga-vision.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00031",
+    "name": "Harras Pharma Curarina Arzneimittel GmbH",
+    "domain": "harraspharma.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00032",
+    "name": "Hormosan Pharma GmbH",
+    "domain": "hormosan.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00033",
+    "name": "Kirsch BioPharm",
+    "domain": "kirschpharma.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00034",
+    "name": "Klosterfrau",
+    "domain": "klosterfrau-service.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00035",
+    "name": "PharmaSGP Holding SE",
+    "domain": "pharmasgp.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00036",
+    "name": "Synovo GmabH",
+    "domain": "synovo.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00037",
+    "name": "Ursatec GmbH",
+    "domain": "ursatec.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00038",
+    "name": "APONTIS PHARMA AG",
+    "domain": "apontis-pharma.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00039",
+    "name": "Heel GmbH",
+    "domain": "heel.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00040",
+    "name": "BioNTech SE",
+    "domain": "biontech.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00041",
+    "name": "Cesra Arzneimittel GmbH & Co. KG",
+    "domain": "cesra.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00042",
+    "name": "CHEPLAPHARM Arzneimittel GmbH",
+    "domain": "cheplapharm.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00043",
+    "name": "Desitin Arzneimittel GmbH",
+    "domain": "desitin.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00044",
+    "name": "Dr. Theiss Naturwaren GmbH",
+    "domain": "naturwaren-theiss.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00045",
+    "name": "Dr. Willmar Schwabe GmbH & Co. KG",
+    "domain": "schwabe.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00046",
+    "name": "Formycon AG",
+    "domain": "formycon.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00047",
+    "name": "Fresenius Kabi",
+    "domain": "fresenius-kabi.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00048",
+    "name": "Hameln Pharma GmbH",
+    "domain": "hameln-pharma.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00049",
+    "name": "Homöopathisches Laboratorium Alexander Pflüger GmbH & Co. KG",
+    "domain": "pflueger.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00050",
+    "name": "Klosterfrau Healthcare Group",
+    "domain": "klosterfrau.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00051",
+    "name": "Lomapharm GmbH",
+    "domain": "lomapharm.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00052",
+    "name": "Losan Pharma GmbH",
+    "domain": "losan.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00053",
+    "name": "LTS Lohmann Therapie-Systeme AG",
+    "domain": "ltslohmann.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00054",
+    "name": "medac GmbH (oncotec)",
+    "domain": "medac.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00055",
+    "name": "Merck KGaA — Healthcare / Biopharma Division",
+    "domain": "merckgroup.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00056",
+    "name": "Merz Therapeutics GmbH",
+    "domain": "prometheusgroup.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00057",
+    "name": "OmniVision GmbH",
+    "domain": "omnivision.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00058",
+    "name": "Pharma Aldenhoven GmbH & Co. KG",
+    "domain": "pharma-aldenhoven.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00059",
+    "name": "Pharma Wernigerode GmbH",
+    "domain": "pharma-wernigerode.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00060",
+    "name": "Rentschler Biopharma SE",
+    "domain": "rentschler-biopharma.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00061",
+    "name": "Rottendorf Pharma GmbH",
+    "domain": "rottendorf.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00062",
+    "name": "Salus",
+    "domain": "salus.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00063",
+    "name": "Serumwerk Bernburg AG",
+    "domain": "serumwerk.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00064",
+    "name": "STADA Group",
+    "domain": "stada.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00065",
+    "name": "Synformulas GmbH",
+    "domain": "synformulas.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00066",
+    "name": "Vetter Pharma-Fertigung GmbH & Co. KG",
+    "domain": "vetter-pharma.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00067",
+    "name": "Wiewelhove GmbH",
+    "domain": "wiewelhove.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00068",
+    "name": "Dr. Wolz Zell GmbH",
+    "domain": "wolz.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00069",
+    "name": "Mibe GmbH Arzneimittel",
+    "domain": "mibegmbh.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00070",
+    "name": "Pädia GmbH",
+    "domain": "",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00071",
+    "name": "Schaper & Brümmer GmbH & Co. KG",
+    "domain": "schaper-bruemmer.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00072",
+    "name": "SymBioPharm GmbH",
+    "domain": "symbio.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00073",
+    "name": "Biofrontera AG",
+    "domain": "biofrontera.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00074",
+    "name": "Almirall Hermal GmbH",
+    "domain": "almirall.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00075",
+    "name": "Orthomol pharmazeutische Vertriebs GmbH",
+    "domain": "orthomol.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00076",
+    "name": "Queisser Pharma GmbH & Co. KG",
+    "domain": "queisser.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00077",
+    "name": "Dr. Loges + Co. GmbH",
+    "domain": "loges.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00078",
+    "name": "Pascoe Naturmedizin GmbH",
+    "domain": "pascoe.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00079",
+    "name": "Köhler Pharma GmbH",
+    "domain": "koehler-pharma.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00080",
+    "name": "HLH BioPharma GmbH",
+    "domain": "hlh-biopharma.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00081",
+    "name": "Goerlich Pharma GmbH",
+    "domain": "goerlich-pharma.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00082",
+    "name": "Lohmann & Rauscher International GmbH & Co. KG",
+    "domain": "de.lrmed.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00083",
+    "name": "Berlin-Chemie AG",
+    "domain": "berlin-chemie.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00084",
+    "name": "Ratiopharm GmbH",
+    "domain": "ratiopharm.at",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00085",
+    "name": "betapharm Arzneimittel GmbH",
+    "domain": "betapharm.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00086",
+    "name": "Heumann Pharma GmbH & Co. Generica KG",
+    "domain": "heumann.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00087",
+    "name": "Apogepha Arzneimittel GmbH",
+    "domain": "apogepha.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00088",
+    "name": "Aliud Pharma GmbH",
+    "domain": "aliud.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00089",
+    "name": "Dr. Kade Pharmazeutische Fabrik GmbH",
+    "domain": "kade.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00090",
+    "name": "MIP Pharma GmbH",
+    "domain": "mip-pharma.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00091",
+    "name": "Dr. August Wolff GmbH & Co. KG Arzneimittel",
+    "domain": "drwolffgroup.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00092",
+    "name": "URSAPHARM Arzneimittel GmbH",
+    "domain": "ursapharm.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00093",
+    "name": "TRB Chemedica AG",
+    "domain": "trbchemedica.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00094",
+    "name": "PUREN Pharma GmbH & Co. KG",
+    "domain": "puren-pharma.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00095",
+    "name": "Midas Pharma GmbH",
+    "domain": "midas-pharma.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00096",
+    "name": "Neuraxpharm Arzneimittel GmbH",
+    "domain": "neuraxpharm.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00097",
+    "name": "EVER Pharma GmbH",
+    "domain": "everpharma.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00098",
+    "name": "Nordmark Pharma GmbH",
+    "domain": "nordmark-pharma.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00099",
+    "name": "WALA Heilmittel GmbH",
+    "domain": "wala.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00100",
+    "name": "Dexcel Pharma GmbH",
+    "domain": "dexcel.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00101",
+    "name": "GALENpharma GmbH",
+    "domain": "galenpharma.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00102",
+    "name": "Juta Pharma GmbH",
+    "domain": "jutapharma.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00103",
+    "name": "Lyomark Pharma GmbH",
+    "domain": "lyomark.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00104",
+    "name": "Inresa Arzneimittel GmbH",
+    "domain": "inresa.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00105",
+    "name": "Protina Pharmazeutische GmbH",
+    "domain": "protina.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00106",
+    "name": "SERAG-WIESSNER GmbH & Co. KG",
+    "domain": "serag-wiessner.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00107",
+    "name": "Fidelio Healthcare Limburg GmbH",
+    "domain": "fidelio-hc.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00108",
+    "name": "Glatt Pharmaceutical Services GmbH & Co. KG",
+    "domain": "glatt.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00109",
+    "name": "Anklam Extrakt GmbH",
+    "domain": "anklam-extrakt.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00110",
+    "name": "Finzelberg GmbH & Co. KG",
+    "domain": "finzelberg.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00111",
+    "name": "Dr. Gustav Klein GmbH & Co. KG",
+    "domain": "klein-naturarznei.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00112",
+    "name": "Adragos Pharma Norway",
+    "domain": "adragos-pharma.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00113",
+    "name": "AqVida GmbH",
+    "domain": "aqvida.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00114",
+    "name": "B. Braun Melsungen AG",
+    "domain": "",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00115",
+    "name": "Dr. Pfleger Arzneimittel GMBH",
+    "domain": "dr-pfleger.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00116",
+    "name": "Helm AG",
+    "domain": "helmag.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00117",
+    "name": "Welding GmbH & Co. KG",
+    "domain": "welding.eu",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00118",
+    "name": "AVIA Pharma Germany",
+    "domain": "",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00119",
+    "name": "Chameleon Pharma Consulting",
+    "domain": "chameleon-pharma.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00120",
+    "name": "Formula GmbH",
+    "domain": "",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00121",
+    "name": "Hennig Arzneimittel GmbH Y Co. Kg",
+    "domain": "hennig-am.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00122",
+    "name": "McKesson Europe AG parte del grupo McKesson - (Celesio)",
+    "domain": "",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00123",
+    "name": "MedServa GmbH",
+    "domain": "",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00124",
+    "name": "MEDA Manufacturing GmbH",
+    "domain": "",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00125",
+    "name": "Mediucal Focus gmbH",
+    "domain": "",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00126",
+    "name": "Micro Labs GmbH",
+    "domain": "",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00127",
+    "name": "Prange Pharma GmbH",
+    "domain": "prange-pharma.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00128",
+    "name": "Siemens AG",
+    "domain": "siemens.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00129",
+    "name": "Boehringer Ingelheim International GmbH",
+    "domain": "boehringer-ingelheim.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00130",
+    "name": "CC Pharma GmbH",
+    "domain": "cc-pharma.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00131",
+    "name": "EurimPharm Arzneimittel GmbH",
+    "domain": "eurim.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00132",
+    "name": "kohlpharma GmbH",
+    "domain": "kohlpharma.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00133",
+    "name": "axicorp Pharma GmbH",
+    "domain": "dermapharm.com",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00134",
+    "name": "Krewel Meuselbach",
+    "domain": "krewelmeuselbach.de",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00135",
+    "name": "PCM Pharma Consulting Management",
+    "domain": "",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00136",
+    "name": "BPI Bundesverband der Pharmazeutischen Industrie e.V.",
+    "domain": "",
+    "country": "Alemania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00137",
+    "name": "Gerot Lannach GmbH / G.L. Pharma GmbH",
+    "domain": "gl-pharma.at",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00138",
+    "name": "Kwizda Pharma GmbH",
+    "domain": "kwizda.at",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00139",
+    "name": "Genericon Pharma GmbH",
+    "domain": "genericon.at",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00140",
+    "name": "AOP Orphan Pharmaceuticals GmbH (AOP Health)",
+    "domain": "aoporphan.com",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00141",
+    "name": "Croma-Pharma GmbH",
+    "domain": "croma.at",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00142",
+    "name": "Pharm. Fabrik Montavit GmbH",
+    "domain": "montavit.com",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00143",
+    "name": "AGEPHA Pharma",
+    "domain": "agephapharma.com",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00144",
+    "name": "Apomedica Pharmazeutische Produkte GmbH",
+    "domain": "apomedica.com",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00145",
+    "name": "Biomay AG",
+    "domain": "biomay.com",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00146",
+    "name": "Germania Pharmazeutika Ges.m.b.H.",
+    "domain": "germania.at",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00147",
+    "name": "Lenus Pharma GesmbH",
+    "domain": "lenuspharma.com",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00148",
+    "name": "MoNo chem-pharm Produkte GmbH (grupo Sigmapharm)",
+    "domain": "mono.co.at",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00149",
+    "name": "Orphanix GmbH",
+    "domain": "orphanix.com",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00150",
+    "name": "Sanochemia Pharmazeutika AG",
+    "domain": "sanochemia.com",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00151",
+    "name": "Sigmapharm Arzneimittel GmbH",
+    "domain": "sigmapharm.at",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00152",
+    "name": "Valneva Austria GmbH",
+    "domain": "valneva.com",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00153",
+    "name": "Gebro Pharma GmbH",
+    "domain": "gebro.com",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00154",
+    "name": "Marinomed Biotech AG",
+    "domain": "marinomed.com",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00155",
+    "name": "Polymun Scientific Immunbiologische Forschung GmbH",
+    "domain": "polymun.com",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00156",
+    "name": "F. Trenka chemisch-pharmazeutische Fabrik GmbH",
+    "domain": "ftrenka.com",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00157",
+    "name": "Adler Pharma Produktion und Vertrieb GmbH",
+    "domain": "",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00158",
+    "name": "BANO Healthcare GmbH & Co KG",
+    "domain": "bano.at",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00159",
+    "name": "Sanova Pharma GesmbH",
+    "domain": "sanova.at",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00160",
+    "name": "Alpla Group",
+    "domain": "",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00161",
+    "name": "NETZER GROUP",
+    "domain": "",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00162",
+    "name": "PINT PHARMA S.A.P.I. de C.V.",
+    "domain": "",
+    "country": "Austria"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00163",
+    "name": "Aché Laboratórios Farmacêuticos",
+    "domain": "ache.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00164",
+    "name": "Blau Farmaceutica",
+    "domain": "blau.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00165",
+    "name": "Daiichi Sankyo",
+    "domain": "uol.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00166",
+    "name": "Eurofarma",
+    "domain": "eurofarma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00167",
+    "name": "Herbarium Laboratório Botânico",
+    "domain": "herbarium.net",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00168",
+    "name": "Hypera",
+    "domain": "hypera.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00169",
+    "name": "Intermeios",
+    "domain": "intermeios.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00170",
+    "name": "União Química Farmacêutica Nacional",
+    "domain": "uniaoquimica.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00171",
+    "name": "Grupo NC",
+    "domain": "koseilab.com.mx",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00172",
+    "name": "Biolab Farmacéutica",
+    "domain": "biolabfarma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00173",
+    "name": "EMS",
+    "domain": "ems.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00174",
+    "name": "NPS",
+    "domain": "npsdobrasil.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00175",
+    "name": "Rennova",
+    "domain": "innovapharma.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00176",
+    "name": "Nortec Quimica",
+    "domain": "nortecquimica.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00177",
+    "name": "Wohaco",
+    "domain": "wohaco.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00178",
+    "name": "Cifarma",
+    "domain": "cifarma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00179",
+    "name": "Hypofarma",
+    "domain": "hypofarma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00180",
+    "name": "Laboratório Teuto",
+    "domain": "teuto.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00181",
+    "name": "Supera Farma",
+    "domain": "superarx.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00182",
+    "name": "Farmoterápica",
+    "domain": "farmoterapica.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00183",
+    "name": "Abbott Brasil",
+    "domain": "abbott.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00184",
+    "name": "ABL",
+    "domain": "ablbrasil.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00185",
+    "name": "Accord Healthcare",
+    "domain": "accordfarma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00186",
+    "name": "Airela Pharmacêutica",
+    "domain": "airela.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00187",
+    "name": "Biominas",
+    "domain": "biominas.org.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00188",
+    "name": "Bionovis",
+    "domain": "bionovis.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00189",
+    "name": "Brainfarma",
+    "domain": "brainfarma.ind.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00190",
+    "name": "Centroflora",
+    "domain": "centroflora.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00191",
+    "name": "Farmace",
+    "domain": "farmace.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00192",
+    "name": "Farmax",
+    "domain": "farmax.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00193",
+    "name": "Germed Pharma",
+    "domain": "germedpharma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00194",
+    "name": "Globe Química",
+    "domain": "globequimica.ind.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00195",
+    "name": "Hebron",
+    "domain": "hebron.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00196",
+    "name": "Instituto BioChimico",
+    "domain": "biochimico.ind.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00197",
+    "name": "Laboratorio Neo Quimica",
+    "domain": "neoquimica.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00198",
+    "name": "Momenta Farmacéutica",
+    "domain": "momentafarma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00199",
+    "name": "Nativita Farmacêutica",
+    "domain": "nativita.ind.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00200",
+    "name": "Silvestre Labs",
+    "domain": "silvestrelabs.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00201",
+    "name": "TRB Pharma",
+    "domain": "trbpharma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00202",
+    "name": "Zodiac Produtos Farmacêuticos",
+    "domain": "zodiac.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00203",
+    "name": "Zydus Brasil",
+    "domain": "zydusbrasil.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00204",
+    "name": "Adeste",
+    "domain": "adeste.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00205",
+    "name": "Arese Pharma",
+    "domain": "arese.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00206",
+    "name": "Basal Farma Indústria Farmacêutica",
+    "domain": "uol.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00207",
+    "name": "Belfar",
+    "domain": "belfar.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00208",
+    "name": "Brasterápica",
+    "domain": "braste.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00209",
+    "name": "EPHAR",
+    "domain": "ephar.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00210",
+    "name": "Equiplex",
+    "domain": "equiplex.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00211",
+    "name": "Laboratorios IFA",
+    "domain": "laboratoriosifa.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00212",
+    "name": "Laboratório Farmacêutico Elofar",
+    "domain": "elofar.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00213",
+    "name": "TheraSkin Farmacêutica",
+    "domain": "theraskin.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00214",
+    "name": "Vidora Farmacêutica",
+    "domain": "vidora.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00215",
+    "name": "VMG Farmacêutica",
+    "domain": "vmgfarmaceutica.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00216",
+    "name": "Althaia S.A. Indústria Farmacêutica",
+    "domain": "althaia.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00217",
+    "name": "Ayalla",
+    "domain": "ayalla.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00218",
+    "name": "Biomm",
+    "domain": "biomm.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00219",
+    "name": "Bionatus Laboratório Botânico",
+    "domain": "bionatusfarma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00220",
+    "name": "CannTen",
+    "domain": "cannten.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00221",
+    "name": "Celer Biotecnologia",
+    "domain": "celer.ind.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00222",
+    "name": "Cellera Farma",
+    "domain": "cellerafarma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00223",
+    "name": "Diffucap",
+    "domain": "diffucap.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00224",
+    "name": "Entourage Lab",
+    "domain": "entouragelab.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00225",
+    "name": "Farmoquímica",
+    "domain": "fqm.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00226",
+    "name": "Galena Farmacêutica",
+    "domain": "galena.digital",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00227",
+    "name": "Geolab",
+    "domain": "geolab.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00228",
+    "name": "Globo Pharma",
+    "domain": "globopharma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00229",
+    "name": "Gross Farma",
+    "domain": "gross.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00230",
+    "name": "Grupo Cimed",
+    "domain": "grupocimed.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00231",
+    "name": "Grupo Elfa",
+    "domain": "grupoelfa.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00232",
+    "name": "Halexistar",
+    "domain": "halexistar.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00233",
+    "name": "Idealfarma Distribuidora",
+    "domain": "idealfarma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00234",
+    "name": "Kley Hertz",
+    "domain": "kleyhertz.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00235",
+    "name": "Laboratório Osório de Moraes",
+    "domain": "",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00236",
+    "name": "Laboratórios Bagó",
+    "domain": "bago.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00237",
+    "name": "Lapon",
+    "domain": "lapon.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00238",
+    "name": "Latinofarma",
+    "domain": "cristalia.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00239",
+    "name": "Medley",
+    "domain": "medley.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00240",
+    "name": "MedQuímica",
+    "domain": "lupin.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00241",
+    "name": "Megalabs Brasil",
+    "domain": "megalabsbrasil.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00242",
+    "name": "Merz Aesthetics",
+    "domain": "merz.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00243",
+    "name": "Minancora",
+    "domain": "minancora.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00244",
+    "name": "Mr. Pharma",
+    "domain": "mrpharma.ind.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00245",
+    "name": "Multilab Farma",
+    "domain": "multilab.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00246",
+    "name": "Myralis",
+    "domain": "myralis.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00247",
+    "name": "Nova Química",
+    "domain": "",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00248",
+    "name": "Novo Nordisk",
+    "domain": "novonordisk.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00249",
+    "name": "Ophthalmos",
+    "domain": "ophthalmos.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00250",
+    "name": "Pharlab",
+    "domain": "pharlab.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00251",
+    "name": "PharmaBrazil",
+    "domain": "pharmabrazil.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00252",
+    "name": "Profissão Biotec",
+    "domain": "",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00253",
+    "name": "Roquette",
+    "domain": "roquette.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00254",
+    "name": "Sanrisil",
+    "domain": "sanrisil.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00255",
+    "name": "Santisa",
+    "domain": "santisa.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00256",
+    "name": "Syntec Brasil",
+    "domain": "syntec.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00257",
+    "name": "Vallua",
+    "domain": "vallua.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00258",
+    "name": "Vitamedic",
+    "domain": "vitamedic.ind.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00259",
+    "name": "Laboratório Cristália",
+    "domain": "cristalia.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00260",
+    "name": "Libbs Farmacêutica",
+    "domain": "libbs.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00261",
+    "name": "Apsen Farmaceutica",
+    "domain": "apsen.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00262",
+    "name": "Blanver",
+    "domain": "blanver.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00263",
+    "name": "Hipolabor Farmaceutica",
+    "domain": "hipolabor.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00264",
+    "name": "Legrand Pharma",
+    "domain": "legrandpharma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00265",
+    "name": "Natulab",
+    "domain": "natulab.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00266",
+    "name": "Prati-Donaduzzi",
+    "domain": "pratidonaduzzi.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00267",
+    "name": "Teva Pharma",
+    "domain": "tevapharm.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00268",
+    "name": "Unika",
+    "domain": "grupounikamed.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00269",
+    "name": "Brace Pharma",
+    "domain": "gruponc.net.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00270",
+    "name": "Labtest Diagnóstica",
+    "domain": "labtest.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00271",
+    "name": "Quibasa-Bioclin",
+    "domain": "bioclin.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00272",
+    "name": "Vitafor Nutrientes",
+    "domain": "vitafor.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00273",
+    "name": "Wama Diagnóstica",
+    "domain": "wamadiagnostica.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00274",
+    "name": "Bahiafarma",
+    "domain": "bahiafarma.ba.gov.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00275",
+    "name": "Glenmark Pharmaceuticals",
+    "domain": "glenmarkpharma.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00276",
+    "name": "Laboratorio Catarinense",
+    "domain": "uol.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00277",
+    "name": "Natura",
+    "domain": "natura.net",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00278",
+    "name": "Alko do Brasil",
+    "domain": "alkodobrasil.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00279",
+    "name": "Biogen",
+    "domain": "biogen.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00280",
+    "name": "Biolinker",
+    "domain": "biolinker.tech",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00281",
+    "name": "Farmalevel",
+    "domain": "farmalevel.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00282",
+    "name": "LAFEPE – Laboratório Farmacêutico do Estado de Pernambuco",
+    "domain": "",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00283",
+    "name": "Lanza Pharma",
+    "domain": "lanzapharma.com",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00284",
+    "name": "Marjan Farma",
+    "domain": "marjanfarma.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00285",
+    "name": "Fundacion Fiocruz",
+    "domain": "icict.fiocruz.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00286",
+    "name": "Fundação Ataulpho de Paiva",
+    "domain": "bcgfap.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00287",
+    "name": "Fundação Butantan",
+    "domain": "fundacaobutantan.org.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00288",
+    "name": "FUNED – Fundação Ezequiel Dias",
+    "domain": "funed.mg.gov.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00289",
+    "name": "FURP – Fundação para o Remédio Popular",
+    "domain": "furp.sp.gov.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00290",
+    "name": "Instituto Vital Brazil",
+    "domain": "vitalbrazil.rj.gov.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00291",
+    "name": "IQUEGO",
+    "domain": "iquego.com.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00292",
+    "name": "NUPLAM",
+    "domain": "",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00293",
+    "name": "Tecpar",
+    "domain": "tecpar.br",
+    "country": "Brasil"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00294",
+    "name": "Apotex",
+    "domain": "apotex.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00295",
+    "name": "Acic Pharmaceuticals Inc. (ACIC Group)",
+    "domain": "acic.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00296",
+    "name": "BioSyent Pharma",
+    "domain": "biosyent.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00297",
+    "name": "Bles Biochemicals",
+    "domain": "blesbiochem.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00298",
+    "name": "Knight Therapeutics",
+    "domain": "knighttx.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00299",
+    "name": "Lallemand",
+    "domain": "lallemand.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00300",
+    "name": "Minakem",
+    "domain": "minakem.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00301",
+    "name": "Rapid Dose Therapeutics",
+    "domain": "rapid-dose.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00302",
+    "name": "Sterinova",
+    "domain": "sterinova.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00303",
+    "name": "Jamp Pharma",
+    "domain": "jamppharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00304",
+    "name": "Nutralab",
+    "domain": "nutralabcorp.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00305",
+    "name": "Odan Laboratories",
+    "domain": "odanlab.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00306",
+    "name": "Pharmascience",
+    "domain": "pharmascience.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00307",
+    "name": "Corealis Pharma",
+    "domain": "corealispharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00308",
+    "name": "AA Pharma",
+    "domain": "aapharma.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00309",
+    "name": "Accelera Pharma",
+    "domain": "apcipharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00310",
+    "name": "Acerus Pharmaceuticals",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00311",
+    "name": "Alto Pharmaceuticals",
+    "domain": "altopharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00312",
+    "name": "A&A Pharmachem",
+    "domain": "aapharmachem.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00313",
+    "name": "Azcure Sciences",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00314",
+    "name": "Biomed Pharma",
+    "domain": "biomed-pharma.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00315",
+    "name": "BioPharma Services",
+    "domain": "pharmaron.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00316",
+    "name": "Canexpharm International",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00317",
+    "name": "Canprev",
+    "domain": "canprev.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00318",
+    "name": "Capcium",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00319",
+    "name": "Consera Pharmaceuticals",
+    "domain": "conserapharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00320",
+    "name": "Devonian Health Group",
+    "domain": "groupedevonian.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00321",
+    "name": "Domrex Pharma",
+    "domain": "domrexpharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00322",
+    "name": "Dormer Laboratories",
+    "domain": "dormer.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00323",
+    "name": "Endoceutics",
+    "domain": "groupedevonian.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00324",
+    "name": "Espere Healthcare",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00325",
+    "name": "Formative Pharma",
+    "domain": "formativepharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00326",
+    "name": "Genmed",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00327",
+    "name": "Genvion Corporation",
+    "domain": "genvion.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00328",
+    "name": "MediPure Pharmaceuticals",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00329",
+    "name": "Milestone Pharmaceuticals",
+    "domain": "milestonepharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00330",
+    "name": "MSH Pharma",
+    "domain": "mshpharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00331",
+    "name": "Neobourne Pharma",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00332",
+    "name": "Neopharm Labs",
+    "domain": "neopharmlabs.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00333",
+    "name": "Opus Pharma",
+    "domain": "opuspharma.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00334",
+    "name": "Pharmaris Canada",
+    "domain": "pharmaris.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00335",
+    "name": "RW Consumer Products",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00336",
+    "name": "SemaThera",
+    "domain": "semathera.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00337",
+    "name": "Septa Pharma",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00338",
+    "name": "Spektus Pharma",
+    "domain": "agromorph.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00339",
+    "name": "Steri-Med Pharma",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00340",
+    "name": "Trafa Pharmaceutical",
+    "domain": "trafapharmaceutical.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00341",
+    "name": "Tyros Biopharma",
+    "domain": "tyrosbiopharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00342",
+    "name": "Vimy Pharma",
+    "domain": "vimypharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00343",
+    "name": "Waverley Pharma",
+    "domain": "waverleypharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00344",
+    "name": "WEX Pharmaceuticals",
+    "domain": "dwtx.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00345",
+    "name": "Xediton Pharmaceuticals",
+    "domain": "xediton.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00346",
+    "name": "Xenex Labs",
+    "domain": "xenexlabs.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00347",
+    "name": "GlycoBioSciences",
+    "domain": "glycobiosciences.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00348",
+    "name": "Juno Pharma",
+    "domain": "junopharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00349",
+    "name": "Novocol Pharma",
+    "domain": "septodont.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00350",
+    "name": "Cipher Pharmaceuticals",
+    "domain": "cipherpharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00351",
+    "name": "Contract Pharmaceuticals",
+    "domain": "cplltd.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00352",
+    "name": "Crescita Therapeutics",
+    "domain": "crescitatherapeutics.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00353",
+    "name": "EIG (Exir International Group)",
+    "domain": "eigcanada.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00354",
+    "name": "Intellipharmaceutics",
+    "domain": "intellipharmaceutics.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00355",
+    "name": "Kye Pharmaceuticals",
+    "domain": "kyepharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00356",
+    "name": "Laboratoire Riva",
+    "domain": "labriva.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00357",
+    "name": "Marcan Pharmaceuticals",
+    "domain": "marcanpharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00358",
+    "name": "Medicap Laboratories",
+    "domain": "medicap.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00359",
+    "name": "Nuvo Pharmaceuticals",
+    "domain": "nuvopharmaceuticals.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00360",
+    "name": "Nanz Pharma",
+    "domain": "nanzcanada.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00361",
+    "name": "Organon",
+    "domain": "organon.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00362",
+    "name": "Pendopharm",
+    "domain": "sterimaxinc.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00363",
+    "name": "Pillar5 Pharma",
+    "domain": "pillar5pharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00364",
+    "name": "Ryvis Pharma",
+    "domain": "ryvispharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00365",
+    "name": "Seaford Pharmaceuticals",
+    "domain": "seaford.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00366",
+    "name": "Stella Pharmaceutical",
+    "domain": "stellapharmaceutical.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00367",
+    "name": "Taro Pharmaceuticals",
+    "domain": "taro.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00368",
+    "name": "Trillium Health Care Products",
+    "domain": "trilliumhcp.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00369",
+    "name": "Verity Pharmaceuticals",
+    "domain": "veritypharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00370",
+    "name": "Vita Health Products",
+    "domain": "vitahealth.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00371",
+    "name": "Viva Pharmaceutical",
+    "domain": "vivapharm.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00372",
+    "name": "AbCellera Biologics",
+    "domain": "abcellera.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00373",
+    "name": "BioScript Solutions",
+    "domain": "bioscript.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00374",
+    "name": "Dalton Pharma",
+    "domain": "dalton.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00375",
+    "name": "Evolve Biologics",
+    "domain": "evolvebio.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00376",
+    "name": "HLS Therapeutics",
+    "domain": "hlstherapeutics.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00377",
+    "name": "Jamieson Wellness",
+    "domain": "jamiesonwellness.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00378",
+    "name": "Medexus Pharmaceuticals",
+    "domain": "sbcglobal.net",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00379",
+    "name": "Natural Factors",
+    "domain": "naturalfactors.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00380",
+    "name": "Paladin Pharma",
+    "domain": "knighttx.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00381",
+    "name": "Patheon",
+    "domain": "patheon.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00382",
+    "name": "Avir Pharma",
+    "domain": "labriva.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00383",
+    "name": "Valeo Pharma",
+    "domain": "valeopharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00384",
+    "name": "Altius Healthcare",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00385",
+    "name": "Analog Pharma Canada",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00386",
+    "name": "Bio-K+",
+    "domain": "kerry.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00387",
+    "name": "Canadian National Pharma Group",
+    "domain": "cnpg.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00388",
+    "name": "Canagen Pharmaceuticals",
+    "domain": "canagen.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00389",
+    "name": "CellChem Pharmaceuticals",
+    "domain": "cellchempharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00390",
+    "name": "Cerapie Pharma",
+    "domain": "cerapie.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00391",
+    "name": "Dermtek Pharma",
+    "domain": "dermtek.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00392",
+    "name": "Indivior",
+    "domain": "indivior.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00393",
+    "name": "Labomar",
+    "domain": "importfab.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00394",
+    "name": "Medunik",
+    "domain": "duchesnaypharmaceuticalgroup.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00395",
+    "name": "Mint Pharmaceuticals",
+    "domain": "mintpharmaceuticals.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00396",
+    "name": "Nutripur",
+    "domain": "nutripur.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00397",
+    "name": "Atlas Pharma",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00398",
+    "name": "Generic Medical Partners",
+    "domain": "gmprx.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00399",
+    "name": "Alanza",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00400",
+    "name": "Erfa Canada",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00401",
+    "name": "Genix Pharmaceuticals Corporation",
+    "domain": "genixpharm.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00402",
+    "name": "OmniaBio",
+    "domain": "omniabio.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00403",
+    "name": "Orimed Pharma",
+    "domain": "orimedpharma.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00404",
+    "name": "PNP Pharmaceuticals",
+    "domain": "pnppharmaceuticals.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00405",
+    "name": "Prairie Naturals",
+    "domain": "prairienaturals.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00406",
+    "name": "Purdue Pharma",
+    "domain": "purdue.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00407",
+    "name": "Recordati Rare Diseases Canada",
+    "domain": "recordati.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00408",
+    "name": "Sanis Health",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00409",
+    "name": "Searchlight Pharma",
+    "domain": "searchlightpharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00410",
+    "name": "Servier Canada",
+    "domain": "servier.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00411",
+    "name": "Stom Pharma",
+    "domain": "stomproductions.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00412",
+    "name": "Sunovion Pharmaceuticals",
+    "domain": "sunovion.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00413",
+    "name": "Vanc Pharmaceuticals",
+    "domain": "avricorehealth.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00414",
+    "name": "Vertex Pharmaceuticals",
+    "domain": "vrtx.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00415",
+    "name": "WN Pharmaceuticals",
+    "domain": "wnpharmaceuticals.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00416",
+    "name": "Biovectra",
+    "domain": "biovectra.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00417",
+    "name": "Eurofins Alphora",
+    "domain": "eurofins.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00418",
+    "name": "Duchesnay",
+    "domain": "medunik.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00419",
+    "name": "Nualtis",
+    "domain": "nualtis.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00420",
+    "name": "Vivier Pharma",
+    "domain": "vivierskin.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00421",
+    "name": "Emergent BioSolutions",
+    "domain": "ebsi.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00422",
+    "name": "Avaria Health & Beauty Corp.",
+    "domain": "avariahb.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00423",
+    "name": "Methapharm",
+    "domain": "methapharm.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00424",
+    "name": "Organika Health Products",
+    "domain": "organika.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00425",
+    "name": "Accel Pharma",
+    "domain": "accelpharma.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00426",
+    "name": "Mantra Pharma",
+    "domain": "mantrapharma.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00427",
+    "name": "Prime Health",
+    "domain": "yahoo.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00428",
+    "name": "Groupe Parima",
+    "domain": "groupeparima.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00429",
+    "name": "CapsCanada",
+    "domain": "capscanada.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00430",
+    "name": "Medicure",
+    "domain": "medicure.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00431",
+    "name": "NuChem Sciences",
+    "domain": "x-chemrx.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00432",
+    "name": "Altus Formulation",
+    "domain": "altusformulation.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00433",
+    "name": "Bausch Health",
+    "domain": "bauschhealth.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00434",
+    "name": "BioNeutra North America Inc.",
+    "domain": "bioneutra.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00435",
+    "name": "Pro Doc Ltée",
+    "domain": "prodoc.qc.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00436",
+    "name": "Acuitas Therapeutics",
+    "domain": "acuitastx.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00437",
+    "name": "Aspri Pharma",
+    "domain": "",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00438",
+    "name": "Aurium Canada",
+    "domain": "aurium.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00439",
+    "name": "Ceapro",
+    "domain": "ceapro.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00440",
+    "name": "Euro-Pharm International Canada",
+    "domain": "euro-pharm.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00441",
+    "name": "Labtician Ophthalmics",
+    "domain": "bimobject.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00442",
+    "name": "Natco Pharma",
+    "domain": "natcopharma.ca",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00443",
+    "name": "Sterimax",
+    "domain": "sterimaxinc.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00444",
+    "name": "Biolyse",
+    "domain": "biolyse.com",
+    "country": "Canada"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00445",
+    "name": "Saneca Pharmaceuticals a.s.",
+    "domain": "saneca.com",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00446",
+    "name": "Biotika a.s.",
+    "domain": "biotika.eu.com",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00447",
+    "name": "UNIMED PHARMA spol. s r.o.",
+    "domain": "unimedpharma.eu",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00448",
+    "name": "VULM s.r.o.",
+    "domain": "vulm.sk",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00449",
+    "name": "Farmácia Martin a.s.",
+    "domain": "martinpharma.eu",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00450",
+    "name": "HBM Pharma s.r.o.",
+    "domain": "hbmpharma.eu",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00451",
+    "name": "hameln rds s.r.o.",
+    "domain": "hameln-rds.sk",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00452",
+    "name": "PHARMAGAL-BIO spol. s r.o.",
+    "domain": "pharmagalbio.sk",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00453",
+    "name": "IMUNA PHARM a.s.",
+    "domain": "imunapharm.com",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00454",
+    "name": "MIKROCHEM spol. s r.o.",
+    "domain": "mikrochem.sk",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00455",
+    "name": "GENERICA spol. s r.o.",
+    "domain": "generica.sk",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00456",
+    "name": "Innopharma s.r.o.",
+    "domain": "innopharma.sk",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00457",
+    "name": "Green Swan Pharmaceuticals s.r.o.",
+    "domain": "greenswan.sk",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00458",
+    "name": "PANACEA s.r.o.",
+    "domain": "panacea.sk",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00459",
+    "name": "Pleuran s.r.o.",
+    "domain": "pleuran.eu",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00460",
+    "name": "CANDE s.r.o.",
+    "domain": "cande.sk",
+    "country": "Eslovaquia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00461",
+    "name": "LABORATOIRE AGUETTANT",
+    "domain": "aguettant.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00462",
+    "name": "Anjac Health & Beauty GROUP",
+    "domain": "anjac.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00463",
+    "name": "Ethypharm",
+    "domain": "ethypharm.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00464",
+    "name": "Substipharm",
+    "domain": "substipharm.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00465",
+    "name": "Unither Pharmaceuticals",
+    "domain": "unither-pharma.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00466",
+    "name": "PanPharma",
+    "domain": "panpharma.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00467",
+    "name": "Biose",
+    "domain": "biose.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00468",
+    "name": "Gilbert",
+    "domain": "labogilbert.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00469",
+    "name": "Perrigo",
+    "domain": "perrigo.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00470",
+    "name": "Fytexia",
+    "domain": "phynova.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00471",
+    "name": "Laboratoire Eupeptis",
+    "domain": "",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00472",
+    "name": "Laboratoires Expanscience",
+    "domain": "expanscience.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00473",
+    "name": "Fareva Amboise",
+    "domain": "fareva.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00474",
+    "name": "Alphanosos",
+    "domain": "alphanosos.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00475",
+    "name": "Nordic Pharma",
+    "domain": "nordicpharma.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00476",
+    "name": "Nutrisens",
+    "domain": "nutrisens.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00477",
+    "name": "Laboratoires Pierre Fabre",
+    "domain": "pierre-fabre.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00478",
+    "name": "Laboratoires Chemineau",
+    "domain": "chemineau.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00479",
+    "name": "LDPSA",
+    "domain": "ldpsa.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00480",
+    "name": "Laboratoires Urgo Healthcare",
+    "domain": "laboratoiresurgo.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00481",
+    "name": "Adhexpharma SAS",
+    "domain": "adhexpharma.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00482",
+    "name": "Laboratoire Arrow",
+    "domain": "laboratoire-arrow.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00483",
+    "name": "Aveom Pharma",
+    "domain": "aveom-pharma.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00484",
+    "name": "Benta Lyon",
+    "domain": "benta-group.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00485",
+    "name": "Biogaran",
+    "domain": "biogaran.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00486",
+    "name": "EG Labo Groupe STADA",
+    "domain": "eglabo.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00487",
+    "name": "Laboratoires Delbert",
+    "domain": "",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00488",
+    "name": "Skyepharma Production S.A.S",
+    "domain": "skyepharma.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00489",
+    "name": "Vitrobio Pharma",
+    "domain": "vitrobio.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00490",
+    "name": "Zentiva France",
+    "domain": "zentiva.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00491",
+    "name": "Aptys Pharmaceuticals",
+    "domain": "aptyspharma.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00492",
+    "name": "GALIEN LPS",
+    "domain": "galien.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00493",
+    "name": "Laboratoire Bailly-Creat",
+    "domain": "bailly-creat.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00494",
+    "name": "LABORATOIRE CEVIDRA",
+    "domain": "cevidra.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00495",
+    "name": "Laboratoire Cooper",
+    "domain": "cooperconsumerhealth.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00496",
+    "name": "Laboratoire XO (LXO Group)",
+    "domain": "universalmedica.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00497",
+    "name": "H2 Pharma",
+    "domain": "h2pharma.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00498",
+    "name": "Laboratoires Besins Healthcare",
+    "domain": "besins-healthcare.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00499",
+    "name": "Laboratoires Crinex",
+    "domain": "crinex.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00500",
+    "name": "Laboratoire DB Pharma",
+    "domain": "db-pharma.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00501",
+    "name": "Laboratoire Mayoly Spindler",
+    "domain": "mayoly.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00502",
+    "name": "Laboratoire Pharmastra",
+    "domain": "",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00503",
+    "name": "LAPHAL",
+    "domain": "laphal.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00504",
+    "name": "Orphelia Pharma",
+    "domain": "orphelia-pharma.eu",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00505",
+    "name": "Laboratoires Europhta",
+    "domain": "",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00506",
+    "name": "Serb Pharmaceuticals",
+    "domain": "serb.eu",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00507",
+    "name": "Meribel Pharma",
+    "domain": "meribelpharma.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00508",
+    "name": "Laboratoires CDM Lavoisier",
+    "domain": "lavoiser.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00509",
+    "name": "Laboratoires Innothera",
+    "domain": "innothera.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00510",
+    "name": "Laboratoire CCD",
+    "domain": "ccdlab.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00511",
+    "name": "Laboratoires Théa",
+    "domain": "theapharma.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00512",
+    "name": "Laboratoire Les Trois Chênes",
+    "domain": "lestroischenes.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00513",
+    "name": "Nat'Kaps Laboratoire",
+    "domain": "natkaps.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00514",
+    "name": "PiLeJe Laboratoire",
+    "domain": "pileje.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00515",
+    "name": "Seppic",
+    "domain": "seppic.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00516",
+    "name": "Seqens",
+    "domain": "seqens.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00517",
+    "name": "Thépenier Pharma & Cosmetics",
+    "domain": "thepenier-pharma.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00518",
+    "name": "Tridem Pharma",
+    "domain": "yahoo.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00519",
+    "name": "UPSA",
+    "domain": "upsa.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00520",
+    "name": "Arkopharma",
+    "domain": "arkopharma.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00521",
+    "name": "Astreapharma",
+    "domain": "astreapharma.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00522",
+    "name": "Axyntis Group",
+    "domain": "axyntis.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00523",
+    "name": "Bioprox Healthcare",
+    "domain": "bioprox-healthcare.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00524",
+    "name": "Carbogen Amcis SAS",
+    "domain": "carbogen-amcis.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00525",
+    "name": "Cenexi",
+    "domain": "cenexi.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00526",
+    "name": "EA Pharma",
+    "domain": "ea-pharma.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00527",
+    "name": "Elitepharm Laboratoires",
+    "domain": "elitepharm.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00528",
+    "name": "Eloa Pharma",
+    "domain": "",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00529",
+    "name": "Euroapi",
+    "domain": "euroapi.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00530",
+    "name": "Exden",
+    "domain": "exden.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00531",
+    "name": "Laboratoire Lescuyer",
+    "domain": "laboratoire-lescuyer.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00532",
+    "name": "Laboratoire Nutergia",
+    "domain": "nutergia.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00533",
+    "name": "Noreva Group",
+    "domain": "noreva.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00534",
+    "name": "Havea Group",
+    "domain": "havea.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00535",
+    "name": "Ipsen",
+    "domain": "ipsen.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00536",
+    "name": "LFB — Laboratoire Français du Fractionnement et des Biotechnologies",
+    "domain": "lfb.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00537",
+    "name": "Biocodex",
+    "domain": "biocodex.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00538",
+    "name": "Stallergenes SAS",
+    "domain": "stallergenes.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00539",
+    "name": "ABL Europe",
+    "domain": "abls-europe.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00540",
+    "name": "Innotech International",
+    "domain": "innotech-international.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00541",
+    "name": "Laboratoires Iprad",
+    "domain": "iprad.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00542",
+    "name": "Pharnext",
+    "domain": "pharnext.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00543",
+    "name": "Bi Pharma",
+    "domain": "",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00544",
+    "name": "Viatris",
+    "domain": "viatris.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00545",
+    "name": "Elerte",
+    "domain": "orange.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00546",
+    "name": "Roxlor",
+    "domain": "roxlorgroup.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00547",
+    "name": "Laboratoires Lehning",
+    "domain": "ue-57.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00548",
+    "name": "Hyloris Pharmaceuticals NV",
+    "domain": "hyloris.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00549",
+    "name": "ProductLife Group",
+    "domain": "productlife-group.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00550",
+    "name": "Tradiphar",
+    "domain": "tradipharmaroc.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00551",
+    "name": "Gravis Emballages",
+    "domain": "gravis.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00552",
+    "name": "Olympe Healthcare",
+    "domain": "olympehealthcare.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00553",
+    "name": "France BioLead",
+    "domain": "",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00554",
+    "name": "Icosa",
+    "domain": "icosa.fr",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00555",
+    "name": "Biolabs",
+    "domain": "biolabs.io",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00556",
+    "name": "BioValley France",
+    "domain": "",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00557",
+    "name": "Eurobiomed",
+    "domain": "eurobiomed.org",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00558",
+    "name": "Clean Biologics",
+    "domain": "clean-biologics.com",
+    "country": "Francia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00559",
+    "name": "Coripharma",
+    "domain": "coripharma.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00560",
+    "name": "Medis",
+    "domain": "medis.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00561",
+    "name": "Alvotech",
+    "domain": "alvotech.com",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00562",
+    "name": "3Z Pharmaceuticals",
+    "domain": "3z.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00563",
+    "name": "Algalif",
+    "domain": "algalif.com",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00564",
+    "name": "EpiEndo Pharmaceuticals",
+    "domain": "epiendo.com",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00565",
+    "name": "Florealis",
+    "domain": "florealis.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00566",
+    "name": "GeoSilica Iceland",
+    "domain": "geosilica.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00567",
+    "name": "IcePharma",
+    "domain": "icepharma.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00568",
+    "name": "Kerecis",
+    "domain": "kerecis.com",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00569",
+    "name": "Lýsi",
+    "domain": "lysi.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00570",
+    "name": "Oculis",
+    "domain": "oculis.com",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00571",
+    "name": "ORF Genetics",
+    "domain": "orfgenetics.com",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00572",
+    "name": "Saga Natura",
+    "domain": "saganatura.com",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00573",
+    "name": "Genis",
+    "domain": "genis.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00574",
+    "name": "Pharmarctica",
+    "domain": "pharma.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00575",
+    "name": "Alvogen",
+    "domain": "alvogen.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00576",
+    "name": "Actavis Group PTC ehf (Teva)",
+    "domain": "medis.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00577",
+    "name": "Controlant",
+    "domain": "controlant.com",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00578",
+    "name": "deCODE Genetics (Amgen)",
+    "domain": "decode.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00579",
+    "name": "Distica",
+    "domain": "distica.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00580",
+    "name": "Frumtök",
+    "domain": "frumtok.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00581",
+    "name": "Icemvo Lyfjaauðkenni",
+    "domain": "lyfjaaudkenni.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00582",
+    "name": "Matís ohf",
+    "domain": "matis.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00583",
+    "name": "Williams & Halls EHF.",
+    "domain": "wh.is",
+    "country": "Islandia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00584",
+    "name": "SolPharma",
+    "domain": "sol-pharma.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00585",
+    "name": "Can-Fite Bio Pharma",
+    "domain": "canfite.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00586",
+    "name": "Se-cure Pharmaceuticals",
+    "domain": "se-curepharma.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00587",
+    "name": "Oramed Pharmaceuticals",
+    "domain": "oramed.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00588",
+    "name": "A.L. Medi-Market",
+    "domain": "medi-market.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00589",
+    "name": "Bioforum",
+    "domain": "bioforumgroup.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00590",
+    "name": "BioLineRx",
+    "domain": "biolinerx.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00591",
+    "name": "Collplant",
+    "domain": "collplant.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00592",
+    "name": "Floris-Hadas",
+    "domain": "cts.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00593",
+    "name": "Gadot Biochemical Industries",
+    "domain": "gadotbio.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00594",
+    "name": "Hadasit - Medical Innovation Company of Hadassah",
+    "domain": "hadassah.org.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00595",
+    "name": "IGL Medical",
+    "domain": "iglmedical.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00596",
+    "name": "Inovamed",
+    "domain": "inovamed.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00597",
+    "name": "Izun Pharmaceuticals",
+    "domain": "izunpharma.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00598",
+    "name": "Lapidot Group",
+    "domain": "lapidot.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00599",
+    "name": "Lipogen",
+    "domain": "lipogenlab.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00600",
+    "name": "Maabarot Products",
+    "domain": "maabarot.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00601",
+    "name": "Medomie",
+    "domain": "medomie.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00602",
+    "name": "Megapharm",
+    "domain": "megapharm.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00603",
+    "name": "Nasus Pharma",
+    "domain": "nasuspharma.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00604",
+    "name": "Nextage Therapeutics",
+    "domain": "nextar.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00605",
+    "name": "Pharmaseed",
+    "domain": "pharmaseedltd.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00606",
+    "name": "Promedico",
+    "domain": "promedico.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00607",
+    "name": "Raz Pharmaceutics",
+    "domain": "razprogress.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00608",
+    "name": "Tarsier Pharma",
+    "domain": "tarsierpharma.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00609",
+    "name": "Tree of Life Pharma",
+    "domain": "treeoflife.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00610",
+    "name": "Tzamal Bio Pharma",
+    "domain": "tzamal-medical.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00611",
+    "name": "Concept for Pharmacy",
+    "domain": "concept-rx.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00612",
+    "name": "Droreth",
+    "domain": "droreth.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00613",
+    "name": "Kavilex",
+    "domain": "kavilex.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00614",
+    "name": "S.R.Y. Medical Services",
+    "domain": "sryms.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00615",
+    "name": "Pharma Tamar",
+    "domain": "pharma-tamar.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00616",
+    "name": "Tec-O-Pharm-Libra",
+    "domain": "toplibra.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00617",
+    "name": "BioAvenir",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00618",
+    "name": "Meditec",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00619",
+    "name": "Unipharm",
+    "domain": "unipharm.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00620",
+    "name": "Naveh Pharma",
+    "domain": "navehpharma.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00621",
+    "name": "RDD Pharma",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00622",
+    "name": "Trima",
+    "domain": "trima.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00623",
+    "name": "Anlit",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00624",
+    "name": "Medison Pharma",
+    "domain": "medisonpharma.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00625",
+    "name": "MediWound",
+    "domain": "mediwound.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00626",
+    "name": "Neurim Pharmaceuticals",
+    "domain": "neurim.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00627",
+    "name": "Marshal",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00628",
+    "name": "Novolog",
+    "domain": "novolog.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00629",
+    "name": "Rafa Laboratories",
+    "domain": "rafa.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00630",
+    "name": "Rekah Pharmaceutical Industry",
+    "domain": "rekah.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00631",
+    "name": "Taro Pharmaceutical Industries",
+    "domain": "sunpharma.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00632",
+    "name": "TopGum Industries",
+    "domain": "tgum.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00633",
+    "name": "Wavelength Pharmaceuticals",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00634",
+    "name": "Trupharm",
+    "domain": "trupharm.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00635",
+    "name": "Padagis",
+    "domain": "padagis.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00636",
+    "name": "BTG A Ferring Company",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00637",
+    "name": "Protalix BioTherapeutics Ltd.",
+    "domain": "protalix.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00638",
+    "name": "Teva Active Pharmaceutical Ingredients Ltd.",
+    "domain": "tapi.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00639",
+    "name": "CuraLife",
+    "domain": "curalife.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00640",
+    "name": "Bonus BioGroup",
+    "domain": "bonus-bio.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00641",
+    "name": "Ilex Medical",
+    "domain": "ilexmedical.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00642",
+    "name": "Scinai Immunotherapeutics",
+    "domain": "scinai.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00643",
+    "name": "BeamMed",
+    "domain": "beammed.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00644",
+    "name": "CTS",
+    "domain": "cts.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00645",
+    "name": "Mapi Pharma LTD",
+    "domain": "mapi-pharma.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00646",
+    "name": "Propharm Ltd",
+    "domain": "propharm.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00647",
+    "name": "SK PHARMA",
+    "domain": "sk-pharma.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00648",
+    "name": "Chemomab Therapeutics",
+    "domain": "chemomab.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00649",
+    "name": "Biokine Therapeutics",
+    "domain": "biokine.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00650",
+    "name": "Biotis",
+    "domain": "biotis.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00651",
+    "name": "Chemipal",
+    "domain": "chemipal.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00652",
+    "name": "Enlivex",
+    "domain": "enlivex.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00653",
+    "name": "Immunovative Therapies",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00654",
+    "name": "Compugen",
+    "domain": "cgen.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00655",
+    "name": "Orasis Pharmaceuticals",
+    "domain": "orasis-pharma.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00656",
+    "name": "Biosight",
+    "domain": "ayalapharma.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00657",
+    "name": "David Margalit & Co.",
+    "domain": "margalit-ltd.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00658",
+    "name": "Formulex",
+    "domain": "formulex-pi.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00659",
+    "name": "Philtel Pharmaceutical",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00660",
+    "name": "Kivema",
+    "domain": "kivemaltd.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00661",
+    "name": "Kamedis",
+    "domain": "kamedis.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00662",
+    "name": "BOL Pharma",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00663",
+    "name": "Oximio",
+    "domain": "oximio.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00664",
+    "name": "Pharma Israel",
+    "domain": "pharma-israel.org.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00665",
+    "name": "Altman Health",
+    "domain": "altman.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00666",
+    "name": "Ambrosia SupHerb",
+    "domain": "solgar.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00667",
+    "name": "E.G Cosmetics Labs",
+    "domain": "cosmeticslabs.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00668",
+    "name": "Dr. Fischer Global",
+    "domain": "dr-fischer.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00669",
+    "name": "Foamix Pharmaceuticals",
+    "domain": "foamix.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00670",
+    "name": "InterCure / (Canndoc)",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00671",
+    "name": "MediCane Health",
+    "domain": "medicane.net",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00672",
+    "name": "Nasvax",
+    "domain": "att.net",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00673",
+    "name": "UroGen Pharma",
+    "domain": "urogen.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00674",
+    "name": "Vyne Therapeutics",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00675",
+    "name": "Gigi Cosmetic Laboratories",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00676",
+    "name": "Remedix-care",
+    "domain": "super-pharm.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00677",
+    "name": "InnoCan Pharma",
+    "domain": "innocanpharma.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00678",
+    "name": "Kamada Ltd.",
+    "domain": "kamada.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00679",
+    "name": "Neopharm Ltd",
+    "domain": "neopharmisrael.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00680",
+    "name": "Nextar Chempharma Solutions",
+    "domain": "nextar.co.il",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00681",
+    "name": "Peer Pharm Group",
+    "domain": "",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00682",
+    "name": "Pharma Cosmetics Laboratories",
+    "domain": "pharma-cosmetics.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00683",
+    "name": "Pluristem Therapeutics",
+    "domain": "pluristem.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00684",
+    "name": "PolyPid Ltd.",
+    "domain": "odmat.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00685",
+    "name": "Recipharm  Ltd.",
+    "domain": "recipharm.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00686",
+    "name": "Sol‑Gel Technologies Ltd.",
+    "domain": "sol-gel.com",
+    "country": "Israel"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00687",
+    "name": "Sothema",
+    "domain": "sothema.com",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00688",
+    "name": "Pharma 5",
+    "domain": "pharma5.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00689",
+    "name": "Afric Phar",
+    "domain": "africphar.com",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00690",
+    "name": "Laprophan",
+    "domain": "laprophan.com",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00691",
+    "name": "Iberma",
+    "domain": "iberma.com",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00692",
+    "name": "Genpharma",
+    "domain": "genpharma.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00693",
+    "name": "Polymedic",
+    "domain": "polymedic.co.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00694",
+    "name": "Zenith Pharma",
+    "domain": "zenithpharma.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00695",
+    "name": "Pharmaprom",
+    "domain": "pharmaprom.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00696",
+    "name": "Pharmatech Laboratoires",
+    "domain": "pharmatech.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00697",
+    "name": "GyneBio Pharma",
+    "domain": "gynebiopharma.com",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00698",
+    "name": "Bottu",
+    "domain": "bottu.com",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00699",
+    "name": "Hemolab Pharma",
+    "domain": "hemolab.co.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00700",
+    "name": "Amanys Pharma",
+    "domain": "amanyspharma.com",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00701",
+    "name": "Arwa Medic",
+    "domain": "arwamedic.com",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00702",
+    "name": "Laboratoires Pharmaceutiques Galenica",
+    "domain": "galenica.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00703",
+    "name": "Generation Sante",
+    "domain": "generationpharma.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00704",
+    "name": "Steripharma",
+    "domain": "iam.net.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00705",
+    "name": "Laboratoire Pharmaceutique Versalya",
+    "domain": "versalya.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00706",
+    "name": "Mc Pharma Maroc",
+    "domain": "mcpharma.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00707",
+    "name": "Kemipharm",
+    "domain": "kemipharm.com",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00708",
+    "name": "Axess Pharma",
+    "domain": "axesspharma.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00709",
+    "name": "Ergo Maroc",
+    "domain": "ergomaroc.com",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00710",
+    "name": "Kosmopharm",
+    "domain": "kosmopharm.com",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00711",
+    "name": "Cooper Pharma",
+    "domain": "cooperpharma.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00712",
+    "name": "Novopharma",
+    "domain": "novopharma.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00713",
+    "name": "Isio Laboratoires",
+    "domain": "isiolaboratoires.com",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00714",
+    "name": "Deva Pharmaceutique",
+    "domain": "deva-pharma.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00715",
+    "name": "Maphar",
+    "domain": "maphar.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00716",
+    "name": "Spimaco",
+    "domain": "",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00717",
+    "name": "Promopharm S.A. (Hikma)",
+    "domain": "",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00718",
+    "name": "Atlas Pharm S.A.",
+    "domain": "",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00719",
+    "name": "Tecnimede Maroc",
+    "domain": "",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00720",
+    "name": "Pharmis",
+    "domain": "",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00721",
+    "name": "Pharmaceutical Institute",
+    "domain": "phi.ma",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00722",
+    "name": "Medipro Pharma",
+    "domain": "",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00723",
+    "name": "Purdue Pharma / Knoa Pharma",
+    "domain": "",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00724",
+    "name": "Soludia Maghreb",
+    "domain": "",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00725",
+    "name": "Bumageco",
+    "domain": "",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00726",
+    "name": "Mazhar",
+    "domain": "",
+    "country": "Marruecos"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00727",
+    "name": "S.C. Balkan Pharmaceuticals S.R.L.",
+    "domain": "balkanpharmaceuticals.com",
+    "country": "Moldavia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00728",
+    "name": "Farmaprim S.R.L.",
+    "domain": "farmaprim.md",
+    "country": "Moldavia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00729",
+    "name": "Î.C.S. Eurofarmaco S.A.",
+    "domain": "eurofarmaco.md",
+    "country": "Moldavia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00730",
+    "name": "S.A. Farmaco",
+    "domain": "farmaco.md",
+    "country": "Moldavia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00731",
+    "name": "S.C. Flumed-Farm S.R.L.",
+    "domain": "",
+    "country": "Moldavia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00732",
+    "name": "Î.M. Vitapharm-Com S.R.L.",
+    "domain": "vitapharm.md",
+    "country": "Moldavia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00733",
+    "name": "ElaDum Pharma S.R.L.",
+    "domain": "eladum.md",
+    "country": "Moldavia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00734",
+    "name": "S.R.L. Medicamentum",
+    "domain": "medicamentum.md",
+    "country": "Moldavia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00735",
+    "name": "FHC The Future of Health Care",
+    "domain": "fhc.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00736",
+    "name": "Laboratórios Basi",
+    "domain": "basi.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00737",
+    "name": "Bluepharma",
+    "domain": "bluepharma.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00738",
+    "name": "Colep Consumer Products",
+    "domain": "colep-cp.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00739",
+    "name": "Laboratorios Medinfar",
+    "domain": "medinfar.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00740",
+    "name": "RB Pharma",
+    "domain": "rbpharma.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00741",
+    "name": "Tecnimede",
+    "domain": "tecnimede.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00742",
+    "name": "Stemmatters",
+    "domain": "stemmatters.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00743",
+    "name": "Biols Pharmaceuticals",
+    "domain": "biolspharmaceuticals.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00744",
+    "name": "OpenDoors Pharma",
+    "domain": "opendoors.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00745",
+    "name": "Tecnifar",
+    "domain": "tecnifar.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00746",
+    "name": "Laboratorios Atral",
+    "domain": "atral.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00747",
+    "name": "Blue Med",
+    "domain": "bluemed.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00748",
+    "name": "A. Menarini",
+    "domain": "",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00749",
+    "name": "Bastos Viegas",
+    "domain": "bastosviegas.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00750",
+    "name": "Bioventus",
+    "domain": "bioventusglobal.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00751",
+    "name": "Canapac",
+    "domain": "canapac.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00752",
+    "name": "EUW Pharma",
+    "domain": "euwpharma.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00753",
+    "name": "Falcão Teles",
+    "domain": "falcaoteles.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00754",
+    "name": "Grupo ADA",
+    "domain": "ada.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00755",
+    "name": "Health Cluster Portugal",
+    "domain": "healthportugal.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00756",
+    "name": "KRKA",
+    "domain": "krka.biz",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00757",
+    "name": "Lifeway",
+    "domain": "life-way.net",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00758",
+    "name": "QPLAB Pharma Services",
+    "domain": "qplab.eu",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00759",
+    "name": "Qualium Farma",
+    "domain": "qualium.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00760",
+    "name": "Velvet Med",
+    "domain": "velvet-med.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00761",
+    "name": "Biojam Holding Group",
+    "domain": "biojam.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00762",
+    "name": "BSG Pharmaceuticals",
+    "domain": "bsgpharmaceuticals.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00763",
+    "name": "D´aveia",
+    "domain": "dermoteca.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00764",
+    "name": "ELS Group",
+    "domain": "elssolutions.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00765",
+    "name": "Ferraz Lynce",
+    "domain": "ferrazlynce.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00766",
+    "name": "Grupo Azevedos",
+    "domain": "azevedos-sa.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00767",
+    "name": "Bial",
+    "domain": "bial.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00768",
+    "name": "Laboratorio Edol",
+    "domain": "edol.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00769",
+    "name": "Suanfarma",
+    "domain": "suanfarma.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00770",
+    "name": "Towa Pharma",
+    "domain": "tolife.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00771",
+    "name": "Xamane",
+    "domain": "xamane.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00772",
+    "name": "Hovione",
+    "domain": "hovione.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00773",
+    "name": "Sofarimex",
+    "domain": "sofarimex.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00774",
+    "name": "IBERFAR",
+    "domain": "iberfar.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00775",
+    "name": "Labialfarma",
+    "domain": "labialfarma.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00776",
+    "name": "Sidefarma",
+    "domain": "sidefarma.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00777",
+    "name": "Neosanté Health Solutions",
+    "domain": "neosante-hs.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00778",
+    "name": "Fairjourney Bio",
+    "domain": "fjbio.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00779",
+    "name": "Astellas Pharma",
+    "domain": "astellas.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00780",
+    "name": "SOMAÍ Pharmaceuticals",
+    "domain": "somaipharma.eu",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00781",
+    "name": "Generis Farmacêutica",
+    "domain": "generis.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00782",
+    "name": "Daví Farmacéutica",
+    "domain": "davi.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00783",
+    "name": "Advancis International",
+    "domain": "advancispharma.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00784",
+    "name": "SDG Pharma",
+    "domain": "sdgpharma.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00785",
+    "name": "Faes Farma",
+    "domain": "faesfarma.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00786",
+    "name": "VectorB2B",
+    "domain": "vectorb2b.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00787",
+    "name": "Alfasigma",
+    "domain": "alfasigma.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00788",
+    "name": "Haleon",
+    "domain": "haleon.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00789",
+    "name": "Hikma",
+    "domain": "hikma.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00790",
+    "name": "GreenBe Pharma",
+    "domain": "greenbepharma.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00791",
+    "name": "ICNAS",
+    "domain": "uc.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00792",
+    "name": "Sterisets",
+    "domain": "sterisets.com",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00793",
+    "name": "Baldacci",
+    "domain": "baldacci.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00794",
+    "name": "Labesfal / Fresenius Kabi Portugal",
+    "domain": "labesfal.pt",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00795",
+    "name": "Lusomedicamenta / Recipharm Portugal",
+    "domain": "",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00796",
+    "name": "Genibet / Recipharm Portugal",
+    "domain": "",
+    "country": "Portugal"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00797",
+    "name": "Qatar Pharma",
+    "domain": "qatarpharma.org",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00798",
+    "name": "Qatar Pharmaceutical Industries (QPI)",
+    "domain": "qpi-qa.com",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00799",
+    "name": "Doha Drug Store",
+    "domain": "dohadrugstore.com",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00800",
+    "name": "Ebn Sina Medical",
+    "domain": "ebnsina.com",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00801",
+    "name": "International Medical Company (IMC / Kulud Pharmacy)",
+    "domain": "imcqatar.com",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00802",
+    "name": "MBM Medicines Trading",
+    "domain": "mbmpharm.com",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00803",
+    "name": "ALTAFAOL Trading Company W.L.L.",
+    "domain": "altafaol.net",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00804",
+    "name": "Q Zion International Trading / Total Care",
+    "domain": "qzionint.com",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00805",
+    "name": "New Concept Pharma (NCP)",
+    "domain": "ncpharma.net",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00806",
+    "name": "Ali Al-Suwaidi Trading",
+    "domain": "suwaidi.com.qa",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00807",
+    "name": "United International Trading Company (UITC)",
+    "domain": "uitcqatar.com",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00808",
+    "name": "Al Danah Medical Company W.L.L.",
+    "domain": "aldanahmedical.com.qa",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00809",
+    "name": "UniPharm — Abu Issa Holding",
+    "domain": "unipharm.com.qa",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00810",
+    "name": "ICON Pharma Trading Company WLL",
+    "domain": "iconpharma.com.qa",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00811",
+    "name": "Qatar Pharmacy Est. (QPE)",
+    "domain": "qatarpharmacyest.com",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00812",
+    "name": "Viventum Qatar",
+    "domain": "viventumqatar.com",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00813",
+    "name": "Life Pharma — S.A. Holding",
+    "domain": "lifepharma.qa",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00814",
+    "name": "Encircle Pharma",
+    "domain": "encirclepharma.com",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00815",
+    "name": "Mannai Medical & Scientific",
+    "domain": "mannai.com.qa",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00816",
+    "name": "Ali Bin Ali Medical (ABA Medical)",
+    "domain": "",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00817",
+    "name": "Aamal Medical",
+    "domain": "",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00818",
+    "name": "3A Pharma W.L.L.",
+    "domain": "3apharma.net",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00819",
+    "name": "Pharmakeia",
+    "domain": "",
+    "country": "Qatar"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00820",
+    "name": "Goodwill Pharma",
+    "domain": "goodwillpharma.com",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00821",
+    "name": "Zdravlje AD Leskovac",
+    "domain": "zdravlje.co.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00822",
+    "name": "Pharmanova",
+    "domain": "pharmanova.com",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00823",
+    "name": "Slaviamed",
+    "domain": "slaviamed.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00824",
+    "name": "Galenika",
+    "domain": "galenika.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00825",
+    "name": "AbelaPharm",
+    "domain": "abelapharm.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00826",
+    "name": "Esensa",
+    "domain": "esensa.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00827",
+    "name": "Adoc",
+    "domain": "adocpharma.com",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00828",
+    "name": "Beohem-3",
+    "domain": "beohem3.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00829",
+    "name": "Innventa Pharm",
+    "domain": "innventa-pharm.com",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00830",
+    "name": "Inpharm",
+    "domain": "inpharm.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00831",
+    "name": "Proton System",
+    "domain": "proton.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00832",
+    "name": "Uni-Chem",
+    "domain": "uni-chem.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00833",
+    "name": "Velexfarm",
+    "domain": "velexfarm.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00834",
+    "name": "Vemax Pharma",
+    "domain": "vemaxpharma.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00835",
+    "name": "Miter International",
+    "domain": "miter.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00836",
+    "name": "SB Trade",
+    "domain": "sbtrade.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00837",
+    "name": "Rhei Life",
+    "domain": "rhei.life",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00838",
+    "name": "Farmix",
+    "domain": "farmix.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00839",
+    "name": "Hemofarm",
+    "domain": "hemofarm.com",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00840",
+    "name": "Oktal Pharma Serbia",
+    "domain": "oktal-pharma.rs",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00841",
+    "name": "PharmaSwiss (Bausch Health)",
+    "domain": "bauschhealth.com",
+    "country": "Serbia"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00842",
+    "name": "Eurolab",
+    "domain": "eurolab.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00843",
+    "name": "Trinity Pharma",
+    "domain": "trinitypharma.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00844",
+    "name": "Aspen Pharmacare Holdings Ltd",
+    "domain": "aspenpharma.com.br",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00845",
+    "name": "Adcock Ingram Holdings Ltd",
+    "domain": "adcock.com",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00846",
+    "name": "Hersol Manufacturing Laboratories (Pty) Ltd",
+    "domain": "hersol.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00847",
+    "name": "Pharma-Q (Pty) Ltd",
+    "domain": "pharmaq.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00848",
+    "name": "Nautilus Pharma (Pty) Ltd",
+    "domain": "nautiluspharma.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00849",
+    "name": "Nkunzi Pharmaceuticals (Pty) Ltd",
+    "domain": "nkunzipharma.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00850",
+    "name": "Oethmaan Biosims",
+    "domain": "oethmaan.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00851",
+    "name": "The Biovac Institute",
+    "domain": "biovac.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00852",
+    "name": "Ascendis Health",
+    "domain": "ascendishealth.com",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00853",
+    "name": "Austell Pharmaceuticals (Pty) Ltd",
+    "domain": "austell.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00854",
+    "name": "Avacare Health Group",
+    "domain": "avacarehealth.com",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00855",
+    "name": "Barrs Pharmaceuticals Industries (Pty) Ltd",
+    "domain": "barrs.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00856",
+    "name": "BCC Pharmaceuticals",
+    "domain": "bccsa.com",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00857",
+    "name": "BGM Pharmaceuticals",
+    "domain": "bgmpharma.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00858",
+    "name": "Biotech Laboratories (Pty) Ltd",
+    "domain": "biotechlabs.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00859",
+    "name": "Clinigen South Africa / Equity Pharmaceuticals",
+    "domain": "equitypharma.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00860",
+    "name": "Crossome",
+    "domain": "crossome.com",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00861",
+    "name": "Innovata Pharmaceuticals (Avacare Health Group)",
+    "domain": "innovata.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00862",
+    "name": "Kiara Health",
+    "domain": "kiarahealth.com",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00863",
+    "name": "Lamar International",
+    "domain": "lamar.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00864",
+    "name": "Lebasi Pharmaceuticals",
+    "domain": "lebasi.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00865",
+    "name": "Meyer Zall Laboratories (Pty) Ltd",
+    "domain": "mzl.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00866",
+    "name": "Specpharm Holdings (Pty) Ltd",
+    "domain": "specpharm.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00867",
+    "name": "AfriPharm Pty Ltd",
+    "domain": "afripharm.org",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00868",
+    "name": "Litha Healthcare Group (Pty) Ltd",
+    "domain": "acino.swiss",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00869",
+    "name": "Opus Pharmaceuticals (Pty) Ltd",
+    "domain": "opuspharma.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00870",
+    "name": "Pharmaco Distribution (Pty) Ltd",
+    "domain": "pharmaco.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00871",
+    "name": "Pharma Dynamics (Lupin India)",
+    "domain": "pharmadynamics.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00872",
+    "name": "Zydus Lifesciences South Africa (Zydus India)",
+    "domain": "zydus.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00873",
+    "name": "Macleods Pharmaceuticals South Africa (Macleods India)",
+    "domain": "macleodspharmasa.com",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00874",
+    "name": "Biodelta Nutraceuticals (Wuhan General Group China)",
+    "domain": "",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00875",
+    "name": "Juno Pharmaceuticals SA (JV Canada)",
+    "domain": "",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00876",
+    "name": "Sonke Pharmaceuticals (70% Sun Pharma India)",
+    "domain": "",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00877",
+    "name": "Actor Pharma (Cipla India, adq. 2023)",
+    "domain": "",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00878",
+    "name": "Fresenius Kabi SA CMO (Fresenius Kabi Alemania)",
+    "domain": "",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00879",
+    "name": "Activo Health",
+    "domain": "activo.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00880",
+    "name": "Akacia Medical and Healthcare Group",
+    "domain": "akaciamedical.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00881",
+    "name": "Biomuti (Pty) Ltd.",
+    "domain": "biomuti.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00882",
+    "name": "BT Medical Devices",
+    "domain": "",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00883",
+    "name": "Cromos Pharma",
+    "domain": "",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00884",
+    "name": "Fagron South Africa (Fagron NV Belgica)",
+    "domain": "fagron.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00885",
+    "name": "Kahma Group",
+    "domain": "",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00886",
+    "name": "Marsing & Co Africa (Pty) Ltd",
+    "domain": "marsing-sa.com",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00887",
+    "name": "Medipost",
+    "domain": "mweb.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00888",
+    "name": "Mentholatum South Africa (Rohto Japon)",
+    "domain": "mentholatum.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00889",
+    "name": "Parceval (Pty) Ltd",
+    "domain": "",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00890",
+    "name": "Releaf Pharmaceuticals",
+    "domain": "releafpharma.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00891",
+    "name": "Trial Facts",
+    "domain": "trialfacts.com",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00892",
+    "name": "Medinox South Africa",
+    "domain": "medinox.co.za",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00893",
+    "name": "Afriplex (Pty) Ltd",
+    "domain": "",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00894",
+    "name": "Lamicare Health",
+    "domain": "",
+    "country": "Sudafrica"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00895",
+    "name": "Drossapharm",
+    "domain": "drossapharm.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00896",
+    "name": "Max Zeller Söhne",
+    "domain": "zellerag.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00897",
+    "name": "Cooper Consumer Health",
+    "domain": "cooperconsumerhealth.eu",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00898",
+    "name": "Phargentis",
+    "domain": "phargentis.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00899",
+    "name": "APR – Applied Pharma Research",
+    "domain": "apr.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00900",
+    "name": "Rivopharm",
+    "domain": "rivopharm.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00901",
+    "name": "Selectchemie",
+    "domain": "selectchemie.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00902",
+    "name": "Linnea",
+    "domain": "linnea.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00903",
+    "name": "Poderm",
+    "domain": "poderm.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00904",
+    "name": "Straqim",
+    "domain": "straqim.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00905",
+    "name": "Lipomed",
+    "domain": "lipomed.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00906",
+    "name": "HE Advanced Nutrition",
+    "domain": "he-advancednutrition.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00907",
+    "name": "Labatec Pharma",
+    "domain": "labatec.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00908",
+    "name": "Permamed",
+    "domain": "permamed.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00909",
+    "name": "Lonza",
+    "domain": "lonza.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00910",
+    "name": "Streuli Pharma",
+    "domain": "streuli-pharma.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00911",
+    "name": "Sintetica",
+    "domain": "sintetica.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00912",
+    "name": "Basilea Pharmaceutica",
+    "domain": "basilea.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00913",
+    "name": "Idorsia Pharmaceuticals",
+    "domain": "idorsia.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00914",
+    "name": "ADC Therapeutics",
+    "domain": "adctherapeutics.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00915",
+    "name": "Alpex Pharma",
+    "domain": "alpexpharma.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00916",
+    "name": "Debiopharm",
+    "domain": "debiopharm.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00917",
+    "name": "Desitin Pharma",
+    "domain": "desitin.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00918",
+    "name": "Extrovis",
+    "domain": "extrovis.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00919",
+    "name": "MDT INTL",
+    "domain": "mdtsa.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00920",
+    "name": "Medifood",
+    "domain": "medifoodinternational.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00921",
+    "name": "Dreavia",
+    "domain": "dreavia.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00922",
+    "name": "Verfora",
+    "domain": "verfora.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00923",
+    "name": "DKSH",
+    "domain": "dksh.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00924",
+    "name": "Silvestrini Promotions",
+    "domain": "silvestrini.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00925",
+    "name": "Mera Pharma",
+    "domain": "merapharma.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00926",
+    "name": "OrPha Swiss",
+    "domain": "orphaswiss.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00927",
+    "name": "ZüriPharm",
+    "domain": "zueripharm.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00928",
+    "name": "Santhera Pharmaceuticals",
+    "domain": "santhera.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00929",
+    "name": "GBT Pharma",
+    "domain": "gbtpharma.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00930",
+    "name": "CSL Vifor Pharma",
+    "domain": "viforpharma.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00931",
+    "name": "Rontis",
+    "domain": "rontis.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00932",
+    "name": "OM Pharma",
+    "domain": "ompharma.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00933",
+    "name": "Laboratoires Bailleul",
+    "domain": "bailleul.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00934",
+    "name": "Dottikon ES Holding",
+    "domain": "dottikon.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00935",
+    "name": "Bachem",
+    "domain": "bachem.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00936",
+    "name": "Siegfried Holding",
+    "domain": "siegfried.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00937",
+    "name": "Hänseler Swiss Pharma",
+    "domain": "haenseler.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00938",
+    "name": "Polypeptide Group",
+    "domain": "polypeptide.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00939",
+    "name": "Medinova",
+    "domain": "medinova.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00940",
+    "name": "Helsinn Group",
+    "domain": "helsinn.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00941",
+    "name": "Domaco",
+    "domain": "domaco.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00942",
+    "name": "Tecrapharm",
+    "domain": "tecrapharm.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00943",
+    "name": "Devintec Pharma",
+    "domain": "devintecpharma.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00944",
+    "name": "EffRx Pharmaceuticals",
+    "domain": "effrx.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00945",
+    "name": "Soho Flordis International",
+    "domain": "sfihealth.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00946",
+    "name": "Stratpharma",
+    "domain": "stratpharma.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00947",
+    "name": "Azad Pharma",
+    "domain": "azadpharma.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00948",
+    "name": "Doetsch Grether",
+    "domain": "doetschgrether.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00949",
+    "name": "Scalepharm",
+    "domain": "scalepharm.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00950",
+    "name": "IBSA Institut Biochimique",
+    "domain": "ibsa.ch",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00951",
+    "name": "Octapharma",
+    "domain": "octapharma.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00952",
+    "name": "Frike Group",
+    "domain": "frike-group.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00953",
+    "name": "Stallergenes Greer",
+    "domain": "stallergenesgreer.com",
+    "country": "Suiza"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00954",
+    "name": "Yuria-Pharm LLC",
+    "domain": "uf.ua",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00955",
+    "name": "Farmak JSC / Farmak International",
+    "domain": "farmak.ua",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00956",
+    "name": "Darnytsia Pharmaceutical Company",
+    "domain": "darnitsa.ua",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00957",
+    "name": "Arterium Corporation",
+    "domain": "arterium.ua",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00958",
+    "name": "InterChem LLC",
+    "domain": "interchem.ua",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00959",
+    "name": "Acino Ukraine / Pharma Start",
+    "domain": "acino.swiss",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00960",
+    "name": "Kyiv Vitamin Plant JSC",
+    "domain": "vitamin.com.ua",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00961",
+    "name": "Borshchahivsky Chemical-Pharmaceutical Plant (BCPP)",
+    "domain": "bcpp.com.ua",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00962",
+    "name": "Lekhim Group",
+    "domain": "lekhim.com.ua",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00963",
+    "name": "Biopharma Plasma",
+    "domain": "biopharma.ua",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00964",
+    "name": "Sanofi Ukraine",
+    "domain": "",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00965",
+    "name": "AstraZeneca Ukraine",
+    "domain": "",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00966",
+    "name": "Novartis Ukraine",
+    "domain": "",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00967",
+    "name": "Bayer Ukraine",
+    "domain": "",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00968",
+    "name": "Pfizer Ukraine",
+    "domain": "",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00969",
+    "name": "Kusum Farm Ukraine",
+    "domain": "",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00970",
+    "name": "BaDM / Optima-Pharm",
+    "domain": "",
+    "country": "Ucrania"
+  },
+  {
+    "bp_id_unico": "BP-CAR-00971",
+    "name": "Stada Ukraine",
+    "domain": "",
+    "country": "Ucrania"
+  }
+]

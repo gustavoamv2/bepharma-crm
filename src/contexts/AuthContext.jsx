@@ -27,6 +27,14 @@ export function AuthProvider({ children }) {
     const { token: t, user: u } = r.data
     sessionStorage.setItem('bp_token', t)
     axios.defaults.headers.common['Authorization'] = `Bearer ${t}`
+    // Vista inicial al iniciar sesión: si el usuario tiene defaultView configurado
+    // (ej. Yesenia = 'operator'), arrancar en esa vista en vez de la vista por rol.
+    if (u.defaultView === 'operator') {
+      sessionStorage.setItem('bp_view_mode', 'operator')
+    } else {
+      sessionStorage.removeItem('bp_view_mode')
+    }
+    window.dispatchEvent(new Event('bpViewModeChange'))
     setToken(t)
     setUser(u)
     return u
@@ -34,7 +42,9 @@ export function AuthProvider({ children }) {
 
   const logout = useCallback(() => {
     sessionStorage.removeItem('bp_token')
+    sessionStorage.removeItem('bp_view_mode')
     delete axios.defaults.headers.common['Authorization']
+    window.dispatchEvent(new Event('bpViewModeChange'))
     setToken(null)
     setUser(null)
   }, [])

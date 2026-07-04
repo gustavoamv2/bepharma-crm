@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useQuery, useQueryClient } from 'react-query'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { ExternalLink, Mail, Pencil, Flag, Star, Phone, User, Paperclip, Download, Building2 } from 'lucide-react'
+import { ExternalLink, Mail, Pencil, Flag, Star, Phone, User, Paperclip, Download, Building2, ListChecks } from 'lucide-react'
 import { hubspot, invalidateDashboard } from '../hooks/useApi'
 import { useAuth } from '../contexts/AuthContext'
 import { useToast } from '../hooks/useToast'
@@ -196,6 +196,9 @@ export default function DealDetail() {
                   <button className="btn btn-ghost btn-sm" onClick={() => setShowEdit(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                     <Pencil size={13} /> Editar
                   </button>
+                  <button className="btn btn-ghost btn-sm" onClick={() => setShowTask(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                    <ListChecks size={13} /> Tarea
+                  </button>
                   {isSupervisor && (
                     <AlertToggle
                       dealId={id}
@@ -206,7 +209,9 @@ export default function DealDetail() {
                       }}
                     />
                   )}
-                  <DeleteButton type="deal" id={id} name={p.dealname} onDeleted={() => nav('/deals')} />
+                  {isSupervisor && (
+                    <DeleteButton type="deal" id={id} name={p.dealname} onDeleted={() => nav('/deals')} />
+                  )}
                 </div>
               </div>
               <div className="card-body">
@@ -380,6 +385,7 @@ export default function DealDetail() {
           associatedObjectType="deals"
           associatedObjectId={id}
           associatedObjectName={p.dealname}
+          defaultAssignee={user?.ownerId}
         />
       )}
 

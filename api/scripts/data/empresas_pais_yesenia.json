@@ -1,0 +1,8300 @@
+[
+  {
+    "bp_id_unico": "BP-YES-00001",
+    "name": "Triquim",
+    "domain": "triquim.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00002",
+    "name": "Amarin Technologies",
+    "domain": "amarintech.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00003",
+    "name": "Andrómaco",
+    "domain": "andromaco.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00004",
+    "name": "Aptar Pharma",
+    "domain": "aptar.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00005",
+    "name": "Budnik Regulatory Affairs",
+    "domain": "bpregulatoryaffairs.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00006",
+    "name": "Catalent Pharma Solutions",
+    "domain": "catalent.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00007",
+    "name": "Craveri",
+    "domain": "craveri.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00008",
+    "name": "Doena Pharma",
+    "domain": "doenapharma.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00009",
+    "name": "Eriochem SA",
+    "domain": "erio.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00010",
+    "name": "Gador",
+    "domain": "gador.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00011",
+    "name": "Grupo Biotoscana",
+    "domain": "biotoscana.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00012",
+    "name": "Laboratorio Ariston (Química Ariston)",
+    "domain": "ariston.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00013",
+    "name": "Laboratorio Baliarda SA",
+    "domain": "baliarda.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00014",
+    "name": "Laboratorios Beta",
+    "domain": "beta.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00015",
+    "name": "Laboratorios Denver Farma / Denver Farma",
+    "domain": "denverfarma.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00016",
+    "name": "Laboratorios Soubeiran Chobet",
+    "domain": "soubeiran.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00017",
+    "name": "Laboratorios Temis Lostaló",
+    "domain": "temislostalo.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00018",
+    "name": "Latincomm-Pharmaceuticals",
+    "domain": "latincomm.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00019",
+    "name": "Novocap, S.A.",
+    "domain": "novocap.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00020",
+    "name": "Savant Pharma / Vivunt",
+    "domain": "savantpharma.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00021",
+    "name": "Tuteur S.A.C.I.F.I.A / Vion Pharma",
+    "domain": "tuteur.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00022",
+    "name": "Bria Pharma",
+    "domain": "briapharma.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00023",
+    "name": "Farmanet S.A.",
+    "domain": "farmanet.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00024",
+    "name": "Laboratorio Drawer",
+    "domain": "drawer.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00025",
+    "name": "Laboratorio Lazar",
+    "domain": "lazar.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00026",
+    "name": "Pharmanove",
+    "domain": "pharmanove.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00027",
+    "name": "Amega Biotech",
+    "domain": "amegabiotech.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00028",
+    "name": "AOM - Advanced Organic Materials S.A.",
+    "domain": "aomsa.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00029",
+    "name": "Biosidus",
+    "domain": "biosidus.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00030",
+    "name": "Biotenk S.A. / Droguería Latina",
+    "domain": "biotenk.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00031",
+    "name": "Brix Medical Science",
+    "domain": "brix-lab.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00032",
+    "name": "Celnova Pharma",
+    "domain": "celnova.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00033",
+    "name": "Conifarma",
+    "domain": "conifarma.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00034",
+    "name": "Donato, Zurlo & Cia",
+    "domain": "donatozurlo.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00035",
+    "name": "Everex Pharmaceuticals / Laboratorio Oriental",
+    "domain": "everex.com.uy",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00036",
+    "name": "FarmaGram",
+    "domain": "farmagram.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00037",
+    "name": "Fecofar / Laboratorios Fecofar",
+    "domain": "fecofar.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00038",
+    "name": "FranceLab Argentina",
+    "domain": "francelab.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00039",
+    "name": "Gemabiotech",
+    "domain": "gemabiotech.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00040",
+    "name": "GeMePe S.A",
+    "domain": "gemepe.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00041",
+    "name": "Géminis Farmacéutica",
+    "domain": "geminisfarmaceutica.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00042",
+    "name": "Gerardo Ramón & Cía S.A.I.C.",
+    "domain": "gerardoramon.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00043",
+    "name": "HBL Pharma",
+    "domain": "hlbpharma.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00044",
+    "name": "IBC - Instituto Biológico Contemporaneo",
+    "domain": "laboratorioibc.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00045",
+    "name": "Instituto Massone S.A",
+    "domain": "massone.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00046",
+    "name": "Investi Farma",
+    "domain": "wiri.la",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00047",
+    "name": "Laboratorio Dominguez",
+    "domain": "labdominguez.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00048",
+    "name": "Laboratorio Eczane Pharma",
+    "domain": "eczane.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00049",
+    "name": "Laboratorio Elea Phoenix",
+    "domain": "elea.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00050",
+    "name": "Laboratorio Eurolab",
+    "domain": "eurolab.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00051",
+    "name": "Laboratorio Gramon / Gerardo Ramon & Cia",
+    "domain": "gramon.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00052",
+    "name": "Laboratorio Hemoderivados – UNC",
+    "domain": "hemo.unc.edu.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00053",
+    "name": "Laboratorio Kemex",
+    "domain": "kemexlab.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00054",
+    "name": "Laboratorios Bernabo",
+    "domain": "laboratoriosbernabo.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00055",
+    "name": "Laboratorios Biológica Argentina (Biol)",
+    "domain": "biol.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00056",
+    "name": "Laboratorios Buxton",
+    "domain": "buxton.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00057",
+    "name": "Laboratorios Cetus",
+    "domain": "cetus.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00058",
+    "name": "Laboratorios Fabra",
+    "domain": "fabra.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00059",
+    "name": "Laboratorios Ima, SAIC",
+    "domain": "ima-lab.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00060",
+    "name": "Laboratorios IMVI",
+    "domain": "imvi.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00061",
+    "name": "Laboratorios Klonal",
+    "domain": "klonal.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00062",
+    "name": "Laboratorios Mar S.A.",
+    "domain": "laboratoriosmar.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00063",
+    "name": "Laboratorios Monserrat y Eclair S.A.",
+    "domain": "monserratyeclair.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00064",
+    "name": "Laboratorios Pablo Cassará",
+    "domain": "cassara.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00065",
+    "name": "Laboratorios Panalab",
+    "domain": "panalab.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00066",
+    "name": "Laboratorios Richet S.A.",
+    "domain": "richet.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00067",
+    "name": "Laboratorios Roemmers",
+    "domain": "roemmers.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00068",
+    "name": "Laboratorios Rontag SA",
+    "domain": "rontag.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00069",
+    "name": "Laboratorios Varifarma S.A.",
+    "domain": "varifarma.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00070",
+    "name": "Maprimed",
+    "domain": "maprimed.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00071",
+    "name": "Olbia Pharma",
+    "domain": "olbiapharma.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00072",
+    "name": "Oxapharma",
+    "domain": "oxapharma.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00073",
+    "name": "Química Luar SRL",
+    "domain": "quimicaluar.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00074",
+    "name": "Rossmore Pharma",
+    "domain": "rossmorepharma.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00075",
+    "name": "Sinergium Biotech",
+    "domain": "sinergiumbiotech.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00076",
+    "name": "Vannier",
+    "domain": "vannier.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00077",
+    "name": "Biocientifica S.A. Argentina",
+    "domain": "unlam.edu.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00078",
+    "name": "Filaxis Farmacéutica S.A. (ex GP Pharm Argentina)",
+    "domain": "gp-pharm.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00079",
+    "name": "Framingham Pharma S.A.",
+    "domain": "framinghampharma.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00080",
+    "name": "Gihon Laboratorio S.A.",
+    "domain": "gihonlab.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00081",
+    "name": "Laboratorio Celtyc Argentina",
+    "domain": "celtyc.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00082",
+    "name": "Laboratorio Endorpharma Argentina",
+    "domain": "endopharma.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00083",
+    "name": "Laboratorio Mar S.A.",
+    "domain": "laboratoriosmar.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00084",
+    "name": "Laboratorios Rivero Argentina",
+    "domain": "rivero.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00085",
+    "name": "Therabel Pharma S.A. / Pharmatrix",
+    "domain": "therabelpharma.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00086",
+    "name": "mAbxience",
+    "domain": "kreivohealth.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00087",
+    "name": "Biosintex Laboratorios",
+    "domain": "biosintex.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00088",
+    "name": "Ferrer Argentina",
+    "domain": "ferrer.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00089",
+    "name": "Laboratorio Jayor S.R.L.",
+    "domain": "jayor.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00090",
+    "name": "Droguería del Sud S.A.",
+    "domain": "delsud.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00091",
+    "name": "Laboratorio Ingens S.A.",
+    "domain": "",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00092",
+    "name": "Conderco S.A.",
+    "domain": "conderco.net",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00093",
+    "name": "Droguería Avantfar",
+    "domain": "avantfar.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00094",
+    "name": "Droguería Garzon S.A.",
+    "domain": "drogueriagarzon.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00095",
+    "name": "Finadiet",
+    "domain": "finadiet.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00096",
+    "name": "Laboratorios Bayer Argentina",
+    "domain": "bayer.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00097",
+    "name": "Laboratorios Casasco",
+    "domain": "",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00098",
+    "name": "Laboratorios Lafedar",
+    "domain": "lafedar.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00099",
+    "name": "Laboratorios Microsules Argentina",
+    "domain": "microsules.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00100",
+    "name": "Laboratorios Richmond",
+    "domain": "richmondlab.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00101",
+    "name": "Lilis",
+    "domain": "lilis.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00102",
+    "name": "Syntex",
+    "domain": "syntexar.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00103",
+    "name": "Aerofarma Laboratorios",
+    "domain": "aerofarma.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00104",
+    "name": "Agomat / Monroe Americana",
+    "domain": "agomat.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00105",
+    "name": "Asoprofarma",
+    "domain": "asoprofarma.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00106",
+    "name": "Atlas farmacéutica / Abbott",
+    "domain": "abbott.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00107",
+    "name": "Austral Médica",
+    "domain": "",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00108",
+    "name": "Carpe Scheider",
+    "domain": "carpescheider.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00109",
+    "name": "Disval",
+    "domain": "disval.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00110",
+    "name": "Drofar",
+    "domain": "drofarma.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00111",
+    "name": "Drogar - Droguería Argentina",
+    "domain": "drogarg.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00112",
+    "name": "Droguería Cofaral",
+    "domain": "cofaral.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00113",
+    "name": "Droguería Comarsa",
+    "domain": "drogueriacomarsa.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00114",
+    "name": "Droguería Córdoba",
+    "domain": "cofarsur.net",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00115",
+    "name": "Droguería del Sol",
+    "domain": "drogueriadelsol.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00116",
+    "name": "Droguería del Plata",
+    "domain": "",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00117",
+    "name": "Droguería Farma Oeste",
+    "domain": "",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00118",
+    "name": "Droguería Insud",
+    "domain": "insudpharma.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00119",
+    "name": "Droguería Monroe Americana",
+    "domain": "monroeamericana.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00120",
+    "name": "Droguería Suizo Argentina",
+    "domain": "suizoargentina.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00121",
+    "name": "Droguería Sur",
+    "domain": "drogueriasur.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00122",
+    "name": "Dromex (Red Dromex, incluye Drugmex, Dromex Biotech, Dromex Innova)",
+    "domain": "dromex.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00123",
+    "name": "Fada Pharma - Farmacología Argentina de Avanzada",
+    "domain": "fada.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00124",
+    "name": "HealthTech",
+    "domain": "zafirus.tech",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00125",
+    "name": "Hospimed",
+    "domain": "hospimed.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00126",
+    "name": "Insumed",
+    "domain": "insumed.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00127",
+    "name": "ITS+ / Grupo Iraola",
+    "domain": "its-salud.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00128",
+    "name": "Ivax Argentina S.A. / TEVA argentina",
+    "domain": "teva.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00129",
+    "name": "Laboratorio Dosa / Grupo Biotoscana",
+    "domain": "",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00130",
+    "name": "Laboratorio Farmanor",
+    "domain": "farmanor.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00131",
+    "name": "Laboratorio Pfizer Argentina",
+    "domain": "pfizer.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00132",
+    "name": "Laboratorios Aspen",
+    "domain": "aspen-lab.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00133",
+    "name": "Laboratorios Bagó",
+    "domain": "bago.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00134",
+    "name": "Laboratorios Lafage",
+    "domain": "lab-lafage.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00135",
+    "name": "Laboratorios Poen",
+    "domain": "poen.net.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00136",
+    "name": "Laboratorios Raffo Monte Verde",
+    "domain": "",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00137",
+    "name": "Macor",
+    "domain": "macor.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00138",
+    "name": "Pharmadorf  / Sanfer",
+    "domain": "pharmadorf.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00139",
+    "name": "Raku",
+    "domain": "somosraku.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00140",
+    "name": "Sepid",
+    "domain": "",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00141",
+    "name": "Servier",
+    "domain": "",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00142",
+    "name": "Syemed",
+    "domain": "syemed.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-YES-00143",
+    "name": "FarmaShopping",
+    "domain": "farmashoppingbolivia.com",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00144",
+    "name": "CAMSA Industria y Comercio S.A.",
+    "domain": "camsa.com.bo",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00145",
+    "name": "Laboratorios Crespal",
+    "domain": "crespal.com",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00146",
+    "name": "Sanat Pharma",
+    "domain": "sanatpharma.com",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00147",
+    "name": "Biadoxid Pharma",
+    "domain": "",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00148",
+    "name": "Bolivian Pharmaceutical Supplier",
+    "domain": "bps.com.bo",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00149",
+    "name": "Droguería Inti",
+    "domain": "inti.com.bo",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00150",
+    "name": "Fensalus",
+    "domain": "fensalus.com.bo",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00151",
+    "name": "Gutiérrez & Cía. S.R.L.",
+    "domain": "gutierrezsrl.com",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00152",
+    "name": "Importadora Más Vida",
+    "domain": "",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00153",
+    "name": "Laboratorios Agronat",
+    "domain": "",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00154",
+    "name": "Laboratorios Alcos",
+    "domain": "grupoalcos.com",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00155",
+    "name": "Laboratorios Bagó de Bolivia S.A.",
+    "domain": "bago.com.bo",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00156",
+    "name": "Laboratorios IFA S.A.",
+    "domain": "laboratoriosifa.com",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00157",
+    "name": "Laboratorios PROCAPS",
+    "domain": "",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00158",
+    "name": "Laboratorios Térbol",
+    "domain": "terbol.com.bo",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00159",
+    "name": "Promedical",
+    "domain": "promedical.com.bo",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00160",
+    "name": "Schmidts Pharma",
+    "domain": "schmidtspharma.com",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00161",
+    "name": "South American Express S.A.",
+    "domain": "saebolivia.com",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00162",
+    "name": "Laboratorios Vita S.A.",
+    "domain": "vita.com.bo",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00163",
+    "name": "IFARBO Ltda. — Industria Farmacéutica Boliviana",
+    "domain": "ifarbo.com",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00164",
+    "name": "Grupo Empresarial Valencia S.R.L.",
+    "domain": "gruval.com",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00165",
+    "name": "Megalabs Bolivia S.R.L.",
+    "domain": "megalabs.com.bo",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00166",
+    "name": "Medifarm Bolivia",
+    "domain": "biotecno.com.bo",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00167",
+    "name": "IMFAR S.R.L.",
+    "domain": "imfar.com.bo",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00168",
+    "name": "Laboratorios Cofar S.A.",
+    "domain": "cofar.com.bo",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00169",
+    "name": "Sae Pharmaceutical Company",
+    "domain": "sae.bo",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00170",
+    "name": "Laboratorios Esfasa",
+    "domain": "",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00171",
+    "name": "GLB Laboratorios Bolivia S.A.",
+    "domain": "",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00172",
+    "name": "Biofarma S.A.",
+    "domain": "",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00173",
+    "name": "Pharmatech Boliviana S.A.",
+    "domain": "",
+    "country": "Bolivia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00174",
+    "name": "Laboratorio Biosano",
+    "domain": "biosano.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00175",
+    "name": "Deutsche Pharma (Grupo Roemmers)",
+    "domain": "deutschepharma.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00176",
+    "name": "Hospifarma",
+    "domain": "hospifarma.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00177",
+    "name": "Laboratorio Kampar",
+    "domain": "kampar.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00178",
+    "name": "Med Care Connection",
+    "domain": "medcareconnection.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00179",
+    "name": "New Science Store",
+    "domain": "newscience.com.ar",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00180",
+    "name": "Winpharm SpA",
+    "domain": "winpharm.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00181",
+    "name": "Laboratorio Libra Chile S.A.",
+    "domain": "lablibra.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00182",
+    "name": "Tecnofarma / Adium",
+    "domain": "tecnofarma.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00183",
+    "name": "Alpes Laboratories / Alpes Chemie",
+    "domain": "alpeslab.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00184",
+    "name": "Ascend Laboratories",
+    "domain": "",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00185",
+    "name": "Axon Pharma",
+    "domain": "axon-pharma.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00186",
+    "name": "Azimuth Medical Devices",
+    "domain": "azimuthmd.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00187",
+    "name": "B & B Farmacéutica",
+    "domain": "bybfarmaceutica.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00188",
+    "name": "Bestpharma S.A.",
+    "domain": "bph.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00189",
+    "name": "Biosyntec",
+    "domain": "",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00190",
+    "name": "Bioeq SpA & Alliancelab S.A.",
+    "domain": "bioeq.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00191",
+    "name": "Biomedical Distribution Chile Ltda.",
+    "domain": "biomedicalchile.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00192",
+    "name": "Corporación Farmacéutica Recalcine (CFR)",
+    "domain": "",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00193",
+    "name": "Diavsa Spa",
+    "domain": "diavsa.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00194",
+    "name": "Difem Laboratorios",
+    "domain": "difem.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00195",
+    "name": "Dispolab Farmacéutica",
+    "domain": "dispolab.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00196",
+    "name": "Distribuidora Farmage Ltda / Gedeon Richter Chile",
+    "domain": "gedeonrichter.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00197",
+    "name": "Dr. Reddy's Laboratories",
+    "domain": "drreddys.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00198",
+    "name": "Ethon Pharmaceuticals Spa",
+    "domain": "ethon.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00199",
+    "name": "Exeltis Chile / Pharmavita SA",
+    "domain": "exeltis.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00200",
+    "name": "Farmacéutica Caribean Ltda.",
+    "domain": "caribeanpharma.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00201",
+    "name": "Farmacéutica Esan",
+    "domain": "",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00202",
+    "name": "Farmoquímica del Pacífico",
+    "domain": "fqp.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00203",
+    "name": "Galderma Laboratorios",
+    "domain": "galderma.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00204",
+    "name": "GP Pharm / Laboratorios Raffo Chile",
+    "domain": "gppharm.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00205",
+    "name": "Hofmann Droguería",
+    "domain": "hofmann.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00206",
+    "name": "Instituto Sanitas / Chemopharma (ahora parte de Saval)",
+    "domain": "sanitas.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00207",
+    "name": "Interpharma S.A.",
+    "domain": "iphsa.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00208",
+    "name": "Ltf-Labomed Farmacéutica Limitada",
+    "domain": "itf-labomed.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00209",
+    "name": "Laboratorio Chile / TEVA",
+    "domain": "laboratoriochile.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00210",
+    "name": "Laboratorio Emproquim",
+    "domain": "emproquim.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00211",
+    "name": "Laboratorio Fresenius Kabi / Laboratorios Sanderson",
+    "domain": "fresenius-kabi.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00212",
+    "name": "Laboratorio Pasteur S.A.",
+    "domain": "lpasteur.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00213",
+    "name": "Laboratorio Pharma Isa",
+    "domain": "pharmaisa.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00214",
+    "name": "Laboratorio Ravepharma y Serviphar",
+    "domain": "ravepharma.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00215",
+    "name": "Laboratorio Silesia / Grupo Grünenthal",
+    "domain": "grunenthal.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00216",
+    "name": "Laboratorio Valma",
+    "domain": "valma.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00217",
+    "name": "Laboratorios EuroMed Chile / Eurofarma",
+    "domain": "eurofarma.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00218",
+    "name": "Laboratorios Garden House (Holding) / GHC Chile - Good Health Company",
+    "domain": "gardenhouse.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00219",
+    "name": "Laboratorios Maver Ltda.",
+    "domain": "laboratoriosmaver.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00220",
+    "name": "Laboratorios Prater",
+    "domain": "labprater.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00221",
+    "name": "Laboratorios Saval / Salvacorp",
+    "domain": "savalcorp.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00222",
+    "name": "Leguer",
+    "domain": "leguer.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00223",
+    "name": "Medcell (Farmacéutica Medcell Ltda.)",
+    "domain": "medcell.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00224",
+    "name": "Medipharm",
+    "domain": "",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00225",
+    "name": "Milab / Mintlab",
+    "domain": "mintlab.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00226",
+    "name": "Novafarma",
+    "domain": "novofarma.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00227",
+    "name": "Novo Nordisk Farmacéutica LTDA.",
+    "domain": "novonordisk.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00228",
+    "name": "OFTOMED",
+    "domain": "",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00229",
+    "name": "OPKO Chile",
+    "domain": "opko.com",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00230",
+    "name": "Pharma Investi / Megalabs de Chile",
+    "domain": "megalabs.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00231",
+    "name": "Pharma Specialists",
+    "domain": "",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00232",
+    "name": "Pharmacorp",
+    "domain": "pharmacorp.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00233",
+    "name": "Pharmamerica Ltda.",
+    "domain": "pharmamerica.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00234",
+    "name": "Pharmatech Chile S.A.",
+    "domain": "pharmatech.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00235",
+    "name": "Proquimsa",
+    "domain": "proquimsa.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00236",
+    "name": "Redfarma",
+    "domain": "redfarma.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00237",
+    "name": "Synthon Chile (antes: Laboratorios Rider)",
+    "domain": "synthon.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00238",
+    "name": "Siegfried AG — Chile (absorbió Deutsche Pharma)",
+    "domain": "siegfriedchile.cl",
+    "country": "Chile"
+  },
+  {
+    "bp_id_unico": "BP-YES-00239",
+    "name": "SPI Americas",
+    "domain": "spiamericas.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00240",
+    "name": "Advance Scientific Group",
+    "domain": "advancescientificgroup.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00241",
+    "name": "Altea Farmacéutica",
+    "domain": "alteafarma.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00242",
+    "name": "FAES Farma",
+    "domain": "faesfarma.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00243",
+    "name": "Closter Pharma / Grupo Closter",
+    "domain": "closterpharma.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00244",
+    "name": "Colompack",
+    "domain": "colompack.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00245",
+    "name": "Coopidrogas",
+    "domain": "coopidrogas.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00246",
+    "name": "Corpaul Farmacéutica / Corpaul - Medifarma Colombia",
+    "domain": "medifarma.com.pe",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00247",
+    "name": "Cyhlab",
+    "domain": "cyhlab.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00248",
+    "name": "Distrimedick",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00249",
+    "name": "Elixym Biopharmaceutical",
+    "domain": "elixymbiopharma.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00250",
+    "name": "EuroEtika",
+    "domain": "euroetika.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00251",
+    "name": "Genfar (Sanofi)",
+    "domain": "genfar.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00252",
+    "name": "Gimed",
+    "domain": "gimed.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00253",
+    "name": "IPCA Laboratories Limited — Sucursal Colombia",
+    "domain": "ipca.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00254",
+    "name": "Italpharma / Biogenerics",
+    "domain": "italpharma.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00255",
+    "name": "JGB",
+    "domain": "jgb.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00256",
+    "name": "Laboratorios Delta",
+    "domain": "labdelta.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00257",
+    "name": "Laboratorios Incobra",
+    "domain": "incobra.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00258",
+    "name": "Laboratorios Bussié S.A / Laboratorios Sanfer",
+    "domain": "bussie.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00259",
+    "name": "Laboratorios Ecar",
+    "domain": "ecar.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00260",
+    "name": "Laboratorios Legrand",
+    "domain": "laboratorioslegrand.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00261",
+    "name": "Medihosp S.A.S.",
+    "domain": "une.net.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00262",
+    "name": "MSN Labs Americas",
+    "domain": "msnlabs.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00263",
+    "name": "Newrona",
+    "domain": "newrona.net",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00264",
+    "name": "Orion Frontier Solutions",
+    "domain": "orionfrontier.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00265",
+    "name": "PHARMARKET",
+    "domain": "pharmarket.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00266",
+    "name": "Pharmasan",
+    "domain": "pharmasan.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00267",
+    "name": "Pharmetique Labs / Laboratorios La Santé",
+    "domain": "pharmetiquelabs.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00268",
+    "name": "PiSA Región Andina",
+    "domain": "pisa.com.mx",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00269",
+    "name": "Procaps / Softigel (Chemo)",
+    "domain": "procaps.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00270",
+    "name": "Proclin S.A.",
+    "domain": "proclinpharma.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00271",
+    "name": "Retycol S.A.",
+    "domain": "retycol.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00272",
+    "name": "Syntofarma",
+    "domain": "syntofarma.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00273",
+    "name": "Tecnoquímicas S.A. / Wasser Chemical S.A.S.",
+    "domain": "tecnoquimicas.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00274",
+    "name": "VionPharma / Tuteur",
+    "domain": "vionpharma.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00275",
+    "name": "Vitrofarma",
+    "domain": "vitalis.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00276",
+    "name": "Alcost Pharmaceutical",
+    "domain": "alcost.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00277",
+    "name": "Aquilabs Laboratorios",
+    "domain": "aquilabs.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00278",
+    "name": "Arbofarma",
+    "domain": "arbofarma.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00279",
+    "name": "Biochem Farmacéutica de Colombia",
+    "domain": "biochemfarmaceutica.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00280",
+    "name": "Cafarma - Calier Farmacéutica",
+    "domain": "calierfarma.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00281",
+    "name": "Chalver Laboratorios",
+    "domain": "chalver.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00282",
+    "name": "Coaspharma",
+    "domain": "coaspharma.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00283",
+    "name": "COFARMA",
+    "domain": "cofarma.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00284",
+    "name": "Data Pharmaceutical Services",
+    "domain": "adium.com.uy",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00285",
+    "name": "Farma de Colombia",
+    "domain": "farmadecolombia.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00286",
+    "name": "Gaffel Colombia",
+    "domain": "gaffel.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00287",
+    "name": "Garmisch Pharmaceutical",
+    "domain": "garmischpharmaceutical.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00288",
+    "name": "Gonher",
+    "domain": "stfgonher.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00289",
+    "name": "Grupo Amarey Nova Medical",
+    "domain": "grupoamarey.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00290",
+    "name": "Herson Distribuidores Farmacéuticos",
+    "domain": "herson.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00291",
+    "name": "Humax Pharmaceutical",
+    "domain": "humax.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00292",
+    "name": "Knovel Pharma S.A.S.",
+    "domain": "knovelpharma.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00293",
+    "name": "Laboratorio Científico Colombiano LACICO S.A.",
+    "domain": "lacico.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00294",
+    "name": "Laboratorios Alfarma S.A.S.",
+    "domain": "alpharma.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00295",
+    "name": "Laboratorios Best S.A.S.",
+    "domain": "laboratoriosbest.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00296",
+    "name": "Laboratorios Gerco / Laboratorios UrgoGerco",
+    "domain": "gerco.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00297",
+    "name": "Laboratorios Inverfarma Ltda.",
+    "domain": "inverfarma.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00298",
+    "name": "Laboratorios Merey",
+    "domain": "merey.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00299",
+    "name": "Laboratorios Ryan de Colombia S.A.S.",
+    "domain": "laboratoriosryan.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00300",
+    "name": "LAPROFF — Laboratorio Profesional Farmacéutico S.A.",
+    "domain": "laproff.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00301",
+    "name": "Memphis Laboratorios / Alianza California",
+    "domain": "alianzacalifornia.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00302",
+    "name": "Merquimia Colombia",
+    "domain": "merquimiacolombia.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00303",
+    "name": "Naturmega",
+    "domain": "naturmega.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00304",
+    "name": "Nevox Farma",
+    "domain": "nevoxfarma.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00305",
+    "name": "Novamed / Farmacapsulas",
+    "domain": "novamed.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00306",
+    "name": "Quibi",
+    "domain": "quibi.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00307",
+    "name": "Reprefarco",
+    "domain": "reprefarco.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00308",
+    "name": "Seven Pharma",
+    "domain": "sevenpharma.net",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00309",
+    "name": "Sumpharma",
+    "domain": "sumpharma.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00310",
+    "name": "Tecnofarma Colombia / Industrial Farmacéutica Unión de Vértices",
+    "domain": "adium.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00311",
+    "name": "Unidrogas S.A.S",
+    "domain": "unidrogas.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00312",
+    "name": "Vitalis SACI (Grupo AVE)",
+    "domain": "vitalis.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00313",
+    "name": "Zambon Colombia",
+    "domain": "zambongroup.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00314",
+    "name": "C.I. Laboratorios Improfarme S.A.S.",
+    "domain": "improfarme.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00315",
+    "name": "GENBIE S.A.S.",
+    "domain": "genbie.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00316",
+    "name": "Goram Laboratorios S.A.S.",
+    "domain": "goramlaboratorios.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00317",
+    "name": "Healthy America Colombia S.A.S.",
+    "domain": "healthyamerica.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00318",
+    "name": "Laboratorios Higietex S.A.",
+    "domain": "higietex.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00319",
+    "name": "Lumexpharma",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00320",
+    "name": "Molecular Farmacéutica MF S.A.S.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00321",
+    "name": "Pharmaderm Colombia S.A.S.",
+    "domain": "pharmaderm.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00322",
+    "name": "Pharmaprix Colombia S.A.S.",
+    "domain": "pharmaprix.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00323",
+    "name": "Salus Pharma Labs S.A.S.",
+    "domain": "saluspharmalabs.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00324",
+    "name": "The Labs S.A.S.",
+    "domain": "laboratoriothelabs.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00325",
+    "name": "Tridex Farmacéutica S.A.S.",
+    "domain": "tridexsa.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00326",
+    "name": "HB Human Bioscience S.A.S.",
+    "domain": "hbhumanbioscience.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00327",
+    "name": "Fareva Villa Rica S.A.S.",
+    "domain": "fareva.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00328",
+    "name": "Ophtha — Especialidades Oftalmológicas S.A.",
+    "domain": "ophtha.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00329",
+    "name": "Laboratorios Proquident S.A.",
+    "domain": "proquident.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00330",
+    "name": "Laboratorios Sherleg S.A.S.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00331",
+    "name": "Bionutrec",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00332",
+    "name": "Grupo Biotoscana / Biotoscana Farma S.A.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00333",
+    "name": "Health & Nutrition",
+    "domain": "sgs.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00334",
+    "name": "Nova Farma / Monarca Farma",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00335",
+    "name": "Softgel Healthcare",
+    "domain": "softgelhealthcare.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00336",
+    "name": "Laboratorios Franco Colombiano - Lafrancol S.A.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00337",
+    "name": "BG Labs / Boettger Gruppe",
+    "domain": "bglabs.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00338",
+    "name": "Biogen",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00339",
+    "name": "Biopas",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00340",
+    "name": "Laboratorio Científico Colombiano Lacico / Labquifar",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00341",
+    "name": "Eurodrug Laboratories",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00342",
+    "name": "Astellas Pharma Colombia",
+    "domain": "astellas.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00343",
+    "name": "Bimedco",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00344",
+    "name": "Bio Pharm Laboratories",
+    "domain": "bphcr.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00345",
+    "name": "Celnova Pharma",
+    "domain": "celnova.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00346",
+    "name": "Ciclotron Colombia S.A.S.",
+    "domain": "ciclotroncolombia.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00347",
+    "name": "COGAS Ltda.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00348",
+    "name": "Comercializadora Ruecam S.A.S.",
+    "domain": "ruecam.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00349",
+    "name": "Farmacéutica Paraguaya / Aplicaciones Farmacéuticas Afavel S.A.S.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00350",
+    "name": "Farmalogica S.A.S.",
+    "domain": "unidossis.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00351",
+    "name": "G-C Farma Ltda.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00352",
+    "name": "Gled C Pharma S.A.S.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00353",
+    "name": "Heel Colombia",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00354",
+    "name": "Herbario Lab.",
+    "domain": "jmpharma.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00355",
+    "name": "Impofar Ltda.",
+    "domain": "impofar.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00356",
+    "name": "Laboratorio Homeopático Alemán S.A.S.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00357",
+    "name": "Laboratorios Galeno Química S.A.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00358",
+    "name": "Laboratorios Novaderma",
+    "domain": "laboratoriosnovaderma.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00359",
+    "name": "Laboratorios Nutrivida S.A.S.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00360",
+    "name": "Laboratorios OSA S.A.S.",
+    "domain": "laboratoriososa.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00361",
+    "name": "Laboratorios Phitother",
+    "domain": "phitother.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00362",
+    "name": "Laboratorios Pronabell",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00363",
+    "name": "Laboratorios San Jorge",
+    "domain": "laboratoriosanjorge.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00364",
+    "name": "Norstray Nuart S.A.S.",
+    "domain": "norstraynuart.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00365",
+    "name": "Pharmayect",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00366",
+    "name": "Praxis Pharmaceutical",
+    "domain": "praxisph.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00367",
+    "name": "Quifarmed Laboratorios",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00368",
+    "name": "Quirumedicas S.A.",
+    "domain": "quirumedicas.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00369",
+    "name": "Riddhi Pharma S.A.S.",
+    "domain": "riddhipharma.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00370",
+    "name": "Salugran",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00371",
+    "name": "Savifar Laboratorio",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00372",
+    "name": "Laboratorios Colmed S.A. / Procaps",
+    "domain": "colmed.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00373",
+    "name": "BKMPharma",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00374",
+    "name": "Farmacias Cruz Verde / Evedisa",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00375",
+    "name": "Audifarma S.A.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00376",
+    "name": "Drogas La Rebaja / Copservir Ltda.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00377",
+    "name": "Farmacias Pasteur S.A.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00378",
+    "name": "Logifarma S.A.S.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00379",
+    "name": "Laboratorio Siegfried Colombia",
+    "domain": "siegfried.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-YES-00380",
+    "name": "Alcames Laboratorios Químicos de Centroamérica",
+    "domain": "alcames.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00381",
+    "name": "Bio Plus Care",
+    "domain": "biopluscare.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00382",
+    "name": "CONDEFA — Corporación Nacional de Farmacias",
+    "domain": "farmaciascondefa.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00383",
+    "name": "Corporación Newport Pharmaceuticals",
+    "domain": "newportcorp.net",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00384",
+    "name": "Dopamina Latam",
+    "domain": "dopaminacr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00385",
+    "name": "Grupo Simed",
+    "domain": "gruposimed.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00386",
+    "name": "Grupo WC / Global Pharmed Int",
+    "domain": "grupowc.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00387",
+    "name": "Gutis Ltda",
+    "domain": "gutis.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00388",
+    "name": "Healthy Store, S.A. / Farmacias Don Gerardo",
+    "domain": "healthystorecr.net",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00389",
+    "name": "Laboratorio Raven",
+    "domain": "laboratorioraven.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00390",
+    "name": "Laboratorios Stein",
+    "domain": "lbs-cr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00391",
+    "name": "Onco Farma",
+    "domain": "oncofarmacr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00392",
+    "name": "Owaccess",
+    "domain": "owaccess.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00393",
+    "name": "Prime Pharmaceutical",
+    "domain": "primepharma.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00394",
+    "name": "Registra, S.A. (Pharmavision)",
+    "domain": "registracr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00395",
+    "name": "Registra-2, S.R.L.",
+    "domain": "registra-2.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00396",
+    "name": "Infarma",
+    "domain": "infarmamedicamentos.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00397",
+    "name": "Laboratorio Phyto Costa Rica S.A. — Total Natural",
+    "domain": "total-natural.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00398",
+    "name": "MSG Pharma",
+    "domain": "drsanchezcr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00399",
+    "name": "Novoxalfarma",
+    "domain": "novoxalfarma.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00400",
+    "name": "Altrebo",
+    "domain": "",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00401",
+    "name": "Calox de Costa Rica",
+    "domain": "calox.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00402",
+    "name": "CEFA / Cuestamoras Salud / Grupo Dokka",
+    "domain": "grupodokka.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00403",
+    "name": "Chemo Centroamericana",
+    "domain": "grupochemo.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00404",
+    "name": "Corporacion Zumar",
+    "domain": "ice.co.cr",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00405",
+    "name": "CRIL Tech",
+    "domain": "cril-tech.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00406",
+    "name": "Diopsa — Distribuidora Óptica",
+    "domain": "diopsa.co.cr",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00407",
+    "name": "Distribuidora Alternativa / Dapharma",
+    "domain": "dapharmacr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00408",
+    "name": "Disprofar, S.A.",
+    "domain": "",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00409",
+    "name": "Ekimed",
+    "domain": "ekimed.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00410",
+    "name": "Farmacia Laboratorio y Droguería Mora",
+    "domain": "farmaciascr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00411",
+    "name": "Farmavision",
+    "domain": "farmavision.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00412",
+    "name": "Grupo Farmanova Intermed / GFI Pharma Logistics",
+    "domain": "gficr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00413",
+    "name": "Laboratorios Lisan, SA",
+    "domain": "lisancr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00414",
+    "name": "Laboratorios Zepol",
+    "domain": "labzepol.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00415",
+    "name": "Grupo Ancla Laboratorios",
+    "domain": "grupoancla.co.cr",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00416",
+    "name": "Laboratorios Compañía Farmacéutica LACOFA",
+    "domain": "cofasa.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00417",
+    "name": "Go Pharma",
+    "domain": "gopharmasolutions.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00418",
+    "name": "NP Pharma Costa Rica / NavyPharma / Select Point S.A.",
+    "domain": "nppharmacr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00419",
+    "name": "Nutrimed",
+    "domain": "nutrimedcr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00420",
+    "name": "http://www.farmaciascr.com/",
+    "domain": "farmaciascr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00421",
+    "name": "Laboratorios Farma",
+    "domain": "grupofarma.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00422",
+    "name": "Laboratorio Costarricense de Metrología",
+    "domain": "lacomet.go.cr",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00423",
+    "name": "Primedical",
+    "domain": "",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00424",
+    "name": "Capris Medica",
+    "domain": "capris.co.cr",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00425",
+    "name": "Gerard O. Elsner, Ltda.",
+    "domain": "gerardoelsner.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00426",
+    "name": "Ice Care Corporation",
+    "domain": "icecarecorp.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00427",
+    "name": "Saco Internacional, S.A.",
+    "domain": "",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00428",
+    "name": "Alcon Centroamérica",
+    "domain": "alcon.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00429",
+    "name": "Alfamédica",
+    "domain": "alfamedicacr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00430",
+    "name": "Biomur",
+    "domain": "biomur.net",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00431",
+    "name": "Dismedica",
+    "domain": "dismedica.net",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00432",
+    "name": "Dra. Scholler Laboratorio",
+    "domain": "schollercr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00433",
+    "name": "Fide Laboratorios",
+    "domain": "",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00434",
+    "name": "Medifarma",
+    "domain": "medipharmainc.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00435",
+    "name": "Medigray (Inversiones Oridama)",
+    "domain": "medigray.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00436",
+    "name": "Microtec Laboratorios",
+    "domain": "labmicrotec.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00437",
+    "name": "New Medical",
+    "domain": "newmedicalcr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00438",
+    "name": "Nutricare",
+    "domain": "nutricare.co.cr",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00439",
+    "name": "Opharma Life",
+    "domain": "",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00440",
+    "name": "Orthomed del Sol",
+    "domain": "orthomedcr.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00441",
+    "name": "Panamedical de Costa Rica, S.A. (PCR)",
+    "domain": "grupopanamedical.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00442",
+    "name": "VMG Healthcare Products, S.A.",
+    "domain": "vmg.co.cr",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00443",
+    "name": "Laboratorio Natural La Fuente SA",
+    "domain": "natural-lafuente.com",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00444",
+    "name": "Laboratorios Cenco — Cenco Lab",
+    "domain": "cencolab.cr",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00445",
+    "name": "http://www.cencolab.cr/",
+    "domain": "cencolab.cr",
+    "country": "Costa Rica"
+  },
+  {
+    "bp_id_unico": "BP-YES-00446",
+    "name": "Bofadom - Bodega Farmacéutica Dominicana",
+    "domain": "bofadom.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00447",
+    "name": "Biosintesis Dominicana / Drodena / distribuidora Farach",
+    "domain": "laboratoriosalfa.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00448",
+    "name": "Camilo Labs / Farmatech",
+    "domain": "camilolabs.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00449",
+    "name": "Fri Farma / Santos & Ortiz Group",
+    "domain": "frifarma.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00450",
+    "name": "GASSO",
+    "domain": "gasso.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00451",
+    "name": "GFC Farma / Grupo Farmacéutico Crecemed",
+    "domain": "gfc.com.mx",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00452",
+    "name": "Laboratorios de Aplicaciones Médicas, S.R.L. - LAM",
+    "domain": "lam.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00453",
+    "name": "Laboratorios Dr. Collado, C. por A.",
+    "domain": "gruponajri.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00454",
+    "name": "Magnachem Internacional / Laboratorio Magnachem",
+    "domain": "email.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00455",
+    "name": "Megax",
+    "domain": "megaxbusiness.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00456",
+    "name": "Rofasa Farma",
+    "domain": "rofasa.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00457",
+    "name": "Accent Pharmaceuticals International SRL",
+    "domain": "accentla.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00458",
+    "name": "Acromax Dominicana, SA",
+    "domain": "acromax.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00459",
+    "name": "Ameripharma, Srl",
+    "domain": "ameripharmalab.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00460",
+    "name": "Aston Pharma",
+    "domain": "astonpharma.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00461",
+    "name": "C. Federico Gómez SRL / Grupo CFG",
+    "domain": "magnachem.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00462",
+    "name": "Continental Farmacéutica",
+    "domain": "contifarma.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00463",
+    "name": "CardioPharm",
+    "domain": "",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00464",
+    "name": "Cardiotech Pharmaceutical",
+    "domain": "cardiotech.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00465",
+    "name": "Caribbean Farmaceutica",
+    "domain": "mpird.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00466",
+    "name": "Chemicals / Fraperco",
+    "domain": "claro.net.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00467",
+    "name": "Clinimed",
+    "domain": "clinimed.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00468",
+    "name": "Dinafa",
+    "domain": "dinafa.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00469",
+    "name": "Distribuidora Drotafarma S.R.L",
+    "domain": "drotafarma.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00470",
+    "name": "Distribuidora Leopharma, S. R. L.",
+    "domain": "grupoleopharma.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00471",
+    "name": "Distribuidora Peratri",
+    "domain": "",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00472",
+    "name": "Dopharma Dominicana",
+    "domain": "dopharmadominicana.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00473",
+    "name": "Dr. Manelic Gassó - Pereyra S.R.L.",
+    "domain": "gassopereyra.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00474",
+    "name": "Elipesa, SRL",
+    "domain": "elipesa.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00475",
+    "name": "Ethical Pharmaceutical - Euro Limited - Fluter Domull",
+    "domain": "ethical.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00476",
+    "name": "Exels Farm / Infadomi",
+    "domain": "exeltis.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00477",
+    "name": "Farmaconal",
+    "domain": "farmaconal.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00478",
+    "name": "Farmatech Dominicana",
+    "domain": "pharmatech.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00479",
+    "name": "Farqui - Grupo Farmoquímica",
+    "domain": "farqui.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00480",
+    "name": "Font Gamundi",
+    "domain": "fg.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00481",
+    "name": "Global Skin Dominicana, SRL",
+    "domain": "globalskindom.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00482",
+    "name": "Gonzalez & Vicente Laboratorio (GV Laboratorios)",
+    "domain": "gvlaboratorio.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00483",
+    "name": "Grupo Fármacos Oriental Grufarco",
+    "domain": "grupofarmacosoriental.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00484",
+    "name": "Grupo Hospifar Srl",
+    "domain": "hospifar.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00485",
+    "name": "Gupharma",
+    "domain": "",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00486",
+    "name": "Ibero Farmacos, S.R.L.",
+    "domain": "iberofarmacos.net",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00487",
+    "name": "Infaca",
+    "domain": "infaca.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00488",
+    "name": "Inmenol Industrial Laboratorios",
+    "domain": "inmenol.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00489",
+    "name": "Jocace",
+    "domain": "jocace.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00490",
+    "name": "Kettle Sanchez and Co",
+    "domain": "kettlesanchez.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00491",
+    "name": "LaboQuiDom Laboratorio Químico Dominicano S.A",
+    "domain": "laboquidom.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00492",
+    "name": "Laboratorio Farmaceutico Proquimed",
+    "domain": "proquimedpharma.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00493",
+    "name": "Laboratorio San Luis",
+    "domain": "labsanluis.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00494",
+    "name": "Laboratorios Elfa S.A.",
+    "domain": "laboratoriosalfa.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00495",
+    "name": "Laboratorios Feltrex",
+    "domain": "feltrex.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00496",
+    "name": "Laboratorios Hemcare",
+    "domain": "",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00497",
+    "name": "Laboratorios Laprofar",
+    "domain": "laprofar.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00498",
+    "name": "Laboratorios Mallen / Dres. Mallen Guerra SA",
+    "domain": "mallengroup.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00499",
+    "name": "Laboratorios Orbis",
+    "domain": "orbis.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00500",
+    "name": "Laboratorios Pharmatech",
+    "domain": "pharmatech.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00501",
+    "name": "Laboratorios Rangel CXA",
+    "domain": "rangel.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00502",
+    "name": "Laboratorios Roldan Cxa",
+    "domain": "laboratoriosroldan.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00503",
+    "name": "Laboratorios Rysell",
+    "domain": "rysell.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00504",
+    "name": "Laboratorios Sintesis",
+    "domain": "laboratoriosintesis.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00505",
+    "name": "Laboratorios Sued",
+    "domain": "labsued.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00506",
+    "name": "Laboratorios Suiphar",
+    "domain": "suiphar.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00507",
+    "name": "Laboratorios Unión",
+    "domain": "laboratoriounion.cl",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00508",
+    "name": "Legacy Pharma, SRL",
+    "domain": "legacypharmard.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00509",
+    "name": "Leterago",
+    "domain": "leterago.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00510",
+    "name": "Luis E. Betances & Co. SAS",
+    "domain": "luisbetances.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00511",
+    "name": "Macrotech Farmacéutica",
+    "domain": "macrotech.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00512",
+    "name": "Medek Pharma",
+    "domain": "medekpharma.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00513",
+    "name": "Medifarma",
+    "domain": "medifarmasrl.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00514",
+    "name": "Megalabs - Roemmers",
+    "domain": "megalabs.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00515",
+    "name": "Nagada Company",
+    "domain": "nagada-rd.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00516",
+    "name": "Nutrifarma",
+    "domain": "nutrifarma.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00517",
+    "name": "Oscar Arenta Negron",
+    "domain": "oarenta.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00518",
+    "name": "Pharma AG trading",
+    "domain": "pharmaagtrading.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00519",
+    "name": "Profares",
+    "domain": "profaressrl.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00520",
+    "name": "Profarma Internacional",
+    "domain": "profarma.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00521",
+    "name": "Rowe / Delta de la Cruz / Laboratorio Panalab",
+    "domain": "rowe.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00522",
+    "name": "terago",
+    "domain": "laboratoriosunion.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00523",
+    "name": "Ultralab, SRL / Bionuclear",
+    "domain": "bionuclear.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00524",
+    "name": "Victoria Yeb",
+    "domain": "victoriayeb.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00525",
+    "name": "Quisqueyana Farmacéutica SRL",
+    "domain": "claro.net.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00526",
+    "name": "Sued & Fargesa",
+    "domain": "suedfargesa.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00527",
+    "name": "Vermis Pharma",
+    "domain": "",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00528",
+    "name": "Laboratorios Britania",
+    "domain": "laboratoriosbritania.com",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00529",
+    "name": "Laboratorios Amadita",
+    "domain": "",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00530",
+    "name": "Naveo SRL",
+    "domain": "",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00531",
+    "name": "Dositec Pharma",
+    "domain": "dositec.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00532",
+    "name": "Medxim Dominicana",
+    "domain": "claro.net.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00533",
+    "name": "Padilla SA",
+    "domain": "padilla.com.do",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00534",
+    "name": "CEIMSA, SRL",
+    "domain": "",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00535",
+    "name": "Grupo Tateyama",
+    "domain": "",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00536",
+    "name": "Fenwal International Inc.",
+    "domain": "",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00537",
+    "name": "Laboratorios Mesoestetic",
+    "domain": "",
+    "country": "República Dominicana"
+  },
+  {
+    "bp_id_unico": "BP-YES-00538",
+    "name": "Dyvenpro / Difare - Distribuidora Farmacéutica Ecuatoriana",
+    "domain": "",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00539",
+    "name": "Ecuaquímica",
+    "domain": "ecuaquimica.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00540",
+    "name": "Hospimedikka",
+    "domain": "hospimedikka.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00541",
+    "name": "Laboratorios Eurostaga",
+    "domain": "eurostaga.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00542",
+    "name": "Nature´s Garden / Laboratorios Carvagu, S.A",
+    "domain": "carvagu.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00543",
+    "name": "Panijú",
+    "domain": "paniju.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00544",
+    "name": "Pharmedic",
+    "domain": "pharmedic-sa.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00545",
+    "name": "Laboratorios Alfer / Farmacéutica Ceballos",
+    "domain": "",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00546",
+    "name": "Laboratorios Elifarma",
+    "domain": "",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00547",
+    "name": "Acromax Laboratorio Químico Farmacéutico S.A. / Leterago (socios)",
+    "domain": "acromax.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00548",
+    "name": "Bagó del Ecuador",
+    "domain": "bago.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00549",
+    "name": "Boticas Unidas del Ecuador",
+    "domain": "grupoecu.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00550",
+    "name": "China Sinopharm International - Shangai",
+    "domain": "",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00551",
+    "name": "Disfasur - Distribuidora Farmacéutica Del Sur SA",
+    "domain": "disfasur.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00552",
+    "name": "Escollanos",
+    "domain": "escollanos.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00553",
+    "name": "Eske Group",
+    "domain": "eske.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00554",
+    "name": "Farmaenlace",
+    "domain": "farmaenlace.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00555",
+    "name": "Farmalemana",
+    "domain": "",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00556",
+    "name": "Farmayala Pharmaceutical Company",
+    "domain": "farmayala.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00557",
+    "name": "Fresenius Kabi",
+    "domain": "",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00558",
+    "name": "Grupo Unipharm",
+    "domain": "",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00559",
+    "name": "Ifi Promesa",
+    "domain": "ifi-promesa.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00560",
+    "name": "Impexpharm",
+    "domain": "impexpharm.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00561",
+    "name": "Indeurec",
+    "domain": "",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00562",
+    "name": "Interpharm / Siegfried",
+    "domain": "interpharm.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00563",
+    "name": "James Brown Pharma",
+    "domain": "jamesbrownpharma.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00564",
+    "name": "Kronos Laboratorios CIA. LTDA.",
+    "domain": "kronoslaboratorios.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00565",
+    "name": "Laboratorio Farmacéutico GM",
+    "domain": "laboratoriosgm.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00566",
+    "name": "Laboratorio Química Ariston Ecuador",
+    "domain": "qariston.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00567",
+    "name": "Laboratorios Industriales Farmacéuticos Ecuatorianos LIFE",
+    "domain": "life.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00568",
+    "name": "Laboratorios Rocnarf S.A.",
+    "domain": "rocnarf.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00569",
+    "name": "Laboratorios Siegfried, S.A.",
+    "domain": "siegfried.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00570",
+    "name": "Lamosan Laboratorio Farmacéutico",
+    "domain": "lamosan.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00571",
+    "name": "Leterago del Ecuador",
+    "domain": "leterago.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00572",
+    "name": "Medicamenta Ecuatoriana",
+    "domain": "medicamenta.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00573",
+    "name": "Megat Pharmaceutical",
+    "domain": "megat.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00574",
+    "name": "Naturpharma, S.A.",
+    "domain": "naturpharma.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00575",
+    "name": "Neofarmaco Ecuador",
+    "domain": "neofarmaco.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00576",
+    "name": "Oxialfarm, Laboratorio Farmacéutico Ecuador",
+    "domain": "oxialfarm.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00577",
+    "name": "Pharmedical",
+    "domain": "pharmedical.net",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00578",
+    "name": "Promidens",
+    "domain": "promidens.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00579",
+    "name": "Prophar Medicamentos / Laboratorios Nifa",
+    "domain": "prophar.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00580",
+    "name": "Quality World Consulting",
+    "domain": "qualitycons.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00581",
+    "name": "Qualipharm Laboratorio Farmacéutico",
+    "domain": "grupoetical.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00582",
+    "name": "RESOLFARMA",
+    "domain": "",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00583",
+    "name": "Ruiz Pharma / PharmaVida",
+    "domain": "ruizpharma.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00584",
+    "name": "🌟Sanfer",
+    "domain": "sanfer.com.co",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00585",
+    "name": "Simedpharma S.A. / Pharmacore",
+    "domain": "pharmacore.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00586",
+    "name": "Welkom Medicamentos de Especialidad",
+    "domain": "welkom.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00587",
+    "name": "XANUM",
+    "domain": "xanum.xyz",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00588",
+    "name": "Bassa",
+    "domain": "bassa.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00589",
+    "name": "Corporación GPF / Farmacias Fybeca",
+    "domain": "corporaciongpf.com",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00590",
+    "name": "MCG Diagnostica",
+    "domain": "mcgdiagnostica.com.ec",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00591",
+    "name": "Nipro Medical",
+    "domain": "",
+    "country": "Ecuador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00592",
+    "name": "Ancalmo Internacional (Hessel)",
+    "domain": "ancalmo.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00593",
+    "name": "Droguería Integral / Montreal S.A. de C.V.",
+    "domain": "drogueriaintegralsv.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00594",
+    "name": "Droguería Morazán",
+    "domain": "",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00595",
+    "name": "Droguería Santa Lucia",
+    "domain": "drogueriasantalucia.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00596",
+    "name": "Droguería Universal",
+    "domain": "drogueriauniversal.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00597",
+    "name": "Gamma Laboratories",
+    "domain": "gammalaboratories.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00598",
+    "name": "Grupo Americana / Droguería Americana",
+    "domain": "americana.com.sv",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00599",
+    "name": "Grupo Carosa / Laboratorios Carosa",
+    "domain": "grupocarosa.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00600",
+    "name": "Grupo Jomi",
+    "domain": "grupojomi.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00601",
+    "name": "Inversiones Hospitalarias INHOSPI",
+    "domain": "inhospi.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00602",
+    "name": "Laboratorios Fardel / Grupo Guardado",
+    "domain": "grupoguardado.com.sv",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00603",
+    "name": "Laboratorios Medikem, SA de CV",
+    "domain": "medikem.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00604",
+    "name": "Sinquimia",
+    "domain": "",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00605",
+    "name": "Corporación Cefa",
+    "domain": "cefaelsalvador.com.sv",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00606",
+    "name": "Farmacéutica RODIM — División Distribución",
+    "domain": "gruporodim.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00607",
+    "name": "DIMEDIC",
+    "domain": "dimedicslv.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00608",
+    "name": "Droguería y Laboratorio Falmar",
+    "domain": "falmar.biz",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00609",
+    "name": "Grupo Paill / Paill Laboratorios",
+    "domain": "paill.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00610",
+    "name": "Grupo Razel / Laboratorios Razel",
+    "domain": "gruporazel.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00611",
+    "name": "Laboratorio DB, S.A. de C.V.",
+    "domain": "laboratoriodb.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00612",
+    "name": "Laboratorio Farmacéutico Solaris",
+    "domain": "laboratoriosolaris.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00613",
+    "name": "Laboratorio y Droguería Interpharmas, S.A. de C.V.",
+    "domain": "interpharmas.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00614",
+    "name": "Laboratorios Arsal / Arsal Laboratorios",
+    "domain": "arsal.com.sv",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00615",
+    "name": "Laboratorios Biogalenic",
+    "domain": "biogalenic.com.sv",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00616",
+    "name": "Laboratorios Cofasa, S.A. de C.V.",
+    "domain": "labcofasa.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00617",
+    "name": "Laboratorios HealthCo",
+    "domain": "vape.com.sv",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00618",
+    "name": "Laboratorios Suizos",
+    "domain": "labsuizos.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00619",
+    "name": "Laboratorios Tecnofarma / Medical Pharma",
+    "domain": "medicalpharma.com.sv",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00620",
+    "name": "Laboratorios Vides, S.A. de C.V. (Ovides)",
+    "domain": "ojvides.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00621",
+    "name": "Laboratorios Vijosa",
+    "domain": "vijosa.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00622",
+    "name": "Luminova Pharma Group",
+    "domain": "medwell-int.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00623",
+    "name": "Meditech Laboratories / Droguerías Farmix",
+    "domain": "meditechlaboratories.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00624",
+    "name": "Biokemical S.A. de C.V.",
+    "domain": "biokemical.com.sv",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00625",
+    "name": "C. Imberton, S.A. de C.V.",
+    "domain": "cimberton.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00626",
+    "name": "Distribuidora Zablah / Grupo Zablah",
+    "domain": "diszasa.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00627",
+    "name": "Droguería Vital Medical",
+    "domain": "vitalmedical.sv",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00628",
+    "name": "Droguería y Laboratorio Pharmalat S.A.",
+    "domain": "pharmalat.net",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00629",
+    "name": "EUROSAL / Droguería Eurosalvadoreña S.A. de C.V.",
+    "domain": "eurosal.co",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00630",
+    "name": "Laboratorios Argüello, S.A. de C.V.",
+    "domain": "laboratoriosarguello.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00631",
+    "name": "Laboratorios Generix S.A.",
+    "domain": "generix.com.sv",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00632",
+    "name": "Laboratorios López S.A. de C.V.",
+    "domain": "procapsgroup.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00633",
+    "name": "Laboratorios Marceli S.A. de C.V.",
+    "domain": "laboratoriosmarceli.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00634",
+    "name": "Laboratorios Pharmedic",
+    "domain": "labpharmedic.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00635",
+    "name": "Laboratorios S&M",
+    "domain": "",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00636",
+    "name": "Droguería Centroamericana / Farmacia Esmeralda",
+    "domain": "drogueriacentroamericana.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00637",
+    "name": "Laboratorios Latiz Pharma, S.A. de C.V.",
+    "domain": "",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00638",
+    "name": "Optilab S.A de C.V.",
+    "domain": "",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00639",
+    "name": "WHR Laboratorios El Salvador",
+    "domain": "whrelsalvador.com",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00640",
+    "name": "Laboratorio Ophtha El Salvador",
+    "domain": "",
+    "country": "El Salvador"
+  },
+  {
+    "bp_id_unico": "BP-YES-00641",
+    "name": "Intas Pharmaceuticals",
+    "domain": "intaspharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00642",
+    "name": "Laboratorios Salvat",
+    "domain": "svt.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00643",
+    "name": "Marnys - Martinez Nieto",
+    "domain": "marnys.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00644",
+    "name": "Reig Jofre Group",
+    "domain": "reigjofre.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00645",
+    "name": "Acofarma",
+    "domain": "acofarma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00646",
+    "name": "ADALVO",
+    "domain": "adalvo.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00647",
+    "name": "Adamed",
+    "domain": "adamed.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00648",
+    "name": "Aldo-Unión, S.A.",
+    "domain": "aldo-union.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00649",
+    "name": "Airplan",
+    "domain": "airplan-sa.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00650",
+    "name": "Bioiberica S.A.",
+    "domain": "bioiberica.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00651",
+    "name": "Biopharma Synergies S.l.",
+    "domain": "bpsynergies.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00652",
+    "name": "Bordas",
+    "domain": "bordas-sa.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00653",
+    "name": "Cantabria Labs (IFC - Industrial Farmaceutica Cantabria, S.A.)",
+    "domain": "cantabrialabs.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00654",
+    "name": "Chemo Iberica / Insudpharma",
+    "domain": "chemogroup.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00655",
+    "name": "Cloverty / HC Clover / Aplicaps /",
+    "domain": "aplicaps.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00656",
+    "name": "Coetus Pharma",
+    "domain": "coetuspharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00657",
+    "name": "Cofares / Farline",
+    "domain": "cofares.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00658",
+    "name": "CuraLife Spain SL",
+    "domain": "curalife.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00659",
+    "name": "Cyndea Pharma / Cinfa Innova",
+    "domain": "cyndeapharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00660",
+    "name": "Directsalud / ABC Farma Internacional, S.L.",
+    "domain": "abcfarma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00661",
+    "name": "Efarmes S.A.U.",
+    "domain": "lacer.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00662",
+    "name": "Entera Health",
+    "domain": "essentiaproteins.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00663",
+    "name": "Esteve",
+    "domain": "esteve.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00664",
+    "name": "Farmaprojects / Nova Diet",
+    "domain": "farmaprojects.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00665",
+    "name": "Galenicum Health",
+    "domain": "galenicum.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00666",
+    "name": "Geiser Pharma, S.L.",
+    "domain": "geiserpharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00667",
+    "name": "Gentec Pharmaceuticals",
+    "domain": "gentec.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00668",
+    "name": "Grupo Profármaco - Mefasa Farma",
+    "domain": "grupoprofarmaco.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00669",
+    "name": "Grupo Uriach (\"Uriak\") / Noucor",
+    "domain": "uriach.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00670",
+    "name": "GxMed Healthcare",
+    "domain": "gxmed.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00671",
+    "name": "Hartington Pharmaceutical",
+    "domain": "hartington.org",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00672",
+    "name": "HeathTech BioActives",
+    "domain": "htba.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00673",
+    "name": "ICG Farma México",
+    "domain": "icgfarma.com.mx",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00674",
+    "name": "ICON Group / Avanzia Pharma",
+    "domain": "icongroup.health",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00675",
+    "name": "Interquim, S.A. /  (Ferrer) / Farmhispania Group",
+    "domain": "ferrer.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00676",
+    "name": "Invent Farma (Laboratorios Lesvi SL)",
+    "domain": "",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00677",
+    "name": "IQVIA",
+    "domain": "iqvia.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00678",
+    "name": "Kern Pharma / Actafarma / Grupo Indukern",
+    "domain": "kernpharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00679",
+    "name": "Labiana",
+    "domain": "labiana.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00680",
+    "name": "Laboratorios Averroes",
+    "domain": "labsaverroes.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00681",
+    "name": "Laboratorios Feltor / ANJAC Health & Beauty Group",
+    "domain": "feltor.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00682",
+    "name": "Laboratorios Grand Fontaine",
+    "domain": "grandfontaine.eu",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00683",
+    "name": "Laboratorios Normon",
+    "domain": "normon.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00684",
+    "name": "Laboratorios Viñas",
+    "domain": "vinas.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00685",
+    "name": "MapBiopharma",
+    "domain": "mapbiopharma.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00686",
+    "name": "Medichem / Combino Pharm",
+    "domain": "medichem.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00687",
+    "name": "Menarini",
+    "domain": "menarini.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00688",
+    "name": "Mitelos Bioscience, SL",
+    "domain": "mitelos.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00689",
+    "name": "Neuraxpharm Iberia  Laboratorios Lesvi",
+    "domain": "neuraxpharm.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00690",
+    "name": "OtCEM Pharmaceuticals S.L",
+    "domain": "otcempharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00691",
+    "name": "Pharmathen",
+    "domain": "pharmathen.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00692",
+    "name": "Pharmex Advanced Laboratories",
+    "domain": "pharmex.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00693",
+    "name": "Plameca",
+    "domain": "plameca.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00694",
+    "name": "Qualix Pharma",
+    "domain": "qualixpharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00695",
+    "name": "Reiner Medical",
+    "domain": "reiner.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00696",
+    "name": "STE Pharmaceuticals",
+    "domain": "stepharmaceuticals.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00697",
+    "name": "Tamarang Pharmaceuticals S.A. (Farmhispania Group)",
+    "domain": "tamarang.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00698",
+    "name": "TOWA International Holding",
+    "domain": "",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00699",
+    "name": "Unolab Manufacturing",
+    "domain": "unolab.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00700",
+    "name": "Zinereo Pharma / Biofabri S.L.",
+    "domain": "zinereopharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00701",
+    "name": "Arafarma Group",
+    "domain": "arafarma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00702",
+    "name": "Pharmactive Biotech Products, S.L.",
+    "domain": "pharmactive.eu",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00703",
+    "name": "Qualipharma",
+    "domain": "qualipharmagroup.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00704",
+    "name": "Tecnalia Research & Innovation",
+    "domain": "tecnalia.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00705",
+    "name": "Unipharma",
+    "domain": "unipharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00706",
+    "name": "Winmed Nordics y Winmed España",
+    "domain": "winmed.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00707",
+    "name": "Laboratorio Estedi",
+    "domain": "estedi.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00708",
+    "name": "3P Biopharmaceuticals",
+    "domain": "3pbio.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00709",
+    "name": "53Biologics",
+    "domain": "53biologics.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00710",
+    "name": "AB Biotics",
+    "domain": "ab-biotics.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00711",
+    "name": "Ababor Pharmaceuticals",
+    "domain": "ababorpharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00712",
+    "name": "Adistafarma",
+    "domain": "adistafarma.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00713",
+    "name": "ADL BioPharma / Wacker Leon",
+    "domain": "wacker.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00714",
+    "name": "AGC Pharma Chemicals",
+    "domain": "agc.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00715",
+    "name": "Alcala Farma / Synerlab",
+    "domain": "synerlab.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00716",
+    "name": "Alifarma",
+    "domain": "alifarma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00717",
+    "name": "Altan pertenece a Ethypharm",
+    "domain": "altanpharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00718",
+    "name": "Aristo Pharma Iberia",
+    "domain": "aristo-iberia.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00719",
+    "name": "Asacpharma",
+    "domain": "asac.net",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00720",
+    "name": "Aora health",
+    "domain": "aorahealth.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00721",
+    "name": "Aurora Intelligent Nutrition",
+    "domain": "aurorainutrition.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00722",
+    "name": "Axelis Healthcare, S.L.",
+    "domain": "axelishealthcare.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00723",
+    "name": "Barosa Labs",
+    "domain": "barosalabs.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00724",
+    "name": "Bella Aurora Labs",
+    "domain": "bellaurora.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00725",
+    "name": "Bexen Bioservices",
+    "domain": "bexenmedical.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00726",
+    "name": "BCN Farma",
+    "domain": "bcnfarma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00727",
+    "name": "BCN Peptides",
+    "domain": "bcnpeptides.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00728",
+    "name": "Bioithas",
+    "domain": "bioithas.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00729",
+    "name": "BIOLAN Health",
+    "domain": "biolanhealth.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00730",
+    "name": "BNS Boston Nutraceutical Science",
+    "domain": "vitaldin.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00731",
+    "name": "Brill Pharma",
+    "domain": "",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00732",
+    "name": "Brudylab",
+    "domain": "brudylab.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00733",
+    "name": "Curapath",
+    "domain": "curapath.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00734",
+    "name": "Curida",
+    "domain": "",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00735",
+    "name": "Deiters Laboratorios",
+    "domain": "labdeiters.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00736",
+    "name": "Dentaid",
+    "domain": "dentaid.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00737",
+    "name": "Deretil",
+    "domain": "deretil.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00738",
+    "name": "Dermofarm",
+    "domain": "dermofarm.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00739",
+    "name": "Devicare",
+    "domain": "devicare.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00740",
+    "name": "Diater",
+    "domain": "diater.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00741",
+    "name": "Disproquima",
+    "domain": "disproquima.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00742",
+    "name": "Endoret (BTI Biotechnology Institute)",
+    "domain": "bti-implant.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00743",
+    "name": "Eladiet",
+    "domain": "eladiet.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00744",
+    "name": "Entema Laboratorios",
+    "domain": "entema.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00745",
+    "name": "Ercros",
+    "domain": "ercros.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00746",
+    "name": "Extendis Pharma",
+    "domain": "extendispharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00747",
+    "name": "FAES Farma",
+    "domain": "faes.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00748",
+    "name": "FARDI",
+    "domain": "fardi.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00749",
+    "name": "Farmahispania",
+    "domain": "fhrt.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00750",
+    "name": "Farmalider",
+    "domain": "farmalider.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00751",
+    "name": "Farmasierra / Grupo Farmasierra",
+    "domain": "farmasierra.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00752",
+    "name": "Genové Dermatologics",
+    "domain": "genove.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00753",
+    "name": "Glyco Science",
+    "domain": "glycoscience.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00754",
+    "name": "Gebro Pharma / grupo Gebro Holding / Laboratorios Gebro Pharma",
+    "domain": "gebro.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00755",
+    "name": "gh Gema Herrerías",
+    "domain": "gemaherrerias.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00756",
+    "name": "Greenbis Labs",
+    "domain": "greenbislabs.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00757",
+    "name": "Grow in Health",
+    "domain": "growinhealth.eu",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00758",
+    "name": "Grupo Juste",
+    "domain": "grupojuste.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00759",
+    "name": "Hebron",
+    "domain": "hebronsa.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00760",
+    "name": "Heis Global",
+    "domain": "heisglobal.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00761",
+    "name": "Hipra",
+    "domain": "hipra.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00762",
+    "name": "i+Med",
+    "domain": "imasmed.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00763",
+    "name": "Iberhome",
+    "domain": "iberhome.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00764",
+    "name": "Inibisa Group",
+    "domain": "inibsa.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00765",
+    "name": "Inke",
+    "domain": "inke.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00766",
+    "name": "Inmunotek",
+    "domain": "inmunotek.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00767",
+    "name": "Interpharma",
+    "domain": "interpharma.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00768",
+    "name": "Inves Biofarm",
+    "domain": "invesbiofarm.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00769",
+    "name": "Isomed Farma SL",
+    "domain": "isomed.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00770",
+    "name": "Italfármaco / Laboratorios Effik, S.A.",
+    "domain": "itfsp.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00771",
+    "name": "Kinsy",
+    "domain": "kinsy.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00772",
+    "name": "La Colina Comercio Farmaceutico",
+    "domain": "lacolinapharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00773",
+    "name": "Laboratorio Aragó",
+    "domain": "laboratorioarago.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00774",
+    "name": "Laboratorios Alter",
+    "domain": "grupo-alter.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00775",
+    "name": "Laboratorios Angelini Pharma España",
+    "domain": "angelini.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00776",
+    "name": "Laboratorios Archivel Farma S.L.",
+    "domain": "archivelfarma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00777",
+    "name": "Laboratorios Arcol",
+    "domain": "",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00778",
+    "name": "Laboratorios Argenol",
+    "domain": "laboratorios-argenol.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00779",
+    "name": "Laboratorios ERN",
+    "domain": "ern.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00780",
+    "name": "Laboratorios Heel España",
+    "domain": "heel.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00781",
+    "name": "Laboratorios LETI",
+    "domain": "leti.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00782",
+    "name": "Laboratorios Ojer Pharma",
+    "domain": "ojerpharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00783",
+    "name": "Laboratorios Rovi",
+    "domain": "rovi.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00784",
+    "name": "Laboratorios Rubió",
+    "domain": "labrubio.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00785",
+    "name": "Laboratorios Seid",
+    "domain": "lab-seid.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00786",
+    "name": "Laboratorios Vilardell",
+    "domain": "labvilardell.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00787",
+    "name": "Laboratorios Vir",
+    "domain": "vir.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00788",
+    "name": "LACER",
+    "domain": "lacer.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00789",
+    "name": "Lainomedical",
+    "domain": "lainomedical.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00790",
+    "name": "Leo Pharma",
+    "domain": "leo-pharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00791",
+    "name": "Liof Pharma",
+    "domain": "liofpharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00792",
+    "name": "MartiDerm",
+    "domain": "martiderm.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00793",
+    "name": "Maxmind Pharmaceuticals",
+    "domain": "maxmindpharma.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00794",
+    "name": "Mayla Pharmaceuticals",
+    "domain": "mayla.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00795",
+    "name": "Menadiona",
+    "domain": "menadiona.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00796",
+    "name": "Mendisa, Laboratorios Medicamentos Internacionales",
+    "domain": "medinsa.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00797",
+    "name": "Mesoestetic Pharma Group",
+    "domain": "mesoestetic.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00798",
+    "name": "Mifarma / Atida",
+    "domain": "mifarma.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00799",
+    "name": "Moehs Fine Chemicals",
+    "domain": "moehs.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00800",
+    "name": "Natac",
+    "domain": "natacgroup.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00801",
+    "name": "Neftis Laboratorios",
+    "domain": "neftislaboratorios.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00802",
+    "name": "NodePharm",
+    "domain": "nodepharm.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00803",
+    "name": "Noucor",
+    "domain": "noucor.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00804",
+    "name": "Noventure S.L.",
+    "domain": "noventure.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00805",
+    "name": "Peroxfarma",
+    "domain": "peroxfarma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00806",
+    "name": "Olyan Farma",
+    "domain": "olyanfarma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00807",
+    "name": "Ordesa / Laboratorios Ordesa",
+    "domain": "ordesalab.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00808",
+    "name": "Ionfarma",
+    "domain": "ern.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00809",
+    "name": "Laboratorios BABÉ",
+    "domain": "laboratoriosbabe.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00810",
+    "name": "Laboratorios BOHM",
+    "domain": "bohm.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00811",
+    "name": "Laboratorios Clarben",
+    "domain": "clarben.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00812",
+    "name": "Laboratorios Héber Pharma España",
+    "domain": "heberfarma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00813",
+    "name": "Laboratorios KIN",
+    "domain": "kin.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00814",
+    "name": "Laboratorios Medical",
+    "domain": "laboratoriosmedical.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00815",
+    "name": "Laboratorios Ubiopharma (antes Alcor)",
+    "domain": "ubiopharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00816",
+    "name": "Luxmetique",
+    "domain": "luxmetique.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00817",
+    "name": "Martínez Llenas",
+    "domain": "martinezllenas.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00818",
+    "name": "Minoryx Therapeutics",
+    "domain": "minoryx.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00819",
+    "name": "NTD Labs",
+    "domain": "",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00820",
+    "name": "Nucliber",
+    "domain": "nucliber.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00821",
+    "name": "Oryzon Genomics",
+    "domain": "oryzon.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00822",
+    "name": "Palobiofarma SL",
+    "domain": "palobiofarma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00823",
+    "name": "Phergal",
+    "domain": "phergal.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00824",
+    "name": "PlusQuam Pharma",
+    "domain": "plusquampharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00825",
+    "name": "Prima-Derm",
+    "domain": "primaderm.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00826",
+    "name": "Proteos Biotech / pbserum",
+    "domain": "pbserum.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00827",
+    "name": "Serra Pamies",
+    "domain": "lsp.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00828",
+    "name": "SOM Biotech",
+    "domain": "sombiotech.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00829",
+    "name": "Pharma14",
+    "domain": "pharma14.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00830",
+    "name": "Pharmalink S.L.",
+    "domain": "pharmalink.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00831",
+    "name": "Persan Farma",
+    "domain": "persanfarma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00832",
+    "name": "Prim",
+    "domain": "prim.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00833",
+    "name": "Probelte Pharma",
+    "domain": "probeltepharma.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00834",
+    "name": "Procare Health",
+    "domain": "procarehealth.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00835",
+    "name": "Qilu Pharma Europe",
+    "domain": "qilu-pharma.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00836",
+    "name": "Quality Chemicals",
+    "domain": "qualitychemicals.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00837",
+    "name": "Recipharm",
+    "domain": "recipharm.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00838",
+    "name": "Reiwa Healthcare",
+    "domain": "reiwaheathcare.eu",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00839",
+    "name": "Rioja Nature Pharma",
+    "domain": "naturepharma.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00840",
+    "name": "Sanofi",
+    "domain": "sanofi.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00841",
+    "name": "Sawes Pharma",
+    "domain": "sawespharma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00842",
+    "name": "Select Botanical",
+    "domain": "selectbotanical.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00843",
+    "name": "Sincromed",
+    "domain": "sincromed.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00844",
+    "name": "Suanfarma",
+    "domain": "suanfarma.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00845",
+    "name": "Tegor Laboratorios",
+    "domain": "tegorlaboratorios.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00846",
+    "name": "UQUIFA",
+    "domain": "uquifa.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00847",
+    "name": "Vivunt Pharma Europe",
+    "domain": "virixene.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00848",
+    "name": "Zafire Labs",
+    "domain": "zafirelabs.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00849",
+    "name": "Almirall S.A.",
+    "domain": "almirall.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00850",
+    "name": "PharmaMar S.A.",
+    "domain": "pharmamar.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00851",
+    "name": "Laboratorios Liconsa S.A.",
+    "domain": "liconsa.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00852",
+    "name": "VIVEbiotech S.L.",
+    "domain": "vivebiotech.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00853",
+    "name": "Tradichem S.L.",
+    "domain": "tradichem.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00854",
+    "name": "Urquima S.A.",
+    "domain": "urquima.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00855",
+    "name": "Ardena Pamplona (Idifarma)",
+    "domain": "ardena.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00856",
+    "name": "Bioinicia",
+    "domain": "bioinicia.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00857",
+    "name": "ManaPharma",
+    "domain": "manapharma.net",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00858",
+    "name": "Pharma Hermetic",
+    "domain": "pharmahermetic.com",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-00859",
+    "name": "DASA",
+    "domain": "dasa.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00860",
+    "name": "Avis Pharma",
+    "domain": "avis.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00861",
+    "name": "Becofarma",
+    "domain": "becofarma.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00862",
+    "name": "Caliquímica",
+    "domain": "farmaquimica.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00863",
+    "name": "CENDIS - Centro Distribuidor, S.A.",
+    "domain": "centrodistribuidor.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00864",
+    "name": "Donovan Werke",
+    "domain": "donovanwerke.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00865",
+    "name": "Droguería La Botica / La Botica Droguería",
+    "domain": "laboticagt.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00866",
+    "name": "Droguería Latinoamericana SA - DROLAT / REQCA S.A.",
+    "domain": "jpyasociados.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00867",
+    "name": "Droguería Sainsa",
+    "domain": "sagarfarma.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00868",
+    "name": "Global Medical Logistics",
+    "domain": "gmedical.net",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00869",
+    "name": "Grupo Lamfer / Med Pharma / Laboratorios Lamfer",
+    "domain": "lamfer.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00870",
+    "name": "Grupo Menarini, Centroamérica y El Caribe / LANFER",
+    "domain": "menarini-ca.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00871",
+    "name": "Grupo Unipharm (suc GUA) / Novoswiss / MedWell",
+    "domain": "grupounipharm.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00872",
+    "name": "Henie Lab",
+    "domain": "porsalud.net",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00873",
+    "name": "Italpharma Guatemala / Marpel Pharma / Strikapharma",
+    "domain": "italpharmagt.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00874",
+    "name": "Laboratorios Fórmulas Farmacéuticas - LAFOFA",
+    "domain": "grupoformulas.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00875",
+    "name": "Laboratorios Intecfa - Industria Técnico Farmacéutica",
+    "domain": "intecfa.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00876",
+    "name": "Laboratorios Lancasco",
+    "domain": "lancasco.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00877",
+    "name": "Laboratorios Ruipharma, S.A.",
+    "domain": "ruipharma.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00878",
+    "name": "Lotus Pharma",
+    "domain": "lotuspharmalatam.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00879",
+    "name": "Luminova Pharma Group - MedWell",
+    "domain": "luminovapg.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00880",
+    "name": "Moba Productos Farmacéuticos",
+    "domain": "mobapharma.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00881",
+    "name": "Piersan Centroamericana",
+    "domain": "piersan.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00882",
+    "name": "Plenitud 365",
+    "domain": "plenitud365.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00883",
+    "name": "Proveedora Médica y Farmacéutica PROMEFA",
+    "domain": "promefarm.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00884",
+    "name": "Solfasa",
+    "domain": "",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00885",
+    "name": "Pharmavision - Droguería Pharmavision",
+    "domain": "",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00886",
+    "name": "Adamed Laboratorios",
+    "domain": "adamed-farma.es",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00887",
+    "name": "Agefinsa",
+    "domain": "agefinsa.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00888",
+    "name": "Agencias J.L. Cohen",
+    "domain": "jicohen.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00889",
+    "name": "Agencias Moeller",
+    "domain": "agenciasmoeller.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00890",
+    "name": "AMDIGO Healthcare",
+    "domain": "amdigohealthcare.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00891",
+    "name": "Amicelco",
+    "domain": "amicelco.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00892",
+    "name": "Asofarma Centroamérica y el Caribe",
+    "domain": "adiumcac.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00893",
+    "name": "Binnovo",
+    "domain": "binnopharmgroup.ru",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00894",
+    "name": "Biomed",
+    "domain": "biomed-pharma.ca",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00895",
+    "name": "BMA Pharma",
+    "domain": "servir.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00896",
+    "name": "Bofasa - Bodega Farmacéutica",
+    "domain": "bofasa.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00897",
+    "name": "Centrino Pharma",
+    "domain": "greenproducts.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00898",
+    "name": "Cheminter",
+    "domain": "cheminter.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00899",
+    "name": "Coide S.A.",
+    "domain": "coide.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00900",
+    "name": "Diprohim",
+    "domain": "diprohim.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00901",
+    "name": "Distribuidora Médica Nacional S.A. - DIMENA",
+    "domain": "dimedica.net",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00902",
+    "name": "Distribuidora Rehfarma",
+    "domain": "rehfarma.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00903",
+    "name": "Droguería Colón",
+    "domain": "drogueriacolon.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00904",
+    "name": "Droguería Dilasa",
+    "domain": "",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00905",
+    "name": "Droguería Italiana",
+    "domain": "drogueriaitaliana.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00906",
+    "name": "Droguería y Distribuidora Pharmar",
+    "domain": "pharmargt.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00907",
+    "name": "Hazel Pharma",
+    "domain": "hazelpharma.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00908",
+    "name": "Laboratorio Therfam",
+    "domain": "therfam.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00909",
+    "name": "Laboratorio Vizcaíno",
+    "domain": "vizcainosa.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00910",
+    "name": "Laboratorios Farmeco",
+    "domain": "farmeco.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00911",
+    "name": "Laboratorios Infasa",
+    "domain": "mayancorporation.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00912",
+    "name": "Laboratorios Innova",
+    "domain": "labinnovagt.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00913",
+    "name": "Laboratorios Pharland Guatemala",
+    "domain": "laboratoriospharland.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00914",
+    "name": "Laboratorios Santa Fé",
+    "domain": "santafelab.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00915",
+    "name": "Laboratorios Supharma",
+    "domain": "supharma-ca.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00916",
+    "name": "Laboratorios Unidos GT",
+    "domain": "labsunidos.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00917",
+    "name": "Lanco Medical Group",
+    "domain": "lancomedicalgroup.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00918",
+    "name": "Leterago",
+    "domain": "leterago.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00919",
+    "name": "Mediproducts",
+    "domain": "mediproducts.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00920",
+    "name": "Mercafarma / Merca Farma",
+    "domain": "grupomercafarma.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00921",
+    "name": "Norvanda Healthcare",
+    "domain": "norvanda.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00922",
+    "name": "Pharmavida",
+    "domain": "",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00923",
+    "name": "Productos Farmacéuticos de Centroamérica, S.A. / PROFACASA",
+    "domain": "agexport.org.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00924",
+    "name": "Resco, S.A.",
+    "domain": "resco.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00925",
+    "name": "Richam Internacional",
+    "domain": "richam.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00926",
+    "name": "Selectpharma",
+    "domain": "selectpharma.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00927",
+    "name": "Skin Pharma",
+    "domain": "skinpharma-sa.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00928",
+    "name": "Trinomed Internacional, S.A.",
+    "domain": "trinomedinternacional.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00929",
+    "name": "Wellco Corporation",
+    "domain": "wellcopharma.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00930",
+    "name": "Xentury Global",
+    "domain": "xenturyglobal.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00931",
+    "name": "Alfa Farmacéutica, S.A. / Laboratorio Frycia",
+    "domain": "frycia.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00932",
+    "name": "Corporación Phara",
+    "domain": "corporacionphara.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00933",
+    "name": "Droguería Landívar / Land-Gruppe",
+    "domain": "droguerialandivar.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00934",
+    "name": "KER S.A.",
+    "domain": "kersa.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00935",
+    "name": "Laboratorio Industrial San Cristóbal, S.A.",
+    "domain": "laboratoriosancristobal.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00936",
+    "name": "Laboratorios Bonin",
+    "domain": "laboratoriosbonin.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00937",
+    "name": "Labymed",
+    "domain": "labymed.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00938",
+    "name": "Loralva Laboratorios",
+    "domain": "loralva.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00939",
+    "name": "Pharma Bios",
+    "domain": "",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00940",
+    "name": "Pharmadel, S.A. / Laboratorios y Droguería Pharmadel",
+    "domain": "pharmadel.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00941",
+    "name": "SG Pharma / SG Medicinas / Spruyt Gihlem Pharmaceutical",
+    "domain": "sgmedicinas.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00942",
+    "name": "Dogma Farma",
+    "domain": "dogmafarma.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00943",
+    "name": "Lafco Laboratorios",
+    "domain": "",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00944",
+    "name": "🌟 Quinfica",
+    "domain": "quinfica.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00945",
+    "name": "Repinsa, Representaciones Industriales",
+    "domain": "repinsa.com.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00946",
+    "name": "HC Group",
+    "domain": "healthcc.net",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00947",
+    "name": "Laboratorio Farcon",
+    "domain": "fedefarma.org",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00948",
+    "name": "Asofarma Centroamérica y el Caribe",
+    "domain": "asofarma-ca.com",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00949",
+    "name": "Distribuidora de Productos Farmacéuticos S.A. Diprofarma",
+    "domain": "",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00950",
+    "name": "Droguería Continental, S.A.",
+    "domain": "",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00951",
+    "name": "Laboratorios I.C.A. (Industriales Centroamericanos)",
+    "domain": "",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00952",
+    "name": "Ledelft, S.A.",
+    "domain": "",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00953",
+    "name": "Oftisol",
+    "domain": "",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00954",
+    "name": "Fedefarma",
+    "domain": "fedefarma.org",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00955",
+    "name": "Comité Gremial de Distribuidores de Productos Farmacéuticos - Cogrefarma",
+    "domain": "ccg.gt",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00956",
+    "name": "Eurofarma Guatemala / Laboratorios LAPRIN",
+    "domain": "",
+    "country": "Guatemala"
+  },
+  {
+    "bp_id_unico": "BP-YES-00957",
+    "name": "Droguería COBAN",
+    "domain": "cobanhn.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00958",
+    "name": "Eyl Comercial SA — ECSA",
+    "domain": "ecsa.hn",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00959",
+    "name": "Droguería y Laboratorio Henie Farma S. de R.L.",
+    "domain": "henielab.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00960",
+    "name": "Infarma",
+    "domain": "infarma.hn",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00961",
+    "name": "Droguería Guardado",
+    "domain": "drogueriaguardado.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00962",
+    "name": "Anphar Corp / Anpfor",
+    "domain": "anphar-corp.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00963",
+    "name": "Droguería Humana S.A.",
+    "domain": "drogueriahumana.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00964",
+    "name": "Laboratorios Droguería Nacional S.A. de C.V.",
+    "domain": "droguerianacional.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00965",
+    "name": "Phar Med Sales Honduras",
+    "domain": "pharmedsales.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00966",
+    "name": "Laboratorios Andifar",
+    "domain": "andifar.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00967",
+    "name": "Laboratorio Americana",
+    "domain": "damericana.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00968",
+    "name": "Laboratorios MC / MC Farmacéutica",
+    "domain": "mc-farmaceutica.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00969",
+    "name": "Grupo Pharmaetica",
+    "domain": "pharmaetica.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00970",
+    "name": "Laboratorios Francelia",
+    "domain": "labfrancelia.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00971",
+    "name": "Laboratorios Finlay",
+    "domain": "finlay.hn",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00972",
+    "name": "Quimicas Handal de Centroamérica",
+    "domain": "quimicashandal.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00973",
+    "name": "Laboratorios Farsiman / Benessi Labs",
+    "domain": "farsiman.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00974",
+    "name": "Laboratorios Everest",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00975",
+    "name": "Laboratorios Karnel",
+    "domain": "karnel.net",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00976",
+    "name": "Laboratorios Calox Honduras",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00977",
+    "name": "GASPRO Honduras S.A.",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00978",
+    "name": "CORINFAR S.A. — Corporación Industrial Farmacéutica",
+    "domain": "corinfar.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00979",
+    "name": "Droguería Benpharma S.A.",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00980",
+    "name": "Droguería Bendición y Salud S.A.",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00981",
+    "name": "Droguería Europea — Adiuvo",
+    "domain": "fahorro.biz",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00982",
+    "name": "Droguería Lagomac",
+    "domain": "lagomac.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00983",
+    "name": "Droguería Medilab",
+    "domain": "medilab.hn",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00984",
+    "name": "Droguería Servimedica",
+    "domain": "drogueriaservimedica.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00985",
+    "name": "Dromeinter / Grupo Simka",
+    "domain": "dromeinter.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00986",
+    "name": "Farmacéutica Internacional S.A. de C.V. — FARINTER",
+    "domain": "farinter.hn",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00987",
+    "name": "Farmacias Kielsa",
+    "domain": "kielsa.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00988",
+    "name": "Grupo Hasther",
+    "domain": "hasther.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00989",
+    "name": "Grupo Pharma Internacional / Laboratorio Pharma Internacional S. de R.L.",
+    "domain": "pharmainternacional.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00990",
+    "name": "Laboratorios Quimifar",
+    "domain": "quimifar.hn",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00991",
+    "name": "Medex Honduras",
+    "domain": "expertosenmedicamentos.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00992",
+    "name": "Laboratorio Cosmética Internacional S.A. de C.V. (COINSA)",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00993",
+    "name": "Stein Corp / Denk Pharma Honduras",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00994",
+    "name": "Anaprofarh",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00995",
+    "name": "Holistic Bienestar y Salud Integral",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00996",
+    "name": "DICOSA — Distribuidora Comercial S.A.",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00997",
+    "name": "Interfarma Honduras",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00998",
+    "name": "Suppleo",
+    "domain": "suppleo.co",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-00999",
+    "name": "Distribuidora Central",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-01000",
+    "name": "INFRA de Honduras S.A. de C.V.",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-01001",
+    "name": "Helifa / HELIFARMA",
+    "domain": "paill.com",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-01002",
+    "name": "Solfahsa S.A. de C.V.",
+    "domain": "",
+    "country": "Honduras"
+  },
+  {
+    "bp_id_unico": "BP-YES-01003",
+    "name": "ALTASA / Representaciones Farmacéuticas de Nicaragua (REFANIC)",
+    "domain": "altasa.com.ni",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01004",
+    "name": "Importaciones Farmacéuticas IMFARSA / Biopharma",
+    "domain": "imfarsa.com.ni",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01005",
+    "name": "Silguer, S.A.",
+    "domain": "silguer.com",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01006",
+    "name": "Apotex Nicaragua S.A.",
+    "domain": "apotex.com",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01007",
+    "name": "Casa Terán",
+    "domain": "casateran.com",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01008",
+    "name": "COFARCA — Corporación Farmacéutica de Centro América, S.A.",
+    "domain": "cofarca.net",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01009",
+    "name": "Comercial Genie Peñalba",
+    "domain": "",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01010",
+    "name": "Didelsa",
+    "domain": "didelsa.com.ni",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01011",
+    "name": "Discarsa",
+    "domain": "discarsani.com",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01012",
+    "name": "Distribuidora César Guerrero L. S.A. (DICEGSA)",
+    "domain": "dicegsa.com.ni",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01013",
+    "name": "Droguería Rocha",
+    "domain": "drogueriarocha.com",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01014",
+    "name": "Farcosa Distribuidora",
+    "domain": "farcosa.com.ni",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01015",
+    "name": "Farmanet",
+    "domain": "farmanet.com.ni",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01016",
+    "name": "FarmaValue",
+    "domain": "fvalue.biz",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01017",
+    "name": "Generic Pharma",
+    "domain": "ni.genericphar.com",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01018",
+    "name": "Laboratorio Ferson de Nicaragua",
+    "domain": "",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01019",
+    "name": "Laboratorio Vilfil",
+    "domain": "",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01020",
+    "name": "Laboratorios CEGUEL",
+    "domain": "ceguel.com.ni",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01021",
+    "name": "Laboratorios Generifar",
+    "domain": "generifar.com.ni",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01022",
+    "name": "Laboratorios Isnaya",
+    "domain": "",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01023",
+    "name": "Laboratorios Ramos S.A. (Lab RARPE)",
+    "domain": "ramos.com.ni",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01024",
+    "name": "Los Paisas",
+    "domain": "lospaisas.com.ni",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01025",
+    "name": "NeoEthicals",
+    "domain": "neoethicals.com.ni",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01026",
+    "name": "Solka Laboratorios",
+    "domain": "labsolka.com.ni",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01027",
+    "name": "Unimark",
+    "domain": "unimarksa.com",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01028",
+    "name": "Laboratorios Bengoechea",
+    "domain": "labbengoechea.com.ni",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01029",
+    "name": "Leterago Nicaragua",
+    "domain": "",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01030",
+    "name": "Norvich Nicaragua",
+    "domain": "norvichnicaragua.com",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01031",
+    "name": "Novameb",
+    "domain": "novamebsa.com",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01032",
+    "name": "Panzyma Laboratories",
+    "domain": "panzyma.com",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01033",
+    "name": "Pharbus S.A.",
+    "domain": "",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01034",
+    "name": "Pharmainsa — Fármacos Internacionales de Nicaragua",
+    "domain": "pharmainsa.com",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01035",
+    "name": "Probiotic",
+    "domain": "probiotic-sa.com",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01036",
+    "name": "Proquinfa",
+    "domain": "proquinfa.com",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01037",
+    "name": "Instituto Latinoamericano de Biotecnología Mechnikov",
+    "domain": "mechnikov.org",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01038",
+    "name": "Laboratorio Zymma S.A.",
+    "domain": "",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01039",
+    "name": "Farmamedica Nicaragua",
+    "domain": "",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01040",
+    "name": "Nicaragua Industrial Candies — NICSA",
+    "domain": "",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01041",
+    "name": "Salud y Belleza",
+    "domain": "",
+    "country": "Nicaragua"
+  },
+  {
+    "bp_id_unico": "BP-YES-01042",
+    "name": "Acino Pharma AG / Acino Latinoamericana (Panamá)",
+    "domain": "arceralifesciences.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01043",
+    "name": "Agencias Celmar",
+    "domain": "acelmar.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01044",
+    "name": "Corporación IMPA-DOEL, S.A.",
+    "domain": "impadoel.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01045",
+    "name": "DESA - Distribuidora Especializada, S.A.",
+    "domain": "cwpanama.net",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01046",
+    "name": "DHC Internacional SA",
+    "domain": "dhcinternacional.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01047",
+    "name": "Distribuidora Profarma",
+    "domain": "",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01048",
+    "name": "DRGR - Droguería Ramón González Revilla, S.A.",
+    "domain": "drogueria-revilla.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01049",
+    "name": "Droguería Saro, S.A.",
+    "domain": "drogueriasaro.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01050",
+    "name": "Eurosalud",
+    "domain": "gsmedica.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01051",
+    "name": "Nutrimed Panamá",
+    "domain": "nutrimedpa.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01052",
+    "name": "Procter & Gamble",
+    "domain": "shared.pg.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01053",
+    "name": "Quimifar, S.A.",
+    "domain": "quimifar.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01054",
+    "name": "Reprico",
+    "domain": "reprico.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01055",
+    "name": "Serfasa",
+    "domain": "serfasa.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01056",
+    "name": "TC Pharma",
+    "domain": "tcpharmapanama.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01057",
+    "name": "GMP & Associates",
+    "domain": "",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01058",
+    "name": "Canalab",
+    "domain": "canal-lab.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01059",
+    "name": "AAA Medical Distribution, S.A.",
+    "domain": "aaamedicaldistribution.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01060",
+    "name": "Bioexport Panamá",
+    "domain": "bioexportpanama.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01061",
+    "name": "CG Haseth & Cia",
+    "domain": "grupodehaseth.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01062",
+    "name": "Distribuidora Undeli, S.A. / Marhowil Universal",
+    "domain": "cableonda.net",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01063",
+    "name": "Droguería e Importadora Alemana SA de Panamá",
+    "domain": "drogueriaalemana.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01064",
+    "name": "Droguería Opunsa, S.A.",
+    "domain": "opunsa.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01065",
+    "name": "Farmazona, S.A.",
+    "domain": "farmazona.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01066",
+    "name": "Gencept",
+    "domain": "genceptlabs.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01067",
+    "name": "Imedesa Compañía Importadora de Medicamentos",
+    "domain": "imedzona.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01068",
+    "name": "iMEDICA Panamá",
+    "domain": "imedicasa.net",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01069",
+    "name": "J. Cain & Co., S.A.",
+    "domain": "jcain.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01070",
+    "name": "Kol Pharma",
+    "domain": "kolpharma.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01071",
+    "name": "LAFSA Laboratorios Farmacéuticos SA",
+    "domain": "lafsa.com.pa",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01072",
+    "name": "Laboratorio GDI Pharma, S.A. / Soluciones Farmacéuticas",
+    "domain": "gdipanama.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01073",
+    "name": "Laboratorios Palm",
+    "domain": "laboratoriospalm.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01074",
+    "name": "Laboratorios Prieto",
+    "domain": "laboratoriosprieto.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01075",
+    "name": "Laboratorios Rigar",
+    "domain": "dmdrigar.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01076",
+    "name": "Medipan",
+    "domain": "medipan.com.pa",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01077",
+    "name": "PANAMED - Compañía Panameña de Medicamentos, S.A.",
+    "domain": "panamed.com.pa",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01078",
+    "name": "Panafarma",
+    "domain": "panafarma.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01079",
+    "name": "Pharma Alliance",
+    "domain": "pharmaalliance.net",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01080",
+    "name": "Pharma Chimique",
+    "domain": "phachisa.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01081",
+    "name": "PharmaSupply",
+    "domain": "pharmasupplypa.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01082",
+    "name": "PMF Panamá",
+    "domain": "pmfpanama.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01083",
+    "name": "Us Pharmacy Group",
+    "domain": "uspsg.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01084",
+    "name": "Xellia Pharmaceuticals",
+    "domain": "xellia.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01085",
+    "name": "Abastecedora Médica (ABAMED)",
+    "domain": "",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01086",
+    "name": "Atfarma S.A.",
+    "domain": "",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01087",
+    "name": "Distribuidora Trans Pharma, S.A. / Leterago",
+    "domain": "leterago.com.pa",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01088",
+    "name": "Eurotrade Latinoamericana, S.A.",
+    "domain": "eurotradesl.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01089",
+    "name": "Promed Medical",
+    "domain": "yourcompany.example.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01090",
+    "name": "Alvirey Pharma Group S.A.",
+    "domain": "alvireypharma.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01091",
+    "name": "Medical Brands International",
+    "domain": "medicalbrandsinternational.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01092",
+    "name": "Medimex, S.A.",
+    "domain": "medimexsa.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01093",
+    "name": "Kibou Pharma",
+    "domain": "kiboupharma.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01094",
+    "name": "Agencias Motta, S.A.",
+    "domain": "agmotta.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-YES-01095",
+    "name": "Comfar Saeca",
+    "domain": "comfar.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01096",
+    "name": "El Alamo",
+    "domain": "elalamo.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01097",
+    "name": "Eticos C.E.I.S.A.",
+    "domain": "eticos.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01098",
+    "name": "Guayaki S.A. / Laboratorios IMEG",
+    "domain": "guayaki.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01099",
+    "name": "Prosalud Farma",
+    "domain": "promefa.com",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01100",
+    "name": "Indufar CISA",
+    "domain": "indufar.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01101",
+    "name": "Bioethic Pharma",
+    "domain": "bioethicpharma.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01102",
+    "name": "Botica Magistral S.R.L.",
+    "domain": "botica.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01103",
+    "name": "Scavone Hnos. — Laboratorios Catedral",
+    "domain": "farmavone.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01104",
+    "name": "Tassos",
+    "domain": "tassos.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01105",
+    "name": "Farmedis",
+    "domain": "farmedis.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01106",
+    "name": "La Química Farmacéutica S.A.",
+    "domain": "lqf.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01107",
+    "name": "Farmacia Americana",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01108",
+    "name": "NL Pharma",
+    "domain": "nlpharma.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01109",
+    "name": "Boller S.A.",
+    "domain": "boller.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01110",
+    "name": "Droguería Italquímica S.A.",
+    "domain": "italquimica.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01111",
+    "name": "Dutriec S.A.",
+    "domain": "dutriec.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01112",
+    "name": "Laboratorios LASCA (Vicente Scavone y Cía.)",
+    "domain": "lasca.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01113",
+    "name": "Laboratorios Almos S.A.",
+    "domain": "laboratoriosalmos.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01114",
+    "name": "Quimfa S.A. / Bioerix",
+    "domain": "quimfa.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01115",
+    "name": "Laboratorio Bagó Paraguay",
+    "domain": "bago.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01116",
+    "name": "Mather Company",
+    "domain": "mathercompany.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01117",
+    "name": "Dallas S.A.",
+    "domain": "dallas.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01118",
+    "name": "Diproan S.R.L.",
+    "domain": "diproan.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01119",
+    "name": "Heisecke Y Cía. S.A.C.I.",
+    "domain": "hcgrupo.com",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01120",
+    "name": "Laboratorios Galeno S.A.",
+    "domain": "galeno.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01121",
+    "name": "Index SACI",
+    "domain": "index.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01122",
+    "name": "Swiss Pharma Group",
+    "domain": "swisspharma.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01123",
+    "name": "Científica Ragusa S.A.",
+    "domain": "cientificaragusa.com",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01124",
+    "name": "Cassanello / Laboratorio Luis Cassanello",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01125",
+    "name": "Distribuidora A.M. Bustos e Hijos",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01126",
+    "name": "La Policlínica Distribuidora",
+    "domain": "lapoliclinica.com",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01127",
+    "name": "Lysis Pharma",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01128",
+    "name": "PSi Paraguay",
+    "domain": "psiparaguay.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01129",
+    "name": "VyT Farma Paraguay",
+    "domain": "vytfarma.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01130",
+    "name": "Laboratorios Delta",
+    "domain": "hipuu.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01131",
+    "name": "Farmacenter",
+    "domain": "farmacenter.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01132",
+    "name": "Punto Farma",
+    "domain": "puntofarma.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01133",
+    "name": "Medicine",
+    "domain": "medicine.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01134",
+    "name": "Laboratorios Regeneratum S.R.L.",
+    "domain": "regeneratum.com",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01135",
+    "name": "MedoPharm",
+    "domain": "medopharm.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01136",
+    "name": "Promepar S.A.",
+    "domain": "promepar.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01137",
+    "name": "Laboratorios Pan",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01138",
+    "name": "Laboratorios Millet Paraguayos",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01139",
+    "name": "Adium Paraguay (ex Farmacéutica Paraguaya / Fapasa)",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01140",
+    "name": "Megalabs Paraguay",
+    "domain": "megalabs.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01141",
+    "name": "Innovapharma S.R.L.",
+    "domain": "innovapharma.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01142",
+    "name": "Roemmers Paraguay S.A.C.I. / Corporación",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01143",
+    "name": "CADISFARMA (Cámara de Distribuidores Farmacéuticos)",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01144",
+    "name": "DPM S.R.L.",
+    "domain": "dpm.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01145",
+    "name": "Euroquímica S.A.",
+    "domain": "euroquimica.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01146",
+    "name": "Interlabo S.R.L.",
+    "domain": "interlabo.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01147",
+    "name": "Medical Supply S.A.",
+    "domain": "medsupar.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01148",
+    "name": "Promofarma S.A.",
+    "domain": "promofarma.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01149",
+    "name": "José Ruoti y Cía. S.A.",
+    "domain": "ruoticia.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01150",
+    "name": "Khairi S.A.",
+    "domain": "khairi.com.uy",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01151",
+    "name": "Gramón Paraguay S.A.",
+    "domain": "gramon.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01152",
+    "name": "Distribuidora Estrella del Norte",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01153",
+    "name": "Farmacéutica Paraguaya / Fapasa",
+    "domain": "adium.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01154",
+    "name": "Macro Science",
+    "domain": "macroscience.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01155",
+    "name": "Laboratorios Catedral Pharmetica",
+    "domain": "laboratorioscatedral.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01156",
+    "name": "Laboratorios As Farm",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01157",
+    "name": "Laboratorio CIN",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01158",
+    "name": "Laboratorio Clinical",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01159",
+    "name": "Bilac Farmacéutica",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01160",
+    "name": "Materprim CRL",
+    "domain": "materprim.com.py",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01161",
+    "name": "Laboratorios Benavente",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01162",
+    "name": "Laboratorios Millet",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01163",
+    "name": "Sigran Internacional SRL",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01164",
+    "name": "Roslym",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01165",
+    "name": "Industria Química Farmacéutica",
+    "domain": "",
+    "country": "Paraguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01166",
+    "name": "AC Farma / Laboratorios AC Farma",
+    "domain": "acfarma.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01167",
+    "name": "BMC Farma",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01168",
+    "name": "Corporación Boticas Perú",
+    "domain": "boticasperu.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01169",
+    "name": "Farmaniacos",
+    "domain": "farmaniacos.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01170",
+    "name": "Farmavita Group",
+    "domain": "asg.com.co",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01171",
+    "name": "Instituto Quimioterápico - IQ Farma",
+    "domain": "iqfarma.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01172",
+    "name": "Laboratorios Elifarma, SA",
+    "domain": "elifarma.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01173",
+    "name": "Laboratorios Lansier",
+    "domain": "lansier.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01174",
+    "name": "Laboratorios Pharmed Corporation",
+    "domain": "pharmedcorporation.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01175",
+    "name": "Laboratorios Portugal / Portugal",
+    "domain": "laboratoriosportugal.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01176",
+    "name": "Laboratorios Delfarma SAC",
+    "domain": "delfarma.net",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01177",
+    "name": "MK Pharma - Corporacion MK Farmacéutica del Norte",
+    "domain": "mkpharma.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01178",
+    "name": "Alkopharma Laboratorio Farmacéutico",
+    "domain": "asgmedical.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01179",
+    "name": "ASG Medical",
+    "domain": "asgmedical.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01180",
+    "name": "Bonapharm",
+    "domain": "bonapharm.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01181",
+    "name": "Botica Magistral Firstmed Pharma",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01182",
+    "name": "Boticas y Salud",
+    "domain": "boticasysalud.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01183",
+    "name": "Corpol",
+    "domain": "corpol.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01184",
+    "name": "Dimexa",
+    "domain": "dimexa.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01185",
+    "name": "Droguería Dicar",
+    "domain": "drogueriadicar.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01186",
+    "name": "Droguería Drofarma",
+    "domain": "drofarma.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01187",
+    "name": "Droguería Farmachal",
+    "domain": "farmachal.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01188",
+    "name": "D&M Pharma Perú",
+    "domain": "dympharmaperu.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01189",
+    "name": "Eske Group / Droguería Laboratorio Baxley Group SAC",
+    "domain": "eskegroup.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01190",
+    "name": "Eurolabs",
+    "domain": "eurolabs.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01191",
+    "name": "Farmacéutica OtarvasQ",
+    "domain": "otarvasq.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01192",
+    "name": "Genslab Pharmaceutical",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01193",
+    "name": "GOMED Pharmaceuticals",
+    "domain": "gomed.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01194",
+    "name": "Importaciones Bedok",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01195",
+    "name": "Labofta",
+    "domain": "labofta.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01196",
+    "name": "Laboratorio Biopas",
+    "domain": "swixxbiopharma.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01197",
+    "name": "Laboratorio H&K Pharma",
+    "domain": "hkpharma.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01198",
+    "name": "Laboratorio Induquímica",
+    "domain": "induquimica.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01199",
+    "name": "Laboratorios Americanos - LABOT Laboratorios S.A.C.",
+    "domain": "labot.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01200",
+    "name": "Pharma Hosting",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01201",
+    "name": "Pharmaris",
+    "domain": "pharmaris.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01202",
+    "name": "Q Pharma SAC / Global Med Farma",
+    "domain": "globalmedfarma.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01203",
+    "name": "Roxfarma Laboratorio Farmacéutico",
+    "domain": "roxfarma.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01204",
+    "name": "Sebal Farma",
+    "domain": "sebalgroup.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01205",
+    "name": "Tecnofarma del Perú S.A.",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01206",
+    "name": "Vitaline",
+    "domain": "vitaline.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01207",
+    "name": "Vitapharma / Keyfarm",
+    "domain": "keyfarm.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01208",
+    "name": "Yargo Internacional",
+    "domain": "yargointernacional.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01209",
+    "name": "Droguería Kuresa (División Farma)",
+    "domain": "pegafan.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01210",
+    "name": "Jobal Pharma E.I.R.L.",
+    "domain": "jobalpharma.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01211",
+    "name": "Laboratorio Medico Biologicos H. Colichon S.A.C. (Colichon)",
+    "domain": "laboratorioscolichon.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01212",
+    "name": "M&M Productos Médicos y Farmacéuticos",
+    "domain": "mym.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01213",
+    "name": "Sherfarma S.A.",
+    "domain": "sherfarma.com",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01214",
+    "name": "Cifarma S.A.",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01215",
+    "name": "Grunenthal Peruana S.A.",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01216",
+    "name": "https://www.oqcorp.com.pe/oqcorp/",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01217",
+    "name": "OQ Pharma",
+    "domain": "maperu.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01218",
+    "name": "ABBA SAC",
+    "domain": "abba.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01219",
+    "name": "Bagó Perú",
+    "domain": "bagoperu.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01220",
+    "name": "Hersil",
+    "domain": "hersil.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01221",
+    "name": "Medifarma",
+    "domain": "caipsa.com.pe",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01222",
+    "name": "A. Jaime Rojas",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01223",
+    "name": "ALBIS .S.A. / Cifarma",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01224",
+    "name": "Advantage Medical",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01225",
+    "name": "Anglo Trading",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01226",
+    "name": "Asefarm SAC",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01227",
+    "name": "Atilio Palmieri",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01228",
+    "name": "Beramed",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01229",
+    "name": "BioPro Perú",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01230",
+    "name": "Biosafe Industries",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01231",
+    "name": "Bio Reg Pharma",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01232",
+    "name": "Braco inversiones s.a.c.",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01233",
+    "name": "Bran Medical",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01234",
+    "name": "Droguería Peruana Pharmaceutical SAC",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01235",
+    "name": "Caferma SAC",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01236",
+    "name": "Centro Homeopático Drs. Corbacho",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01237",
+    "name": "Cepco S.A.C.",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01238",
+    "name": "Cifarma",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01239",
+    "name": "Difarlib Distribuidora Farmaceutica La Libertad, Srl",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01240",
+    "name": "Distribuidora Las Americas",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01241",
+    "name": "DMD Perú",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01242",
+    "name": "Doctor Andreu",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01243",
+    "name": "Droguería Anemfarma SAC",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01244",
+    "name": "Droguería MYM",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01245",
+    "name": "Dubonp, S.A.",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01246",
+    "name": "Eckerd Perú",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01247",
+    "name": "EUROFARMA",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01248",
+    "name": "Euro Latina Healthcare",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01249",
+    "name": "Farmakonsuma",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01250",
+    "name": "Gabblan",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01251",
+    "name": "Hanai SRL",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01252",
+    "name": "HomeoPerú Botikas",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01253",
+    "name": "Keyfarma",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01254",
+    "name": "Laboratorio Atral (Grupo Atral-Cipan)",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01255",
+    "name": "Laboratorios FitoSana",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01256",
+    "name": "Laboratorio Intipharma",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01257",
+    "name": "Laboratorio Tabbler",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01258",
+    "name": "Laboratorios Farmacéuticos Markos SA",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01259",
+    "name": "Laboratorios Midaf",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01260",
+    "name": "Laboratorios M&G Vida Natural",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01261",
+    "name": "Laboratorios Quilla Perú",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01262",
+    "name": "Laboratorios Roster S.A.",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01263",
+    "name": "Laboratorios REFASA Carrion-Eurofarma",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01264",
+    "name": "Lukoll",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01265",
+    "name": "Master Farma",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01266",
+    "name": "Medicas Peru",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01267",
+    "name": "Medphar Sac Peru",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01268",
+    "name": "Medrock",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01269",
+    "name": "Mifarma (pertenece al grupo Quicorp)",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01270",
+    "name": "Oli Med",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01271",
+    "name": "P & G Distribuidores S.R.L.",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01272",
+    "name": "Pereda Distribuidores",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01273",
+    "name": "PERFAR Droguerias",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01274",
+    "name": "Perufarma S.A.",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01275",
+    "name": "Pharma Consulting S.A.",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01276",
+    "name": "Pharma Solutions Peru",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01277",
+    "name": "Phymed",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01278",
+    "name": "PRIMUS MEDICAL",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01279",
+    "name": "Quiarsa",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01280",
+    "name": "Quimica Suiza Industrial",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01281",
+    "name": "Santa Natura",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01282",
+    "name": "Scop del Perú",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01283",
+    "name": "Sherfarma",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01284",
+    "name": "Tarrillo Barba",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01285",
+    "name": "Tecnológica de Alimentos",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01286",
+    "name": "Unilene",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01287",
+    "name": "World Pharma S.A.C.",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01288",
+    "name": "YORMAXS",
+    "domain": "",
+    "country": "Perú"
+  },
+  {
+    "bp_id_unico": "BP-YES-01289",
+    "name": "MANA PHARMA S.L.",
+    "domain": "manapharma.net",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-01290",
+    "name": "Covex S.A.",
+    "domain": "covex.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-01291",
+    "name": "VIVUNT Oncology",
+    "domain": "vivunt.es",
+    "country": "España"
+  },
+  {
+    "bp_id_unico": "BP-YES-01292",
+    "name": "Caillon & Hamonet",
+    "domain": "caillon.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01293",
+    "name": "Laboratorios Servimedic — Megalabs",
+    "domain": "servimedic.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01294",
+    "name": "Roemmers Uruguay — Megalabs",
+    "domain": "megalabs.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01295",
+    "name": "NPS Uruguay — NutriPharma Solutions",
+    "domain": "nps.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01296",
+    "name": "Selby / Terry S.A.",
+    "domain": "selby.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01297",
+    "name": "Adium Uruguay",
+    "domain": "adium.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01298",
+    "name": "Fármaco Uruguayo — Medifarma",
+    "domain": "fu.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01299",
+    "name": "Gramon Bagó de Uruguay",
+    "domain": "gramonbago.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01300",
+    "name": "Laboratorio Ion S.A.",
+    "domain": "laboratorioion.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01301",
+    "name": "Laboratorios Celsius S.A.",
+    "domain": "celsius.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01302",
+    "name": "Urufarma S.A.",
+    "domain": "urufarma.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01303",
+    "name": "Laboratorios Dispert",
+    "domain": "adinet.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01304",
+    "name": "Lazar S.A.",
+    "domain": "lazar.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01305",
+    "name": "Szabo Siegfried",
+    "domain": "szabo.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01306",
+    "name": "Noas Farma Uruguay S.A.",
+    "domain": "noasfarma.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01307",
+    "name": "ICU Vita S.A.",
+    "domain": "icuvita.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01308",
+    "name": "Cibeles",
+    "domain": "cibeles.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01309",
+    "name": "Efa Laboratorios Asociados — Antia Moll & Cia.",
+    "domain": "efa.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01310",
+    "name": "Spefar S.A.",
+    "domain": "spefar.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01311",
+    "name": "Prolab",
+    "domain": "laboratorioprolab.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01312",
+    "name": "Promofarma SRL.",
+    "domain": "promofarma.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01313",
+    "name": "Rinque Pharma",
+    "domain": "rinque.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01314",
+    "name": "Ebromar Lab",
+    "domain": "ebromar.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01315",
+    "name": "Nolver S.A.",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01316",
+    "name": "Segena Labs / Lankpharma",
+    "domain": "lankpharma.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01317",
+    "name": "Meditech Uruguay Ltda.",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01318",
+    "name": "Pharmazona / Stitipharma",
+    "domain": "pharmazona.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01319",
+    "name": "Baliarda",
+    "domain": "baliarda.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01320",
+    "name": "Novophar Quimfa",
+    "domain": "novophar.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01321",
+    "name": "Laboratorios Haymann — Megalabs",
+    "domain": "haymann.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01322",
+    "name": "Higia",
+    "domain": "higia.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01323",
+    "name": "Laboratorios Abies",
+    "domain": "laboratoriosabies.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01324",
+    "name": "ARCOS Biomedical",
+    "domain": "arcos.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01325",
+    "name": "Coxery Laboratorio",
+    "domain": "coxery.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01326",
+    "name": "Siac",
+    "domain": "siac.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01327",
+    "name": "Blau Farmaceutica",
+    "domain": "blaufarma.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01328",
+    "name": "Biotoscana / Knight",
+    "domain": "grupobiotoscana.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01329",
+    "name": "Laboratorios Microsules Uruguay",
+    "domain": "laboratoriosmicrosules.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01330",
+    "name": "D4 Logística & Distribución",
+    "domain": "d4.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01331",
+    "name": "Farmalog",
+    "domain": "farmalog.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01332",
+    "name": "Blossom Pharma",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01333",
+    "name": "Apiter",
+    "domain": "apiter.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-YES-01334",
+    "name": "Biocontrolled / Grupo Leti",
+    "domain": "grupoleti.com",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01335",
+    "name": "Laboratorios Valmorca",
+    "domain": "valmorca.com.ve",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01336",
+    "name": "Saga Lifesciences Limited",
+    "domain": "sagalifesciences.com",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01337",
+    "name": "Superfharma",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01338",
+    "name": "SYACLLC, C.A",
+    "domain": "syacllc.com",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01339",
+    "name": "Laboratorio Behrens",
+    "domain": "labbehrens.com",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01340",
+    "name": "Cafar Laboratorios (Cía. Anónima Farmacéutica Cafar)",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01341",
+    "name": "Dronena S.A.",
+    "domain": "dronena.com",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01342",
+    "name": "FC Pharma",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01343",
+    "name": "Genia Care",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01344",
+    "name": "Insumos Metrópolis",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01345",
+    "name": "Laboratorio Cofasa",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01346",
+    "name": "Laboratorios Buka",
+    "domain": "laboratoriosbuka.com",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01347",
+    "name": "Laboratorios Chemycal's Soma",
+    "domain": "soma.com.ve",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01348",
+    "name": "Laboratorios Oftalmi",
+    "domain": "oftalmi.com",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01349",
+    "name": "Laboratorios Roemmers / Megalabs",
+    "domain": "megalabs.com.ve",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01350",
+    "name": "Laboratorios Ronava",
+    "domain": "farma.com.ve",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01351",
+    "name": "Laboratorios SAUDE",
+    "domain": "laboratoriosaude.com",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01352",
+    "name": "Laboratorios Vargas, SA / Grupo Vargas",
+    "domain": "laboratoriosvargas.com",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01353",
+    "name": "Laboratorios Vincenti",
+    "domain": "vincentilab.com",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01354",
+    "name": "Laboratorios Vivax Pharmaceuticals",
+    "domain": "vivax.com.ve",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01355",
+    "name": "Polinac Laboratorios Politécnicos Nacionales",
+    "domain": "laboratoriospolinac.com",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01356",
+    "name": "Roussel de Venezuela",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01357",
+    "name": "SM Pharma",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01358",
+    "name": "Zuoz Pharma",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01359",
+    "name": "Laboratorios Elmor S.A.",
+    "domain": "elmor.com.ve",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01360",
+    "name": "Laboratorios Spefar Venezolanos S.A.",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01361",
+    "name": "Laboratorios Klinos C.A.",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01362",
+    "name": "Laboratorios Kimiceg C.A.",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01363",
+    "name": "CCM Farma (Representaciones Farmacéuticas CCM C.A.)",
+    "domain": "ccmfarma.com",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01364",
+    "name": "Apolo Farma C.A.",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01365",
+    "name": "Droguería del Oeste C.A.",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01366",
+    "name": "Droguería VAAMED",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01367",
+    "name": "Pharmed Enterprises C.A.",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01368",
+    "name": "Droguería Pharmastat C.A.",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01369",
+    "name": "Droguería Supplyfar",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01370",
+    "name": "Adium Venezuela (ex-Laboratorios Nolver)",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01371",
+    "name": "Pharmetique Labs / La Santé Venezuela",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01372",
+    "name": "Global Farma Venezuela S.A.",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01373",
+    "name": "Grupo COBECA (Droguería Cobeca)",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01374",
+    "name": "Droguería CER, C.A. (Drocerca)",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01375",
+    "name": "Grupo JL de Venezuela (Droguería JL)",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01376",
+    "name": "Droguería Farmacéutica de Venezuela (DFV)",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01377",
+    "name": "Laboratorios Balker C.A.",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01378",
+    "name": "AVPharma C.A.",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01379",
+    "name": "Ravel Casa de Representación",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01380",
+    "name": "Pediatrics Pharma",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01381",
+    "name": "Convit Group - Vitalaps",
+    "domain": "convitgroup.com",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01382",
+    "name": "Laboratorios Biopas",
+    "domain": "",
+    "country": "Venezuela"
+  },
+  {
+    "bp_id_unico": "BP-YES-01383",
+    "name": "Laboratorios Leti SAV / Grupo Leti",
+    "domain": "leti.com.ve",
+    "country": "Venezuela"
+  }
+]

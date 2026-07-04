@@ -40,6 +40,8 @@ export const hubspot = {
   getNotifications: ()        => api.get('/hubspot/notifications').then(r => r.data),
   quickSearchCompanies: (q)   => api.get(`/hubspot/companies/quick-search?q=${encodeURIComponent(q)}`).then(r => r.data),
   getCompanyPipeline:   ()    => api.get('/hubspot/companies/pipeline-metrics').then(r => r.data),
+  getCompanyQualityMetrics: () => api.get('/hubspot/companies/quality-metrics').then(r => r.data),
+  getContactQualityMetrics: () => api.get('/hubspot/contacts/quality-metrics').then(r => r.data),
 
   createNote:      (objectType, objectId, body, noteType = 'NOTE') =>
     api.post('/hubspot/notes', { objectType, objectId, body, noteType }).then(r => r.data),

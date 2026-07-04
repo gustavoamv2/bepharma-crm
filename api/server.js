@@ -160,6 +160,8 @@ const {
   PIPELINE_STAGES,
   ACTIVE_EVENT,
   AUTO_STAGE_KEYS,
+  COMPANY_QUALITY_FILTERS,
+  CONTACT_QUALITY_FILTERS,
   activeEventFilter,
   notTerminalFilters,
 } = require('./config/hubspotProperties')
@@ -272,11 +274,27 @@ function withContactsFilter(filterGroups, contactsFilter) {
   return filterGroups
 }
 
+// qualityFilter: una clave de COMPANY_QUALITY_FILTERS o CONTACT_QUALITY_FILTERS
+// (según el objeto) — usado tanto por el listado (al hacer clic en una barra
+// del gráfico de calidad de datos) como por el endpoint de /quality-metrics
+// correspondiente (los conteos de esas barras), para que ambos usen siempre
+// el mismo criterio de filtro.
+function withQualityFilter(filterGroups, qualityFilter, defs = COMPANY_QUALITY_FILTERS) {
+  const def = defs[qualityFilter]
+  if (!def) return filterGroups
+  if (def.orFilters.length === 1) {
+    return addFilterToGroups(filterGroups, def.orFilters[0])
+  }
+  const base = filterGroups.length ? filterGroups : [{ filters: [] }]
+  return base.flatMap(group => def.orFilters.map(f => ({ filters: [...(group.filters || []), f] })))
+}
+
 app.post('/api/hubspot/companies/search', requireAuth, async (req, res) => {
   try {
-    const { filters = [], sorts = [], limit = 50, after, properties: customProps, contactsFilter } = req.body
+    const { filters = [], sorts = [], limit = 50, after, properties: customProps, contactsFilter, qualityFilter } = req.body
     let filterGroups = filters.length ? [{ filters }] : []
     filterGroups = withContactsFilter(filterGroups, contactsFilter)
+    filterGroups = withQualityFilter(filterGroups, qualityFilter)
     filterGroups = applyCountryFilter(req, filterGroups, 'country', { translate: true })
     const r = await hs.post('/crm/v3/objects/companies/search', {
       filterGroups,
@@ -289,6 +307,30 @@ app.post('/api/hubspot/companies/search', requireAuth, async (req, res) => {
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
   }
+})
+
+// Empresas – gráfico de calidad de datos (sin contacto/teléfono/página web/
+// correo/eventos). Mismo criterio de filtro que qualityFilter en /search
+// (ver COMPANY_QUALITY_FILTERS) para que el conteo de la barra y el listado
+// que se abre al hacer clic coincidan siempre.
+app.get('/api/hubspot/companies/quality-metrics', requireAuth, async (req, res) => {
+  const countFor = async (key) => {
+    try {
+      const filterGroups = applyCountryFilter(req, withQualityFilter([], key), 'country', { translate: true })
+      const r = await hs.post('/crm/v3/objects/companies/search', {
+        filterGroups, limit: 1, properties: ['name'],
+      })
+      return r.data.total || 0
+    } catch { return 0 }
+  }
+  const delay = (ms) => new Promise(r => setTimeout(r, ms))
+
+  const metrics = {}
+  for (const key of Object.keys(COMPANY_QUALITY_FILTERS)) {
+    metrics[key] = await countFor(key)
+    await delay(260)
+  }
+  res.json(metrics)
 })
 
 // Búsqueda rápida de empresas por nombre (DEBE ir antes de /:id)
@@ -377,10 +419,11 @@ app.get('/api/hubspot/companies/:id', requireAuth, async (req, res) => {
 // Contactos – búsqueda
 app.post('/api/hubspot/contacts/search', requireAuth, async (req, res) => {
   try {
-    const { filters = [], filterGroups: fgBody, sorts = [], limit = 50, after } = req.body
+    const { filters = [], filterGroups: fgBody, sorts = [], limit = 50, after, qualityFilter } = req.body
     // fgBody permite OR entre propiedades (nombre, apellido, teléfono)
     const baseGroups = fgBody || (filters.length ? [{ filters }] : [])
     let filterGroups = applyOwnerFilter(req, baseGroups)
+    filterGroups = withQualityFilter(filterGroups, qualityFilter, CONTACT_QUALITY_FILTERS)
     filterGroups = applyCountryFilter(req, filterGroups, 'country', { translate: true })
     const r = await hs.post('/crm/v3/objects/contacts/search', {
       filterGroups,
@@ -393,6 +436,32 @@ app.post('/api/hubspot/contacts/search', requireAuth, async (req, res) => {
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
   }
+})
+
+// Contactos – gráfico de calidad de datos (sin correo/teléfono/cargo/empresa/
+// LinkedIn). Mismo criterio de filtro que qualityFilter en /search (ver
+// CONTACT_QUALITY_FILTERS) para que el conteo de la barra y el listado que se
+// abre al hacer clic coincidan siempre. Respeta el scoping de owner/país de
+// la vista de operador, igual que /contacts/search.
+app.get('/api/hubspot/contacts/quality-metrics', requireAuth, async (req, res) => {
+  const countFor = async (key) => {
+    try {
+      let filterGroups = applyOwnerFilter(req, withQualityFilter([], key, CONTACT_QUALITY_FILTERS))
+      filterGroups = applyCountryFilter(req, filterGroups, 'country', { translate: true })
+      const r = await hs.post('/crm/v3/objects/contacts/search', {
+        filterGroups, limit: 1, properties: ['firstname'],
+      })
+      return r.data.total || 0
+    } catch { return 0 }
+  }
+  const delay = (ms) => new Promise(r => setTimeout(r, ms))
+
+  const metrics = {}
+  for (const key of Object.keys(CONTACT_QUALITY_FILTERS)) {
+    metrics[key] = await countFor(key)
+    await delay(260)
+  }
+  res.json(metrics)
 })
 
 // Contacto – detalle
@@ -821,9 +890,26 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
     await delay(260)
   }
 
+  // Distribución por alerta (para el gráfico "Alertas levantadas" de Mis Eventos)
+  const ALERTA_KEYS = [
+    { key: 'sin_alerta',      label: 'Sin alerta' },
+    { key: 'alerta_amarilla', label: 'Alerta amarilla' },
+    { key: 'alerta_roja',     label: 'Alerta roja' },
+  ]
+  const alertaCounts = []
+  for (const a of ALERTA_KEYS) {
+    alertaCounts.push(await safe([
+      a.key === 'sin_alerta'
+        ? { propertyName: 'bp_estado_alerta', operator: 'NOT_HAS_PROPERTY' }
+        : { propertyName: 'bp_estado_alerta', operator: 'EQ', value: a.key },
+    ]))
+    await delay(260)
+  }
+
   res.json({
     byStage: PIPELINE_STAGES.map((s, i) => ({ ...s, count: stageCounts[i] })),
     byMonth: months.map((m, i) => ({ label: m.label, count: monthlyCounts[i] })),
+    byAlerta: ALERTA_KEYS.map((a, i) => ({ ...a, count: alertaCounts[i] })),
   })
 })
 

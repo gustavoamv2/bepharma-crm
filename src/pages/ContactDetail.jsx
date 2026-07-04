@@ -3,11 +3,12 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useQuery, useQueryClient } from 'react-query'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { ExternalLink, Linkedin, Pencil } from 'lucide-react'
+import { ExternalLink, Linkedin, Pencil, ListChecks } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import RecordModal, { DeleteButton } from '../components/RecordModal'
 import CreateTaskModal from '../components/CreateTaskModal'
+import { useAuth } from '../contexts/AuthContext'
 
 const safeFmt = (v) => {
   if (!v) return '—'
@@ -28,6 +29,7 @@ export default function ContactDetail() {
   const { id } = useParams()
   const nav = useNavigate()
   const qc = useQueryClient()
+  const { user } = useAuth()
   const [showEdit, setShowEdit]   = useState(false)
   const [showTask, setShowTask]   = useState(false)
 
@@ -72,6 +74,9 @@ export default function ContactDetail() {
                   )}
                   <button className="btn btn-ghost btn-sm" onClick={() => setShowEdit(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                     <Pencil size={13} /> Editar
+                  </button>
+                  <button className="btn btn-ghost btn-sm" onClick={() => setShowTask(true)} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                    <ListChecks size={13} /> Tarea
                   </button>
                   <DeleteButton type="contact" id={id} name={fullName} onDeleted={() => nav('/contacts')} />
                 </div>
@@ -165,6 +170,7 @@ export default function ContactDetail() {
           associatedObjectType="contacts"
           associatedObjectId={id}
           associatedObjectName={fullName}
+          defaultAssignee={user?.ownerId}
         />
       )}
 

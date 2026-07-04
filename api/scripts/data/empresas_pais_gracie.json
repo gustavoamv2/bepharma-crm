@@ -1,0 +1,5006 @@
+[
+  {
+    "bp_id_unico": "BP-GRA-00001",
+    "name": "Avanti Polar Lipids, Inc. (Croda Pharma)",
+    "domain": "avantilipids.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00002",
+    "name": "Eagle Pharmacy, Inc. (503B Outsourcing Facility)",
+    "domain": "eaglepharmacy.org",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00003",
+    "name": "Kowa Pharmaceuticals America, Inc.",
+    "domain": "kowapharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00004",
+    "name": "Transdermal Therapeutics, Inc.",
+    "domain": "transdermalinc.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00005",
+    "name": "TriRx Pharmaceutical Services – Huntsville",
+    "domain": "trirx.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00006",
+    "name": "Vitruvias Therapeutics, Inc.",
+    "domain": "vitruvias.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00007",
+    "name": "Zeta Pharmaceuticals, LLC",
+    "domain": "zetapharm.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00008",
+    "name": "Oxford Pharmaceuticals, LLC",
+    "domain": "oxford-rx.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00009",
+    "name": "H2-Pharma, LLC",
+    "domain": "h2-pharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00010",
+    "name": "MilanaPharm",
+    "domain": "milanapharm.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00011",
+    "name": "Biocientifica S.A. Argentina",
+    "domain": "biocientifica.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00012",
+    "name": "Laboratorio Celtyc Argentina",
+    "domain": "celtyc.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00013",
+    "name": "Laboratorio Endorpharma Argentina",
+    "domain": "endopharma.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00014",
+    "name": "Framingham Pharma S.A.",
+    "domain": "framinghampharma.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00015",
+    "name": "Gihon Laboratorio S.A.",
+    "domain": "gihonlab.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00016",
+    "name": "Laboratorios Rivero Argentina",
+    "domain": "rivero.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00017",
+    "name": "Therabel Pharma S.A. / Pharmatrix",
+    "domain": "therabelpharma.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00018",
+    "name": "Filaxis Farmacéutica S.A. (ex GP Pharm Argentina)",
+    "domain": "gp-pharm.com",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00019",
+    "name": "Laboratorio Mar S.A.",
+    "domain": "laboratoriosmar.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00020",
+    "name": "Instituto Biológico Argentino S.A.I.C. (BIOL)",
+    "domain": "biol.com.ar",
+    "country": "Argentina"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00021",
+    "name": "A.Forall",
+    "domain": "aforallpharma.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00022",
+    "name": "Hyloris Pharmaceuticals",
+    "domain": "hyloris.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00023",
+    "name": "Cole Pharmaceuticals",
+    "domain": "colepharma.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00024",
+    "name": "UCB",
+    "domain": "ucb.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00025",
+    "name": "GlobiFer",
+    "domain": "ceres-pharma.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00026",
+    "name": "Corden Pharma",
+    "domain": "cordenpharma.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00027",
+    "name": "Aseptic Technologies",
+    "domain": "aseptictech.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00028",
+    "name": "EyeD Pharma",
+    "domain": "eyedpharma.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00029",
+    "name": "Galapagos",
+    "domain": "glpg.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00030",
+    "name": "Galenicap",
+    "domain": "galenicap.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00031",
+    "name": "KiOmed Pharma",
+    "domain": "kiomedpharma.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00032",
+    "name": "Precirix",
+    "domain": "precirix.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00033",
+    "name": "Purna Pharmaceuticals",
+    "domain": "purna.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00034",
+    "name": "Quantoom Biosciences",
+    "domain": "quantoom.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00035",
+    "name": "Ardena",
+    "domain": "ardena.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00036",
+    "name": "BePharbel",
+    "domain": "bepharbel.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00037",
+    "name": "Conforma",
+    "domain": "conforma.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00038",
+    "name": "Delpharm",
+    "domain": "delpharm.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00039",
+    "name": "EG (Eurogenerics) NV",
+    "domain": "eg.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00040",
+    "name": "Eurogentec",
+    "domain": "eurogentec.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00041",
+    "name": "KitoZyme",
+    "domain": "kitozyme.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00042",
+    "name": "Laboratoires Sterop",
+    "domain": "sterop.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00043",
+    "name": "Oystershell",
+    "domain": "oystershell.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00044",
+    "name": "Qualiphar",
+    "domain": "qualiphar.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00045",
+    "name": "Tilman",
+    "domain": "tilman.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00046",
+    "name": "Trenker",
+    "domain": "trenker.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00047",
+    "name": "Vésale Pharma",
+    "domain": "vesalepharma.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00048",
+    "name": "Will-Pharma",
+    "domain": "willpharma.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00049",
+    "name": "Anacura",
+    "domain": "anacura.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00050",
+    "name": "Pannoc",
+    "domain": "pannoc.eu",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00051",
+    "name": "Aquilon Pharma",
+    "domain": "aquilonpharma.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00052",
+    "name": "Astel Medica",
+    "domain": "astel-medica.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00053",
+    "name": "BiOkuris",
+    "domain": "biokuris.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00054",
+    "name": "Ceres Pharma",
+    "domain": "ceres-pharma.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00055",
+    "name": "ID Phar Belgian Pharmaceuticals",
+    "domain": "id-phar.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00056",
+    "name": "Innotesto",
+    "domain": "innotesto.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00057",
+    "name": "Labo Phytophar",
+    "domain": "phytophar.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00058",
+    "name": "Laboratoires SMB",
+    "domain": "smb.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00059",
+    "name": "Laboratorio Wolfs",
+    "domain": "wolfs.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00060",
+    "name": "Solidpharma",
+    "domain": "solidpharma.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00061",
+    "name": "Besins Healthcare Belgium",
+    "domain": "besins-healthcare.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00062",
+    "name": "Fagron NV",
+    "domain": "fagron.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00063",
+    "name": "Univercells Group",
+    "domain": "univercells.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00064",
+    "name": "Labo'Life Belgium",
+    "domain": "labolife.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00065",
+    "name": "Aminolabs Nutrition",
+    "domain": "aminolabs.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00066",
+    "name": "Cenexi",
+    "domain": "cenexi.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00067",
+    "name": "Orbi-Pharma International",
+    "domain": "",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00068",
+    "name": "Etherna",
+    "domain": "etherna.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00069",
+    "name": "Medilom & Co",
+    "domain": "medilom.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00070",
+    "name": "JC Pharma",
+    "domain": "jcpharma.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00071",
+    "name": "Neogen",
+    "domain": "neogen.biz",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00072",
+    "name": "Heel Belgium",
+    "domain": "heel.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00073",
+    "name": "Continental Pharma",
+    "domain": "",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00074",
+    "name": "Hew Pharma",
+    "domain": "hew-pharma.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00075",
+    "name": "Prothya Biosolutions",
+    "domain": "epsteincap.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00076",
+    "name": "FertiPro NV",
+    "domain": "",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00077",
+    "name": "Convert Pharmaceuticals",
+    "domain": "comunicare.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00078",
+    "name": "Agomab",
+    "domain": "agomab.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00079",
+    "name": "Beldimed",
+    "domain": "beldimed.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00080",
+    "name": "BSA Pharmaceuticals",
+    "domain": "bsapharmaceuticals.net",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00081",
+    "name": "DeltaPharma",
+    "domain": "delta-pharma.eu",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00082",
+    "name": "Eumedica",
+    "domain": "eumedica.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00083",
+    "name": "Exphar",
+    "domain": "exphar.be",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00084",
+    "name": "MRM Health",
+    "domain": "mrmhealth.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00085",
+    "name": "Arega Pharma",
+    "domain": "arega.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00086",
+    "name": "Arkopharma Belux",
+    "domain": "arkopharma.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00087",
+    "name": "Flen Health",
+    "domain": "flenhealth.com",
+    "country": "Bélgica"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00088",
+    "name": "Bento Health OOD",
+    "domain": "bento-health.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00089",
+    "name": "Biotrade Bulgaria",
+    "domain": "biotrade.bg",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00090",
+    "name": "Antibiotic-Razgrad AD",
+    "domain": "antibiotic.bg",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00091",
+    "name": "Adipharm EAD",
+    "domain": "adipharm.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00092",
+    "name": "Alpen Pharma Bulgaria",
+    "domain": "alpenpharma.bg",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00093",
+    "name": "Balkanpharma Troyan AD",
+    "domain": "antibiotic.bg",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00094",
+    "name": "Chemax Pharma Ltd",
+    "domain": "chemaxpharma.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00095",
+    "name": "Evelin 29 EOOD",
+    "domain": "evelin29.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00096",
+    "name": "Fortex Nutraceuticals Ltd",
+    "domain": "fortex.bg",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00097",
+    "name": "GE Pharmaceuticals Ltd",
+    "domain": "ge-ph.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00098",
+    "name": "Huvepharma AD",
+    "domain": "huvepharma.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00099",
+    "name": "Inbiotech OOD",
+    "domain": "inbiotech-bg.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00100",
+    "name": "Kendy Pharma Ltd",
+    "domain": "kendy.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00101",
+    "name": "Medica AD",
+    "domain": "medicabg.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00102",
+    "name": "Sopharma AD",
+    "domain": "sopharma.bg",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00103",
+    "name": "Bul Bio - NCIPD EAD",
+    "domain": "bulbio.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00104",
+    "name": "Balkanpharma Dupnitsa AD",
+    "domain": "balkanpharma-dupnitsa.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00105",
+    "name": "Pharma AD Dupnitsa",
+    "domain": "pharmadupnitsa.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00106",
+    "name": "Phytopharma Ltd",
+    "domain": "phytopharma.eu",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00107",
+    "name": "STS Medical Group",
+    "domain": "",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00108",
+    "name": "Veta Pharma Ltd",
+    "domain": "",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00109",
+    "name": "Tchaikapharma High Quality Medicines AD",
+    "domain": "tchaikapharma.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00110",
+    "name": "DANHSON Bulgaria",
+    "domain": "danhson.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00111",
+    "name": "Vetprom AD",
+    "domain": "danhson.com",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00112",
+    "name": "BB Pharm Ltd",
+    "domain": "bbpharm.eu",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00113",
+    "name": "Ecopharm Bulgaria",
+    "domain": "ecopharm.bg",
+    "country": "Bulgaria"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00114",
+    "name": "ACADIA Pharmaceuticals Inc.",
+    "domain": "acadia-pharm.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00115",
+    "name": "Amphastar Pharmaceuticals, Inc.",
+    "domain": "amphastar.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00116",
+    "name": "Apexigen America",
+    "domain": "apexigen.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00117",
+    "name": "Arcus Biosciences, Inc.",
+    "domain": "arcusbio.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00118",
+    "name": "Arcutis Biotherapeutics, Inc.",
+    "domain": "arcutis.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00119",
+    "name": "Ardelyx, Inc.",
+    "domain": "ardelyx.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00120",
+    "name": "ARS Pharmaceuticals, Inc.",
+    "domain": "arspharmaceuticals.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00121",
+    "name": "Avid Bioservices",
+    "domain": "avidbio.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00122",
+    "name": "BioMarin Pharmaceutical Inc.",
+    "domain": "bmrn.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00123",
+    "name": "BridgeBio Pharma, Inc.",
+    "domain": "bridgebio.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00124",
+    "name": "Coherus BioSciences, Inc.",
+    "domain": "coherus.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00125",
+    "name": "Corcept Therapeutics, Inc.",
+    "domain": "corcept.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00126",
+    "name": "Crinetics Pharmaceuticals, Inc.",
+    "domain": "crinetics.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00127",
+    "name": "Dermata Therapeutics, Inc.",
+    "domain": "dermatarx.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00128",
+    "name": "Evoke Pharma",
+    "domain": "dkbpartners.net",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00129",
+    "name": "Exelixis, Inc.",
+    "domain": "exelixis.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00130",
+    "name": "Eyenovia, Inc. (operaciones CA)",
+    "domain": "eyenovia.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00131",
+    "name": "Geron Corporation",
+    "domain": "geron.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00132",
+    "name": "Gilead Sciences, Inc.",
+    "domain": "gilead.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00133",
+    "name": "Halozyme Therapeutics",
+    "domain": "halozyme.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00134",
+    "name": "Heron Therapeutics, Inc.",
+    "domain": "herontx.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00135",
+    "name": "Ionis Pharmaceuticals, Inc.",
+    "domain": "ionis.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00136",
+    "name": "Latitude Pharmaceuticals",
+    "domain": "latitudepharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00137",
+    "name": "MannKind Corporation",
+    "domain": "mannkindcorp.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00138",
+    "name": "Nektar Therapeutics",
+    "domain": "nektar.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00139",
+    "name": "Neurelis, Inc.",
+    "domain": "neurelis.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00140",
+    "name": "Neurocrine Biosciences, Inc.",
+    "domain": "neurocrine.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00141",
+    "name": "Nuvation Bio (Bay Area CA)",
+    "domain": "nuvationbio.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00142",
+    "name": "Pacira BioSciences",
+    "domain": "pacira.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00143",
+    "name": "PCI Pharma Services (CA)",
+    "domain": "pci.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00144",
+    "name": "Phathom Pharmaceuticals",
+    "domain": "phathompharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00145",
+    "name": "Polaris Pharmaceuticals",
+    "domain": "polarispharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00146",
+    "name": "Protagonist Therapeutics, Inc.",
+    "domain": "protagonist-inc.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00147",
+    "name": "Puma Biotechnology, Inc.",
+    "domain": "pumabiotechnology.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00148",
+    "name": "Rigel Pharmaceuticals, Inc.",
+    "domain": "rigel.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00149",
+    "name": "Revance Therapeutics, Inc.",
+    "domain": "revance.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00150",
+    "name": "Sangamo Therapeutics, Inc.",
+    "domain": "sangamo.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00151",
+    "name": "Tarsus Pharmaceuticals",
+    "domain": "vibratomedical.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00152",
+    "name": "Theravance Biopharma US, Inc.",
+    "domain": "theravance.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00153",
+    "name": "Travere Therapeutics, Inc.",
+    "domain": "travere.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00154",
+    "name": "Ultragenyx Pharmaceutical Inc.",
+    "domain": "ultragenyx.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00155",
+    "name": "Viking Therapeutics",
+    "domain": "vikingtherapeutics.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00156",
+    "name": "Xencor",
+    "domain": "xencor.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00157",
+    "name": "Alector, Inc.",
+    "domain": "alector.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00158",
+    "name": "Inhibrx Biosciences, Inc.",
+    "domain": "inhibrxbiosciences.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00159",
+    "name": "Zentalis Pharmaceuticals, Inc.",
+    "domain": "zentalis.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00160",
+    "name": "Olema Pharmaceuticals, Inc.",
+    "domain": "olema.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00161",
+    "name": "Ajinomoto Bio-Pharma Services (AjiBio)",
+    "domain": "us.ajibio-pharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00162",
+    "name": "Erasca, Inc.",
+    "domain": "erasca.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00163",
+    "name": "Aclarion, Inc.",
+    "domain": "aclarion.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00164",
+    "name": "Adamas Pharmaceuticals (Supernus)",
+    "domain": "supernuspharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00165",
+    "name": "Arcellx, Inc.",
+    "domain": "arcellx.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00166",
+    "name": "Turning Point Therapeutics (Bristol-Myers Squibb)",
+    "domain": "bms.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00167",
+    "name": "Agostini Limited",
+    "domain": "agostinilimited.com",
+    "country": "Trinidad y Tobago"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00168",
+    "name": "Aventa Trinidad & Tobago",
+    "domain": "",
+    "country": "Trinidad y Tobago"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00169",
+    "name": "Bryden pi Limited",
+    "domain": "",
+    "country": "Trinidad y Tobago"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00170",
+    "name": "Pharmtech Caribbean Limited",
+    "domain": "pharmtechcaribbean.com",
+    "country": "Trinidad y Tobago"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00171",
+    "name": "One Caribbean Pharma",
+    "domain": "",
+    "country": "Trinidad y Tobago"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00172",
+    "name": "Sun Crest International Limited",
+    "domain": "suncresttt.com",
+    "country": "Trinidad y Tobago"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00173",
+    "name": "Ultra-Pharm Marketing Limited",
+    "domain": "ultra-pharm.com",
+    "country": "Trinidad y Tobago"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00174",
+    "name": "Medi Supplies Ltd",
+    "domain": "",
+    "country": "Trinidad y Tobago"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00175",
+    "name": "V & S Pharmaceuticals Ltd",
+    "domain": "",
+    "country": "Trinidad y Tobago"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00176",
+    "name": "Intersol Limited",
+    "domain": "",
+    "country": "Trinidad y Tobago"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00177",
+    "name": "AA Laquis Healthcare Solutions",
+    "domain": "",
+    "country": "Trinidad y Tobago"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00178",
+    "name": "Alstons Marketing Company Limited",
+    "domain": "",
+    "country": "Trinidad y Tobago"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00179",
+    "name": "Carlisle Laboratories (Barbados) Ltd",
+    "domain": "",
+    "country": "Barbados"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00180",
+    "name": "Aventa Barbados – Collins Limited",
+    "domain": "",
+    "country": "Barbados"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00181",
+    "name": "Pharmacy Sales Caribbean Ltd",
+    "domain": "",
+    "country": "Barbados"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00182",
+    "name": "Massy Distribution (Barbados) Ltd",
+    "domain": "",
+    "country": "Barbados"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00183",
+    "name": "AA Laquis (Barbados) Limited",
+    "domain": "",
+    "country": "Barbados"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00184",
+    "name": "Biokal Ltd",
+    "domain": "",
+    "country": "Barbados"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00185",
+    "name": "SBI Distribution Inc",
+    "domain": "",
+    "country": "Barbados"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00186",
+    "name": "Intercontinental Pharma Inc",
+    "domain": "",
+    "country": "Barbados"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00187",
+    "name": "Bryden Stokes Ltd",
+    "domain": "",
+    "country": "Barbados"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00188",
+    "name": "Pharmaceuticals Plus Inc",
+    "domain": "",
+    "country": "Barbados"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00189",
+    "name": "Nassau Agencies (1995) Ltd",
+    "domain": "nassauagencies.com",
+    "country": "Bahamas"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00190",
+    "name": "Commonwealth Drugs and Medical Supplies",
+    "domain": "",
+    "country": "Bahamas"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00191",
+    "name": "World Wide Pharmaceuticals Bahamas",
+    "domain": "",
+    "country": "Bahamas"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00192",
+    "name": "Bahamas Medical & Surgical Supplies Ltd",
+    "domain": "",
+    "country": "Bahamas"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00193",
+    "name": "Progressive Pharmaceutical Distributors Ltd",
+    "domain": "",
+    "country": "Bahamas"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00194",
+    "name": "Coral Pharmaceuticals Ltd",
+    "domain": "",
+    "country": "Bahamas"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00195",
+    "name": "D'Albenas Agency Ltd",
+    "domain": "",
+    "country": "Bahamas"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00196",
+    "name": "Caribbean Pharmaceutical Supplies Ltd",
+    "domain": "cpsantigua.com",
+    "country": "Antigua · Aruba · Curaçao"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00197",
+    "name": "Pharmaceutical Warehousing Inc (PWI)",
+    "domain": "",
+    "country": "Antigua · Aruba · Curaçao"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00198",
+    "name": "Aventa Dutch Caribbean",
+    "domain": "",
+    "country": "Antigua · Aruba · Curaçao"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00199",
+    "name": "Curaçao Pharmacal Company B.V.",
+    "domain": "",
+    "country": "Antigua · Aruba · Curaçao"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00200",
+    "name": "MedicaPharma Supplies Ltd",
+    "domain": "",
+    "country": "Antigua · Aruba · Curaçao"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00201",
+    "name": "Medicosmetics Aruba N.V.",
+    "domain": "",
+    "country": "Antigua · Aruba · Curaçao"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00202",
+    "name": "Aventa Aruba N.V.",
+    "domain": "",
+    "country": "Antigua · Aruba · Curaçao"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00203",
+    "name": "Bureau voor Geneesmiddelenvoorziening in Suriname (BGVS)",
+    "domain": "bgvs-suriname.com",
+    "country": "Surinam"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00204",
+    "name": "Pharmport NV (Intermed Group)",
+    "domain": "intermedsuriname.com",
+    "country": "Surinam"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00205",
+    "name": "Health Tech N.V.",
+    "domain": "healthtechnv.com",
+    "country": "Surinam"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00206",
+    "name": "Dura Laboratory NV",
+    "domain": "",
+    "country": "Surinam"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00207",
+    "name": "Intermed Caribe",
+    "domain": "intermedsuriname.com",
+    "country": "Surinam"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00208",
+    "name": "Aurobindo Pharma Colombia SAS",
+    "domain": "aurobindo.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00209",
+    "name": "Aplicaciones Farmacéuticas Afavel S.A.S.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00210",
+    "name": "C.I. Laboratorios Improfarme S.A.S.",
+    "domain": "improfarme.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00211",
+    "name": "Ciclotron Colombia S.A.S.",
+    "domain": "ciclotroncolombia.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00212",
+    "name": "Comercializadora Ruecam S.A.S.",
+    "domain": "ruecam.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00213",
+    "name": "Farmalogica S.A.S.",
+    "domain": "unidossis.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00214",
+    "name": "FYN Labs / Laboratorios Farmacéuticos y Nutricionales S.A.S.",
+    "domain": "fynlabs.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00215",
+    "name": "G-C Farma Ltda.",
+    "domain": "emis.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00216",
+    "name": "GENBIE S.A.S.",
+    "domain": "genbie.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00217",
+    "name": "Goram Laboratorios S.A.S.",
+    "domain": "goramlaboratorios.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00218",
+    "name": "Healthy America Colombia S.A.S.",
+    "domain": "healthyamerica.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00219",
+    "name": "Impofar Ltda.",
+    "domain": "impofar.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00220",
+    "name": "Khemik S.A.S.",
+    "domain": "khemik.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00221",
+    "name": "Laboratorios Demac Ltda.",
+    "domain": "laboratoriosdemac.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00222",
+    "name": "Laboratorios Higietex S.A.",
+    "domain": "higietex.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00223",
+    "name": "Laboratorios Inversiones Farma Colombia — Inverfarma Ltda.",
+    "domain": "inverfarma.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00224",
+    "name": "Laboratorios Medick Ltda.",
+    "domain": "labmedick.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00225",
+    "name": "Laboratorios Mineralin S.A.S.",
+    "domain": "mineralin.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00226",
+    "name": "Laboratorios Natural Freshly — Infabo S.A.S.",
+    "domain": "naturalfreshly.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00227",
+    "name": "Laboratorios Proquident S.A.",
+    "domain": "proquident.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00228",
+    "name": "Laboratorios Sherleg S.A.S.",
+    "domain": "sherleg.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00229",
+    "name": "Lumexpharma",
+    "domain": "lumexpharma.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00230",
+    "name": "Molecular Farmacéutica MF S.A.S.",
+    "domain": "molecularfarmaceutica.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00231",
+    "name": "Norstray Nuart S.A.S.",
+    "domain": "norstraynuart.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00232",
+    "name": "Pharmaderm Colombia S.A.S.",
+    "domain": "pharmaderm.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00233",
+    "name": "Pharmaprix Colombia S.A.S.",
+    "domain": "pharmaprix.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00234",
+    "name": "Quirumedicas S.A.",
+    "domain": "quirumedicas.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00235",
+    "name": "Riddhi Pharma S.A.S.",
+    "domain": "riddhipharma.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00236",
+    "name": "Salus Pharma Labs S.A.S.",
+    "domain": "saluspharmalabs.com.co",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00237",
+    "name": "The Labs S.A.S.",
+    "domain": "laboratoriothelabs.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00238",
+    "name": "Tridex Farmacéutica S.A.S.",
+    "domain": "tridexsa.com",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00239",
+    "name": "Antibióticos de Colombia S.A.S.",
+    "domain": "",
+    "country": "Colombia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00240",
+    "name": "Empresas pendientes por revisar",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00241",
+    "name": "Actenz",
+    "domain": "fides.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00242",
+    "name": "ADIUM PHARMA / Asofarma",
+    "domain": "adium.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00243",
+    "name": "AGAM Ltda",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00244",
+    "name": "Alcon Laboratorios Uruguay",
+    "domain": "alcon.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00245",
+    "name": "Apifarma",
+    "domain": "apifarma.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00246",
+    "name": "Barna Farma",
+    "domain": "vera.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00247",
+    "name": "Bioerix Laboratorios",
+    "domain": "bioerix.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00248",
+    "name": "Biosistemas",
+    "domain": "biosistemas.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00249",
+    "name": "Bioxel Pharma",
+    "domain": "bioxel.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00250",
+    "name": "Blooming Frenital",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00251",
+    "name": "Celsius Dermur Uruguay",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00252",
+    "name": "Ciame",
+    "domain": "fmc-ag.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00253",
+    "name": "Cipharma",
+    "domain": "cipharma.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00254",
+    "name": "Dermagroup S.R.L.",
+    "domain": "dermagroup.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00255",
+    "name": "Dispert Laboratories",
+    "domain": "dispert.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00256",
+    "name": "Ebromar Lab",
+    "domain": "ebromar.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00257",
+    "name": "ELECO SA",
+    "domain": "eleco.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00258",
+    "name": "Elfos Laboratorio - Farmacia Homeopatica",
+    "domain": "homeopatiaelfos.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00259",
+    "name": "eMedical Group",
+    "domain": "emedical.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00260",
+    "name": "Fanio S.A",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00261",
+    "name": "Farmacia y Homeopatia Matías González",
+    "domain": "matiasgonzalez.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00262",
+    "name": "Farmeco",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00263",
+    "name": "Fotmer Life Sciences",
+    "domain": "greenmed.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00264",
+    "name": "GP Pharm",
+    "domain": "gp-pharm.com.ar",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00265",
+    "name": "Haymann S.A.",
+    "domain": "haymann.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00266",
+    "name": "Homeopatía Alemana",
+    "domain": "homeopatiaalemana.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00267",
+    "name": "Homeopatia Ambar",
+    "domain": "ambarhomeopatia.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00268",
+    "name": "Homeopatia Landinelli",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00269",
+    "name": "Homeovita",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00270",
+    "name": "ICC Labs Inc. Laboratory",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00271",
+    "name": "Icu Vita S.A.",
+    "domain": "icuvita.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00272",
+    "name": "Khairi Pharmaceuticals",
+    "domain": "khairi.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00273",
+    "name": "Kirei Pharma",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00274",
+    "name": "Laboratorio Athena",
+    "domain": "athena.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00275",
+    "name": "Laboratorio Bio Shar",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00276",
+    "name": "Laboratorio Federico Diaz",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00277",
+    "name": "Laboratorio Kupfer Uruguaya",
+    "domain": "vera.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00278",
+    "name": "Laboratorio Nolver",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00279",
+    "name": "Laboratorio Prondil",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00280",
+    "name": "Laboratorios Rixdal S.A.",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00281",
+    "name": "Laboratorios Clausen",
+    "domain": "iclos.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00282",
+    "name": "Laboratorios Microsules Uruguay",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00283",
+    "name": "Laboratorios Midet",
+    "domain": "laboratoriosmidet.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00284",
+    "name": "Laboratorios Sophia",
+    "domain": "sophiaint.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00285",
+    "name": "Laboratorio Tuteur",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00286",
+    "name": "Lidertis",
+    "domain": "notcont.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00287",
+    "name": "Medicplast",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00288",
+    "name": "Mega Pharma",
+    "domain": "megalabs.global",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00289",
+    "name": "Milefar / Ropharma",
+    "domain": "ropharmauruguay.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00290",
+    "name": "Neopharma",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00291",
+    "name": "Nipro Medical",
+    "domain": "nipromed.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00292",
+    "name": "Noas Farma Uruguay",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00293",
+    "name": "Olivencia",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00294",
+    "name": "Pharmalife",
+    "domain": "pharmalife.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00295",
+    "name": "Pellier (Laboratorios Pellier)",
+    "domain": "",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00296",
+    "name": "Qualivits / Lukenor Pharma",
+    "domain": "lukenorpharma.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00297",
+    "name": "Química Cenit",
+    "domain": "quimicacenit.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00298",
+    "name": "Química Silex Uruguay S.A.",
+    "domain": "quimicasilex.com",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00299",
+    "name": "Relver S. A.",
+    "domain": "relver.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00300",
+    "name": "Sanyfico S.A. Productos Médicos",
+    "domain": "sanyfico.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00301",
+    "name": "TerGen Pharma",
+    "domain": "tergen.com.uy",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00302",
+    "name": "Tintura de Sol",
+    "domain": "tinturadesol.net",
+    "country": "Uruguay"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00303",
+    "name": "ProPharma d.o.o.",
+    "domain": "",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00304",
+    "name": "Pliva Hrvatska d.o.o. (Teva Group)",
+    "domain": "pliva.com",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00305",
+    "name": "Belupo d.d.",
+    "domain": "belupo.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00306",
+    "name": "JGL d.d. (Jadran Galenski Laboratorij)",
+    "domain": "jglpharma.com",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00307",
+    "name": "Yasenka d.o.o.",
+    "domain": "yasenka.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00308",
+    "name": "PharmaS d.o.o.",
+    "domain": "pharmas.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00309",
+    "name": "Vinchem d.o.o.",
+    "domain": "vinchem.com",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00310",
+    "name": "Swixx BioPharma d.o.o.",
+    "domain": "swixxbiopharma.com",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00311",
+    "name": "Imunološki zavod d.d. (Instituto de Inmunología)",
+    "domain": "",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00312",
+    "name": "Genera d.d.",
+    "domain": "genera.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00313",
+    "name": "Apipharma d.o.o.",
+    "domain": "apipharma.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00314",
+    "name": "Hamapharm d.o.o.",
+    "domain": "hamapharm.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00315",
+    "name": "Milsing d.o.o.",
+    "domain": "milsing.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00316",
+    "name": "Optipharm d.o.o.",
+    "domain": "optimapharm.eu",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00317",
+    "name": "Pontus Pharma d.o.o.",
+    "domain": "pontus-pharma.com",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00318",
+    "name": "Terra Lab International d.o.o.",
+    "domain": "terra-lab.com",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00319",
+    "name": "Salvus d.o.o.",
+    "domain": "salvushealth.com",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00320",
+    "name": "Livia d.o.o.",
+    "domain": "livia.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00321",
+    "name": "Genesis Pharma Adriatic d.o.o.",
+    "domain": "genesispharmagroup.com",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00322",
+    "name": "Orange & Green Ltd. Pharmaceutical Industry",
+    "domain": "orange-green-lifestyle.com",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00323",
+    "name": "mediligo d.o.o.",
+    "domain": "",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00324",
+    "name": "ILESOL Pharmaceuticals d.o.o.",
+    "domain": "ilesol.com",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00325",
+    "name": "Edicta Pharm d.o.o.",
+    "domain": "edictapharm.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00326",
+    "name": "Biovitalis d.o.o.",
+    "domain": "biovitalis.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00327",
+    "name": "Medikor d.o.o.",
+    "domain": "medikor.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00328",
+    "name": "Pharmaswiss d.o.o.",
+    "domain": "pharmaswisss.com",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00329",
+    "name": "Gradska ljekarna Zagreb",
+    "domain": "plinara-zagreb.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00330",
+    "name": "Ljekarne Prima Pharme d.o.o.",
+    "domain": "primapharme.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00331",
+    "name": "Ljekarne Vaše zdravlje d.o.o.",
+    "domain": "",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00332",
+    "name": "Alpha Medical d.o.o.",
+    "domain": "alpha-medical.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00333",
+    "name": "Oktal Pharma d.o.o.",
+    "domain": "oktal-pharma.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00334",
+    "name": "Phoenix Farmacija d.o.o.",
+    "domain": "",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00335",
+    "name": "Pharmacol d.o.o.",
+    "domain": "pharmacol.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00336",
+    "name": "Salveo CEE d.o.o.",
+    "domain": "salveo-pharma.com",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00337",
+    "name": "nutrilago d.o.o.",
+    "domain": "nutrilago.com",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00338",
+    "name": "Novo Nordisk Pharmatech",
+    "domain": "novonordisk.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00339",
+    "name": "Novonesis",
+    "domain": "novonesis.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00340",
+    "name": "ALK",
+    "domain": "alk-abello.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00341",
+    "name": "Ascendis Pharma A/S",
+    "domain": "ascendispharma.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00342",
+    "name": "Biosym A/S",
+    "domain": "biosym.dk",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00343",
+    "name": "Chr. Olesen Synthesis A/S",
+    "domain": "cosynthesis.dk",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00344",
+    "name": "Ctruz ApS",
+    "domain": "ctruz.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00345",
+    "name": "GK Pharma ApS",
+    "domain": "gkpharma.dk",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00346",
+    "name": "GMPack ApS",
+    "domain": "gmpack.dk",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00347",
+    "name": "Genmab A/S",
+    "domain": "genmab.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00348",
+    "name": "H. Lundbeck A/S",
+    "domain": "lundbeck.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00349",
+    "name": "MC2 Therapeutics A/S",
+    "domain": "mc2therapeutics.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00350",
+    "name": "NANI A/S",
+    "domain": "nani.dk",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00351",
+    "name": "Paranova Group A/S",
+    "domain": "paranova.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00352",
+    "name": "Pharmaforce ApS",
+    "domain": "pharmaforce.dk",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00353",
+    "name": "Puori ApS",
+    "domain": "puori.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00354",
+    "name": "River Stone Biotech Inc.",
+    "domain": "rstbio.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00355",
+    "name": "Scanpharm A/S",
+    "domain": "scanpharm.dk",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00356",
+    "name": "Specific Pharma A/S",
+    "domain": "specificpharma.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00357",
+    "name": "VitaCare A/S - JemoPharm A/S",
+    "domain": "vitacare.dk",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00358",
+    "name": "Abacus Medicine A/S (Grupo)",
+    "domain": "abacusmedicine.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00359",
+    "name": "Alternova A/S",
+    "domain": "orifarm.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00360",
+    "name": "Bavarian Nordic A/S",
+    "domain": "bavarian-nordic.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00361",
+    "name": "LEO Pharma A/S",
+    "domain": "leo-pharma.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00362",
+    "name": "Macure Pharma ApS",
+    "domain": "macurepharma.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00363",
+    "name": "Pharma Nord ApS",
+    "domain": "pharmanord.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00364",
+    "name": "Reponex Pharmaceuticals A/S",
+    "domain": "pharmanord.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00365",
+    "name": "Zealand Pharma A/S",
+    "domain": "zealandpharma.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00366",
+    "name": "Bavarian Nordic A/S",
+    "domain": "bavariannordic.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00367",
+    "name": "Fertin Pharma A/S",
+    "domain": "fertin.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00368",
+    "name": "Reponex Pharmaceuticals A/S",
+    "domain": "reponex.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00369",
+    "name": "Alternova A/S",
+    "domain": "alternova.dk",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00370",
+    "name": "Specific Pharma A/S",
+    "domain": "specificpharma.dk",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00371",
+    "name": "River Stone Biotech ApS",
+    "domain": "riverstonebiotech.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00372",
+    "name": "Xellia Pharmaceuticals (se pronuncia excelia)",
+    "domain": "xellia.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00373",
+    "name": "BIOFAC A/S",
+    "domain": "biofac.dk",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00374",
+    "name": "DermaPharm A/S",
+    "domain": "dermapharm.dk",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00375",
+    "name": "Missionpharma A/S",
+    "domain": "missionpharma.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00376",
+    "name": "Orifarm Group A/S",
+    "domain": "orifarm.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00377",
+    "name": "Pharmacosmos A/S",
+    "domain": "pharmacosmos.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00378",
+    "name": "AJ Vaccines A/S",
+    "domain": "ajvaccines.com",
+    "country": "Dinamarca"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00379",
+    "name": "Amoun Pharmaceutical Company / Arcera Life Sciences",
+    "domain": "amoun.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00380",
+    "name": "Egyptian International Pharmaceutical Industries Co. (EIPICO)",
+    "domain": "eipico.com.eg",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00381",
+    "name": "EVA Pharma",
+    "domain": "evapharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00382",
+    "name": "Global Napi Pharmaceuticals (GNP)",
+    "domain": "globalnapi.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00383",
+    "name": "Pharco Pharmaceuticals",
+    "domain": "pharco.com.eg",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00384",
+    "name": "ADWIA",
+    "domain": "adwia.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00385",
+    "name": "Al Andalous Pharmaceutical Industries",
+    "domain": "alandalous.org",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00386",
+    "name": "Alexandria Co. for Pharmaceuticals & Chemical Industries",
+    "domain": "alexcopharma.net",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00387",
+    "name": "AlfaCure Pharmaceuticals",
+    "domain": "alfacure.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00388",
+    "name": "APEX Pharma",
+    "domain": "apexpharmaeg.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00389",
+    "name": "BioGeneric Pharma S.A.E (BGP)",
+    "domain": "biogenericpharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00390",
+    "name": "Borg Pharmaceutical Industries",
+    "domain": "borg-pharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00391",
+    "name": "Chemical Industries Development (CID)",
+    "domain": "",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00392",
+    "name": "Chemipharm Egypt",
+    "domain": "chemipharm.org",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00393",
+    "name": "Delta Pharma (Delta Pharmaceutical Industries S.A.E.)",
+    "domain": "dp.eg",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00394",
+    "name": "EGPI – Egyptian Group for Pharmaceutical Industries",
+    "domain": "egpi.org",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00395",
+    "name": "El Nile Co. for Pharmaceuticals and Chemical Industries",
+    "domain": "nilpharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00396",
+    "name": "GYPTO Pharma",
+    "domain": "gyptopharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00397",
+    "name": "Hi Pharm",
+    "domain": "hipharm-eg.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00398",
+    "name": "High Performance Pharma (HP Pharma)",
+    "domain": "hppharmagroup.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00399",
+    "name": "Kahira Pharmaceuticals & Chemical Industries",
+    "domain": "kahirapharmaeg.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00400",
+    "name": "Macro Group Pharmaceuticals",
+    "domain": "macro-egy.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00401",
+    "name": "Marcyrl Pharmaceutical Industries",
+    "domain": "marcyrlgp.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00402",
+    "name": "Mash Premiere",
+    "domain": "mashpremiere.net",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00403",
+    "name": "Medical Union Pharmaceuticals (MUP)",
+    "domain": "mupeg.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00404",
+    "name": "Minapharm Pharmaceuticals",
+    "domain": "minapharm.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00405",
+    "name": "Multicare Egypt for Pharmaceutical Industries",
+    "domain": "multicare-eg.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00406",
+    "name": "Nerhadou International for Pharmaceuticals & Nutraceuticals",
+    "domain": "nerhadou.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00407",
+    "name": "October Pharma S.A.E.",
+    "domain": "octobrapharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00408",
+    "name": "Orchidia Pharmaceutical Industries",
+    "domain": "orchidiapharmaceutical.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00409",
+    "name": "Pharaonia Pharmaceuticals",
+    "domain": "pharaoniapharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00410",
+    "name": "Parkville Pharmaceuticals",
+    "domain": "parkvillepharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00411",
+    "name": "Rameda (Tenth of Ramadan for Pharmaceutical and Diagnostic Products)",
+    "domain": "rameda.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00412",
+    "name": "Riva Pharma",
+    "domain": "rivapharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00413",
+    "name": "SEDICO Pharmaceuticals",
+    "domain": "sedicopharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00414",
+    "name": "Unipharma – Universal Industries Pharmaceuticals Company",
+    "domain": "unipharma-eg.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00415",
+    "name": "Utopia Pharmaceuticals",
+    "domain": "utopiapharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00416",
+    "name": "Xeedia Pharma",
+    "domain": "xeediapharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00417",
+    "name": "Zeta Pharma",
+    "domain": "zetapharma.net",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00418",
+    "name": "Amriya Pharmaceutical Industries",
+    "domain": "amriya-pharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00419",
+    "name": "European Egyptian Pharmaceutical Industries (EEPI)",
+    "domain": "pharco.com.eg",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00420",
+    "name": "Memphis Pharmaceutical & Chemical Industries",
+    "domain": "memphis.com.eg",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00421",
+    "name": "Sabaa International Company for Pharmaceutical & Chemical Industry",
+    "domain": "sabaapharmagroup.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00422",
+    "name": "AUG Pharma",
+    "domain": "augpharma.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00423",
+    "name": "Future Pharmaceutical Industries (FPI / Future Pharma)",
+    "domain": "future-eg.com",
+    "country": "Egipto"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00424",
+    "name": "Logan Pharmaceuticals",
+    "domain": "loganpharmaceuticals.co.uk",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00425",
+    "name": "Aver Generics Limited",
+    "domain": "avergenerics.co.uk",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00426",
+    "name": "BDD Pharma",
+    "domain": "bddpharma.com",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00427",
+    "name": "Ethigen",
+    "domain": "ethigen.co.uk",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00428",
+    "name": "ILC Therapeutics",
+    "domain": "ilctherapeutics.com",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00429",
+    "name": "RoslinCT",
+    "domain": "roslinct.com",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00430",
+    "name": "Symbiosis Pharmaceutical Services",
+    "domain": "symbiosis-pharma.com",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00431",
+    "name": "Target Healthcare",
+    "domain": "target-healthcare.co.uk",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00432",
+    "name": "TC BioPharm",
+    "domain": "tcbiopharm.com",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00433",
+    "name": "Valneva",
+    "domain": "valneva.com",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00434",
+    "name": "Veranova",
+    "domain": "veranova.com",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00435",
+    "name": "Elasmogen",
+    "domain": "elasmogen.com",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00436",
+    "name": "Curia Global",
+    "domain": "curiaglobal.com",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00437",
+    "name": "Piramal Pharma Solutions",
+    "domain": "piramal.com",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00438",
+    "name": "NovaBiotics",
+    "domain": "novabiotics.co.uk",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00439",
+    "name": "Strathclyde Pharmaceuticals",
+    "domain": "munro-group.eu",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00440",
+    "name": "Ferring Controlled Therapeutics",
+    "domain": "ferring.com",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00441",
+    "name": "Tepnel Pharma Services",
+    "domain": "tepnelpharmaservices.com",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00442",
+    "name": "Omega Diagnostics",
+    "domain": "omegadx.com",
+    "country": "Escocia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00443",
+    "name": "Biohit Healthcare / Biohit Oyj",
+    "domain": "biohit.fi",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00444",
+    "name": "Orion Corporation / Orion Pharma",
+    "domain": "orionpharma.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00445",
+    "name": "Pharmia",
+    "domain": "pharmia.fi",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00446",
+    "name": "Verman Ab",
+    "domain": "verman.fi",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00447",
+    "name": "Algol Pharma Oy",
+    "domain": "algol.fi",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00448",
+    "name": "Biogen Finland Oy",
+    "domain": "biogen.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00449",
+    "name": "Cour Group Oy",
+    "domain": "",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00450",
+    "name": "DelSiTech",
+    "domain": "delsitech.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00451",
+    "name": "Faron Pharmaceuticals",
+    "domain": "faron.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00452",
+    "name": "Finnish Drug Discovery Center",
+    "domain": "ddcenter.fi",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00453",
+    "name": "Forendo Pharma Ltd",
+    "domain": "",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00454",
+    "name": "JedX",
+    "domain": "",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00455",
+    "name": "MedEngine",
+    "domain": "medengine.fi",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00456",
+    "name": "Medikosetus Oy",
+    "domain": "",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00457",
+    "name": "Megin",
+    "domain": "megin.fi",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00458",
+    "name": "Movense",
+    "domain": "movesense.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00459",
+    "name": "Oiva Health",
+    "domain": "",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00460",
+    "name": "Topcone Healthcare Europe",
+    "domain": "",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00461",
+    "name": "Adamant Health",
+    "domain": "",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00462",
+    "name": "Taj Pharmaceuticals",
+    "domain": "",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00463",
+    "name": "Optomed Plc",
+    "domain": "optomed.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00464",
+    "name": "Fermion Oy",
+    "domain": "fermion.io",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00465",
+    "name": "Vitabalans Oy",
+    "domain": "vitabalans.fi",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00466",
+    "name": "NextPharma Oy",
+    "domain": "nextpharma.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00467",
+    "name": "Nanoform Finland Oyj",
+    "domain": "nanoform.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00468",
+    "name": "3PBIOVIAN",
+    "domain": "biovian.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00469",
+    "name": "Galena Pharma Oy",
+    "domain": "galena.fi",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00470",
+    "name": "Paras Biopharmaceuticals Finland Oy",
+    "domain": "parasbiopharma.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00471",
+    "name": "FinVector Oy",
+    "domain": "finvector.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00472",
+    "name": "Pharmatory Ltd",
+    "domain": "pharmatory.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00473",
+    "name": "Primex Pharmaceuticals Ltd",
+    "domain": "",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00474",
+    "name": "PCAS Finland Oy",
+    "domain": "pcas.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00475",
+    "name": "Santen Oy",
+    "domain": "santen.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00476",
+    "name": "Rokote Laboratories Finland Oy",
+    "domain": "rokote.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00477",
+    "name": "Repolar Pharmaceuticals Ltd",
+    "domain": "repolar.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00478",
+    "name": "Desentum Oy",
+    "domain": "desentum.fi",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00479",
+    "name": "Herantis Pharma",
+    "domain": "herantis.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00480",
+    "name": "Medix Biochemica",
+    "domain": "medixbiochemica.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00481",
+    "name": "SwanMedica Oy",
+    "domain": "swanmedica.fi",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00482",
+    "name": "Accord Healthcare Oy",
+    "domain": "",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00483",
+    "name": "KRKA Finland Oy",
+    "domain": "",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00484",
+    "name": "Aplagon Oy",
+    "domain": "aplagon.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00485",
+    "name": "Valo Therapeutics",
+    "domain": "valotx.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00486",
+    "name": "Aranda Pharma",
+    "domain": "arandapharma.com",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00487",
+    "name": "Glykos Finland",
+    "domain": "glykos.fi",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00488",
+    "name": "Plandent Oy",
+    "domain": "",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00489",
+    "name": "Alora Pharmaceuticals",
+    "domain": "alorapharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00490",
+    "name": "Mikart",
+    "domain": "mikart.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00491",
+    "name": "Pharma Tech Industries",
+    "domain": "pharma-tech.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00492",
+    "name": "Sebela Pharmaceuticals",
+    "domain": "sebelapharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00493",
+    "name": "Wilshire Pharmaceuticals / Wilshire Rx (Azurity)",
+    "domain": "azurity.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00494",
+    "name": "Galt Pharmaceuticals",
+    "domain": "galtrx.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00495",
+    "name": "Athens Research (Athens Bioscience)",
+    "domain": "athensbioscience.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00496",
+    "name": "S.S.S. Company (SSS Pharmaceuticals)",
+    "domain": "ssscompany.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00497",
+    "name": "Purisys",
+    "domain": "purisys.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00498",
+    "name": "Acella Pharmaceuticals",
+    "domain": "acellapharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00499",
+    "name": "Avion Pharmaceuticals",
+    "domain": "avionrx.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00500",
+    "name": "Societal CDMO (CoreRx)",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00501",
+    "name": "Aavis Pharmaceuticals (Havix Group / Senores)",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00502",
+    "name": "Winder Laboratories",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00503",
+    "name": "Alimera Sciences (integrada a ANI Pharmaceuticals)",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00504",
+    "name": "Laboratoires Farmatrix",
+    "domain": "labfarmatrix.com",
+    "country": "Haiti"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00505",
+    "name": "Laboratoires 4C",
+    "domain": "laboratoires4c.com",
+    "country": "Haiti"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00506",
+    "name": "Socojeb S.A.",
+    "domain": "",
+    "country": "Haiti"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00507",
+    "name": "Petigo Pharma S.A.",
+    "domain": "",
+    "country": "Haiti"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00508",
+    "name": "Disprophar S.A.",
+    "domain": "disprophar.com",
+    "country": "Haiti"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00509",
+    "name": "Hospital & Medical Supplies (HMS)",
+    "domain": "hms.ht",
+    "country": "Haiti"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00510",
+    "name": "Haiti Medicine S.A.",
+    "domain": "haitimeds.com",
+    "country": "Haiti"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00511",
+    "name": "Pharmatop Haiti",
+    "domain": "",
+    "country": "Haiti"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00512",
+    "name": "Barbe Pharma",
+    "domain": "",
+    "country": "Haiti"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00513",
+    "name": "Avenacy",
+    "domain": "avenacy.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00514",
+    "name": "Blistex Inc.",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00515",
+    "name": "Eton Pharmaceuticals, Inc.",
+    "domain": "etonpharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00516",
+    "name": "Nexus Pharmaceuticals, Inc.",
+    "domain": "nexuspharma.net",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00517",
+    "name": "OWP Pharmaceuticals",
+    "domain": "owppharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00518",
+    "name": "Sterling Pharmaceutical Services, LLC",
+    "domain": "sterlingpharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00519",
+    "name": "TerSera Therapeutics LLC",
+    "domain": "tersera.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00520",
+    "name": "Woodstock Sterile Solutions",
+    "domain": "woodstocksterilesolutions.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00521",
+    "name": "Xeris Biopharma Holdings, Inc.",
+    "domain": "xerispharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00522",
+    "name": "AbbVie Inc.",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00523",
+    "name": "Baxter International Inc.",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00524",
+    "name": "Tolmar Pharmaceuticals, Inc.",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00525",
+    "name": "Meitheal Pharmaceuticals",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00526",
+    "name": "Sagent Pharmaceuticals",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00527",
+    "name": "Patrin Pharma, Inc.",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00528",
+    "name": "Clarus Therapeutics Holdings",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00529",
+    "name": "Akorn Pharmaceuticals (Akorn Operating Co.)",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00530",
+    "name": "Athenex Pharmaceutical Division",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00531",
+    "name": "Acura Pharmaceuticals, Inc.",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00532",
+    "name": "DMS Pharmaceutical Group, Inc.",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00533",
+    "name": "Mistral Capital Management Limited",
+    "domain": "mistral.capital",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00534",
+    "name": "Pharmathen UK",
+    "domain": "pharmathen.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00535",
+    "name": "Rosemont Pharmaceuticals",
+    "domain": "rosemontpharma.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00536",
+    "name": "Allergy Therapeutics plc",
+    "domain": "allergytherapeutics.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00537",
+    "name": "Novumgen",
+    "domain": "novumgen.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00538",
+    "name": "Crescent Pharma Ltd",
+    "domain": "crescentpharma.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00539",
+    "name": "Alliance Pharmaceuticals Ltd",
+    "domain": "rb.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00540",
+    "name": "Almac Group",
+    "domain": "almacgroup.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00541",
+    "name": "BioCare Ltd",
+    "domain": "biocare.net",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00542",
+    "name": "Bristol Laboratories Ltd",
+    "domain": "bristol-labs.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00543",
+    "name": "Custom Pharma Services",
+    "domain": "custompharma.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00544",
+    "name": "GMP Manufacturing Ltd",
+    "domain": "gmpgroup.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00545",
+    "name": "Kent Pharma UK Ltd",
+    "domain": "kent-athlone.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00546",
+    "name": "Neon Healthcare Ltd",
+    "domain": "neonhealthcare.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00547",
+    "name": "Northumbria Pharma Ltd",
+    "domain": "northumbriapharma.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00548",
+    "name": "OptiBiotix Health Plc",
+    "domain": "optibiotix.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00549",
+    "name": "Pharmanovia",
+    "domain": "pharmanovia.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00550",
+    "name": "Shield Therapeutics plc",
+    "domain": "shieldtx.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00551",
+    "name": "Sterling Pharma Solutions",
+    "domain": "sterlingpsl.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00552",
+    "name": "Therakind Limited",
+    "domain": "therakind.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00553",
+    "name": "Upperton Pharma Solutions",
+    "domain": "upperton.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00554",
+    "name": "Vectura Group Ltd",
+    "domain": "",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00555",
+    "name": "Wasdell Group (Pharmaceutical Manufacturing)",
+    "domain": "wasdell.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00556",
+    "name": "Mawdsleys",
+    "domain": "mawdsleys.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00557",
+    "name": "Galvany Pharma Ltd",
+    "domain": "galvanypharma.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00558",
+    "name": "Masters Pharmaceuticals Limited",
+    "domain": "mastersglobal.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00559",
+    "name": "Ridge Pharma",
+    "domain": "ridge-pharma.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00560",
+    "name": "Mercury Pharma Group Limited",
+    "domain": "mercurylabs.io",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00561",
+    "name": "CNX Therapeutics",
+    "domain": "cnx-therapeutics.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00562",
+    "name": "Alturix",
+    "domain": "alturix.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00563",
+    "name": "Amarox Limited",
+    "domain": "amaroxpharma.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00564",
+    "name": "Seltfar LTD",
+    "domain": "seltfar.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00565",
+    "name": "IILCO Limited",
+    "domain": "iilco.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00566",
+    "name": "Wockhardt UK Ltd",
+    "domain": "wockhardt.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00567",
+    "name": "Aspire Pharma Ltd",
+    "domain": "morningsidepharm.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00568",
+    "name": "Advanz Pharma",
+    "domain": "advanzpharma.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00569",
+    "name": "Morningside Pharmaceuticals Ltd",
+    "domain": "aspirepharma.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00570",
+    "name": "Tillomed Laboratories Ltd",
+    "domain": "tillomed.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00571",
+    "name": "Milpharm Ltd (Aurobindo UK)",
+    "domain": "aurobindo.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00572",
+    "name": "Thornton & Ross Ltd",
+    "domain": "thorntonross.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00573",
+    "name": "Essential Pharma",
+    "domain": "essentialpharmagroup.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00574",
+    "name": "Consilient Health",
+    "domain": "consilienthealth.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00575",
+    "name": "Norgine",
+    "domain": "norgine.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00576",
+    "name": "Ennogen Pharma Ltd",
+    "domain": "ennogen.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00577",
+    "name": "Flynn Pharma Ltd",
+    "domain": "flynnpharma.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00578",
+    "name": "Britannia Pharmaceuticals Ltd",
+    "domain": "britannia-pharm.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00579",
+    "name": "Waymade plc",
+    "domain": "waymade.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00580",
+    "name": "Sigma Pharmaceuticals plc",
+    "domain": "sigmaplc.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00581",
+    "name": "Genesis Pharmaceuticals",
+    "domain": "genesis-pharma.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00582",
+    "name": "Vitabiotics Ltd",
+    "domain": "vitabiotics.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00583",
+    "name": "Owen Mumford Ltd",
+    "domain": "owenmumford.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00584",
+    "name": "Dermal Laboratories Ltd",
+    "domain": "dermal.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00585",
+    "name": "Quantum Pharmaceutical Ltd",
+    "domain": "quantumpharmaceutical.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00586",
+    "name": "Colonis Pharma Ltd",
+    "domain": "colonis.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00587",
+    "name": "Galen Ltd",
+    "domain": "galen.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00588",
+    "name": "Dixons Pharmaceuticals UK Ltd",
+    "domain": "dixpharm.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00589",
+    "name": "Clinigen Group plc",
+    "domain": "clinigengroup.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00590",
+    "name": "Brown & Burk UK Ltd",
+    "domain": "bbukltd.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00591",
+    "name": "Venture Life Group plc",
+    "domain": "venture-life.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00592",
+    "name": "S3K",
+    "domain": "s3k.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00593",
+    "name": "SyriMed",
+    "domain": "syrimed.co.uk",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00594",
+    "name": "Manx Healthcare Ltd",
+    "domain": "manxhealthcare.com",
+    "country": "Inglaterra"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00595",
+    "name": "Althera",
+    "domain": "altheralabs.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00596",
+    "name": "Chanelle Pharma",
+    "domain": "chanellegroup.ie",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00597",
+    "name": "Phoenix Labs",
+    "domain": "phoenixlabs.ie",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00598",
+    "name": "Xeolas Pharmaceuticals",
+    "domain": "xeolas.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00599",
+    "name": "Kora Healthcare",
+    "domain": "korahealthcare.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00600",
+    "name": "Gaelic Laboratories Ltd",
+    "domain": "gaeliclabs.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00601",
+    "name": "C2 Pharma",
+    "domain": "c2pharma.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00602",
+    "name": "Eirgen Pharma",
+    "domain": "eirgen.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00603",
+    "name": "iMAX Diagnostic Imaging Ltd",
+    "domain": "imaxdi.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00604",
+    "name": "Inova Pharma & Life Sciences",
+    "domain": "inova.ie",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00605",
+    "name": "Rowa Pharmaceuticals Ltd",
+    "domain": "rowa-pharma.ie",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00606",
+    "name": "Shorla Oncology",
+    "domain": "shorlaoncology.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00607",
+    "name": "Aenova Group Ireland",
+    "domain": "aenova-group.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00608",
+    "name": "Uniphar Group",
+    "domain": "uniphar.ie",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00609",
+    "name": "SCOPE Eyecare & Healthcare",
+    "domain": "scopeeyecare.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00610",
+    "name": "Athenapharm",
+    "domain": "omnispirant.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00611",
+    "name": "Azure Pharmaceuticals",
+    "domain": "azure-pharma.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00612",
+    "name": "Pinewood Healthcare",
+    "domain": "pinewood.ie",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00613",
+    "name": "Ovelle Pharmaceuticals",
+    "domain": "ovelle.ie",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00614",
+    "name": "TopChem Pharmaceuticals",
+    "domain": "topchempharma.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00615",
+    "name": "Wyntra Pharmaceuticals",
+    "domain": "wyntrapharma.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00616",
+    "name": "Ipsen Manufacturing Ireland",
+    "domain": "ipsen.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00617",
+    "name": "Jazz Pharmaceuticals plc",
+    "domain": "jazzpharma.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00618",
+    "name": "SK pharmteco (Ireland)",
+    "domain": "skpt.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00619",
+    "name": "WuXi Biologics Ireland",
+    "domain": "wuxibiologics.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00620",
+    "name": "Newport Pharmaceuticals Ltd",
+    "domain": "newportpharma.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00621",
+    "name": "ActiveIron (Solvotrin)",
+    "domain": "solvotrin.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00622",
+    "name": "BCO Pharma",
+    "domain": "bcopharma.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00623",
+    "name": "Clonmel Healthcare",
+    "domain": "clonmel-health.ie",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00624",
+    "name": "PCO Manufacturing Ltd",
+    "domain": "pco.ie",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00625",
+    "name": "Millicent Pharma",
+    "domain": "gwpharm.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00626",
+    "name": "AnaBio Technologies",
+    "domain": "anabio.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00627",
+    "name": "Athlone Laboratories Ltd",
+    "domain": "kent-athlone.com",
+    "country": "Irlanda"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00628",
+    "name": "JGL d.d.",
+    "domain": "jgl.hr",
+    "country": "Croacia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00629",
+    "name": "Orion Pharma",
+    "domain": "orion.fi",
+    "country": "Finlandia"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00630",
+    "name": "SUBSTIPHARM",
+    "domain": "substipharm.com",
+    "country": "Taiwan"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00631",
+    "name": "Agios Pharmaceuticals, Inc.",
+    "domain": "agios.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00632",
+    "name": "Akebia Therapeutics, Inc.",
+    "domain": "akebia.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00633",
+    "name": "Alnylam Pharmaceuticals, Inc.",
+    "domain": "alnylam.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00634",
+    "name": "Apellis Pharmaceuticals, Inc.",
+    "domain": "apellis.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00635",
+    "name": "bluebird bio, Inc.",
+    "domain": "bluebirdbio.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00636",
+    "name": "Collegium Pharmaceutical, Inc.",
+    "domain": "collegiumpharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00637",
+    "name": "Ironwood Pharmaceuticals, Inc.",
+    "domain": "ironwoodpharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00638",
+    "name": "Karyopharm Therapeutics Inc.",
+    "domain": "karyopharm.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00639",
+    "name": "Partner Therapeutics, Inc. (PTx)",
+    "domain": "partnertx.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00640",
+    "name": "Rhythm Pharmaceuticals, Inc.",
+    "domain": "rhythmtx.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00641",
+    "name": "Sarepta Therapeutics, Inc.",
+    "domain": "sarepta.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00642",
+    "name": "Arranta Bio (ReciBioPharm | Recipharm)",
+    "domain": "arrantabio.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00643",
+    "name": "Nuvalent, Inc.",
+    "domain": "nuvalent.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00644",
+    "name": "Vertex Pharmaceuticals Incorporated",
+    "domain": "vrtx.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00645",
+    "name": "Moderna, Inc.",
+    "domain": "modernatx.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00646",
+    "name": "Resilience (National Resilience, Inc.)",
+    "domain": "resilience.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00647",
+    "name": "Alcami Corporation",
+    "domain": "alcami.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00648",
+    "name": "Avadim Health, Inc.",
+    "domain": "avadimhealth.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00649",
+    "name": "BioCryst Pharmaceuticals",
+    "domain": "biocryst.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00650",
+    "name": "CMP Pharma, Inc.",
+    "domain": "cmppharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00651",
+    "name": "Exela Pharma Sciences",
+    "domain": "exela.us",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00652",
+    "name": "Liquidia Corporation",
+    "domain": "liquidia.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00653",
+    "name": "Sprout Pharmaceuticals",
+    "domain": "sproutpharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00654",
+    "name": "United Therapeutics",
+    "domain": "unither.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00655",
+    "name": "Mycovia Pharmaceuticals",
+    "domain": "mycovia.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00656",
+    "name": "KBI Biopharma",
+    "domain": "kbibiopharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00657",
+    "name": "MedPharm",
+    "domain": "medpharm.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00658",
+    "name": "BestCo",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00659",
+    "name": "G1 Therapeutics",
+    "domain": "g1therapeutics.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00660",
+    "name": "Palla Pharma Norway",
+    "domain": "pallapharma.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00661",
+    "name": "Frost Pharma AB",
+    "domain": "frostpharma.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00662",
+    "name": "AdjuTec Pharma AS",
+    "domain": "adjutecpharma.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00663",
+    "name": "Adragos Pharma Norway",
+    "domain": "adragos-pharma.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00664",
+    "name": "Agilera Pharma AS",
+    "domain": "agilera.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00665",
+    "name": "ArcticZymes Technologies ASA",
+    "domain": "arcticzymes.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00666",
+    "name": "Borregaard",
+    "domain": "borregaard.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00667",
+    "name": "Curida AS",
+    "domain": "curida.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00668",
+    "name": "Kappa Bioscience AS",
+    "domain": "kappabio.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00669",
+    "name": "Navamedic ASA",
+    "domain": "navamedic.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00670",
+    "name": "Orkla Health AS (División farmacéutica OTC)",
+    "domain": "orklahealth.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00671",
+    "name": "Pharma Marine AS",
+    "domain": "pharmamarine.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00672",
+    "name": "Pharma Nordic AS",
+    "domain": "pharma-nordic.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00673",
+    "name": "PHARMAQ Analytiq AS",
+    "domain": "zoetis.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00674",
+    "name": "Arctic Bioscience AS",
+    "domain": "arctic-bioscience.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00675",
+    "name": "GlycaNova",
+    "domain": "glycanova.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00676",
+    "name": "Halden Pharma",
+    "domain": "halden-pharma.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00677",
+    "name": "Inpac Pharma AS",
+    "domain": "inpac.se",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00678",
+    "name": "Karo Healthcare",
+    "domain": "karo.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00679",
+    "name": "Mericon AS",
+    "domain": "mericon.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00680",
+    "name": "Norsk Pharma AS",
+    "domain": "norskpharma.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00681",
+    "name": "Nykode Therapeutics ASA",
+    "domain": "nykode.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00682",
+    "name": "Oncoinvent AS",
+    "domain": "oncoinvent.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00683",
+    "name": "PCI Biotech Holding ASA",
+    "domain": "pcibiotech.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00684",
+    "name": "GHN Pharma Nordic",
+    "domain": "",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00685",
+    "name": "Calluna Pharma",
+    "domain": "callunapharma.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00686",
+    "name": "Lytix Biopharma AS",
+    "domain": "lytixbiopharma.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00687",
+    "name": "NaDeNo Nanoscience AS",
+    "domain": "nadeno.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00688",
+    "name": "Norsk Medisinsk Syklotronsenter AS",
+    "domain": "syklotronsenteret.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00689",
+    "name": "Ringdal Pharma",
+    "domain": "",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00690",
+    "name": "Mycotech Pharma AS",
+    "domain": "",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00691",
+    "name": "Vistin Pharma ASA",
+    "domain": "vistin.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00692",
+    "name": "Photocure ASA",
+    "domain": "photocure.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00693",
+    "name": "AlgiPharma AS",
+    "domain": "algipharma.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00694",
+    "name": "NaviNor Pharma",
+    "domain": "navinorpharma.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00695",
+    "name": "Prange Pharmaceuticals AS",
+    "domain": "",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00696",
+    "name": "Den norske Eterfabrikk AS",
+    "domain": "eter.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00697",
+    "name": "Pharma Holdings AS",
+    "domain": "pharmaholdings.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00698",
+    "name": "Aker BioMarine ASA",
+    "domain": "",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00699",
+    "name": "Nordic Nanovector ASA",
+    "domain": "nordicnanovector.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00700",
+    "name": "STIM AS",
+    "domain": "",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00701",
+    "name": "Ultimovacs ASA",
+    "domain": "ultimovacs.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00702",
+    "name": "Serodus ASA",
+    "domain": "serodus.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00703",
+    "name": "Marealis AS",
+    "domain": "marealis.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00704",
+    "name": "APIM Therapeutics AS",
+    "domain": "apimtherapeutics.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00705",
+    "name": "BerGenBio ASA",
+    "domain": "",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00706",
+    "name": "DNE Pharma",
+    "domain": "dnepharma.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00707",
+    "name": "Sana Pharma Medical AS",
+    "domain": "sanapharma.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00708",
+    "name": "LINK Medical",
+    "domain": "linkmedical.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00709",
+    "name": "Polypure AS",
+    "domain": "polypure.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00710",
+    "name": "Arctic Beauty AS",
+    "domain": "",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00711",
+    "name": "Concordix Vitux Group",
+    "domain": "concordix.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00712",
+    "name": "Asamedic",
+    "domain": "asamedic.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00713",
+    "name": "Circio Holding ASA (ex Filmarray/Circio)",
+    "domain": "circio.com",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00714",
+    "name": "InsuLife",
+    "domain": "insulife.no",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00715",
+    "name": "SpinChip Diagnostics AS",
+    "domain": "",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00716",
+    "name": "Algea AS",
+    "domain": "",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00717",
+    "name": "Weifa AS",
+    "domain": "",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00718",
+    "name": "Targovax ASA",
+    "domain": "",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00719",
+    "name": "GE HealthCare AS (Lindesnes)",
+    "domain": "",
+    "country": "Noruega"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00720",
+    "name": "Actylis (ex-Aceto)",
+    "domain": "actylis.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00721",
+    "name": "Advance Pharmaceutical Inc.",
+    "domain": "advancepharmaceutical.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00722",
+    "name": "American Regent, Inc.",
+    "domain": "americanregent.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00723",
+    "name": "Amneal Pharmaceuticals / InvaGen (NY ops)",
+    "domain": "amneal.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00724",
+    "name": "Ascent Pharmaceuticals, Inc.",
+    "domain": "ascentpharm.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00725",
+    "name": "Axsome Therapeutics, Inc.",
+    "domain": "axsome.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00726",
+    "name": "A&Z Pharmaceutical, Inc.",
+    "domain": "azpharmaceutical.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00727",
+    "name": "Chartwell Pharmaceuticals",
+    "domain": "chartwellpharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00728",
+    "name": "Contract Pharmacal Corp. (CPC)",
+    "domain": "cpc.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00729",
+    "name": "Fareva",
+    "domain": "fareva.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00730",
+    "name": "Hudson Scientific",
+    "domain": "hudsci.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00731",
+    "name": "LGM Pharma",
+    "domain": "lgmpharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00732",
+    "name": "LNK International, Inc.",
+    "domain": "lnkintl.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00733",
+    "name": "Par Health (ex-Par Pharmaceutical / Endo)",
+    "domain": "endo.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00734",
+    "name": "Prestige Consumer Healthcare Inc.",
+    "domain": "prestigebrands.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00735",
+    "name": "ScieGen Pharmaceuticals, Inc.",
+    "domain": "sciegenpharm.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00736",
+    "name": "Acorda Therapeutics",
+    "domain": "acorda.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00737",
+    "name": "Acreage Holdings",
+    "domain": "acreageholdings.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00738",
+    "name": "Appco Pharma LLC",
+    "domain": "appcopharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00739",
+    "name": "Bio-Botanica",
+    "domain": "bio-botanica.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00740",
+    "name": "ConMed Corporation",
+    "domain": "conmed.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00741",
+    "name": "Dukal LLC",
+    "domain": "dukal.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00742",
+    "name": "Intercept Pharmaceuticals",
+    "domain": "interceptpharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00743",
+    "name": "Makers Nutrition, LLC",
+    "domain": "makersnutrition.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00744",
+    "name": "NutraScience Labs",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00745",
+    "name": "Oak Drugs",
+    "domain": "oakdrugs.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00746",
+    "name": "Piping Rock Health Products",
+    "domain": "pipingrock.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00747",
+    "name": "ProPhase Labs, Inc.",
+    "domain": "prophaselabs.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00748",
+    "name": "Spheryx, Inc.",
+    "domain": "spheryx.solutions",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00749",
+    "name": "United-Guardian, Inc.",
+    "domain": "u-g.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00750",
+    "name": "Vitakem Nutraceutical inc.",
+    "domain": "vitakem.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00751",
+    "name": "Agencias Motta, S.A.",
+    "domain": "agmotta.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00752",
+    "name": "iMEDICA Panamá",
+    "domain": "imedicasa.net",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00753",
+    "name": "Panafarma",
+    "domain": "panafarma.com",
+    "country": "Panamá"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00754",
+    "name": "Madrigal Pharmaceuticals, Inc.",
+    "domain": "madrigalpharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00755",
+    "name": "Agno Pharma",
+    "domain": "agnopharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00756",
+    "name": "Harmony Biosciences Holdings, Inc.",
+    "domain": "harmonybiosciences.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00757",
+    "name": "Adare Pharma Solutions",
+    "domain": "adareps.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00758",
+    "name": "Colorcon, Inc.",
+    "domain": "colorcon.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00759",
+    "name": "West Pharmaceutical Services, Inc.",
+    "domain": "westpharma.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00760",
+    "name": "Endo, Inc.",
+    "domain": "endo.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00761",
+    "name": "Krystal Biotech, Inc.",
+    "domain": "krystalbio.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00762",
+    "name": "Viatris",
+    "domain": "viatris.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00763",
+    "name": "Genus Lifesciences",
+    "domain": "genuslifesciences.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00764",
+    "name": "Lannett Company, Inc.",
+    "domain": "lannett.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00765",
+    "name": "Frontage Laboratories, Inc.",
+    "domain": "frontagelab.com",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00766",
+    "name": "KVK Tech, Inc.",
+    "domain": "",
+    "country": "Estados Unidos"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00767",
+    "name": "AC Helcor Pharmaceutical Company SRL",
+    "domain": "achelcor.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00768",
+    "name": "Antibiotice SA",
+    "domain": "antibiotice.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00769",
+    "name": "Bioeel Manufacturing S.R.L.",
+    "domain": "bioeel.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00770",
+    "name": "Farmex Company SRL",
+    "domain": "farmex.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00771",
+    "name": "Gedeon Richter Romania SA",
+    "domain": "gedeonrichter.com",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00772",
+    "name": "Infomed Fluids S.R.L.",
+    "domain": "infomedfluids.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00773",
+    "name": "Laboratoarele Remedia S.R.L.",
+    "domain": "laboratoareleremedia.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00774",
+    "name": "Laropharm SRL",
+    "domain": "laropharm.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00775",
+    "name": "Magistra C&C S.R.L.",
+    "domain": "magistracc.com",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00776",
+    "name": "Polisano / Vitema Pharmaceuticals S.A.",
+    "domain": "vitemapharmaceuticals.com",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00777",
+    "name": "Rompharm Company SRL",
+    "domain": "rompharm.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00778",
+    "name": "Pharmnet Plus S.R.L.",
+    "domain": "pharmnet.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00779",
+    "name": "Prisum Healthcare",
+    "domain": "prisum.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00780",
+    "name": "Fiterman Pharma",
+    "domain": "fitermanpharma.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00781",
+    "name": "MagnaPharm Group",
+    "domain": "magnapharm.eu",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00782",
+    "name": "Perfect Care Distribution SRL",
+    "domain": "perfectcare.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00783",
+    "name": "Ch-C Romania (Chemical Company)",
+    "domain": "chemicalcompany.eu",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00784",
+    "name": "Sanience",
+    "domain": "",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00785",
+    "name": "Meditrina Romania",
+    "domain": "meditrina.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00786",
+    "name": "Sun Wave Pharma",
+    "domain": "sunwavepharma.com",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00787",
+    "name": "Biofarm SA",
+    "domain": "biofarm.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00788",
+    "name": "PlantExtrakt S.R.L.",
+    "domain": "plantextrakt.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00789",
+    "name": "Slavia Pharm SRL",
+    "domain": "slaviapharm.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00790",
+    "name": "Farmimplant",
+    "domain": "",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00791",
+    "name": "Terapia S.A. (Sun Pharma Romania)",
+    "domain": "terapia.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00792",
+    "name": "Labormed (Zentiva / Sanofi)",
+    "domain": "alvogen.ro",
+    "country": "Rumania"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00793",
+    "name": "Amaran Biotechnology, Inc.",
+    "domain": "amaranbiotech.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00794",
+    "name": "CENRA API Solutions/CCSB",
+    "domain": "ccsb.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00795",
+    "name": "EirGenix Inc.",
+    "domain": "eirgenix.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00796",
+    "name": "Medigen Vaccine Biologics Corporation (MVC)",
+    "domain": "medigenvac.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00797",
+    "name": "Savior Lifetec Corporation",
+    "domain": "savior.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00798",
+    "name": "Taiwan Biotech Co., Ltd.",
+    "domain": "sintong.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00799",
+    "name": "Teh Seng Pharmaceutical Mfg. Co., Ltd.",
+    "domain": "tehseng.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00800",
+    "name": "TTY Biopharm Company Limited",
+    "domain": "tty.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00801",
+    "name": "UBI Pharma Inc.",
+    "domain": "ubi-pharma.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00802",
+    "name": "United Biopharma Inc.",
+    "domain": "ubpbio.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00803",
+    "name": "YungShin Global Licensing",
+    "domain": "yungshingroup.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00804",
+    "name": "Adimmune Corporation",
+    "domain": "adimmune.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00805",
+    "name": "AnHorn Medicines Co., Ltd.",
+    "domain": "anhornmed.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00806",
+    "name": "Aupa Biopharm Co., Ltd.",
+    "domain": "aupa.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00807",
+    "name": "Bora Pharmaceuticals Co., Ltd.",
+    "domain": "bora-corp.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00808",
+    "name": "Formosa Laboratories, Inc.",
+    "domain": "formosalab.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00809",
+    "name": "Genovior Biotech Corp.",
+    "domain": "genovior.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00810",
+    "name": "Grape King Bio Ltd.",
+    "domain": "grapeking.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00811",
+    "name": "Intech Biopharm Ltd.",
+    "domain": "intechbiopharm.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00812",
+    "name": "Lotus Pharmaceutical Co., Ltd",
+    "domain": "lotuspharm.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00813",
+    "name": "Mycenax Biotech Inc.",
+    "domain": "mycenax.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00814",
+    "name": "OEP HealthCare Licensing (Orient EuroPharma)",
+    "domain": "mail.oep.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00815",
+    "name": "Panion & BF Biotech Inc.",
+    "domain": "pbf.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00816",
+    "name": "PeiLi Pharmaceutical Ind. Co., Ltd.",
+    "domain": "peili.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00817",
+    "name": "SCI Pharmtech, Inc.",
+    "domain": "sci-pharmtech.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00818",
+    "name": "ScinoPharm Taiwan, Ltd.",
+    "domain": "scinopharm.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00819",
+    "name": "Standard Chem. & Pharm. Co., Ltd.",
+    "domain": "standard.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00820",
+    "name": "Sunny Pharmtech Inc.",
+    "domain": "sunnypharmtech.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00821",
+    "name": "Synmosa Biopharma Corporation",
+    "domain": "synmosa.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00822",
+    "name": "Taho Pharmaceuticals Ltd.",
+    "domain": "tahopharma.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00823",
+    "name": "TaiMed Biologics Inc.",
+    "domain": "taimedbio.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00824",
+    "name": "Chirogate International Inc. (旋光製藥)",
+    "domain": "chirogate.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00825",
+    "name": "Excelsior Pharmatech Labs / Excelsior Biopharma Inc.",
+    "domain": "excelsiorpharmatech.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00826",
+    "name": "Genovate Biotechnology Co., Ltd.",
+    "domain": "genovate.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00827",
+    "name": "Nang Kuang Pharmaceutical Co., Ltd.",
+    "domain": "nangkuang.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00828",
+    "name": "Oneness Biotech Co., Ltd.",
+    "domain": "onenessbio.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00829",
+    "name": "TCI Co., Ltd.",
+    "domain": "tci-bio.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00830",
+    "name": "PharmaEssentia Corporation",
+    "domain": "pharmaessentia.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00831",
+    "name": "China Chemical & Pharmaceutical Co., Ltd. (CCPC)",
+    "domain": "ccpg.com.tw",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00832",
+    "name": "TaiGen Biotechnology Co., Ltd.",
+    "domain": "taigen.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00833",
+    "name": "Pharmadax Inc.",
+    "domain": "pharmadax.com",
+    "country": "Taiwán"
+  },
+  {
+    "bp_id_unico": "BP-GRA-00834",
+    "name": "Eden Biologics / JHL Biotech Inc",
+    "domain": "edenbiologics.com",
+    "country": "Taiwán"
+  }
+]

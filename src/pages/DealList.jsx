@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Plus, AlertTriangle, Calendar, Flag } from 'lucide-react'
+import { AlertTriangle, Calendar, Flag, BarChart2 } from 'lucide-react'
 import { hubspot, invalidateDashboard } from '../hooks/useApi'
 import { useAuth } from '../contexts/AuthContext'
 import Topbar from '../components/Topbar'
-import RecordModal from '../components/RecordModal'
+import { DonutChart } from '../components/Charts'
 
 const ACTIVE_EVENT = 'BEPH-2026-09'
 
@@ -23,9 +23,26 @@ const ESTADO_OPTIONS = [
 
 const ALERTA_OPTIONS = [
   { value: '', label: 'Todas las alertas' },
+  { value: 'sin_alerta',      label: 'Sin alerta' },
   { value: 'alerta_roja',     label: 'Alerta roja' },
   { value: 'alerta_amarilla', label: 'Alerta amarilla' },
 ]
+
+// Colores para los gráficos "Estado de la empresa" / "Alertas levantadas"
+const STAGE_CHART_COLORS = {
+  nueva:              '#2563eb',
+  en_depuracion:      '#d97706',
+  en_enriquecimiento: '#7c3aed',
+  contacto_enviado:   '#0369a1',
+  en_seguimiento:     '#0f766e',
+  confirmada:         '#15803d',
+  no_participa:       '#b91c1c',
+}
+const ALERTA_CHART_COLORS = {
+  sin_alerta:      '#94a3b8',
+  alerta_amarilla: '#b45309',
+  alerta_roja:     '#b91c1c',
+}
 
 const OWNER_NAMES = {
   '93615311': 'Roberto',
@@ -119,7 +136,6 @@ export default function DealList() {
   const [ownerFilter, setOwnerFilter] = useState('')
   const [after, setAfter] = useState(null)
   const [history, setHistory] = useState([])
-  const [showCreate, setShowCreate] = useState(false)
 
   const resetPage = () => { setAfter(null); setHistory([]) }
 
@@ -131,7 +147,8 @@ export default function DealList() {
       filters.push(...(preFilter.filters || []))
     }
     if (estado) filters.push({ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado })
-    if (alerta)      filters.push({ propertyName: 'bp_estado_alerta',      operator: 'EQ', value: alerta })
+    if (alerta === 'sin_alerta') filters.push({ propertyName: 'bp_estado_alerta', operator: 'NOT_HAS_PROPERTY' })
+    else if (alerta) filters.push({ propertyName: 'bp_estado_alerta', operator: 'EQ', value: alerta })
     if (ownerFilter) filters.push({ propertyName: 'hubspot_owner_id',      operator: 'EQ', value: ownerFilter })
     if (search)      filters.push({ propertyName: 'dealname',              operator: 'CONTAINS_TOKEN', value: search })
     return filters
@@ -148,6 +165,8 @@ export default function DealList() {
     { keepPreviousData: true }
   )
 
+  const { data: chartsData } = useQuery(['charts', user?.username, viewMode], hubspot.charts, { staleTime: 60_000 })
+
   const deals = data?.results || []
   const nextAfter = data?.paging?.next?.after
 
@@ -156,22 +175,40 @@ export default function DealList() {
 
   return (
     <>
-      <Topbar
-        title={isSupervisor ? 'Todos los eventos' : 'Mis eventos'}
-        action={
-          !isSupervisor && (
-            <button
-              className="btn btn-primary btn-sm"
-              onClick={() => setShowCreate(true)}
-              style={{ display: 'flex', alignItems: 'center', gap: 5 }}
-            >
-              <Plus size={13} /> Nuevo evento
-            </button>
-          )
-        }
-      />
+      <Topbar title={isSupervisor ? 'Todos los eventos' : 'Mis eventos'} />
 
       <div className="content">
+        {/* Gráficos: Estado de la empresa + Alertas levantadas — clic filtra el listado */}
+        {chartsData && (
+          <div className="card" style={{ marginBottom: 14 }}>
+            <div className="card-header">
+              <h2 style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <BarChart2 size={14} style={{ color: '#0052cc' }} />
+                {isSupervisor ? 'Estado y alertas del equipo' : 'Estado y alertas de mis eventos'}
+              </h2>
+              <span style={{ fontSize: 11, color: '#6b778c' }}>clic para filtrar</span>
+            </div>
+            <div className="card-body" style={{ padding: '12px 16px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div>
+                <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Estado de la empresa</div>
+                <DonutChart
+                  data={chartsData.byStage?.map(s => ({ ...s, label: ESTADO_LABELS[s.key] || s.label, color: STAGE_CHART_COLORS[s.key] }))}
+                  centerLabel="eventos"
+                  onSliceClick={(s) => { setEstado(s.key); resetPage() }}
+                />
+              </div>
+              <div>
+                <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Alertas levantadas</div>
+                <DonutChart
+                  data={chartsData.byAlerta?.map(a => ({ ...a, color: ALERTA_CHART_COLORS[a.key] }))}
+                  centerLabel="eventos"
+                  onSliceClick={(a) => { setAlerta(a.key); resetPage() }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Filtros */}
         <div className="filters" style={{ flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
           <input
@@ -279,18 +316,6 @@ export default function DealList() {
           )}
         </div>
       </div>
-
-      {showCreate && (
-        <RecordModal
-          type="deal"
-          onClose={() => setShowCreate(false)}
-          onSaved={(r) => {
-            qc.invalidateQueries(['deals'])
-            invalidateDashboard(qc)
-            nav(`/deals/${r.id}`)
-          }}
-        />
-      )}
     </>
   )
 }

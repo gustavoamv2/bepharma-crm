@@ -3,12 +3,13 @@ import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { format, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { Plus, X } from 'lucide-react'
+import { Plus, X, BarChart2 } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import RecordModal from '../components/RecordModal'
 import { useAuth } from '../contexts/AuthContext'
 import { COUNTRIES } from '../constants/countries'
+import { BarChart } from '../components/Charts'
 
 const fmt = (v) => v ? format(parseISO(v), 'dd MMM yy', { locale: es }) : '—'
 
@@ -22,6 +23,18 @@ const STAGE_LABELS = {
   confirmada:      '🏆 Confirmada',
   descartada:      '❌ Descartada',
 }
+
+// Mismas claves/orden que COMPANY_QUALITY_FILTERS en el backend
+// (api/config/hubspotProperties.js) — se repite acá solo el label, el
+// criterio de filtro real vive únicamente en el servidor.
+const QUALITY_LABELS = {
+  sinContacto:  'Sin contacto',
+  sinTelefono:  'Sin teléfono',
+  sinPaginaWeb: 'Sin página web',
+  sinCorreo:    'Sin correo',
+  sinEventos:   'Sin eventos',
+}
+const QUALITY_COLOR = '#de350b'
 
 export default function CompanyList() {
   const nav = useNavigate()
@@ -39,6 +52,14 @@ export default function CompanyList() {
   const [hideBlacklist, setHideBlacklist] = useState(true)
   const [countryFilter, setCountryFilter] = useState('') // valor en inglés (propiedad HubSpot 'country')
   const [contactsFilter, setContactsFilter] = useState('') // '' | 'with' | 'without'
+  const [qualityFilter, setQualityFilter] = useState('') // '' | sinContacto | sinTelefono | sinPaginaWeb | sinCorreo | sinEventos
+
+  // En vista de operador, el filtro de país solo debe listar los países que
+  // ese operador tiene configurados (user.bp_paises) — el resto del catálogo
+  // no le sirve porque igual no vería nada. El supervisor sigue viendo todos.
+  const availableCountries = (!isSupervisor && user?.bp_paises?.length)
+    ? COUNTRIES.filter(c => user.bp_paises.includes(c.label))
+    : COUNTRIES
 
   // Pre-filter from Dashboard company pipeline navigation
   const stageFilter = location.state?.stage || null
@@ -51,10 +72,24 @@ export default function CompanyList() {
   const resetPaging = () => { setAfter(null); setHistory([]) }
 
   const { data, isLoading, error } = useQuery(
-    ['companies', search, countryFilter, contactsFilter, after],
-    () => hubspot.searchCompanies({ filters, contactsFilter: contactsFilter || undefined, sorts: [{ propertyName: 'hs_lastmodifieddate', direction: 'DESCENDING' }], limit: 25, after }),
+    ['companies', search, countryFilter, contactsFilter, qualityFilter, after],
+    () => hubspot.searchCompanies({
+      filters,
+      contactsFilter: contactsFilter || undefined,
+      qualityFilter: qualityFilter || undefined,
+      sorts: [{ propertyName: 'hs_lastmodifieddate', direction: 'DESCENDING' }],
+      limit: 25,
+      after,
+    }),
     { keepPreviousData: true }
   )
+
+  const { data: qualityMetrics } = useQuery('companies-quality-metrics', hubspot.getCompanyQualityMetrics, {
+    staleTime: 60_000,
+  })
+  const qualityChartData = Object.entries(QUALITY_LABELS).map(([key, label]) => ({
+    key, label, count: qualityMetrics?.[key] ?? 0,
+  }))
 
   const allCompanies = data?.results || []
   const blacklistedCount = allCompanies.filter(c => c.properties.bp_lista_negra === 'true').length
@@ -79,7 +114,7 @@ export default function CompanyList() {
             style={{ flex: '0 0 150px', width: 150, fontSize: 12, padding: '6px 8px', borderRadius: 6, border: '1px solid #dfe1e6', color: '#42526e' }}
           >
             <option value="">Todos los países</option>
-            {COUNTRIES.map(c => (
+            {availableCountries.map(c => (
               <option key={c.en} value={c.en}>{c.label}</option>
             ))}
           </select>
@@ -109,6 +144,32 @@ export default function CompanyList() {
               </button>
             </div>
           )}
+          {qualityFilter && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#fff1f0', borderRadius: 6, padding: '4px 10px', fontSize: 12, fontWeight: 600, color: '#de350b', flexShrink: 0 }}>
+              {QUALITY_LABELS[qualityFilter]}
+              <button onClick={() => { setQualityFilter(''); resetPaging() }} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#de350b', padding: 0, display: 'flex' }}>
+                <X size={13} />
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Gráfico de calidad de datos — clic en una barra filtra el listado de abajo */}
+        <div className="card" style={{ marginBottom: 14 }}>
+          <div className="card-header">
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <BarChart2 size={14} style={{ color: QUALITY_COLOR }} />
+              Calidad de datos
+            </h2>
+            <span style={{ fontSize: 11, color: '#6b778c' }}>clic en una barra para filtrar el listado</span>
+          </div>
+          <div className="card-body" style={{ padding: '12px 16px' }}>
+            <BarChart
+              data={qualityChartData}
+              color={QUALITY_COLOR}
+              onBarClick={(bar) => { setQualityFilter(bar.key); resetPaging() }}
+            />
+          </div>
         </div>
 
         <div className="card">
@@ -127,7 +188,7 @@ export default function CompanyList() {
                       <th>Empresa</th>
                       <th>Etapa</th>
                       <th>Contactos</th>
-                      <th>Ciudad</th>
+                      <th>País</th>
                       <th>Teléfono</th>
                       <th>Creada</th>
                     </tr>
@@ -155,7 +216,7 @@ export default function CompanyList() {
                             ? <span style={{ fontSize: 12, fontWeight: 600, color: '#0052cc' }}>{c.properties.num_associated_contacts}</span>
                             : <span style={{ color: '#adb5bd', fontSize: 11 }}>—</span>}
                         </td>
-                        <td>{c.properties.city || '—'}</td>
+                        <td>{c.properties.country || '—'}</td>
                         <td>{c.properties.phone || '—'}</td>
                         <td>{fmt(c.properties.createdate)}</td>
                       </tr>

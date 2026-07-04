@@ -1,8 +1,8 @@
 {
-  "generadoEn": "2026-07-03T22:25:11.239Z",
+  "generadoEn": "2026-07-04T11:32:31.647Z",
   "evento": "BEPH-2026-09",
-  "totalSinPais": 815,
-  "resueltosEstaCorrida": 756,
+  "totalSinPais": 57,
+  "resueltosEstaCorrida": 0,
   "sinEmpresa": [
     {
       "dealId": "62164543345",
@@ -175,11 +175,6 @@
   ],
   "empresaSinPais": [
     {
-      "dealId": "62151532929",
-      "dealname": "Farmina - BEPH-2026-09",
-      "companyId": "56488890976"
-    },
-    {
       "dealId": "62163824640",
       "dealname": "ELVIM Ltd - BEPH-2026-09",
       "companyId": "56470655144"
@@ -198,11 +193,6 @@
       "dealId": "62166878722",
       "dealname": "LASCO Pharmaceutical Division (LASCO Distributors) - BEPH-2026-09",
       "companyId": "56490282079"
-    },
-    {
-      "dealId": "62165252688",
-      "dealname": "Besins Healthcare - BEPH-2026-09",
-      "companyId": "56471422781"
     },
     {
       "dealId": "62167016295",

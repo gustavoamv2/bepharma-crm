@@ -5,55 +5,10 @@ import { AlertTriangle, TrendingUp, Calendar, PhoneCall, CheckSquare, Users, Bar
 import { hubspot, admin } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useAuth } from '../contexts/AuthContext'
+import { BarChart, DonutChart } from '../components/Charts'
 
-// ── Gráfica de barras SVG (interactiva) ──────────────────────────────────────
-function BarChart({ data, color = '#4fc3f7', height = 140, onBarClick }) {
-  if (!data?.length) return null
-  const max = Math.max(...data.map(d => d.count), 1)
-  const W = 340, H = height, PL = 8, PR = 8, PT = 20, PB = 32
-  const cW = W - PL - PR
-  const cH = H - PT - PB
-  const slot = cW / data.length
-  const bW = Math.min(slot * 0.65, 36)
-  const [hovered, setHovered] = useState(null)
-
-  return (
-    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: H, overflow: 'visible' }}>
-      {[0.25, 0.5, 0.75, 1].map(p => {
-        const y = PT + cH * (1 - p)
-        return <line key={p} x1={PL} y1={y} x2={W - PR} y2={y} stroke="#e2e8f0" strokeWidth={1} />
-      })}
-      {data.map((d, i) => {
-        const bH = Math.max((d.count / max) * cH, d.count > 0 ? 4 : 0)
-        const x = PL + i * slot + (slot - bW) / 2
-        const y = PT + cH - bH
-        const isHovered = hovered === i
-        return (
-          <g key={i}
-            style={{ cursor: onBarClick && d.count > 0 ? 'pointer' : 'default' }}
-            onClick={() => d.count > 0 && onBarClick?.(d)}
-            onMouseEnter={() => setHovered(i)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            <rect x={x} y={y} width={bW} height={bH} rx={3}
-              fill={isHovered ? '#0041a8' : color}
-              opacity={isHovered ? 1 : 0.85}
-              style={{ transition: 'fill .1s' }}
-            />
-            {d.count > 0 && (
-              <text x={x + bW / 2} y={y - 4} textAnchor="middle" fontSize={10} fontWeight="600" fill={color}>{d.count}</text>
-            )}
-            <text x={x + bW / 2} y={H - 6} textAnchor="middle" fontSize={9} fill="#6b778c">
-              {d.label?.length > 8 ? d.label.slice(0, 7) + '…' : d.label}
-            </text>
-          </g>
-        )
-      })}
-    </svg>
-  )
-}
-
-// ── Gráfica donut SVG (interactiva) ──────────────────────────────────────────
+// ── Colores/labels de etapa (compartidos con DealList/CompanyList vía las
+// mismas claves de bp_estado_prospeccion) ────────────────────────────────────
 const STAGE_COLORS = {
   nueva:            '#2563eb',
   en_depuracion:   '#d97706',
@@ -70,75 +25,6 @@ const STAGE_LABELS = {
   en_seguimiento:  'En Seguimiento',
   confirmada:      'Confirmada',
   no_participa:    'No Participa',
-}
-
-function DonutChart({ data, onSliceClick }) {
-  const [hovered, setHovered] = useState(null)
-  if (!data?.length) return null
-  const total = data.reduce((s, d) => s + d.count, 0)
-  if (total === 0) return <div style={{ fontSize: 12, color: '#6b778c', padding: 20, textAlign: 'center' }}>Sin datos</div>
-
-  const R = 48, cx = 64, cy = 64, strokeW = 22
-  let angle = -90
-
-  const slices = data
-    .filter(d => d.count > 0)
-    .map(d => {
-      const start = angle
-      const sweep = (d.count / total) * 360
-      angle += sweep
-      return { ...d, start, sweep }
-    })
-
-  const arcPath = (cx, cy, R, start, sweep) => {
-    const r = (a) => (a * Math.PI) / 180
-    const x1 = cx + R * Math.cos(r(start))
-    const y1 = cy + R * Math.sin(r(start))
-    const x2 = cx + R * Math.cos(r(start + sweep))
-    const y2 = cy + R * Math.sin(r(start + sweep))
-    return `M ${x1} ${y1} A ${R} ${R} 0 ${sweep > 180 ? 1 : 0} 1 ${x2} ${y2}`
-  }
-
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-      <svg viewBox="0 0 128 128" style={{ width: 128, height: 128, flexShrink: 0 }}>
-        {slices.map((s, i) => (
-          <path key={i}
-            d={arcPath(cx, cy, R, s.start, s.sweep)}
-            fill="none"
-            stroke={STAGE_COLORS[s.key] || '#607d8b'}
-            strokeWidth={hovered === i ? strokeW + 4 : strokeW}
-            strokeLinecap="butt"
-            style={{ cursor: onSliceClick ? 'pointer' : 'default', transition: 'stroke-width .1s' }}
-            onClick={() => onSliceClick?.(s)}
-            onMouseEnter={() => setHovered(i)}
-            onMouseLeave={() => setHovered(null)}
-          />
-        ))}
-        <text x={cx} y={cy - 6} textAnchor="middle" fontSize={18} fontWeight="700" fill="#172b4d">{total}</text>
-        <text x={cx} y={cx + 10} textAnchor="middle" fontSize={9} fill="#6b778c">eventos</text>
-      </svg>
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
-        {slices.map((s, i) => (
-          <div key={i}
-            style={{
-              display: 'flex', alignItems: 'center', gap: 6, fontSize: 11,
-              cursor: onSliceClick ? 'pointer' : 'default',
-              opacity: hovered === null || hovered === i ? 1 : 0.5,
-              transition: 'opacity .1s'
-            }}
-            onClick={() => onSliceClick?.(s)}
-            onMouseEnter={() => setHovered(i)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            <div style={{ width: 10, height: 10, borderRadius: 2, background: STAGE_COLORS[s.key] || '#607d8b', flexShrink: 0 }} />
-            <span style={{ color: '#6b778c', flex: 1 }}>{STAGE_LABELS[s.key] || s.label}</span>
-            <span style={{ fontWeight: 600, color: '#172b4d' }}>{s.count}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
 }
 
 const ACTIVE_EVENT = 'BEPH-2026-09'
@@ -240,6 +126,22 @@ export default function Dashboard() {
   })
   // total real de HubSpot (no el .length de la lista, que esta topada a 25)
   const alertsTotal = alertsData?.total ?? alertDeals.length
+
+  // ── Tareas pendientes (endpoint ya existía en el backend — GET
+  // /api/hubspot/tasks/pending, filtra por owner cuando es vista de operador
+  // — pero nunca se mostraba en ningún lado del CRM propio, por eso una tarea
+  // programada desde el detalle de un Deal/Empresa/Contacto no aparecía en
+  // ningún dashboard aunque se hubiera creado correctamente en HubSpot) ─────
+  const { data: pendingTasksData, error: pendingTasksError } = useQuery(
+    ['pending-tasks', user?.username, viewAsOperator],
+    hubspot.getPendingTasks,
+    { refetchInterval: 2 * 60 * 1000 }
+  )
+  const pendingTasks = pendingTasksData?.results || []
+  const pendingTasksTotal = pendingTasksData?.total ?? pendingTasks.length
+
+  const TASK_ASSOC_PATH = { deals: '/deals', contacts: '/contacts', companies: '/companies' }
+  const PRIORITY_LABELS = { HIGH: '🔴 Alta', MEDIUM: '🟡 Media', LOW: '🟢 Baja' }
 
   // ── Metricas cards usando propiedades BePharma ────────────────────────────
   const metricCards = [
@@ -452,7 +354,11 @@ export default function Dashboard() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                   <div>
                     <div style={{ fontSize: 11, color: '#6b778c', marginBottom: 6 }}>Distribución por etapa</div>
-                    <DonutChart data={chartsData.byStage} onSliceClick={handleSliceClick} />
+                    <DonutChart
+                      data={chartsData.byStage?.map(s => ({ ...s, label: STAGE_LABELS[s.key] || s.label, color: STAGE_COLORS[s.key] }))}
+                      onSliceClick={handleSliceClick}
+                      centerLabel="eventos"
+                    />
                   </div>
                   {chartsData.byMonth?.length > 0 && (
                     <div>
@@ -516,6 +422,62 @@ export default function Dashboard() {
                         <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>
                           {STAGE_LABELS[p.bp_estado_prospeccion] || p.bp_estado_prospeccion || '—'}
                         </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* ── Tareas pendientes (programadas desde Deal/Empresa/Contacto) ── */}
+        {pendingTasksError && (
+          <div className="error-msg" style={{ marginBottom: 16 }}>
+            Error cargando tareas: {pendingTasksError.response?.data?.error || pendingTasksError.message}
+          </div>
+        )}
+        {pendingTasksTotal > 0 && (
+          <div className="card" style={{ marginBottom: 16 }}>
+            <div className="card-header">
+              <h2 style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <CheckSquare size={14} style={{ color: '#0052cc' }} />
+                {isSupervisor ? 'Tareas pendientes del equipo' : 'Mis tareas pendientes'}
+              </h2>
+              <span className="badge badge-blue">{pendingTasksTotal}</span>
+            </div>
+            {pendingTasksTotal > pendingTasks.length && (
+              <div style={{ padding: '6px 14px', fontSize: 11, color: '#92400e', background: '#fff8e1', borderBottom: '1px solid #f59e0b' }}>
+                Mostrando las {pendingTasks.length} más próximas de {pendingTasksTotal} en total.
+              </div>
+            )}
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Tarea</th>
+                    <th>Vinculado a</th>
+                    <th>Vence</th>
+                    <th>Prioridad</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pendingTasks.map(t => {
+                    const p = t.properties || {}
+                    const assoc = t._assoc
+                    const due = p.hs_timestamp ? new Date(p.hs_timestamp) : null
+                    const isOverdue = due && !isNaN(due) && due.getTime() < Date.now()
+                    const goTo = assoc && TASK_ASSOC_PATH[assoc.type] ? `${TASK_ASSOC_PATH[assoc.type]}/${assoc.id}` : null
+                    return (
+                      <tr key={t.id} className={goTo ? 'clickable' : ''} style={{ cursor: goTo ? 'pointer' : 'default' }}
+                        onClick={() => goTo && nav(goTo)}>
+                        <td style={{ fontWeight: 500 }}>{p.hs_task_subject || '(sin asunto)'}</td>
+                        <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>{assoc?.name || '—'}</td>
+                        <td style={{ fontSize: 12, color: isOverdue ? 'var(--danger)' : undefined, display: 'flex', alignItems: 'center', gap: 4 }}>
+                          {isOverdue && <Calendar size={11} />}
+                          {due && !isNaN(due) ? due.toLocaleString('es-MX', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '—'}
+                        </td>
+                        <td style={{ fontSize: 12 }}>{PRIORITY_LABELS[p.hs_task_priority] || p.hs_task_priority || '—'}</td>
                       </tr>
                     )
                   })}
@@ -591,6 +553,10 @@ export default function Dashboard() {
                 <div className="prop-item">
                   <div className="prop-label">HubSpot Owner ID</div>
                   <div className="prop-value" style={{ fontFamily: 'monospace', fontSize: 12 }}>{user.ownerId}</div>
+                </div>
+                <div className="prop-item">
+                  <div className="prop-label">Países asignados</div>
+                  <div className="prop-value">{user.bp_paises?.length ? user.bp_paises.join(' · ') : 'Sin países asignados'}</div>
                 </div>
               </div>
             </div>

@@ -1,0 +1,1544 @@
+{
+  "generadoEn": "2026-07-04T11:27:23.086Z",
+  "zona": "yesenia",
+  "totalEmpresasSinDatosEnPortal": 981,
+  "resueltasEstaCorrida": 683,
+  "sinMatch": [
+    {
+      "companyId": "56469873935",
+      "name": "BePharma Marzo 2027",
+      "domain": ""
+    },
+    {
+      "companyId": "56469873936",
+      "name": "BePharma Septiembre 2026",
+      "domain": ""
+    },
+    {
+      "companyId": "56469873937",
+      "name": "BePharma Septiembre 2027",
+      "domain": ""
+    },
+    {
+      "companyId": "56463967494",
+      "name": "AFT Pharmaceuticals",
+      "domain": "aftpharm.com"
+    },
+    {
+      "companyId": "56486126707",
+      "name": "King Saud University",
+      "domain": "ksu.edu.sa"
+    },
+    {
+      "companyId": "56495465366",
+      "name": "Emona Biopharma",
+      "domain": "emonabio.com"
+    },
+    {
+      "companyId": "56490282079",
+      "name": "",
+      "domain": "lascoja.com"
+    },
+    {
+      "companyId": "56483139940",
+      "name": "Upsher-Smith Laboratories",
+      "domain": "upsher-smith.com"
+    },
+    {
+      "companyId": "56487212563",
+      "name": "Austar Finance",
+      "domain": "austarfinance.com.au"
+    },
+    {
+      "companyId": "56464910923",
+      "name": "Contipro",
+      "domain": "contipro.com"
+    },
+    {
+      "companyId": "56477647028",
+      "name": "ZS",
+      "domain": "zs.com"
+    },
+    {
+      "companyId": "56479318790",
+      "name": "Inmaa Consulting",
+      "domain": "inmaa-a.com"
+    },
+    {
+      "companyId": "56474953328",
+      "name": "Spectro Med Group",
+      "domain": "spectromedgroup.com"
+    },
+    {
+      "companyId": "56490415640",
+      "name": "PSI",
+      "domain": "psiltd.com"
+    },
+    {
+      "companyId": "56470338393",
+      "name": "Tanabe Pharma",
+      "domain": "tanabe-pharma.com"
+    },
+    {
+      "companyId": "56488890970",
+      "name": "Brassica",
+      "domain": "brassicapharma.com"
+    },
+    {
+      "companyId": "56489181800",
+      "name": "Health Sharing Group",
+      "domain": "auhsg.com"
+    },
+    {
+      "companyId": "56470655144",
+      "name": "Elvim",
+      "domain": "elvim.lv"
+    },
+    {
+      "companyId": "56489338439",
+      "name": "Delorbis",
+      "domain": "delorbispharma.eu"
+    },
+    {
+      "companyId": "56472055704",
+      "name": "Dichlorphenamide",
+      "domain": "torrentpharma.us"
+    },
+    {
+      "companyId": "56490282081",
+      "name": "Avema Pharma",
+      "domain": "avemapharma.com"
+    },
+    {
+      "companyId": "56471422780",
+      "name": "Incepta Pharmaceuticals",
+      "domain": "inceptapharma.com"
+    },
+    {
+      "companyId": "56488257409",
+      "name": "PharmaSolutions",
+      "domain": "pharmasolutions.cz"
+    },
+    {
+      "companyId": "56492272288",
+      "name": "Bend Bioscience",
+      "domain": "bendbioscience.com"
+    },
+    {
+      "companyId": "56466590849",
+      "name": "InVetro",
+      "domain": "invetro.com.au"
+    },
+    {
+      "companyId": "56490744962",
+      "name": "Embio",
+      "domain": "embio.co.in"
+    },
+    {
+      "companyId": "56491037616",
+      "name": "Burjeel",
+      "domain": "burjeelholdings.com"
+    },
+    {
+      "companyId": "56496842784",
+      "name": "Acino",
+      "domain": "acino.swiss"
+    },
+    {
+      "companyId": "56469683053",
+      "name": "Harrow Health,",
+      "domain": "harrowinc.com"
+    },
+    {
+      "companyId": "56495924884",
+      "name": "SK Group",
+      "domain": "sk.com"
+    },
+    {
+      "companyId": "56478113158",
+      "name": "Pharmax İlaç",
+      "domain": "pharmaxilac.com.tr"
+    },
+    {
+      "companyId": "56474504848",
+      "name": "CPA Italy",
+      "domain": "cpa-italy.org"
+    },
+    {
+      "companyId": "56476395324",
+      "name": "ISU ABXIS",
+      "domain": "abxis.com"
+    },
+    {
+      "companyId": "56475421698",
+      "name": "Laborate",
+      "domain": "laborate.com"
+    },
+    {
+      "companyId": "56482203255",
+      "name": "ICE Pharma",
+      "domain": "icepharma.com"
+    },
+    {
+      "companyId": "56493657775",
+      "name": "Fujita Health University",
+      "domain": "fujita-hu.ac.jp"
+    },
+    {
+      "companyId": "56493192539",
+      "name": "Pinnacle Life Science",
+      "domain": "pinnaclelifescience.com"
+    },
+    {
+      "companyId": "56487056984",
+      "name": "Kobayashi Pharmaceutical",
+      "domain": "kobayashi.com"
+    },
+    {
+      "companyId": "56494379052",
+      "name": "CGN Pharma",
+      "domain": "cgn-pharma.de"
+    },
+    {
+      "companyId": "56467165035",
+      "name": "Luye Pharma Group",
+      "domain": "luye.cn"
+    },
+    {
+      "companyId": "56482203256",
+      "name": "IBC Generium",
+      "domain": "ibcgenerium.ru"
+    },
+    {
+      "companyId": "56494538858",
+      "name": "Scorpius BioManufacturing",
+      "domain": "scorpiusbiologics.com"
+    },
+    {
+      "companyId": "56488737393",
+      "name": "PIAM farmaceutici",
+      "domain": "piamfarmaceutici.com"
+    },
+    {
+      "companyId": "56477647104",
+      "name": "spo.go.kr",
+      "domain": "spo.go.kr"
+    },
+    {
+      "companyId": "56467624055",
+      "name": "Aventa Limited",
+      "domain": "aventalimited.com"
+    },
+    {
+      "companyId": "56493657779",
+      "name": "Bracco",
+      "domain": "bracco.com"
+    },
+    {
+      "companyId": "56473440912",
+      "name": "Mars & Co",
+      "domain": "marsandco.com"
+    },
+    {
+      "companyId": "56491037620",
+      "name": "Mitsubishi Tanabe Pharma Europe",
+      "domain": "mt-pharma-eu.com"
+    },
+    {
+      "companyId": "56466708920",
+      "name": "Pharma Line",
+      "domain": "pharmaline.org"
+    },
+    {
+      "companyId": "56475105359",
+      "name": "Haver",
+      "domain": "haver.com.tr"
+    },
+    {
+      "companyId": "56495465373",
+      "name": "Neos Therapeutics",
+      "domain": "neostx.com"
+    },
+    {
+      "companyId": "56466866550",
+      "name": "Moleac Pte",
+      "domain": "moleac.net"
+    },
+    {
+      "companyId": "56494379055",
+      "name": "Pharmstandard",
+      "domain": "pharmstd.com"
+    },
+    {
+      "companyId": "56490744967",
+      "name": "Abbott",
+      "domain": "abbott.co.in"
+    },
+    {
+      "companyId": "56467791267",
+      "name": "Promo-Med",
+      "domain": "promo-med.ru"
+    },
+    {
+      "companyId": "56471273129",
+      "name": "Elite Diagnostics",
+      "domain": "elitediagnostics.com"
+    },
+    {
+      "companyId": "56475941493",
+      "name": "Batavia Exports",
+      "domain": "bataviaexports.com"
+    },
+    {
+      "companyId": "56491675219",
+      "name": "JCR Farmacêuticos do Brasil",
+      "domain": "jcrpharm.com.br"
+    },
+    {
+      "companyId": "56480715647",
+      "name": "Haw Par",
+      "domain": "hawpar.com"
+    },
+    {
+      "companyId": "56484387901",
+      "name": "휴온스글로벌",
+      "domain": "huonsglobal.com"
+    },
+    {
+      "companyId": "56463665337",
+      "name": "DiaSorin",
+      "domain": "diasorin.com"
+    },
+    {
+      "companyId": "56498302006",
+      "name": "Chiesi",
+      "domain": "chiesi.com"
+    },
+    {
+      "companyId": "56467026207",
+      "name": "Ausun Pharm",
+      "domain": "ausunpharm.com"
+    },
+    {
+      "companyId": "56461809435",
+      "name": "SymbioPharm",
+      "domain": "symbiopharm.de"
+    },
+    {
+      "companyId": "56483306601",
+      "name": "BioNTech",
+      "domain": "biontech.com"
+    },
+    {
+      "companyId": "56462268250",
+      "name": "Pohl Boskamp",
+      "domain": "pohl-boskamp.com"
+    },
+    {
+      "companyId": "56481434645",
+      "name": "Anklam Extrakt",
+      "domain": "anklam-extrakt.de"
+    },
+    {
+      "companyId": "56496845582",
+      "name": "Kirsch Pharma HealthCare",
+      "domain": "kirsch-biopharm.com"
+    },
+    {
+      "companyId": "56498444903",
+      "name": "Dermapharm",
+      "domain": "dermapharm.ch"
+    },
+    {
+      "companyId": "56467315878",
+      "name": "Hypera Pharma",
+      "domain": "hypermarcas.com.br"
+    },
+    {
+      "companyId": "56488426047",
+      "name": "FUTRUE",
+      "domain": "futrue.com"
+    },
+    {
+      "companyId": "56495007623",
+      "name": "Factors Group of Companies",
+      "domain": "factorsgroup.com"
+    },
+    {
+      "companyId": "56474195039",
+      "name": "PharmaS",
+      "domain": "sgp-pharma.com"
+    },
+    {
+      "companyId": "56493195180",
+      "name": "URSAPHARM",
+      "domain": "ursapharm.at"
+    },
+    {
+      "companyId": "56484391187",
+      "name": "Omega Labs",
+      "domain": "omegalabs.ca"
+    },
+    {
+      "companyId": "56488426048",
+      "name": "AOP Health",
+      "domain": "aop-health.com"
+    },
+    {
+      "companyId": "56464914041",
+      "name": "Hertz Farmacêutica",
+      "domain": "hertzfarma.com.br"
+    },
+    {
+      "companyId": "56482999185",
+      "name": "Bionatus",
+      "domain": "bionatus.com.br"
+    },
+    {
+      "companyId": "56471116722",
+      "name": "Adhex",
+      "domain": "adhex.com"
+    },
+    {
+      "companyId": "56464276794",
+      "name": "Daiichi Sankyo Brasil",
+      "domain": "daiichisankyo.com.br"
+    },
+    {
+      "companyId": "56463668916",
+      "name": "Arvinas",
+      "domain": "arvinas.com"
+    },
+    {
+      "companyId": "56489036174",
+      "name": "Farmacapsulas",
+      "domain": "farmacapsulas.com"
+    },
+    {
+      "companyId": "56483468149",
+      "name": "Catarinense Pharma",
+      "domain": "catarinensepharma.com.br"
+    },
+    {
+      "companyId": "56498444905",
+      "name": "Vivier",
+      "domain": "vivierpharma.com"
+    },
+    {
+      "companyId": "56485372703",
+      "name": "ELS Solutions",
+      "domain": "elssolutions.com.br"
+    },
+    {
+      "companyId": "56486905934",
+      "name": "Blau Farmacêutica",
+      "domain": "blau.com"
+    },
+    {
+      "companyId": "56492442426",
+      "name": "OPPI",
+      "domain": "ontarioplanners.ca"
+    },
+    {
+      "companyId": "56494849592",
+      "name": "Sigmapharm",
+      "domain": "sigmapharm.com"
+    },
+    {
+      "companyId": "56495928118",
+      "name": "Dexcel Pharma",
+      "domain": "dexcel-pharma.de"
+    },
+    {
+      "companyId": "56480718966",
+      "name": "LTS Lohmann",
+      "domain": "ltslohmann.de"
+    },
+    {
+      "companyId": "56484391192",
+      "name": "EG Labo",
+      "domain": "eglabo.fr"
+    },
+    {
+      "companyId": "56478708289",
+      "name": "Medison",
+      "domain": "medison.co.il"
+    },
+    {
+      "companyId": "56474195041",
+      "name": "Merz Brasil",
+      "domain": "merzbrasil.com.br"
+    },
+    {
+      "companyId": "56466594051",
+      "name": "Transderma",
+      "domain": "transderma.com"
+    },
+    {
+      "companyId": "56477650360",
+      "name": "BMI Blue Management Institute",
+      "domain": "bluemanagement.institute"
+    },
+    {
+      "companyId": "56478116867",
+      "name": "Biodextris",
+      "domain": "biodextris.com"
+    },
+    {
+      "companyId": "56472817750",
+      "name": "PolyPid",
+      "domain": "polypid.com"
+    },
+    {
+      "companyId": "56491040521",
+      "name": "deCODE genetics",
+      "domain": "decode.com"
+    },
+    {
+      "companyId": "56480248132",
+      "name": "Chemothal",
+      "domain": "chemothal.co.il"
+    },
+    {
+      "companyId": "56475108139",
+      "name": "Cooper",
+      "domain": "cooper.fr"
+    },
+    {
+      "companyId": "56472817752",
+      "name": "Nutriex",
+      "domain": "nutriex.com.br"
+    },
+    {
+      "companyId": "56484391194",
+      "name": "Alpex",
+      "domain": "alpex.com"
+    },
+    {
+      "companyId": "56476875055",
+      "name": "EMEDE",
+      "domain": "emede.com.br"
+    },
+    {
+      "companyId": "56495928120",
+      "name": "ADOC D.O.O.",
+      "domain": "adoc.rs"
+    },
+    {
+      "companyId": "56465226377",
+      "name": "TrioxBio",
+      "domain": "trioxbio.com"
+    },
+    {
+      "companyId": "56474644310",
+      "name": "Sanochemia Pharmazeutika",
+      "domain": "sanochemia.at"
+    },
+    {
+      "companyId": "56470340988",
+      "name": "Pluri",
+      "domain": "pluri-biotech.com"
+    },
+    {
+      "companyId": "56490577579",
+      "name": "FIR Capital",
+      "domain": "fircapital.com"
+    },
+    {
+      "companyId": "56473868334",
+      "name": "Abela Pharm",
+      "domain": "abela.hr"
+    },
+    {
+      "companyId": "56475622196",
+      "name": "-",
+      "domain": "silvestrinipharma.com"
+    },
+    {
+      "companyId": "56461977529",
+      "name": "AZAD",
+      "domain": "azad.ch"
+    },
+    {
+      "companyId": "56496845588",
+      "name": "Hosting Guru",
+      "domain": "bycargo.com"
+    },
+    {
+      "companyId": "56494849595",
+      "name": "Zentiva",
+      "domain": "zentiva.fr"
+    },
+    {
+      "companyId": "56478116870",
+      "name": "ITAQ",
+      "domain": "itaq.ca"
+    },
+    {
+      "companyId": "56493987075",
+      "name": "LABORATOIRES GILBERT",
+      "domain": "labo-gilbert.fr"
+    },
+    {
+      "companyId": "56481129576",
+      "name": "GlobalRx",
+      "domain": "globalrx.com"
+    },
+    {
+      "companyId": "56494695542",
+      "name": "012מובייל",
+      "domain": "zahav.net.il"
+    },
+    {
+      "companyId": "56477650434",
+      "name": "Interstate Batteries",
+      "domain": "ibsa.com"
+    },
+    {
+      "companyId": "56479494913",
+      "name": "Biotika",
+      "domain": "biotika.sk"
+    },
+    {
+      "companyId": "56481129578",
+      "name": "Jamieson Laboratories",
+      "domain": "jamiesonlabs.com"
+    },
+    {
+      "companyId": "56489036178",
+      "name": "Les CCE",
+      "domain": "cnccef.org"
+    },
+    {
+      "companyId": "56494382451",
+      "name": "University of Johannesburg",
+      "domain": "uj.ac.za"
+    },
+    {
+      "companyId": "56478871354",
+      "name": "Adcock Ingram",
+      "domain": "adcockingram.com"
+    },
+    {
+      "companyId": "56470340989",
+      "name": "Mayoly Spindler",
+      "domain": "mayoly-spindler.fr"
+    },
+    {
+      "companyId": "56486303070",
+      "name": "FQM Grupo",
+      "domain": "fqmgrupo.com.br"
+    },
+    {
+      "companyId": "56492442432",
+      "name": "Neopharm Group",
+      "domain": "neopharmgroup.com"
+    },
+    {
+      "companyId": "56468896001",
+      "name": "Aspen Pharmacare",
+      "domain": "aspenpharma.com"
+    },
+    {
+      "companyId": "56496845590",
+      "name": "Tradiphar Maroc",
+      "domain": "tradiphar.ma"
+    },
+    {
+      "companyId": "56494224991",
+      "name": "Fundação Oswaldo Cruz (Fiocruz)",
+      "domain": "fiocruz.br"
+    },
+    {
+      "companyId": "56464914048",
+      "name": "Gbro Pharma",
+      "domain": "gebro.ch"
+    },
+    {
+      "companyId": "56464144696",
+      "name": "International Chamber of Commerce",
+      "domain": "iccwbo.org"
+    },
+    {
+      "companyId": "56498604039",
+      "name": "Teva Pharmaceuticals",
+      "domain": "tevabrasil.com.br"
+    },
+    {
+      "companyId": "56470186661",
+      "name": "Kohlmann & Co.",
+      "domain": "kohlmann.co"
+    },
+    {
+      "companyId": "56475622198",
+      "name": "Altus Drug Development",
+      "domain": "altusdrugdevelopment.com"
+    },
+    {
+      "companyId": "56473868336",
+      "name": "geosilica-eu",
+      "domain": "geosilica.com"
+    },
+    {
+      "companyId": "56464146305",
+      "name": "Zai Lab",
+      "domain": "zailaboratory.com"
+    },
+    {
+      "companyId": "56469517924",
+      "name": "Universidad de Buenos Aires",
+      "domain": "uba.ar"
+    },
+    {
+      "companyId": "56478119823",
+      "name": "Agostini",
+      "domain": "agostinislimited.com"
+    },
+    {
+      "companyId": "56494698392",
+      "name": "Fasska",
+      "domain": "fasska.com"
+    },
+    {
+      "companyId": "56466273142",
+      "name": "Neogen Latinoamerica S.A.P.I. DE C.V.",
+      "domain": "neogenlac.com"
+    },
+    {
+      "companyId": "56477653093",
+      "name": "ДАНСОН",
+      "domain": "danhson.bg"
+    },
+    {
+      "companyId": "56493990064",
+      "name": "Avanti Research",
+      "domain": "avantiresearch.com"
+    },
+    {
+      "companyId": "56472216662",
+      "name": "Univercells Technologies",
+      "domain": "univercellstech.com"
+    },
+    {
+      "companyId": "56484551693",
+      "name": "AimFirst",
+      "domain": "aimfirst.com"
+    },
+    {
+      "companyId": "56476400568",
+      "name": "Wolfs",
+      "domain": "wolfs.eu"
+    },
+    {
+      "companyId": "56473734986",
+      "name": "ARS Pharma",
+      "domain": "ars-pharma.com"
+    },
+    {
+      "companyId": "56467318102",
+      "name": "TarsusRX",
+      "domain": "tarsusrx.com"
+    },
+    {
+      "companyId": "56474198064",
+      "name": "Sopharma Group",
+      "domain": "sopharmagroup.com"
+    },
+    {
+      "companyId": "56491508755",
+      "name": "Mondial Diagnostics",
+      "domain": "mondialdx.com"
+    },
+    {
+      "companyId": "56466117450",
+      "name": "Kent Pharma",
+      "domain": "kent-athlone.com"
+    },
+    {
+      "companyId": "56496393141",
+      "name": "Adare Pharmaceuticals",
+      "domain": "adarepharma.com"
+    },
+    {
+      "companyId": "56474958940",
+      "name": "Gedeon Richter România S.A.",
+      "domain": "gedeon-richter.ro"
+    },
+    {
+      "companyId": "56461812589",
+      "name": "South Coast Logistics",
+      "domain": "southcoast.ie"
+    },
+    {
+      "companyId": "56495010604",
+      "name": "Alliance Pharma",
+      "domain": "alliancepharmaceuticals.com"
+    },
+    {
+      "companyId": "56462900619",
+      "name": "PharmaForce",
+      "domain": "thepharmaforce.com"
+    },
+    {
+      "companyId": "56467029305",
+      "name": "Norgine France",
+      "domain": "norgine.fr"
+    },
+    {
+      "companyId": "56495010605",
+      "name": "Athens Research and Technology",
+      "domain": "athensresearch.com"
+    },
+    {
+      "companyId": "56492445188",
+      "name": "October Pharma",
+      "domain": "octoberpharma.com"
+    },
+    {
+      "companyId": "56473446841",
+      "name": "Scope Ophthalmics",
+      "domain": "scopeophthalmics.com"
+    },
+    {
+      "companyId": "56471590446",
+      "name": "ID PHAR",
+      "domain": "idphar.be"
+    },
+    {
+      "companyId": "56462270117",
+      "name": "Egyptian Group for Pharmaceutical Industries",
+      "domain": "egyptiangroup.net"
+    },
+    {
+      "companyId": "56471279179",
+      "name": "MASTERS INTERNATIONAL",
+      "domain": "masters-sp.com"
+    },
+    {
+      "companyId": "56477172493",
+      "name": "Orkla",
+      "domain": "orkla.com"
+    },
+    {
+      "companyId": "56480095663",
+      "name": "Aspire Pharma",
+      "domain": "aspirepharma.co.uk"
+    },
+    {
+      "companyId": "56491979543",
+      "name": "Savior Lifetec",
+      "domain": "saviorlifetec.com.tw"
+    },
+    {
+      "companyId": "56478119826",
+      "name": "SSS",
+      "domain": "ssscompany.net"
+    },
+    {
+      "companyId": "56494228137",
+      "name": "BIOHIT HealthCare",
+      "domain": "biohithealthcare.co.uk"
+    },
+    {
+      "companyId": "56468898117",
+      "name": "Alpen Pharma Group",
+      "domain": "alpenpharma.com"
+    },
+    {
+      "companyId": "56497450843",
+      "name": "Mylan",
+      "domain": "mylan.com"
+    },
+    {
+      "companyId": "56493990070",
+      "name": "Centrix Pharma Solutions",
+      "domain": "centrixpharmasolutions.com"
+    },
+    {
+      "companyId": "56462270118",
+      "name": "AnaBio",
+      "domain": "anabio.ie"
+    },
+    {
+      "companyId": "56494545521",
+      "name": "Amaran Biotech",
+      "domain": "amaran.com.tw"
+    },
+    {
+      "companyId": "56478711191",
+      "name": "Health Launchpad",
+      "domain": "healthlaunchpad.com"
+    },
+    {
+      "companyId": "56467029307",
+      "name": "Galen Pharma",
+      "domain": "galen-pharma.com"
+    },
+    {
+      "companyId": "56477172494",
+      "name": "Biofarm",
+      "domain": "biofarmcc.co.za"
+    },
+    {
+      "companyId": "56477653094",
+      "name": "Multicare",
+      "domain": "pharmacare-eg.com"
+    },
+    {
+      "companyId": "56481589093",
+      "name": "Wasdell Group",
+      "domain": "wasdellgroup.com"
+    },
+    {
+      "companyId": "56461980846",
+      "name": "Gilda's Club NYC",
+      "domain": "gildasclubnyc.org"
+    },
+    {
+      "companyId": "56469880975",
+      "name": "Chr. Hansen",
+      "domain": "chr-hansen.com"
+    },
+    {
+      "companyId": "56476260426",
+      "name": "Arrepath",
+      "domain": "arrepath.com"
+    },
+    {
+      "companyId": "56490896818",
+      "name": "CHEMIPHARM",
+      "domain": "chemipharm.com"
+    },
+    {
+      "companyId": "56483002215",
+      "name": "GO-Pen",
+      "domain": "go-pen.com"
+    },
+    {
+      "companyId": "56491822380",
+      "name": "Delta Pharma",
+      "domain": "deltapharma.eg"
+    },
+    {
+      "companyId": "56470055973",
+      "name": "Wyntra",
+      "domain": "wyntra.com"
+    },
+    {
+      "companyId": "56476566797",
+      "name": "Y-Axis Overseas",
+      "domain": "y-axis.com"
+    },
+    {
+      "companyId": "56483002217",
+      "name": "Inhibrx",
+      "domain": "inhibrx.com"
+    },
+    {
+      "companyId": "56494698398",
+      "name": "Alcami",
+      "domain": "alcaminow.com"
+    },
+    {
+      "companyId": "56465675442",
+      "name": "Carib Link",
+      "domain": "carib-link.net"
+    },
+    {
+      "companyId": "56470188704",
+      "name": "PLIVA Hrvatska",
+      "domain": "pliva.hr"
+    },
+    {
+      "companyId": "56468898118",
+      "name": "Ewopharma",
+      "domain": "ewopharma.com"
+    },
+    {
+      "companyId": "56497305696",
+      "name": "QUANTUM PHARMACY",
+      "domain": "quantumpharma.co.uk"
+    },
+    {
+      "companyId": "56466872760",
+      "name": "United BioPharma",
+      "domain": "unitedbiopharma.com"
+    },
+    {
+      "companyId": "56481917548",
+      "name": "OEP Group",
+      "domain": "oepgroup.com"
+    },
+    {
+      "companyId": "56475284231",
+      "name": "Shield Therapeutics",
+      "domain": "shieldtherapeutics.com"
+    },
+    {
+      "companyId": "56485983546",
+      "name": "Mycenax",
+      "domain": "mycenax.com.tw"
+    },
+    {
+      "companyId": "56467951797",
+      "name": "شركة النيل للأدوية",
+      "domain": "nilepharma.com.eg"
+    },
+    {
+      "companyId": "56466872832",
+      "name": "Mercury Pharma Group",
+      "domain": "mercurypharma.com"
+    },
+    {
+      "companyId": "56481299379",
+      "name": "Pharma Nordic",
+      "domain": "pharmanordic.no"
+    },
+    {
+      "companyId": "56478119831",
+      "name": "Par Pharmaceutical",
+      "domain": "parpharm.com"
+    },
+    {
+      "companyId": "56484226710",
+      "name": "Pharma Marine",
+      "domain": "pharmamarine.com"
+    },
+    {
+      "companyId": "56473149332",
+      "name": "Curida Diatec",
+      "domain": "diatec.com"
+    },
+    {
+      "companyId": "56494545524",
+      "name": "Ajinomoto OmniChem",
+      "domain": "omnichem.be"
+    },
+    {
+      "companyId": "56467951798",
+      "name": "Oneness Biotech Co",
+      "domain": "onenessbio.com.tw"
+    },
+    {
+      "companyId": "56489515287",
+      "name": "Aceto",
+      "domain": "aceto.com"
+    },
+    {
+      "companyId": "56470343232",
+      "name": "iMAX Diagnostic Imaging",
+      "domain": "imaxdiagnostic.com"
+    },
+    {
+      "companyId": "56471743352",
+      "name": "Polisano",
+      "domain": "polisano.ro"
+    },
+    {
+      "companyId": "56474511195",
+      "name": "PharmaS",
+      "domain": "pharmas-group.com"
+    },
+    {
+      "companyId": "56471590447",
+      "name": "Alliance Pharma Plc",
+      "domain": "alliancepharma.co.uk"
+    },
+    {
+      "companyId": "56488428939",
+      "name": "Apiject",
+      "domain": "apiject.com"
+    },
+    {
+      "companyId": "56474646412",
+      "name": "Bioclinica",
+      "domain": "bioclinica.ro"
+    },
+    {
+      "companyId": "56472216665",
+      "name": "SK pharmteco",
+      "domain": "skpharmteco.com"
+    },
+    {
+      "companyId": "56484065894",
+      "name": "AkzoNobel",
+      "domain": "akzonobel.com"
+    },
+    {
+      "companyId": "56464148592",
+      "name": "IP HEALTHCARE LIMITED",
+      "domain": "iphealthcare.com"
+    },
+    {
+      "companyId": "56496848721",
+      "name": "Bioquifar Pharmacéutica",
+      "domain": "bioquifar.com"
+    },
+    {
+      "companyId": "56485511274",
+      "name": "Ottopharm",
+      "domain": "ottopharm.com"
+    },
+    {
+      "companyId": "56482518879",
+      "name": "Mothopo Pharma-Chem",
+      "domain": "mothopopharma.co.za"
+    },
+    {
+      "companyId": "56477653803",
+      "name": "LABOSERVE",
+      "domain": "laboserve.eu"
+    },
+    {
+      "companyId": "56469518438",
+      "name": "Johnson & Johnson",
+      "domain": "jnj.com"
+    },
+    {
+      "companyId": "56463972874",
+      "name": "BAT",
+      "domain": "bat.com"
+    },
+    {
+      "companyId": "56467952459",
+      "name": "Remedina",
+      "domain": "remedina.gr"
+    },
+    {
+      "companyId": "56472062225",
+      "name": "Raritan Group",
+      "domain": "raritangroup.com"
+    },
+    {
+      "companyId": "56484552474",
+      "name": "Pharmanel",
+      "domain": "pharmanel.gr"
+    },
+    {
+      "companyId": "56483472046",
+      "name": "PT. Lapi Laboratories",
+      "domain": "lapilaboratories.com"
+    },
+    {
+      "companyId": "56482681447",
+      "name": "APL Care",
+      "domain": "aplcare.com"
+    },
+    {
+      "companyId": "56466273706",
+      "name": "GBA Polska",
+      "domain": "gba-polska.pl"
+    },
+    {
+      "companyId": "56488264206",
+      "name": "USP Zdrowie",
+      "domain": "uspzdrowie.pl"
+    },
+    {
+      "companyId": "56483919372",
+      "name": "Halix",
+      "domain": "halix.nl"
+    },
+    {
+      "companyId": "56492893858",
+      "name": "Eurocept Pharmaceuticals",
+      "domain": "eurocept.nl"
+    },
+    {
+      "companyId": "56489039729",
+      "name": "Medicofarma Biotech",
+      "domain": "medicofarmabiotech.pl"
+    },
+    {
+      "companyId": "56487218009",
+      "name": "Everidis",
+      "domain": "everidis.com"
+    },
+    {
+      "companyId": "56481132936",
+      "name": "Jelfa",
+      "domain": "jelfa.pl"
+    },
+    {
+      "companyId": "56490114075",
+      "name": "Solinea",
+      "domain": "solinea.pl"
+    },
+    {
+      "companyId": "56475777294",
+      "name": "Marketing Vision Consulting",
+      "domain": "marketing-vision-consulting.com"
+    },
+    {
+      "companyId": "56486442332",
+      "name": "Oleofarm",
+      "domain": "oleofarm.pl"
+    },
+    {
+      "companyId": "56481918259",
+      "name": "AeroCare",
+      "domain": "aerocare.co.th"
+    },
+    {
+      "companyId": "56495011195",
+      "name": "PharmaBioServ,",
+      "domain": "pbsvinc.com"
+    },
+    {
+      "companyId": "56491822904",
+      "name": "IASIS PHARMA",
+      "domain": "iasispharma.com"
+    },
+    {
+      "companyId": "56492893859",
+      "name": "Aurena Laboratories",
+      "domain": "aurenalabs.com"
+    },
+    {
+      "companyId": "56486442333",
+      "name": "AbbVie",
+      "domain": "abbvie.com"
+    },
+    {
+      "companyId": "56470189147",
+      "name": "CHC Curtis",
+      "domain": "chc.com.pl"
+    },
+    {
+      "companyId": "56489828675",
+      "name": "KGbio",
+      "domain": "kg-biologics.com"
+    },
+    {
+      "companyId": "56461981520",
+      "name": "Xspray Microparticles AB",
+      "domain": "xspray.com"
+    },
+    {
+      "companyId": "56497306384",
+      "name": "Unika Atma Jaya",
+      "domain": "atmajaya.ac.id"
+    },
+    {
+      "companyId": "56495011198",
+      "name": "New Concept Product",
+      "domain": "ncp.co.th"
+    },
+    {
+      "companyId": "56483147096",
+      "name": "BioGaia",
+      "domain": "biogaia.com"
+    },
+    {
+      "companyId": "56466873479",
+      "name": "NJ Biopharmaceuticals",
+      "domain": "njbiopharmaceuticals.com"
+    },
+    {
+      "companyId": "56466273707",
+      "name": "Baxter",
+      "domain": "baxter.com"
+    },
+    {
+      "companyId": "56478875011",
+      "name": "Adamed Pharma",
+      "domain": "adamed.com.pl"
+    },
+    {
+      "companyId": "56498447266",
+      "name": "JPZ Consulting",
+      "domain": "jpz.com.pl"
+    },
+    {
+      "companyId": "56466427257",
+      "name": "Pharos Indonesia",
+      "domain": "pharosindonesia.com"
+    },
+    {
+      "companyId": "56494546353",
+      "name": "T-Life Capital",
+      "domain": "tlifecapital.com"
+    },
+    {
+      "companyId": "56484552475",
+      "name": "Pharos Systems",
+      "domain": "pharos.com"
+    },
+    {
+      "companyId": "56491356782",
+      "name": "Dexa Medica",
+      "domain": "dexa-medica.com"
+    },
+    {
+      "companyId": "56484552476",
+      "name": "Philip Morris International",
+      "domain": "pmi.com"
+    },
+    {
+      "companyId": "56465230195",
+      "name": "Parthenogenesis",
+      "domain": "parthenogenesis.gr"
+    },
+    {
+      "companyId": "56478120519",
+      "name": "Magle Chemoswed",
+      "domain": "maglechemoswed.com"
+    },
+    {
+      "companyId": "56498447737",
+      "name": "SAVANT",
+      "domain": "savant.com.ar"
+    },
+    {
+      "companyId": "56467798934",
+      "name": "Laboratorio Ariston",
+      "domain": "laboratorio-ariston.com.ar"
+    },
+    {
+      "companyId": "56462901879",
+      "name": "Laboratorios Eurolab",
+      "domain": "laboratorioseurolab.com"
+    },
+    {
+      "companyId": "56477327404",
+      "name": "Cofarsur",
+      "domain": "cofarsur.com"
+    },
+    {
+      "companyId": "56480722756",
+      "name": "Tecnofarma",
+      "domain": "tecnofarma.com.co"
+    },
+    {
+      "companyId": "56467030534",
+      "name": "Beta",
+      "domain": "laboratoriosbeta.com.ar"
+    },
+    {
+      "companyId": "56475285772",
+      "name": "Laboratorio Rossmore",
+      "domain": "rossmore.us"
+    },
+    {
+      "companyId": "56488430258",
+      "name": "Laboratorios Rontag",
+      "domain": "rontag.com"
+    },
+    {
+      "companyId": "56475948421",
+      "name": "lab.panalab",
+      "domain": "panalab.com.ar"
+    },
+    {
+      "companyId": "56497306930",
+      "name": "Altheon Life",
+      "domain": "altheonlife.com"
+    },
+    {
+      "companyId": "56490751834",
+      "name": "Newscience",
+      "domain": "newscience.cl"
+    },
+    {
+      "companyId": "56467475106",
+      "name": "Laboratorio Varifarma",
+      "domain": "varifarma.com.ar"
+    },
+    {
+      "companyId": "56488264712",
+      "name": "BDI Biotech",
+      "domain": "bdibiotech.com"
+    },
+    {
+      "companyId": "56477654365",
+      "name": "Faes Farma Colombia",
+      "domain": "faesfarma.com.co"
+    },
+    {
+      "companyId": "56483003710",
+      "name": "Laboratorios IMA",
+      "domain": "laboratoriosima.com.ar"
+    },
+    {
+      "companyId": "56471744553",
+      "name": "Milab",
+      "domain": "milab.cl"
+    },
+    {
+      "companyId": "56469691007",
+      "name": "Clinica Scholler",
+      "domain": "scholler.cr"
+    },
+    {
+      "companyId": "56483472802",
+      "name": "DROMEX",
+      "domain": "dromex.com"
+    },
+    {
+      "companyId": "56478712345",
+      "name": "Reutter",
+      "domain": "reutter.cl"
+    },
+    {
+      "companyId": "56476879405",
+      "name": "Euromed S.A.",
+      "domain": "euromed.es"
+    },
+    {
+      "companyId": "56475948423",
+      "name": "CALOX Farmaceutica",
+      "domain": "caloxca.com"
+    },
+    {
+      "companyId": "56469691008",
+      "name": "Genfar S.A",
+      "domain": "genfar.com.co"
+    },
+    {
+      "companyId": "56470057569",
+      "name": "Capris",
+      "domain": "capris.cr"
+    },
+    {
+      "companyId": "56474199191",
+      "name": "donato zurlo & cía srl",
+      "domain": "donatozurlo.com"
+    },
+    {
+      "companyId": "56483472805",
+      "name": "INTERLAB",
+      "domain": "laboratorioibc.com"
+    },
+    {
+      "companyId": "56474512566",
+      "name": "Medizinische Universität Innsbruck",
+      "domain": "i-med.ac.at"
+    },
+    {
+      "companyId": "56481133434",
+      "name": "COMG",
+      "domain": "comg.cat"
+    },
+    {
+      "companyId": "56483147592",
+      "name": "Cinfa",
+      "domain": "cinfa.com"
+    },
+    {
+      "companyId": "56473150774",
+      "name": "Primoris Services",
+      "domain": "prim.com"
+    },
+    {
+      "companyId": "56467030539",
+      "name": "Pharma Supply",
+      "domain": "pharmasupply.com"
+    },
+    {
+      "companyId": "56483472806",
+      "name": "Euromed Pharma",
+      "domain": "euromed-pharma.com"
+    },
+    {
+      "companyId": "56471428275",
+      "name": "Eyl Comercial",
+      "domain": "ecsa.com.hn"
+    },
+    {
+      "companyId": "56481589907",
+      "name": "Vides Laboratories",
+      "domain": "ojvides.net"
+    },
+    {
+      "companyId": "56493663554",
+      "name": "Cloverty",
+      "domain": "cloverty.com"
+    },
+    {
+      "companyId": "56480251466",
+      "name": "Universidad del Istmo",
+      "domain": "unis.edu.gt"
+    },
+    {
+      "companyId": "56465540365",
+      "name": "RODIM",
+      "domain": "farmaceuticarodim.com"
+    },
+    {
+      "companyId": "56494854150",
+      "name": "A5 Farmacia",
+      "domain": "a5farmacia.com"
+    },
+    {
+      "companyId": "56483003717",
+      "name": "Asofarma de México",
+      "domain": "asofarma.com.mx"
+    }
+  ],
+  "ambiguas": [
+    {
+      "companyId": "56474804885",
+      "name": "Ferrer",
+      "domain": "ferrer.com",
+      "matchedBy": "domain",
+      "candidatos": [
+        {
+          "name": "Ferrer Argentina",
+          "pais": "Argentina"
+        },
+        {
+          "name": "Interquim, S.A. /  (Ferrer) / Farmhispania Group",
+          "pais": "España"
+        }
+      ]
+    },
+    {
+      "companyId": "56471899028",
+      "name": "Infarma",
+      "domain": "laboratorioinfarma.com",
+      "matchedBy": "name",
+      "candidatos": [
+        {
+          "name": "Infarma",
+          "pais": "Costa Rica"
+        },
+        {
+          "name": "Infarma",
+          "pais": "Honduras"
+        }
+      ]
+    },
+    {
+      "companyId": "56475285773",
+      "name": "Pail",
+      "domain": "paill.com",
+      "matchedBy": "domain",
+      "candidatos": [
+        {
+          "name": "Grupo Paill / Paill Laboratorios",
+          "pais": "El Salvador"
+        },
+        {
+          "name": "Helifa / HELIFARMA",
+          "pais": "Honduras"
+        }
+      ]
+    },
+    {
+      "companyId": "56494854148",
+      "name": "Infarma",
+      "domain": "drogueriainfarma.com",
+      "matchedBy": "name",
+      "candidatos": [
+        {
+          "name": "Infarma",
+          "pais": "Costa Rica"
+        },
+        {
+          "name": "Infarma",
+          "pais": "Honduras"
+        }
+      ]
+    }
+  ]
+}

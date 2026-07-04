@@ -13,6 +13,7 @@
   "yesenia": {
     "name": "Yesenia Nieto",
     "role": "supervisor",
+    "defaultView": "operator",
     "ownerId": "93621022",
     "bp_paises": ["México", "España", "Argentina", "Chile", "Paraguay", "Uruguay", "Venezuela", "Colombia", "Perú", "Ecuador", "Bolivia", "República Dominicana", "Costa Rica", "Panamá", "El Salvador", "Guatemala"],
     "sipExtension": "104",

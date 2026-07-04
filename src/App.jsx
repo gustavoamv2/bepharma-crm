@@ -65,11 +65,6 @@ function AppContent() {
     return () => window.removeEventListener('bpViewModeChange', handler)
   }, [])
 
-  // Disparar GlobalSearch con Ctrl+K desde el sidebar button
-  const openSearch = () => {
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true }))
-  }
-
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a1929' }}>
@@ -132,21 +127,6 @@ function AppContent() {
           <NavLink to="/search" className={({ isActive }) => isActive ? 'active' : ''}>
             <Search size={15} /> Buscar contactos
           </NavLink>
-          <div
-            role="button"
-            tabIndex={0}
-            style={{
-              display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px',
-              color: '#b0bec5', fontSize: 13, cursor: 'pointer', transition: 'background .15s',
-            }}
-            onClick={openSearch}
-            onKeyDown={e => e.key === 'Enter' && openSearch()}
-          >
-            <Search size={15} /> Búsqueda global
-            <span style={{ marginLeft: 'auto', fontSize: 10, background: '#1a2d42', padding: '1px 6px', borderRadius: 4, color: '#78909c' }}>
-              Ctrl+K
-            </span>
-          </div>
 
           {isSupervisor && (
             <>
