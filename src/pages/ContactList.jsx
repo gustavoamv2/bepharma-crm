@@ -9,6 +9,7 @@ import Topbar from '../components/Topbar'
 import RecordModal from '../components/RecordModal'
 import { BarChart } from '../components/Charts'
 import { useToast } from '../hooks/useToast'
+import { useAuth } from '../contexts/AuthContext'
 import { COUNTRIES } from '../constants/countries'
 
 const fmt = (v) => v ? format(parseISO(v), 'dd MMM yy', { locale: es }) : '—'
@@ -40,6 +41,7 @@ function downloadBlob(blob, filename) {
 export default function ContactList() {
   const nav = useNavigate()
   const qc = useQueryClient()
+  const { user } = useAuth()
   const { addToast } = useToast()
   const [search, setSearch] = useState('')
   const [after, setAfter] = useState(null)
@@ -74,7 +76,7 @@ export default function ContactList() {
   ] : undefined
 
   const { data, isLoading, error } = useQuery(
-    ['contacts', search, qualityFilters, after],
+    ['contacts', user?.username, search, qualityFilters, after],
     () => hubspot.searchContacts({
       filterGroups,
       qualityFilters: qualityFilters.length ? qualityFilters : undefined,
@@ -89,7 +91,7 @@ export default function ContactList() {
   // no incluye qualityFilters a propósito, para seguir mostrando la
   // distribución completa aunque haya un check ya seleccionado.
   const { data: qualityMetrics } = useQuery(
-    ['contacts-quality-metrics', search],
+    ['contacts-quality-metrics', user?.username, search],
     () => hubspot.getContactQualityMetrics({ search: search || undefined }),
     { staleTime: 60_000, keepPreviousData: true }
   )

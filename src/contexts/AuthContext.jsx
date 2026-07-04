@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
+import { useQueryClient } from 'react-query'
 
 const AuthCtx = createContext(null)
 
 export function AuthProvider({ children }) {
+  const qc = useQueryClient()
   const [user, setUser] = useState(null)        // { username, name, role, ownerId }
   const [token, setToken] = useState(null)
   const [loading, setLoading] = useState(true)  // verificando sesión al arrancar
@@ -35,19 +37,25 @@ export function AuthProvider({ children }) {
       sessionStorage.removeItem('bp_view_mode')
     }
     window.dispatchEvent(new Event('bpViewModeChange'))
+    // Defensa en profundidad: aunque las queryKeys de Empresas/Contactos/Deals
+    // ya incluyen el username, limpiamos toda la cache de react-query al
+    // iniciar sesión para que jamás quede un resultado de la cuenta anterior
+    // (ej. probar varias cuentas en la misma pestaña sin recargar la página).
+    qc.clear()
     setToken(t)
     setUser(u)
     return u
-  }, [])
+  }, [qc])
 
   const logout = useCallback(() => {
     sessionStorage.removeItem('bp_token')
     sessionStorage.removeItem('bp_view_mode')
     delete axios.defaults.headers.common['Authorization']
     window.dispatchEvent(new Event('bpViewModeChange'))
+    qc.clear()
     setToken(null)
     setUser(null)
-  }, [])
+  }, [qc])
 
   return (
     <AuthCtx.Provider value={{ user, token, loading, login, logout }}>

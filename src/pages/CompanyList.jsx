@@ -93,7 +93,7 @@ export default function CompanyList() {
   const resetPaging = () => { setAfter(null); setHistory([]) }
 
   const { data, isLoading, error } = useQuery(
-    ['companies', search, countryFilter, contactsFilter, qualityFilters, after],
+    ['companies', user?.username, search, countryFilter, contactsFilter, qualityFilters, after],
     () => hubspot.searchCompanies({
       filters,
       contactsFilter: contactsFilter || undefined,
@@ -109,7 +109,7 @@ export default function CompanyList() {
   // (búsqueda, país, con/sin contactos) — no incluye qualityFilter a propósito
   // (ver backend), para seguir mostrando la distribución completa.
   const { data: qualityMetrics } = useQuery(
-    ['companies-quality-metrics', search, countryFilter, contactsFilter],
+    ['companies-quality-metrics', user?.username, search, countryFilter, contactsFilter],
     () => hubspot.getCompanyQualityMetrics({
       search: search || undefined,
       country: countryFilter || undefined,

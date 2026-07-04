@@ -164,7 +164,7 @@ export default function DealList() {
   }
 
   const { data, isLoading, error } = useQuery(
-    ['deals', search, estado, alerta, ownerFilter, countryFilter, after, preFilter],
+    ['deals', user?.username, search, estado, alerta, ownerFilter, countryFilter, after, preFilter],
     () => hubspot.searchDeals({
       filters: buildFilters(),
       sorts: [{ propertyName: 'bp_ultima_actividad_operador', direction: 'DESCENDING' }],
