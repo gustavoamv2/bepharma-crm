@@ -3,13 +3,36 @@ import React, { useState } from 'react'
 // Gráficas SVG compartidas (extraídas de Dashboard.jsx el 04-jul-2026 para
 // reusarlas también en CompanyList.jsx y DealList.jsx sin duplicar código).
 
+// Parte una etiqueta larga en hasta 2 líneas (por palabra completa) para que
+// se lea entera bajo la barra en vez de truncarse con "…".
+function wrapLabel(label, maxCharsPerLine = 10) {
+  const words = (label || '').split(' ')
+  const lines = []
+  let cur = ''
+  words.forEach(w => {
+    const test = cur ? `${cur} ${w}` : w
+    if (test.length > maxCharsPerLine && cur) {
+      lines.push(cur)
+      cur = w
+    } else {
+      cur = test
+    }
+  })
+  if (cur) lines.push(cur)
+  if (lines.length > 2) {
+    lines[1] = lines.slice(1).join(' ')
+    lines.length = 2
+  }
+  return lines
+}
+
 // ── Gráfica de barras SVG (interactiva) ──────────────────────────────────────
 // data: [{ key, label, count }]
 export function BarChart({ data, color = '#4fc3f7', height = 140, onBarClick }) {
   const [hovered, setHovered] = useState(null)
   if (!data?.length) return null
   const max = Math.max(...data.map(d => d.count), 1)
-  const W = 340, H = height, PL = 8, PR = 8, PT = 20, PB = 32
+  const W = 340, H = height + 12, PL = 8, PR = 8, PT = 20, PB = 44
   const cW = W - PL - PR
   const cH = H - PT - PB
   const slot = cW / data.length
@@ -42,9 +65,11 @@ export function BarChart({ data, color = '#4fc3f7', height = 140, onBarClick }) 
             {d.count > 0 && (
               <text x={x + bW / 2} y={y - 4} textAnchor="middle" fontSize={10} fontWeight="600" fill={barColor}>{d.count}</text>
             )}
-            <text x={x + bW / 2} y={H - 6} textAnchor="middle" fontSize={9} fill="#6b778c">
-              {d.label?.length > 8 ? d.label.slice(0, 7) + '…' : d.label}
-            </text>
+            {wrapLabel(d.label).map((line, li, arr) => (
+              <text key={li} x={x + bW / 2} y={H - 6 - (arr.length - 1 - li) * 11} textAnchor="middle" fontSize={9} fill="#6b778c">
+                {line}
+              </text>
+            ))}
           </g>
         )
       })}
