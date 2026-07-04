@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { hubspot } from '../hooks/useApi'
 
+// El tab de "Seguimiento" (creaba una tarea sin control de a quién se le
+// asignaba) se quitó del panel inferior de los deals — para programar una
+// tarea/alerta ahora se usa el botón "Tarea" del detalle (CreateTaskModal),
+// que sí respeta las reglas de asignación por rol.
 const TABS = [
   { key: 'note',     label: '📝 Nota' },
   { key: 'linkedin', label: '💼 LinkedIn' },
-  { key: 'followup', label: '📅 Seguimiento' },
 ]
 
 export default function ActivityBar({ objectType, objectId, objectName, onActivityLogged }) {
@@ -18,10 +21,6 @@ export default function ActivityBar({ objectType, objectId, objectName, onActivi
   // LinkedIn state
   const [linkedinMsg, setLinkedinMsg] = useState('')
 
-  // Follow-up state
-  const [followupDate, setFollowupDate] = useState('')
-  const [followupNotes, setFollowupNotes] = useState('')
-
   const showFeedback = (msg, type = 'success') => {
     setFeedback({ msg, type })
     setTimeout(() => setFeedback(null), 3000)
@@ -30,8 +29,6 @@ export default function ActivityBar({ objectType, objectId, objectName, onActivi
   const reset = () => {
     setNoteText('')
     setLinkedinMsg('')
-    setFollowupDate('')
-    setFollowupNotes('')
   }
 
   const handleTabClick = (key) => {
@@ -66,29 +63,6 @@ export default function ActivityBar({ objectType, objectId, objectName, onActivi
       onActivityLogged?.()
     } catch (e) {
       showFeedback(e.response?.data?.error || 'Error al guardar', 'error')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const saveFollowup = async () => {
-    if (!followupDate) return
-    setLoading(true)
-    try {
-      await hubspot.createTask({
-        subject: `Seguimiento: ${objectName || 'registro'}`,
-        body: followupNotes.trim(),
-        dueDate: followupDate,
-        priority: 'MEDIUM',
-        associatedObjectType: objectType,
-        associatedObjectId: objectId,
-      })
-      showFeedback('Seguimiento programado')
-      reset()
-      setActiveTab(null)
-      onActivityLogged?.()
-    } catch (e) {
-      showFeedback(e.response?.data?.error || 'Error al programar', 'error')
     } finally {
       setLoading(false)
     }
@@ -149,37 +123,6 @@ export default function ActivityBar({ objectType, objectId, objectName, onActivi
                 <button className="btn btn-ghost btn-sm" onClick={() => setActiveTab(null)}>Cancelar</button>
                 <button className="btn btn-primary btn-sm" onClick={saveLinkedin} disabled={loading || !linkedinMsg.trim()}>
                   {loading ? 'Guardando…' : 'Guardar mensaje'}
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* SEGUIMIENTO */}
-          {activeTab === 'followup' && (
-            <div className="abar-form">
-              <div className="abar-row">
-                <div className="form-group" style={{ flex: 1 }}>
-                  <label>Fecha y hora del seguimiento *</label>
-                  <input
-                    type="datetime-local"
-                    value={followupDate}
-                    onChange={e => setFollowupDate(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="form-group">
-                <label>Notas para el seguimiento</label>
-                <textarea
-                  rows={2}
-                  placeholder="¿Qué debes hacer en este seguimiento?"
-                  value={followupNotes}
-                  onChange={e => setFollowupNotes(e.target.value)}
-                />
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
-                <button className="btn btn-ghost btn-sm" onClick={() => setActiveTab(null)}>Cancelar</button>
-                <button className="btn btn-primary btn-sm" onClick={saveFollowup} disabled={loading || !followupDate}>
-                  {loading ? 'Programando…' : 'Programar seguimiento'}
                 </button>
               </div>
             </div>

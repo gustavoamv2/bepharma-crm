@@ -2,14 +2,19 @@ import React, { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
 import { useToast } from '../hooks/useToast'
+import { useAuth } from '../contexts/AuthContext'
 
+// Reglas de asignación (ver también la validación server-side en
+// POST /api/hubspot/tasks):
+//   - Operador: puede asignar la tarea a sí mismo o a un supervisor.
+//   - Supervisor: puede asignar a sí mismo o a cualquier operador.
 const TEAM = [
-  { name: 'Angel',              ownerId: '93771980' },
-  { name: 'Gracie',             ownerId: '93771979' },
-  { name: 'Carlos',             ownerId: '93771981' },
-  { name: 'Sara',               ownerId: '73112880' },
-  { name: 'Yesenia (supervisora)', ownerId: '93621022' },
-  { name: 'Roberto (supervisor)',  ownerId: '93615311' },
+  { name: 'Angel',                 ownerId: '93771980', role: 'operator' },
+  { name: 'Gracie',                ownerId: '93771979', role: 'operator' },
+  { name: 'Carlos',                ownerId: '93771981', role: 'operator' },
+  { name: 'Sara',                  ownerId: '73112880', role: 'operator' },
+  { name: 'Yesenia (supervisora)', ownerId: '93621022', role: 'supervisor' },
+  { name: 'Roberto (supervisor)',  ownerId: '93615311', role: 'supervisor' },
 ]
 
 const PRIORITIES = [
@@ -34,11 +39,22 @@ export default function CreateTaskModal({
   defaultAssignee,
 }) {
   const { addToast } = useToast()
+  const { user } = useAuth()
+  const isSupervisor = user?.role === 'supervisor'
+  // Operador: a sí mismo + supervisores. Supervisor: a cualquier operador
+  // (no incluye supervisores, ni siquiera a sí mismo, por regla de negocio).
+  const assignableTeam = isSupervisor
+    ? TEAM.filter(m => m.role === 'operator')
+    : TEAM.filter(m => m.ownerId === user?.ownerId || m.role === 'supervisor')
+  const initialAssignee = (defaultAssignee && assignableTeam.some(m => m.ownerId === defaultAssignee))
+    ? defaultAssignee
+    : (assignableTeam[0]?.ownerId || '')
+
   const [loading, setLoading] = useState(false)
   const [form, setForm] = useState({
     subject: '',
     body: '',
-    assignedOwnerId: defaultAssignee || TEAM[0].ownerId,
+    assignedOwnerId: initialAssignee,
     priority: 'MEDIUM',
     taskType: 'CALL',
     dueDate: '',
@@ -134,7 +150,7 @@ export default function CreateTaskModal({
             <div className="form-group" style={{ margin: 0 }}>
               <label>Asignar a</label>
               <select value={form.assignedOwnerId} onChange={e => set('assignedOwnerId', e.target.value)}>
-                {TEAM.map(m => (
+                {assignableTeam.map(m => (
                   <option key={m.ownerId} value={m.ownerId}>{m.name}</option>
                 ))}
               </select>

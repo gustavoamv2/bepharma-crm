@@ -215,7 +215,7 @@ export default function KanbanPage() {
   // deals que carga este Kanban.
   const { data: chartsData } = useQuery(
     ['charts', user?.username, viewMode === 'operator'],
-    hubspot.charts,
+    () => hubspot.charts(),
     { refetchInterval: 10 * 60 * 1000 }
   )
   const realCountByStage = Object.fromEntries(

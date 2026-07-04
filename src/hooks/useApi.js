@@ -14,7 +14,7 @@ api.interceptors.request.use(config => {
 // ── HubSpot ───────────────────────────────────────────────────────────────────
 export const hubspot = {
   metrics:     () => api.get('/hubspot/metrics').then(r => r.data),
-  charts:      () => api.get('/hubspot/charts').then(r => r.data),
+  charts:      (params) => api.get('/hubspot/charts', { params }).then(r => r.data),
 
   searchDeals:  (body)       => api.post('/hubspot/deals/search', body).then(r => r.data),
   getDeal:      (id)         => api.get(`/hubspot/deals/${id}`).then(r => r.data),
@@ -40,8 +40,8 @@ export const hubspot = {
   getNotifications: ()        => api.get('/hubspot/notifications').then(r => r.data),
   quickSearchCompanies: (q)   => api.get(`/hubspot/companies/quick-search?q=${encodeURIComponent(q)}`).then(r => r.data),
   getCompanyPipeline:   ()    => api.get('/hubspot/companies/pipeline-metrics').then(r => r.data),
-  getCompanyQualityMetrics: () => api.get('/hubspot/companies/quality-metrics').then(r => r.data),
-  getContactQualityMetrics: () => api.get('/hubspot/contacts/quality-metrics').then(r => r.data),
+  getCompanyQualityMetrics: (params) => api.get('/hubspot/companies/quality-metrics', { params }).then(r => r.data),
+  getContactQualityMetrics: (params) => api.get('/hubspot/contacts/quality-metrics', { params }).then(r => r.data),
 
   createNote:      (objectType, objectId, body, noteType = 'NOTE') =>
     api.post('/hubspot/notes', { objectType, objectId, body, noteType }).then(r => r.data),

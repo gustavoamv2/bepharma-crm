@@ -165,7 +165,14 @@ export default function DealList() {
     { keepPreviousData: true }
   )
 
-  const { data: chartsData } = useQuery(['charts', user?.username, viewMode], hubspot.charts, { staleTime: 60_000 })
+  // Las gráficas reflejan los filtros activos del listado (búsqueda, operador)
+  // — cada gráfica excluye su propia dimensión (ver /api/hubspot/charts) para
+  // que un clic no la deje con una sola barra.
+  const { data: chartsData } = useQuery(
+    ['charts', user?.username, viewMode, search, estado, alerta, ownerFilter],
+    () => hubspot.charts({ search: search || undefined, estado: estado || undefined, alerta: alerta || undefined, ownerFilter: ownerFilter || undefined }),
+    { staleTime: 60_000, keepPreviousData: true }
+  )
 
   const deals = data?.results || []
   const nextAfter = data?.paging?.next?.after

@@ -52,9 +52,14 @@ export default function ContactList() {
     { keepPreviousData: true }
   )
 
-  const { data: qualityMetrics } = useQuery('contacts-quality-metrics', hubspot.getContactQualityMetrics, {
-    staleTime: 60_000,
-  })
+  // El gráfico "Calidad de datos" refleja la búsqueda activa del listado —
+  // no incluye qualityFilter a propósito, para seguir mostrando la
+  // distribución completa aunque haya una barra ya seleccionada.
+  const { data: qualityMetrics } = useQuery(
+    ['contacts-quality-metrics', search],
+    () => hubspot.getContactQualityMetrics({ search: search || undefined }),
+    { staleTime: 60_000, keepPreviousData: true }
+  )
   const qualityChartData = Object.entries(QUALITY_LABELS).map(([key, label]) => ({
     key, label, count: qualityMetrics?.[key] ?? 0,
   }))

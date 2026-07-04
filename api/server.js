@@ -314,9 +314,22 @@ app.post('/api/hubspot/companies/search', requireAuth, async (req, res) => {
 // (ver COMPANY_QUALITY_FILTERS) para que el conteo de la barra y el listado
 // que se abre al hacer clic coincidan siempre.
 app.get('/api/hubspot/companies/quality-metrics', requireAuth, async (req, res) => {
+  // Filtros opcionales del listado de Empresas (CompanyList) para que el
+  // gráfico "Calidad de datos" refleje lo que el usuario está viendo
+  // (búsqueda por nombre, país seleccionado, con/sin contactos) y no siempre
+  // el total sin filtrar. No se incluye qualityFilter: el gráfico debe seguir
+  // mostrando la distribución completa aunque haya una barra ya seleccionada.
+  const { search, country, contactsFilter } = req.query
+  const baseFilters = []
+  if (search)  baseFilters.push({ propertyName: 'name',    operator: 'CONTAINS_TOKEN', value: search })
+  if (country) baseFilters.push({ propertyName: 'country', operator: 'EQ',             value: country })
+
   const countFor = async (key) => {
     try {
-      const filterGroups = applyCountryFilter(req, withQualityFilter([], key), 'country', { translate: true })
+      let filterGroups = baseFilters.length ? [{ filters: baseFilters }] : []
+      filterGroups = withContactsFilter(filterGroups, contactsFilter)
+      filterGroups = withQualityFilter(filterGroups, key)
+      filterGroups = applyCountryFilter(req, filterGroups, 'country', { translate: true })
       const r = await hs.post('/crm/v3/objects/companies/search', {
         filterGroups, limit: 1, properties: ['name'],
       })
@@ -444,9 +457,20 @@ app.post('/api/hubspot/contacts/search', requireAuth, async (req, res) => {
 // abre al hacer clic coincidan siempre. Respeta el scoping de owner/país de
 // la vista de operador, igual que /contacts/search.
 app.get('/api/hubspot/contacts/quality-metrics', requireAuth, async (req, res) => {
+  // Filtro opcional de búsqueda del listado de Contactos (ContactList), para
+  // que el gráfico refleje lo que el usuario está viendo. No se incluye
+  // qualityFilter: el gráfico debe seguir mostrando la distribución completa
+  // aunque haya una barra ya seleccionada.
+  const { search } = req.query
+  const baseGroups = search ? [
+    { filters: [{ propertyName: 'firstname', operator: 'CONTAINS_TOKEN', value: search }] },
+    { filters: [{ propertyName: 'lastname',  operator: 'CONTAINS_TOKEN', value: search }] },
+    { filters: [{ propertyName: 'phone',     operator: 'CONTAINS_TOKEN', value: search }] },
+  ] : []
+
   const countFor = async (key) => {
     try {
-      let filterGroups = applyOwnerFilter(req, withQualityFilter([], key, CONTACT_QUALITY_FILTERS))
+      let filterGroups = applyOwnerFilter(req, withQualityFilter(baseGroups, key, CONTACT_QUALITY_FILTERS))
       filterGroups = applyCountryFilter(req, filterGroups, 'country', { translate: true })
       const r = await hs.post('/crm/v3/objects/contacts/search', {
         filterGroups, limit: 1, properties: ['firstname'],
@@ -848,15 +872,33 @@ app.delete('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
 // CHARTS — datos para gráficas del dashboard
 // ──────────────────────────────────────────────────────────────────────────────
 app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
-  const fg = (baseFilters) => applyCountryFilter(
+  // Filtros opcionales que vienen del listado de "Mis eventos" (DealList) para
+  // que las gráficas reflejen lo que el usuario está viendo, no siempre el
+  // total sin filtrar. Se excluye la propia dimensión graficada de cada
+  // gráfica (p.ej. el gráfico "Estado" no se filtra a sí mismo por `estado`,
+  // si no cada clic dejaría una sola barra con datos) pero sí incluye los
+  // demás filtros activos (búsqueda, operador, la otra dimensión).
+  const { search, ownerFilter, estado, alerta } = req.query
+  const commonExtra = []
+  if (search)      commonExtra.push({ propertyName: 'dealname',         operator: 'CONTAINS_TOKEN', value: search })
+  if (ownerFilter) commonExtra.push({ propertyName: 'hubspot_owner_id', operator: 'EQ',             value: ownerFilter })
+
+  const estadoExtra = estado ? [{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado }] : []
+  const alertaExtra = alerta
+    ? [alerta === 'sin_alerta'
+        ? { propertyName: 'bp_estado_alerta', operator: 'NOT_HAS_PROPERTY' }
+        : { propertyName: 'bp_estado_alerta', operator: 'EQ', value: alerta }]
+    : []
+
+  const fg = (baseFilters, extra = []) => applyCountryFilter(
     req,
-    applyOwnerFilter(req, [{ filters: [activeEventFilter(), ...baseFilters] }]),
+    applyOwnerFilter(req, [{ filters: [activeEventFilter(), ...baseFilters, ...commonExtra, ...extra] }]),
     'bp_evento_paises'
   )
-  const safe = async (filters) => {
+  const safe = async (filters, extra = []) => {
     try {
       const r = await hs.post('/crm/v3/objects/deals/search', {
-        filterGroups: fg(filters), limit: 1, properties: ['dealname'],
+        filterGroups: fg(filters, extra), limit: 1, properties: ['dealname'],
       })
       return r.data.total || 0
     } catch { return 0 }
@@ -875,22 +917,25 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
   })
 
   // Queries secuenciales para respetar el rate limit de HubSpot
+  // byStage: incluye alerta activa, pero NO estado (es la propia dimensión)
   const stageCounts = []
   for (const s of PIPELINE_STAGES) {
-    stageCounts.push(await safe([{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: s.key }]))
+    stageCounts.push(await safe([{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: s.key }], alertaExtra))
     await delay(260)
   }
 
+  // byMonth: tendencia de creación — incluye todos los filtros activos
   const monthlyCounts = []
   for (const m of months) {
     monthlyCounts.push(await safe([
       { propertyName: 'createdate', operator: 'GTE', value: String(m.startMs) },
       { propertyName: 'createdate', operator: 'LT',  value: String(m.endMs) },
-    ]))
+    ], [...estadoExtra, ...alertaExtra]))
     await delay(260)
   }
 
   // Distribución por alerta (para el gráfico "Alertas levantadas" de Mis Eventos)
+  // incluye estado activo, pero NO alerta (es la propia dimensión)
   const ALERTA_KEYS = [
     { key: 'sin_alerta',      label: 'Sin alerta' },
     { key: 'alerta_amarilla', label: 'Alerta amarilla' },
@@ -902,7 +947,7 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
       a.key === 'sin_alerta'
         ? { propertyName: 'bp_estado_alerta', operator: 'NOT_HAS_PROPERTY' }
         : { propertyName: 'bp_estado_alerta', operator: 'EQ', value: a.key },
-    ]))
+    ], estadoExtra))
     await delay(260)
   }
 
@@ -1950,8 +1995,19 @@ app.post('/api/hubspot/tasks', requireAuth, async (req, res) => {
     if (!subject || !dueDate) {
       return res.status(400).json({ error: 'Faltan campos: subject, dueDate' })
     }
-    const ownerId = req.user.role === 'supervisor'
-      ? (assignedOwnerId || req.user.ownerId)
+    // Reglas de asignación (validadas también en el servidor, no solo en el
+    // dropdown del frontend):
+    //   - Operador: puede asignar la tarea a sí mismo o a un supervisor.
+    //   - Supervisor: puede asignar a sí mismo o a cualquier operador.
+    // Cualquier otro destino (o uno inválido) cae de vuelta al propio owner.
+    const allUsers = Object.values(loadUsers())
+    const supervisorIds = allUsers.filter(u => u.role === 'supervisor').map(u => u.ownerId)
+    const operatorIds = allUsers.filter(u => u.role === 'operator').map(u => u.ownerId)
+    const allowedTargets = req.user.role === 'supervisor'
+      ? [req.user.ownerId, ...operatorIds]
+      : [req.user.ownerId, ...supervisorIds]
+    const ownerId = assignedOwnerId && allowedTargets.includes(assignedOwnerId)
+      ? assignedOwnerId
       : req.user.ownerId
     // IDs de tipo de asociación HUBSPOT_DEFINED
     const assocTypeIdMap = { deals: 216, contacts: 204, companies: 192 }

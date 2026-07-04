@@ -303,7 +303,7 @@ export default function ReportsPage() {
 
   const { data: chartsData } = useQuery(
     'charts',
-    hubspot.charts,
+    () => hubspot.charts(),
     { staleTime: 120_000 }
   )
 

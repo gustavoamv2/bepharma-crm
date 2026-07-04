@@ -84,9 +84,18 @@ export default function CompanyList() {
     { keepPreviousData: true }
   )
 
-  const { data: qualityMetrics } = useQuery('companies-quality-metrics', hubspot.getCompanyQualityMetrics, {
-    staleTime: 60_000,
-  })
+  // El gráfico "Calidad de datos" refleja los filtros activos del listado
+  // (búsqueda, país, con/sin contactos) — no incluye qualityFilter a propósito
+  // (ver backend), para seguir mostrando la distribución completa.
+  const { data: qualityMetrics } = useQuery(
+    ['companies-quality-metrics', search, countryFilter, contactsFilter],
+    () => hubspot.getCompanyQualityMetrics({
+      search: search || undefined,
+      country: countryFilter || undefined,
+      contactsFilter: contactsFilter || undefined,
+    }),
+    { staleTime: 60_000, keepPreviousData: true }
+  )
   const qualityChartData = Object.entries(QUALITY_LABELS).map(([key, label]) => ({
     key, label, count: qualityMetrics?.[key] ?? 0,
   }))

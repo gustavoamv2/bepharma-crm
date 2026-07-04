@@ -6,6 +6,7 @@ import { hubspot, admin } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useAuth } from '../contexts/AuthContext'
 import { BarChart, DonutChart } from '../components/Charts'
+import TaskDetailModal from '../components/TaskDetailModal'
 
 // ── Colores/labels de etapa (compartidos con DealList/CompanyList vía las
 // mismas claves de bp_estado_prospeccion) ────────────────────────────────────
@@ -78,6 +79,7 @@ export default function Dashboard() {
   const nav = useNavigate()
   const { user } = useAuth()
   const qc = useQueryClient()
+  const [taskDetail, setTaskDetail] = useState(null)
 
   // Toggle supervisor/operador para usuarios con rol supervisor (Yesenia, Roberto)
   const [viewAsOperator, setViewAsOperator] = useState(
@@ -105,7 +107,7 @@ export default function Dashboard() {
 
   const { data: chartsData } = useQuery(
     ['charts', user?.username, viewAsOperator],
-    hubspot.charts,
+    () => hubspot.charts(),
     { refetchInterval: 10 * 60 * 1000 }
   )
 
@@ -494,10 +496,9 @@ export default function Dashboard() {
                     const assoc = t._assoc
                     const due = p.hs_timestamp ? new Date(p.hs_timestamp) : null
                     const isOverdue = due && !isNaN(due) && due.getTime() < Date.now()
-                    const goTo = assoc && TASK_ASSOC_PATH[assoc.type] ? `${TASK_ASSOC_PATH[assoc.type]}/${assoc.id}` : null
                     return (
-                      <tr key={t.id} className={goTo ? 'clickable' : ''} style={{ cursor: goTo ? 'pointer' : 'default' }}
-                        onClick={() => goTo && nav(goTo)}
+                      <tr key={t.id} className="clickable" style={{ cursor: 'pointer' }}
+                        onClick={() => setTaskDetail(t)}
                         title={assoc?.name ? `Vinculado a: ${assoc.name}` : undefined}>
                         <td style={{ fontWeight: 500 }}>{p.hs_task_subject || '(sin asunto)'}</td>
                         <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>{OWNER_NAMES[p.hubspot_owner_id] || '—'}</td>
@@ -591,6 +592,17 @@ export default function Dashboard() {
           </div>
         )}
       </div>
+
+      {taskDetail && (
+        <TaskDetailModal
+          task={taskDetail}
+          onClose={() => setTaskDetail(null)}
+          ownerNames={OWNER_NAMES}
+          priorityLabels={PRIORITY_LABELS}
+          assocPath={TASK_ASSOC_PATH}
+          onNavigate={nav}
+        />
+      )}
     </>
   )
 }
