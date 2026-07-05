@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
-import { AlertTriangle, TrendingUp, Calendar, PhoneCall, CheckSquare, Users, BarChart2, Eye, FileSpreadsheet } from 'lucide-react'
+import { AlertTriangle, TrendingUp, Calendar, PhoneCall, CheckSquare, Users, BarChart2, Eye, FileSpreadsheet, X } from 'lucide-react'
 import { hubspot, admin } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useAuth } from '../contexts/AuthContext'
@@ -81,16 +81,8 @@ const ESTADO_LABELS = {
 // ("los anteriores"): estado, alerta y operador (solo supervisor) alimentan
 // tanto el gráfico como el Excel exportado; país solo alimenta el Excel
 // (igual que en DealList, cuyo /hubspot/charts tampoco recibe país).
-const ESTADO_OPTIONS = [
-  { value: '', label: 'Todos los estados' },
-  { value: 'nueva',            label: 'Nueva' },
-  { value: 'en_depuracion',   label: 'En Depuración' },
-  { value: 'en_enriquecimiento', label: 'En Enriquecimiento' },
-  { value: 'contacto_enviado', label: 'Por Contactar' },
-  { value: 'en_seguimiento',  label: 'En Seguimiento' },
-  { value: 'confirmada',      label: 'Confirmada' },
-  { value: 'no_participa',    label: 'No Participa' },
-]
+// Estado ahora se filtra con checkboxes dentro del gráfico (ver más abajo,
+// STAGE_LABELS ya define el orden/etiquetas de esas opciones).
 
 const ALERTA_OPTIONS = [
   { value: '', label: 'Todas las alertas' },
@@ -136,11 +128,18 @@ export default function Dashboard() {
   const canToggle = user?.role === 'supervisor' && user?.canToggleView !== false
 
   // ── Filtros de las gráficas del Pipeline (mismo patrón que DealList.jsx) ──
-  const [estado, setEstado] = useState('')
+  // Estado: checkboxes multi-select (combinables con OR vía operador IN),
+  // mismo patrón que qualityFilters en CompanyList — se muestran debajo de
+  // los gráficos "Eventos por etapa" / "Distribución por etapa" en vez de
+  // un <select>, para poder filtrar varias etapas a la vez.
+  const [estadoFilters, setEstadoFilters] = useState([])
   const [alerta, setAlerta] = useState('')
   const [ownerFilter, setOwnerFilter] = useState('')
   const [countryFilter, setCountryFilter] = useState('')
   const [exporting, setExporting] = useState(false)
+  const toggleEstado = (key) => {
+    setEstadoFilters(prev => prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key])
+  }
 
   // En vista de operador, el filtro de país solo debe listar los países que
   // ese operador tiene configurados (user.bp_paises) — igual que en Empresas/Eventos.
@@ -155,9 +154,9 @@ export default function Dashboard() {
   )
 
   const { data: chartsData } = useQuery(
-    ['charts', user?.username, viewAsOperator, estado, alerta, ownerFilter],
+    ['charts', user?.username, viewAsOperator, estadoFilters.join(','), alerta, ownerFilter],
     () => hubspot.charts({
-      estado: estado || undefined,
+      estado: estadoFilters.length ? estadoFilters.join(',') : undefined,
       alerta: alerta || undefined,
       ownerFilter: ownerFilter || undefined,
     }),
@@ -168,7 +167,8 @@ export default function Dashboard() {
   // que el gráfico + país, mismo patrón que DealList.jsx → handleExport).
   const buildDashboardFilters = () => {
     const filters = [{ propertyName: 'bp_evento_codigo', operator: 'EQ', value: ACTIVE_EVENT }]
-    if (estado) filters.push({ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado })
+    if (estadoFilters.length === 1) filters.push({ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estadoFilters[0] })
+    else if (estadoFilters.length > 1) filters.push({ propertyName: 'bp_estado_prospeccion', operator: 'IN', values: estadoFilters })
     if (alerta === 'sin_alerta') filters.push({ propertyName: 'bp_estado_alerta', operator: 'NOT_HAS_PROPERTY' })
     else if (alerta) filters.push({ propertyName: 'bp_estado_alerta', operator: 'EQ', value: alerta })
     if (ownerFilter) filters.push({ propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerFilter })
@@ -176,7 +176,7 @@ export default function Dashboard() {
     return filters
   }
   const filtroResumenParts = []
-  if (estado) filtroResumenParts.push(`Estado: ${ESTADO_LABELS[estado] || estado}`)
+  if (estadoFilters.length) filtroResumenParts.push(`Estado: ${estadoFilters.map(k => ESTADO_LABELS[k] || k).join(' o ')}`)
   if (alerta) filtroResumenParts.push(`Alerta: ${ALERTA_OPTIONS.find(o => o.value === alerta)?.label || alerta}`)
   if (ownerFilter) filtroResumenParts.push(`Operador: ${OWNER_NAMES[ownerFilter] || ownerFilter}`)
   if (countryFilter) filtroResumenParts.push(`País: ${countryFilter}`)
@@ -412,12 +412,18 @@ export default function Dashboard() {
           </div>
           <div className="card-body" style={{ padding: '12px 16px' }}>
 
-            {/* Filtros de las gráficas — mismo patrón que DealList.jsx */}
+            {/* Filtros de las gráficas — mismo patrón que DealList.jsx. Estado
+                se filtra con checkboxes dentro del gráfico (ver más abajo);
+                aquí solo se muestran los chips de los estados activos. */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
-              <select value={estado} onChange={e => setEstado(e.target.value)}
-                style={{ fontSize: 12, padding: '6px 8px', borderRadius: 6, border: '1px solid #dfe1e6', color: '#42526e' }}>
-                {ESTADO_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-              </select>
+              {estadoFilters.map(key => (
+                <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#e8f0fe', borderRadius: 6, padding: '4px 10px', fontSize: 12, fontWeight: 600, color: '#0052cc', flexShrink: 0 }}>
+                  {ESTADO_LABELS[key] || key}
+                  <button onClick={() => toggleEstado(key)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#0052cc', padding: 0, display: 'flex' }}>
+                    <X size={13} />
+                  </button>
+                </div>
+              ))}
               <select value={alerta} onChange={e => setAlerta(e.target.value)}
                 style={{ fontSize: 12, padding: '6px 8px', borderRadius: 6, border: '1px solid #dfe1e6', color: '#42526e' }}>
                 {ALERTA_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
@@ -498,6 +504,27 @@ export default function Dashboard() {
                     </div>
                   )}
                 </div>
+              </div>
+            )}
+
+            {/* Filtro de Estado — checkboxes dentro del gráfico (no <select>),
+                mismo patrón que "Calidad de datos" en CompanyList: combinable
+                con OR (operador IN), filtra el Excel exportado y el gráfico
+                "Nuevos eventos" (byStage no se filtra a sí mismo — ya muestra
+                el desglose completo por etapa). */}
+            {chartsData && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 10, paddingTop: 10, borderTop: '1px solid #f0f1f3' }}>
+                {Object.entries(STAGE_LABELS).map(([key, label]) => (
+                  <label key={key} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#42526e', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={estadoFilters.includes(key)}
+                      onChange={() => toggleEstado(key)}
+                      style={{ accentColor: STAGE_COLORS[key] || '#0052cc', width: 14, height: 14 }}
+                    />
+                    {label}
+                  </label>
+                ))}
               </div>
             )}
           </div>

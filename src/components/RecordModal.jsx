@@ -216,7 +216,10 @@ const COMPANY_FIELDS = [
   { key: 'name',     label: 'Nombre de la empresa', required: true, type: 'company-name-search' },
   { key: 'domain',   label: 'Dominio web',           type: 'text', placeholder: 'empresa.com' },
   { key: 'phone',    label: 'Teléfono',              type: 'text' },
-  { key: 'country',  label: 'País',                  type: 'country-autocomplete' },
+  // Requerido: sin país, la empresa no cae en la zona de NINGÚN operador
+  // (el listado de Empresas filtra por country IN [países del operador] —
+  // ver applyCountryFilter en api/auth.js) y solo la vería un supervisor.
+  { key: 'country',  label: 'País', required: true,  type: 'country-autocomplete' },
   { key: 'city',     label: 'Ciudad',                type: 'city-autocomplete' },
   { key: 'industry', label: 'Industria', type: 'select', options: [
     { value: '', label: '— Seleccionar —' },
@@ -500,6 +503,13 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
 
   // Selección de campos según contexto
   const fields = (() => {
+    if (type === 'company') {
+      // País obligatorio solo al CREAR una empresa nueva — no bloquea la
+      // edición de empresas ya existentes que no lo tengan cargado (dato
+      // legacy: ~297 empresas sin país detectadas en el backfill de países,
+      // ver api/scripts/backfill-empresas-pais.js).
+      return isEdit ? COMPANY_FIELDS.map(f => f.key === 'country' ? { ...f, required: false } : f) : COMPANY_FIELDS
+    }
     if (type !== 'deal') return SCHEMAS[type] || []
     if (isEdit) return DEAL_FIELDS_EDIT           // editar: solo estado + siguiente paso
     if (companyId) return DEAL_FIELDS_FROM_COMPANY // crear desde empresa: nombre + estado
@@ -626,6 +636,15 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
         if (type === 'company') result = await hubspot.createCompany(props)
         if (type === 'contact') result = await hubspot.createContact(props)
         addToast(`${TITLES[type]} creado · puede tardar ~1 min en aparecer en búsquedas`, 'success')
+        // El backend crea la asociación a la empresa en el mismo request
+        // (deal→empresa, contacto→empresa) pero de forma best-effort: si esa
+        // asociación falla, el registro igual queda creado y antes esto se
+        // perdía en silencio (el toast de éxito no lo mencionaba). Avisamos
+        // para que quien lo creó sepa que debe asociarlo manualmente.
+        if (result?._assocError) {
+          const errMsg = typeof result._assocError === 'string' ? result._assocError : (result._assocError?.message || JSON.stringify(result._assocError))
+          addToast(`${TITLES[type]} creado, pero no se pudo asociar a la empresa: ${errMsg}. Ábrelo y asígnalo manualmente.`, 'error')
+        }
       }
       onSaved?.(result)
       onClose()

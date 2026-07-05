@@ -1028,10 +1028,18 @@ app.post('/api/hubspot/deals', requireAuth, async (req, res) => {
 
     // Empresas en lista negra no deben recibir nuevos eventos/deals — se
     // marcan para NO contactar en futuros eventos (ver bp_lista_negra).
+    // De paso, se hereda el país de la empresa hacia bp_evento_paises: sin
+    // esto el deal nace sin país y desaparece de TODAS las vistas de
+    // operador (el filtro de zona usa bp_evento_paises IN [países del
+    // operador] — ver applyCountryFilter en api/auth.js), exactamente lo que
+    // le pasaba al 100% de los deals viejos antes del backfill manual de
+    // 03-jul-2026 (api/scripts/backfill-deal-paises.js). Con esto queda
+    // garantizado desde la creación, sin depender de volver a correr ese
+    // script cada vez que se cargan deals nuevos.
     if (_companyId) {
       try {
         const companyCheck = await hs.get(`/crm/v3/objects/companies/${_companyId}`, {
-          params: { properties: 'name,bp_lista_negra' },
+          params: { properties: 'name,bp_lista_negra,country' },
         })
         const cp = companyCheck.data?.properties || {}
         if (cp.bp_lista_negra === 'true' || cp.bp_lista_negra === true) {
@@ -1039,6 +1047,7 @@ app.post('/api/hubspot/deals', requireAuth, async (req, res) => {
             error: `"${cp.name || 'Esta empresa'}" está en Lista Negra — no se pueden crear nuevos eventos/deals para ella.`,
           })
         }
+        if (!props.bp_evento_paises && cp.country) props.bp_evento_paises = cp.country
       } catch (checkErr) {
         // Si la verificación falla por un error transitorio, no bloqueamos la
         // creación (mismo criterio permisivo que el resto del endpoint) —
@@ -1259,7 +1268,10 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
     } catch { /* ignora JSON invalido */ }
   }
 
-  const estadoExtra = estado ? [{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado }] : []
+  // estado ahora llega como CSV (checkboxes multi-select en el Dashboard,
+  // p.ej. "confirmada,en_seguimiento") — se combina con OR vía operador IN.
+  const estadoList = estado ? String(estado).split(',').map(s => s.trim()).filter(Boolean) : []
+  const estadoExtra = estadoList.length ? [{ propertyName: 'bp_estado_prospeccion', operator: 'IN', values: estadoList }] : []
   const alertaExtra = alerta
     ? [alerta === 'sin_alerta'
         ? { propertyName: 'bp_estado_alerta', operator: 'NOT_HAS_PROPERTY' }
