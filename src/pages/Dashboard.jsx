@@ -154,11 +154,12 @@ export default function Dashboard() {
   )
 
   const { data: chartsData } = useQuery(
-    ['charts', user?.username, viewAsOperator, estadoFilters.join(','), alerta, ownerFilter],
+    ['charts', user?.username, viewAsOperator, estadoFilters.join(','), alerta, ownerFilter, countryFilter],
     () => hubspot.charts({
       estado: estadoFilters.length ? estadoFilters.join(',') : undefined,
       alerta: alerta || undefined,
       ownerFilter: ownerFilter || undefined,
+      countryFilter: countryFilter || undefined,
     }),
     { refetchInterval: 10 * 60 * 1000 }
   )

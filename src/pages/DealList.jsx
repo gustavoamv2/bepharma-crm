@@ -189,17 +189,19 @@ export default function DealList() {
     { keepPreviousData: true }
   )
 
-  // Las gráficas reflejan los filtros activos del listado (búsqueda, operador,
-  // el filtro rápido que llega por navegación desde el Dashboard) — cada
-  // gráfica excluye su propia dimensión (ver /api/hubspot/charts) para que un
-  // clic no la deje con una sola barra.
+  // Las gráficas reflejan TODOS los filtros activos del listado (búsqueda,
+  // estado, alerta, operador, país, el filtro rápido que llega por navegación
+  // desde el Dashboard) — incluyendo la propia dimensión graficada (ver
+  // /api/hubspot/charts, cambio 05-jul-2026: antes "Estado de la empresa" no
+  // se filtraba a sí mismo por `estado` y parecía no reaccionar al filtro).
   const { data: chartsData } = useQuery(
-    ['charts', user?.username, viewMode, search, estado, alerta, ownerFilter, preFilter],
+    ['charts', user?.username, viewMode, search, estado, alerta, ownerFilter, countryFilter, preFilter],
     () => hubspot.charts({
       search: search || undefined,
       estado: estado || undefined,
       alerta: alerta || undefined,
       ownerFilter: ownerFilter || undefined,
+      countryFilter: countryFilter || undefined,
       extraFilters: (preFilter && !estado) ? JSON.stringify(preFilter.filters || []) : undefined,
     }),
     { staleTime: 60_000, keepPreviousData: true }

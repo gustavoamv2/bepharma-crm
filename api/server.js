@@ -1247,16 +1247,19 @@ app.delete('/api/hubspot/contacts/:id', requireAuth, async (req, res) => {
 // CHARTS — datos para gráficas del dashboard
 // ──────────────────────────────────────────────────────────────────────────────
 app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
-  // Filtros opcionales que vienen del listado de "Mis eventos" (DealList) para
-  // que las gráficas reflejen lo que el usuario está viendo, no siempre el
-  // total sin filtrar. Se excluye la propia dimensión graficada de cada
-  // gráfica (p.ej. el gráfico "Estado" no se filtra a sí mismo por `estado`,
-  // si no cada clic dejaría una sola barra con datos) pero sí incluye los
-  // demás filtros activos (búsqueda, operador, la otra dimensión).
-  const { search, ownerFilter, estado, alerta, extraFilters } = req.query
+  // Filtros opcionales que vienen del listado de "Mis eventos" (DealList) y
+  // del Dashboard para que las gráficas reflejen lo que el usuario está
+  // viendo, no siempre el total sin filtrar. País/búsqueda/operador se
+  // aplican siempre a las 3 gráficas (no son ninguna de las dimensiones
+  // graficadas). Estado y alerta SÍ se aplican también a su propia gráfica
+  // desde el 05-jul-2026 (antes se excluían "para no dejar una sola barra
+  // tras un clic", pero eso hacía que elegir un estado/alerta pareciera no
+  // hacer nada en su propio gráfico — reportado como bug por Gustavo).
+  const { search, ownerFilter, estado, alerta, countryFilter, extraFilters } = req.query
   const commonExtra = []
-  if (search)      commonExtra.push({ propertyName: 'dealname',         operator: 'CONTAINS_TOKEN', value: search })
-  if (ownerFilter) commonExtra.push({ propertyName: 'hubspot_owner_id', operator: 'EQ',             value: ownerFilter })
+  if (search)        commonExtra.push({ propertyName: 'dealname',         operator: 'CONTAINS_TOKEN', value: search })
+  if (ownerFilter)   commonExtra.push({ propertyName: 'hubspot_owner_id', operator: 'EQ',             value: ownerFilter })
+  if (countryFilter) commonExtra.push({ propertyName: 'bp_evento_paises', operator: 'EQ',             value: countryFilter })
   // Filtro rápido que viene de un quick-link del Dashboard (p.ej. "Mis
   // callbacks vencidos" / "Sin actividad +72h" en vista operador) — DealList
   // lo aplica al listado via location.state.filter; sin esto, el gráfico se
@@ -1305,10 +1308,14 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
   })
 
   // Queries secuenciales para respetar el rate limit de HubSpot
-  // byStage: incluye alerta activa, pero NO estado (es la propia dimensión)
+  // byStage: incluye alerta activa Y estado activo — si Gustavo selecciona
+  // uno o más estados (checkboxes en el Dashboard, <select> en DealList), las
+  // demás etapas quedan en 0 y solo las seleccionadas muestran su conteo real
+  // (antes se ignoraba `estado` acá "para no dejar una sola barra", pero eso
+  // hacía que el filtro pareciera no tener efecto en este gráfico).
   const stageCounts = []
   for (const s of PIPELINE_STAGES) {
-    stageCounts.push(await safe([{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: s.key }], alertaExtra))
+    stageCounts.push(await safe([{ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: s.key }], [...estadoExtra, ...alertaExtra]))
     await delay(260)
   }
 
