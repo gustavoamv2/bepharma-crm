@@ -10,7 +10,7 @@ import RecordModal from '../components/RecordModal'
 import { BarChart } from '../components/Charts'
 import { useToast } from '../hooks/useToast'
 import { useAuth } from '../contexts/AuthContext'
-import { COUNTRIES } from '../constants/countries'
+import { COUNTRIES, COUNTRY_EN_BY_LABEL } from '../constants/countries'
 
 const fmt = (v) => v ? format(parseISO(v), 'dd MMM yy', { locale: es }) : '—'
 
@@ -51,7 +51,11 @@ export default function ContactList() {
   const [after, setAfter] = useState(null)
   const [history, setHistory] = useState([])
   const [showCreate, setShowCreate] = useState(false)
-  const [countryFilter, setCountryFilter] = useState('') // valor en inglés (propiedad HubSpot 'country'), igual que en Empresas
+  // Valor en ESPAÑOL (mismo label que se guarda en la propiedad 'country' de
+  // HubSpot) — igual que en Empresas. Antes se mandaba c.en (inglés), lo que
+  // rompía el filtro para casi todos los países (mismo bug ya corregido en
+  // CompanyList, ver applyCountryFilter en api/auth.js).
+  const [countryFilter, setCountryFilter] = useState('')
   // Checkboxes multi-select de calidad de datos (combinables entre sí con OR)
   const [qualityFilters, setQualityFilters] = useState([])
   const [exporting, setExporting] = useState(false)
@@ -72,7 +76,12 @@ export default function ContactList() {
   // Búsqueda por nombre, apellido, teléfono y empresa — el país ya no se
   // busca por texto libre, se filtra con el selector dedicado de abajo
   // (mismo patrón que Empresas).
-  const countryEqFilter = countryFilter ? { propertyName: 'country', operator: 'EQ', value: countryFilter } : null
+  // IN con la variante en inglés como respaldo (por si algún registro puntual
+  // —enriquecido por Apollo/RocketReach— quedó en inglés), mismo patrón que
+  // CompanyList.
+  const countryEqFilter = countryFilter
+    ? { propertyName: 'country', operator: 'IN', values: [...new Set([countryFilter, COUNTRY_EN_BY_LABEL[countryFilter] || countryFilter])] }
+    : null
   const searchFieldFilters = search ? [
     { propertyName: 'firstname', operator: 'CONTAINS_TOKEN', value: search },
     { propertyName: 'lastname',  operator: 'CONTAINS_TOKEN', value: search },
@@ -96,12 +105,13 @@ export default function ContactList() {
     { keepPreviousData: true }
   )
 
-  // El gráfico "Calidad de datos" refleja la búsqueda activa del listado —
-  // no incluye qualityFilters a propósito, para seguir mostrando la
-  // distribución completa aunque haya un check ya seleccionado.
+  // El gráfico "Calidad de datos" refleja la búsqueda y el país activos del
+  // listado (antes solo mandaba `search`, por eso elegir un país no cambiaba
+  // el gráfico) — no incluye qualityFilters a propósito, para seguir
+  // mostrando la distribución completa aunque haya un check ya seleccionado.
   const { data: qualityMetrics } = useQuery(
-    ['contacts-quality-metrics', user?.username, search],
-    () => hubspot.getContactQualityMetrics({ search: search || undefined }),
+    ['contacts-quality-metrics', user?.username, search, countryFilter],
+    () => hubspot.getContactQualityMetrics({ search: search || undefined, country: countryFilter || undefined }),
     { staleTime: 60_000, keepPreviousData: true }
   )
   const qualityChartData = Object.entries(QUALITY_LABELS).map(([key, label]) => ({
@@ -113,7 +123,7 @@ export default function ContactList() {
 
   const filtroResumenParts = []
   if (search) filtroResumenParts.push(`Búsqueda: "${search}"`)
-  if (countryFilter) filtroResumenParts.push(`País: ${availableCountries.find(c => c.en === countryFilter)?.label || countryFilter}`)
+  if (countryFilter) filtroResumenParts.push(`País: ${countryFilter}`)
   if (qualityFilters.length) filtroResumenParts.push(qualityFilters.map(k => QUALITY_LABELS[k]).join(' o '))
   const filtroResumen = filtroResumenParts.join('; ')
 
@@ -187,7 +197,7 @@ export default function ContactList() {
           >
             <option value="">Todos los países</option>
             {availableCountries.map(c => (
-              <option key={c.en} value={c.en}>{c.label}</option>
+              <option key={c.label} value={c.label}>{c.label}</option>
             ))}
           </select>
           {qualityFilters.map(key => (

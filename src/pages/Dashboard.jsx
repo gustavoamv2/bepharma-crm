@@ -1,12 +1,26 @@
 import React, { useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
-import { AlertTriangle, TrendingUp, Calendar, PhoneCall, CheckSquare, Users, BarChart2, Eye } from 'lucide-react'
+import { AlertTriangle, TrendingUp, Calendar, PhoneCall, CheckSquare, Users, BarChart2, Eye, FileSpreadsheet } from 'lucide-react'
 import { hubspot, admin } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useAuth } from '../contexts/AuthContext'
+import { useToast } from '../hooks/useToast'
 import { BarChart, DonutChart } from '../components/Charts'
-import TaskDetailModal from '../components/TaskDetailModal'
+import { COUNTRIES } from '../constants/countries'
+
+// Descarga un blob en el navegador con el nombre de archivo dado — mismo
+// helper que CompanyList/ContactList/DealList.
+function downloadBlob(blob, filename) {
+  const url = window.URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  window.URL.revokeObjectURL(url)
+}
 
 // ── Colores/labels de etapa (compartidos con DealList/CompanyList vía las
 // mismas claves de bp_estado_prospeccion) ────────────────────────────────────
@@ -63,6 +77,28 @@ const ESTADO_LABELS = {
   no_participa:    'No Participa',
 }
 
+// Selectores de filtro de las gráficas — mismas opciones/patrón que DealList.jsx
+// ("los anteriores"): estado, alerta y operador (solo supervisor) alimentan
+// tanto el gráfico como el Excel exportado; país solo alimenta el Excel
+// (igual que en DealList, cuyo /hubspot/charts tampoco recibe país).
+const ESTADO_OPTIONS = [
+  { value: '', label: 'Todos los estados' },
+  { value: 'nueva',            label: 'Nueva' },
+  { value: 'en_depuracion',   label: 'En Depuración' },
+  { value: 'en_enriquecimiento', label: 'En Enriquecimiento' },
+  { value: 'contacto_enviado', label: 'Por Contactar' },
+  { value: 'en_seguimiento',  label: 'En Seguimiento' },
+  { value: 'confirmada',      label: 'Confirmada' },
+  { value: 'no_participa',    label: 'No Participa' },
+]
+
+const ALERTA_OPTIONS = [
+  { value: '', label: 'Todas las alertas' },
+  { value: 'sin_alerta',      label: 'Sin alerta' },
+  { value: 'alerta_roja',     label: 'Alerta roja' },
+  { value: 'alerta_amarilla', label: 'Alerta amarilla' },
+]
+
 // Paleta de colores del banner de métricas (mismo estilo que Reportes)
 const METRIC_COLORS = {
   'metric-danger':  '#de350b',
@@ -79,7 +115,7 @@ export default function Dashboard() {
   const nav = useNavigate()
   const { user } = useAuth()
   const qc = useQueryClient()
-  const [taskDetail, setTaskDetail] = useState(null)
+  const { addToast } = useToast()
 
   // Toggle supervisor/operador para usuarios con rol supervisor (Yesenia, Roberto)
   const [viewAsOperator, setViewAsOperator] = useState(
@@ -99,6 +135,19 @@ export default function Dashboard() {
   const isSupervisor = user?.role === 'supervisor' && !viewAsOperator
   const canToggle = user?.role === 'supervisor' && user?.canToggleView !== false
 
+  // ── Filtros de las gráficas del Pipeline (mismo patrón que DealList.jsx) ──
+  const [estado, setEstado] = useState('')
+  const [alerta, setAlerta] = useState('')
+  const [ownerFilter, setOwnerFilter] = useState('')
+  const [countryFilter, setCountryFilter] = useState('')
+  const [exporting, setExporting] = useState(false)
+
+  // En vista de operador, el filtro de país solo debe listar los países que
+  // ese operador tiene configurados (user.bp_paises) — igual que en Empresas/Eventos.
+  const availableCountries = (!isSupervisor && user?.bp_paises?.length)
+    ? COUNTRIES.filter(c => user.bp_paises.includes(c.label))
+    : COUNTRIES
+
   const { data: metrics, isLoading: loadingMetrics, error: metricsError } = useQuery(
     ['metrics', user?.username, viewAsOperator],
     hubspot.metrics,
@@ -106,10 +155,44 @@ export default function Dashboard() {
   )
 
   const { data: chartsData } = useQuery(
-    ['charts', user?.username, viewAsOperator],
-    () => hubspot.charts(),
+    ['charts', user?.username, viewAsOperator, estado, alerta, ownerFilter],
+    () => hubspot.charts({
+      estado: estado || undefined,
+      alerta: alerta || undefined,
+      ownerFilter: ownerFilter || undefined,
+    }),
     { refetchInterval: 10 * 60 * 1000 }
   )
+
+  // Filtros para el Excel exportado (deals del evento activo, mismos criterios
+  // que el gráfico + país, mismo patrón que DealList.jsx → handleExport).
+  const buildDashboardFilters = () => {
+    const filters = [{ propertyName: 'bp_evento_codigo', operator: 'EQ', value: ACTIVE_EVENT }]
+    if (estado) filters.push({ propertyName: 'bp_estado_prospeccion', operator: 'EQ', value: estado })
+    if (alerta === 'sin_alerta') filters.push({ propertyName: 'bp_estado_alerta', operator: 'NOT_HAS_PROPERTY' })
+    else if (alerta) filters.push({ propertyName: 'bp_estado_alerta', operator: 'EQ', value: alerta })
+    if (ownerFilter) filters.push({ propertyName: 'hubspot_owner_id', operator: 'EQ', value: ownerFilter })
+    if (countryFilter) filters.push({ propertyName: 'bp_evento_paises', operator: 'EQ', value: countryFilter })
+    return filters
+  }
+  const filtroResumenParts = []
+  if (estado) filtroResumenParts.push(`Estado: ${ESTADO_LABELS[estado] || estado}`)
+  if (alerta) filtroResumenParts.push(`Alerta: ${ALERTA_OPTIONS.find(o => o.value === alerta)?.label || alerta}`)
+  if (ownerFilter) filtroResumenParts.push(`Operador: ${OWNER_NAMES[ownerFilter] || ownerFilter}`)
+  if (countryFilter) filtroResumenParts.push(`País: ${countryFilter}`)
+  const filtroResumen = filtroResumenParts.join('; ')
+
+  const handleExport = async () => {
+    setExporting(true)
+    try {
+      const blob = await hubspot.exportDeals({ filters: buildDashboardFilters(), filtroResumen })
+      downloadBlob(blob, `BePharma_Eventos_${ACTIVE_EVENT}_${new Date().toISOString().slice(0, 10)}.xlsx`)
+    } catch (e) {
+      addToast('No se pudo generar el Excel: ' + (e.response?.data?.error || e.message), 'error')
+    } finally {
+      setExporting(false)
+    }
+  }
 
   // Equipo (para el panel de supervisor) — países asignados reales, no hardcodeados
   const { data: teamUsers } = useQuery('admin-users', admin.getUsers, {
@@ -151,22 +234,6 @@ export default function Dashboard() {
   })
   // total real de HubSpot (no el .length de la lista, que esta topada a 25)
   const alertsTotal = alertsData?.total ?? alertDeals.length
-
-  // ── Tareas pendientes (endpoint ya existía en el backend — GET
-  // /api/hubspot/tasks/pending, filtra por owner cuando es vista de operador
-  // — pero nunca se mostraba en ningún lado del CRM propio, por eso una tarea
-  // programada desde el detalle de un Deal/Empresa/Contacto no aparecía en
-  // ningún dashboard aunque se hubiera creado correctamente en HubSpot) ─────
-  const { data: pendingTasksData, error: pendingTasksError } = useQuery(
-    ['pending-tasks', user?.username, viewAsOperator],
-    hubspot.getPendingTasks,
-    { refetchInterval: 2 * 60 * 1000 }
-  )
-  const pendingTasks = pendingTasksData?.results || []
-  const pendingTasksTotal = pendingTasksData?.total ?? pendingTasks.length
-
-  const TASK_ASSOC_PATH = { deals: '/deals', contacts: '/contacts', companies: '/companies' }
-  const PRIORITY_LABELS = { HIGH: '🔴 Alta', MEDIUM: '🟡 Media', LOW: '🟢 Baja' }
 
   // ── Metricas cards usando propiedades BePharma ────────────────────────────
   const metricCards = [
@@ -287,17 +354,24 @@ export default function Dashboard() {
     <>
       <Topbar
         title={isSupervisor ? `Dashboard equipo — ${user?.name}` : `Mis pendientes — ${user?.name}`}
-        action={canToggle && (
-          <button
-            className={`btn btn-sm ${viewAsOperator ? 'btn-primary' : 'btn-ghost'}`}
-            onClick={toggleView}
-            style={{ display: 'flex', alignItems: 'center', gap: 6 }}
-            title={viewAsOperator ? 'Cambiando a vista supervisor' : 'Simular vista operador'}
-          >
-            <Eye size={13} />
-            {viewAsOperator ? 'Vista: Operador' : 'Vista: Supervisor'}
-          </button>
-        )}
+        action={
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <button className="btn btn-ghost btn-sm" onClick={handleExport} disabled={exporting} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+              <FileSpreadsheet size={13} /> {exporting ? 'Generando…' : 'Exportar a Excel'}
+            </button>
+            {canToggle && (
+              <button
+                className={`btn btn-sm ${viewAsOperator ? 'btn-primary' : 'btn-ghost'}`}
+                onClick={toggleView}
+                style={{ display: 'flex', alignItems: 'center', gap: 6 }}
+                title={viewAsOperator ? 'Cambiando a vista supervisor' : 'Simular vista operador'}
+              >
+                <Eye size={13} />
+                {viewAsOperator ? 'Vista: Operador' : 'Vista: Supervisor'}
+              </button>
+            )}
+          </div>
+        }
       />
       <div className="content">
 
@@ -337,6 +411,34 @@ export default function Dashboard() {
             <span style={{ fontSize: 11, color: '#6b778c' }}>clic en gráfica para filtrar</span>
           </div>
           <div className="card-body" style={{ padding: '12px 16px' }}>
+
+            {/* Filtros de las gráficas — mismo patrón que DealList.jsx */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
+              <select value={estado} onChange={e => setEstado(e.target.value)}
+                style={{ fontSize: 12, padding: '6px 8px', borderRadius: 6, border: '1px solid #dfe1e6', color: '#42526e' }}>
+                {ESTADO_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+              <select value={alerta} onChange={e => setAlerta(e.target.value)}
+                style={{ fontSize: 12, padding: '6px 8px', borderRadius: 6, border: '1px solid #dfe1e6', color: '#42526e' }}>
+                {ALERTA_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+              {isSupervisor && (
+                <select value={ownerFilter} onChange={e => setOwnerFilter(e.target.value)}
+                  style={{ fontSize: 12, padding: '6px 8px', borderRadius: 6, border: '1px solid #dfe1e6', color: '#42526e' }}>
+                  <option value="">Todos los operadores</option>
+                  {Object.entries(OWNER_NAMES).map(([id, name]) => (
+                    <option key={id} value={id}>{name}</option>
+                  ))}
+                </select>
+              )}
+              <select value={countryFilter} onChange={e => setCountryFilter(e.target.value)}
+                style={{ fontSize: 12, padding: '6px 8px', borderRadius: 6, border: '1px solid #dfe1e6', color: '#42526e' }}>
+                <option value="">Todos los países</option>
+                {availableCountries.map(c => (
+                  <option key={c.label} value={c.label}>{c.label}</option>
+                ))}
+              </select>
+            </div>
 
             {/* Distribución por estado — chips (solo supervisor) */}
             {isSupervisor && (() => {
@@ -460,62 +562,6 @@ export default function Dashboard() {
           </div>
         )}
 
-        {/* ── Tareas pendientes (programadas desde Deal/Empresa/Contacto) ── */}
-        {pendingTasksError && (
-          <div className="error-msg" style={{ marginBottom: 16 }}>
-            Error cargando tareas: {pendingTasksError.response?.data?.error || pendingTasksError.message}
-          </div>
-        )}
-        {pendingTasksTotal > 0 && (
-          <div className="card" style={{ marginBottom: 16 }}>
-            <div className="card-header">
-              <h2 style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <CheckSquare size={14} style={{ color: '#0052cc' }} />
-                {isSupervisor ? 'Tareas pendientes del equipo' : 'Mis tareas pendientes'}
-              </h2>
-              <span className="badge badge-blue">{pendingTasksTotal}</span>
-            </div>
-            {pendingTasksTotal > pendingTasks.length && (
-              <div style={{ padding: '6px 14px', fontSize: 11, color: '#92400e', background: '#fff8e1', borderBottom: '1px solid #f59e0b' }}>
-                Mostrando las {pendingTasks.length} más próximas de {pendingTasksTotal} en total.
-              </div>
-            )}
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Tarea</th>
-                    <th>Operador</th>
-                    <th>Vence</th>
-                    <th>Prioridad</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {pendingTasks.map(t => {
-                    const p = t.properties || {}
-                    const assoc = t._assoc
-                    const due = p.hs_timestamp ? new Date(p.hs_timestamp) : null
-                    const isOverdue = due && !isNaN(due) && due.getTime() < Date.now()
-                    return (
-                      <tr key={t.id} className="clickable" style={{ cursor: 'pointer' }}
-                        onClick={() => setTaskDetail(t)}
-                        title={assoc?.name ? `Vinculado a: ${assoc.name}` : undefined}>
-                        <td style={{ fontWeight: 500 }}>{p.hs_task_subject || '(sin asunto)'}</td>
-                        <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>{OWNER_NAMES[p.hubspot_owner_id] || '—'}</td>
-                        <td style={{ fontSize: 12, color: isOverdue ? 'var(--danger)' : undefined, display: 'flex', alignItems: 'center', gap: 4 }}>
-                          {isOverdue && <Calendar size={11} />}
-                          {due && !isNaN(due) ? due.toLocaleString('es-MX', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '—'}
-                        </td>
-                        <td style={{ fontSize: 12 }}>{PRIORITY_LABELS[p.hs_task_priority] || p.hs_task_priority || '—'}</td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-
         {/* ── Panel inferior: accesos rápidos + equipo/perfil ─────── */}
         {isSupervisor ? (
           /* Supervisor: quicklinks + equipo en fila */
@@ -592,17 +638,6 @@ export default function Dashboard() {
           </div>
         )}
       </div>
-
-      {taskDetail && (
-        <TaskDetailModal
-          task={taskDetail}
-          onClose={() => setTaskDetail(null)}
-          ownerNames={OWNER_NAMES}
-          priorityLabels={PRIORITY_LABELS}
-          assocPath={TASK_ASSOC_PATH}
-          onNavigate={nav}
-        />
-      )}
     </>
   )
 }

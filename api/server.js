@@ -674,16 +674,23 @@ app.post('/api/hubspot/contacts/search', requireAuth, async (req, res) => {
 // abre al hacer clic coincidan siempre. Respeta el scoping de owner/país de
 // la vista de operador, igual que /contacts/search.
 app.get('/api/hubspot/contacts/quality-metrics', requireAuth, async (req, res) => {
-  // Filtro opcional de búsqueda del listado de Contactos (ContactList), para
-  // que el gráfico refleje lo que el usuario está viendo. No se incluye
-  // qualityFilter: el gráfico debe seguir mostrando la distribución completa
-  // aunque haya una barra ya seleccionada.
-  const { search } = req.query
-  const baseGroups = search ? [
+  // Filtros opcionales de búsqueda y país del listado de Contactos
+  // (ContactList), para que el gráfico refleje lo que el usuario está viendo
+  // (antes solo se recibía `search`, así que elegir un país no cambiaba el
+  // gráfico). No se incluye qualityFilter: el gráfico debe seguir mostrando
+  // la distribución completa aunque haya una barra ya seleccionada.
+  const { search, country } = req.query
+  let baseGroups = search ? [
     { filters: [{ propertyName: 'firstname', operator: 'CONTAINS_TOKEN', value: search }] },
     { filters: [{ propertyName: 'lastname',  operator: 'CONTAINS_TOKEN', value: search }] },
     { filters: [{ propertyName: 'phone',     operator: 'CONTAINS_TOKEN', value: search }] },
   ] : []
+  // El país se agrega con AND a cada rama del OR de búsqueda (o crea una
+  // única rama si no había búsqueda activa).
+  if (country) {
+    const base = baseGroups.length ? baseGroups : [{ filters: [] }]
+    baseGroups = base.map(g => ({ filters: [...(g.filters || []), { propertyName: 'country', operator: 'EQ', value: country }] }))
+  }
 
   const countFor = async (key) => {
     try {
