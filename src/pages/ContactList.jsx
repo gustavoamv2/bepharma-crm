@@ -43,10 +43,15 @@ export default function ContactList() {
   const qc = useQueryClient()
   const { user } = useAuth()
   const { addToast } = useToast()
+  // Respeta bp_view_mode para que un supervisor simulando "vista operador"
+  // vea el mismo catálogo de países acotado que vería el operador real.
+  const viewMode = sessionStorage.getItem('bp_view_mode') || ''
+  const isSupervisor = user?.role === 'supervisor' && viewMode !== 'operator'
   const [search, setSearch] = useState('')
   const [after, setAfter] = useState(null)
   const [history, setHistory] = useState([])
   const [showCreate, setShowCreate] = useState(false)
+  const [countryFilter, setCountryFilter] = useState('') // valor en inglés (propiedad HubSpot 'country'), igual que en Empresas
   // Checkboxes multi-select de calidad de datos (combinables entre sí con OR)
   const [qualityFilters, setQualityFilters] = useState([])
   const [exporting, setExporting] = useState(false)
@@ -55,31 +60,32 @@ export default function ContactList() {
     resetPaging()
   }
 
+  // En vista de operador, el selector de país solo debe listar los países
+  // que ese operador tiene configurados (user.bp_paises) — mismo patrón que
+  // CompanyList. El supervisor sigue viendo todos.
+  const availableCountries = (!isSupervisor && user?.bp_paises?.length)
+    ? COUNTRIES.filter(c => user.bp_paises.includes(c.label))
+    : COUNTRIES
+
   const resetPaging = () => { setAfter(null); setHistory([]) }
 
-  // Búsqueda por nombre, apellido, teléfono, empresa y país (país acepta
-  // tanto el valor en inglés como escribir el nombre en español, ej. "México").
-  // La propiedad 'country' en HubSpot se guarda en español (confirmado
-  // 04-jul-2026) — se agrega igual la variante en inglés por los pocos
-  // registros puntuales que quedaron en ese idioma (enriquecimiento externo).
-  const matchingCountryValues = search
-    ? COUNTRIES.filter(c =>
-        c.label.toLowerCase().includes(search.toLowerCase()) ||
-        c.en.toLowerCase().includes(search.toLowerCase())
-      ).flatMap(c => [c.label, c.en])
-    : []
+  // Búsqueda por nombre, apellido, teléfono y empresa — el país ya no se
+  // busca por texto libre, se filtra con el selector dedicado de abajo
+  // (mismo patrón que Empresas).
+  const countryEqFilter = countryFilter ? { propertyName: 'country', operator: 'EQ', value: countryFilter } : null
+  const searchFieldFilters = search ? [
+    { propertyName: 'firstname', operator: 'CONTAINS_TOKEN', value: search },
+    { propertyName: 'lastname',  operator: 'CONTAINS_TOKEN', value: search },
+    { propertyName: 'phone',     operator: 'CONTAINS_TOKEN', value: search },
+    { propertyName: 'company',   operator: 'CONTAINS_TOKEN', value: search },
+  ] : null
 
-  const filterGroups = search ? [
-    { filters: [{ propertyName: 'firstname', operator: 'CONTAINS_TOKEN', value: search }] },
-    { filters: [{ propertyName: 'lastname',  operator: 'CONTAINS_TOKEN', value: search }] },
-    { filters: [{ propertyName: 'phone',     operator: 'CONTAINS_TOKEN', value: search }] },
-    { filters: [{ propertyName: 'company',   operator: 'CONTAINS_TOKEN', value: search }] },
-    { filters: [{ propertyName: 'country',   operator: 'CONTAINS_TOKEN', value: search }] },
-    ...matchingCountryValues.map(v => ({ filters: [{ propertyName: 'country', operator: 'EQ', value: v }] })),
-  ] : undefined
+  const filterGroups = searchFieldFilters
+    ? searchFieldFilters.map(f => ({ filters: countryEqFilter ? [f, countryEqFilter] : [f] }))
+    : (countryEqFilter ? [{ filters: [countryEqFilter] }] : undefined)
 
   const { data, isLoading, error } = useQuery(
-    ['contacts', user?.username, search, qualityFilters, after],
+    ['contacts', user?.username, search, countryFilter, qualityFilters, after],
     () => hubspot.searchContacts({
       filterGroups,
       qualityFilters: qualityFilters.length ? qualityFilters : undefined,
@@ -107,6 +113,7 @@ export default function ContactList() {
 
   const filtroResumenParts = []
   if (search) filtroResumenParts.push(`Búsqueda: "${search}"`)
+  if (countryFilter) filtroResumenParts.push(`País: ${availableCountries.find(c => c.en === countryFilter)?.label || countryFilter}`)
   if (qualityFilters.length) filtroResumenParts.push(qualityFilters.map(k => QUALITY_LABELS[k]).join(' o '))
   const filtroResumen = filtroResumenParts.join('; ')
 
@@ -172,7 +179,17 @@ export default function ContactList() {
         </div>
 
         <div className="search-bar" style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <input placeholder="Buscar por nombre, apellido, teléfono, empresa o país…" value={search} onChange={e => { setSearch(e.target.value); resetPaging() }} style={{ flex: 1 }} />
+          <input placeholder="Buscar por nombre, apellido, teléfono o empresa…" value={search} onChange={e => { setSearch(e.target.value); resetPaging() }} style={{ flex: 1 }} />
+          <select
+            value={countryFilter}
+            onChange={e => { setCountryFilter(e.target.value); resetPaging() }}
+            style={{ flex: '0 0 150px', width: 150, fontSize: 12, padding: '6px 8px', borderRadius: 6, border: '1px solid #dfe1e6', color: '#42526e' }}
+          >
+            <option value="">Todos los países</option>
+            {availableCountries.map(c => (
+              <option key={c.en} value={c.en}>{c.label}</option>
+            ))}
+          </select>
           {qualityFilters.map(key => (
             <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#fff1f0', borderRadius: 6, padding: '4px 10px', fontSize: 12, fontWeight: 600, color: '#de350b', flexShrink: 0 }}>
               {QUALITY_LABELS[key]}

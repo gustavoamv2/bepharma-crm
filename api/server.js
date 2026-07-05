@@ -17,7 +17,7 @@ const { errorHandler } = require('./middleware/errorHandler')
 const { loadUsers, saveUsers } = require('./usersStore')
 const { getSignature, saveSignature, kvEnabled } = require('./signatureStore')
 const { getTemplates: getEmailTemplates, saveTemplates: saveEmailTemplates, kvEnabled: templatesKvEnabled } = require('./emailTemplatesStore')
-const { buildReportWorkbook, workbookToBuffer } = require('./services/excelExport.service')
+const { buildReportWorkbook, buildMultiSectionWorkbook, workbookToBuffer } = require('./services/excelExport.service')
 
 const app = express()
 
@@ -187,6 +187,98 @@ app.post('/api/hubspot/deals/search', requireAuth, async (req, res) => {
     })
     res.json(r.data)
   } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// Etiquetas para el reporte Excel — mismas claves que bp_estado_prospeccion
+const DEAL_ESTADO_LABELS_XLS = {
+  nueva: 'Nueva', en_depuracion: 'En Depuración', en_enriquecimiento: 'En Enriquecimiento',
+  contacto_enviado: 'Por Contactar', en_seguimiento: 'En Seguimiento',
+  confirmada: 'Confirmada', no_participa: 'No Participa',
+}
+const DEAL_OWNER_NAMES_XLS = {
+  '93615311': 'Roberto', '93621022': 'Yesenia', '93771980': 'Angel',
+  '93771979': 'Gracie', '93771981': 'Carlos', '73112880': 'Sara',
+}
+const DEAL_EXPORT_COLUMNS = [
+  { header: 'Evento',              key: 'evento',       width: 34 },
+  { header: 'Owner',                key: 'owner',        width: 16 },
+  { header: 'Zona',                 key: 'zona',         width: 16 },
+  { header: 'País',                 key: 'pais',         width: 18 },
+  { header: 'Estado',               key: 'estado',       width: 18 },
+  { header: 'Próximo contacto',     key: 'proximo',      width: 16 },
+  { header: 'Última actividad',     key: 'ultimaActividad', width: 16 },
+  { header: 'Alerta',               key: 'alerta',       width: 14 },
+  { header: 'Creado',               key: 'creado',       width: 14 },
+]
+
+// Reporte Excel del listado de Eventos (DealList) — respeta los mismos
+// filtros que /deals/search (evento activo, estado, alerta, owner, país,
+// búsqueda) pero pagina TODOS los resultados y arma el .xlsx con logo
+// BePharma + evento activo + resumen de filtros.
+app.post('/api/hubspot/deals/export', requireAuth, async (req, res) => {
+  try {
+    const { filters = [], filtroResumen } = req.body
+    let filterGroups = applyOwnerFilter(req, filters.length ? [{ filters }] : [])
+    filterGroups = applyCountryFilter(req, filterGroups, 'bp_evento_paises')
+
+    const MAX_PAGES = 40 // hasta 4000 eventos (100 x 40)
+    const sleep = (ms) => new Promise(r => setTimeout(r, ms))
+    const allDeals = []
+    let after
+    for (let page = 0; page < MAX_PAGES; page++) {
+      if (page > 0) await sleep(260)
+      const r = await hs.post('/crm/v3/objects/deals/search', {
+        filterGroups,
+        sorts: [{ propertyName: 'bp_ultima_actividad_operador', direction: 'DESCENDING' }],
+        limit: 100,
+        after,
+        properties: DEAL_PROPERTIES,
+      })
+      allDeals.push(...(r.data.results || []))
+      after = r.data.paging?.next?.after
+      if (!after) break
+    }
+
+    const fmtDate = (v) => {
+      if (!v) return ''
+      const n = Number(v)
+      const d = isNaN(n) || n < 1e10 ? new Date(v) : new Date(n)
+      return isNaN(d.getTime()) ? '' : d.toLocaleDateString('es-MX')
+    }
+
+    const rows = allDeals.map(d => {
+      const p = d.properties || {}
+      return {
+        evento: p.dealname || '(sin nombre)',
+        owner: DEAL_OWNER_NAMES_XLS[p.hubspot_owner_id] || '',
+        zona: p.bp_zona || '',
+        pais: p.bp_evento_paises || '',
+        estado: DEAL_ESTADO_LABELS_XLS[p.bp_estado_prospeccion] || p.bp_estado_prospeccion || '',
+        proximo: fmtDate(p.bp_proximo_contacto),
+        ultimaActividad: fmtDate(p.bp_ultima_actividad_operador),
+        alerta: p.bp_estado_alerta === 'alerta_roja' ? 'Roja' : p.bp_estado_alerta === 'alerta_amarilla' ? 'Amarilla' : '',
+        creado: fmtDate(p.createdate),
+      }
+    })
+
+    const workbook = await buildReportWorkbook({
+      sheetName: 'Eventos',
+      title: 'BePharma CRM — Reporte de Eventos',
+      eventoActivo: ACTIVE_EVENT,
+      filtroResumen,
+      generadoPor: req.user?.username,
+      columns: DEAL_EXPORT_COLUMNS,
+      rows,
+    })
+    const buffer = await workbookToBuffer(workbook)
+
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    res.setHeader('Content-Disposition', `attachment; filename="BePharma_Eventos_${ACTIVE_EVENT}_${Date.now()}.xlsx"`)
+    res.send(Buffer.from(buffer))
+  } catch (e) {
+    console.error('[deals/export] Error:', e.response?.data || e.message)
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
   }
 })
@@ -2571,6 +2663,179 @@ app.get('/api/reports/activity', requireAuth, async (req, res) => {
 
     res.json({ owners, period: days })
   } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// REPORTES — export Excel del reporte de Actividad (usa los datos ya
+// calculados por el frontend, mismo criterio que /api/reports/activity, para
+// no repetir todas las llamadas a HubSpot server-side)
+// ──────────────────────────────────────────────────────────────────────────────
+app.post('/api/reports/activity/export', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  try {
+    const { owners = [], byStage = [], byMonth = [], period, filtroResumen } = req.body
+
+    const sections = [
+      {
+        heading: 'Resumen por operador',
+        columns: [
+          { header: 'Operador',       key: 'name',        width: 18 },
+          { header: 'Llamadas',       key: 'calls',       width: 12 },
+          { header: 'Notas',          key: 'notes',       width: 12 },
+          { header: 'Eventos activos', key: 'activeDeals', width: 16 },
+        ],
+        rows: owners.map(o => ({ name: o.name, calls: o.calls, notes: o.notes, activeDeals: o.activeDeals })),
+      },
+    ]
+
+    if (byStage.length) {
+      sections.push({
+        heading: 'Eventos por etapa',
+        columns: [
+          { header: 'Etapa', key: 'stage', width: 22 },
+          { header: 'Total', key: 'total', width: 12 },
+        ],
+        rows: byStage.map(s => ({ stage: s.stage ?? s.label ?? s.name, total: s.total ?? s.count ?? s.value })),
+      })
+    }
+
+    if (byMonth.length) {
+      sections.push({
+        heading: 'Eventos creados por mes',
+        columns: [
+          { header: 'Mes',   key: 'month', width: 16 },
+          { header: 'Total', key: 'total', width: 12 },
+        ],
+        rows: byMonth.map(m => ({ month: m.month ?? m.label ?? m.name, total: m.total ?? m.count ?? m.value })),
+      })
+    }
+
+    const workbook = await buildMultiSectionWorkbook({
+      sheetName: 'Actividad',
+      title: 'BePharma CRM — Reporte de Actividad',
+      eventoActivo: ACTIVE_EVENT,
+      filtroResumen: filtroResumen || (period ? `Últimos ${period} días` : ''),
+      generadoPor: req.user?.username,
+      sections,
+    })
+    const buffer = await workbookToBuffer(workbook)
+
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    res.setHeader('Content-Disposition', `attachment; filename="BePharma_Actividad_${Date.now()}.xlsx"`)
+    res.send(Buffer.from(buffer))
+  } catch (e) {
+    console.error('[reports/activity/export] Error:', e.response?.data || e.message)
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// REPORTES — export Excel del reporte BePharma (resumen global de
+// prospección) — igual que arriba, usa los datos ya calculados por el
+// frontend (respuesta de /api/reports/bp-summary) en vez de recalcular.
+// ──────────────────────────────────────────────────────────────────────────────
+app.post('/api/reports/bp-summary/export', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  try {
+    const { bpData = {}, filtroResumen } = req.body
+    const {
+      porEstadoProspeccion = {},
+      callbacksVencidosPorOwner = {},
+      sinActividad72hPorOwner = {},
+      confirmadasPorOwner = {},
+      participaOtroPorOwner = {},
+      tareasPorOwner = {},
+      nuevosEsteMes = 0,
+    } = bpData
+
+    const BP_ESTADO_LABELS = {
+      nueva: 'Nueva', en_depuracion: 'En Depuración', en_enriquecimiento: 'En Enriquecimiento',
+      contacto_enviado: 'Por Contactar', en_seguimiento: 'En Seguimiento',
+      confirmada: 'Confirmada', no_participa: 'No Participa',
+    }
+
+    const ownerTable = (perOwner) => Object.entries(perOwner).map(([ownerId, total]) => ({
+      name: DEAL_OWNER_NAMES_XLS[ownerId] || ownerId, total,
+    }))
+
+    const sections = [
+      {
+        heading: 'Resumen global',
+        columns: [
+          { header: 'Métrica', key: 'metric', width: 30 },
+          { header: 'Valor',   key: 'value',  width: 14 },
+        ],
+        rows: [{ metric: 'Nuevos este mes', value: nuevosEsteMes }],
+      },
+      {
+        heading: 'Distribución por estado de prospección',
+        columns: [
+          { header: 'Estado', key: 'estado', width: 22 },
+          { header: 'Total',  key: 'total',  width: 12 },
+        ],
+        rows: Object.entries(porEstadoProspeccion).map(([estado, total]) => ({
+          estado: BP_ESTADO_LABELS[estado] || estado, total,
+        })),
+      },
+      {
+        heading: 'Callbacks vencidos por operador',
+        columns: [
+          { header: 'Operador', key: 'name', width: 18 },
+          { header: 'Total',    key: 'total', width: 12 },
+        ],
+        rows: ownerTable(callbacksVencidosPorOwner),
+      },
+      {
+        heading: 'Sin actividad 72h por operador',
+        columns: [
+          { header: 'Operador', key: 'name', width: 18 },
+          { header: 'Total',    key: 'total', width: 12 },
+        ],
+        rows: ownerTable(sinActividad72hPorOwner),
+      },
+      {
+        heading: 'Confirmadas por operador',
+        columns: [
+          { header: 'Operador', key: 'name', width: 18 },
+          { header: 'Total',    key: 'total', width: 12 },
+        ],
+        rows: ownerTable(confirmadasPorOwner),
+      },
+      {
+        heading: 'Participa en otro evento por operador',
+        columns: [
+          { header: 'Operador', key: 'name', width: 18 },
+          { header: 'Total',    key: 'total', width: 12 },
+        ],
+        rows: ownerTable(participaOtroPorOwner),
+      },
+      {
+        heading: 'Tareas pendientes por operador',
+        columns: [
+          { header: 'Operador', key: 'name', width: 18 },
+          { header: 'Total',    key: 'total', width: 12 },
+        ],
+        rows: ownerTable(tareasPorOwner),
+      },
+    ]
+
+    const workbook = await buildMultiSectionWorkbook({
+      sheetName: 'BePharma',
+      title: 'BePharma CRM — Reporte BePharma',
+      eventoActivo: ACTIVE_EVENT,
+      filtroResumen,
+      generadoPor: req.user?.username,
+      sections,
+    })
+    const buffer = await workbookToBuffer(workbook)
+
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    res.setHeader('Content-Disposition', `attachment; filename="BePharma_Resumen_${Date.now()}.xlsx"`)
+    res.send(Buffer.from(buffer))
+  } catch (e) {
+    console.error('[reports/bp-summary/export] Error:', e.response?.data || e.message)
     res.status(500).json({ error: e.message })
   }
 })

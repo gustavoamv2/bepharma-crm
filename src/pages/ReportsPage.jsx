@@ -3,10 +3,23 @@ import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { X, Phone, FileText, Play, BarChart2, AlertTriangle, Calendar, CheckSquare, Users } from 'lucide-react'
+import { X, Phone, FileText, Play, BarChart2, AlertTriangle, Calendar, CheckSquare, Users, FileSpreadsheet } from 'lucide-react'
 import { reports, hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useAuth } from '../contexts/AuthContext'
+import { useToast } from '../hooks/useToast'
+
+// Descarga un blob en el navegador con el nombre de archivo dado
+function downloadBlob(blob, filename) {
+  const url = window.URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  window.URL.revokeObjectURL(url)
+}
 
 const OWNER_NAMES = {
   '93615311': 'Roberto',
@@ -279,10 +292,12 @@ function OwnerTable({ title, icon: Icon, iconColor, data, onClick, nav, filterFn
 export default function ReportsPage() {
   const { user } = useAuth()
   const nav = useNavigate()
+  const { addToast } = useToast()
   const [days, setDays] = useState(30)
   const [tab, setTab] = useState('actividad')  // 'actividad' | 'bepharma'
   const [callsModal, setCallsModal] = useState(null)
   const [notesModal, setNotesModal] = useState(null)
+  const [exporting, setExporting] = useState(false)
 
   if (user?.role !== 'supervisor') {
     return (
@@ -318,17 +333,36 @@ export default function ReportsPage() {
   const maxNotes = Math.max(1, ...owners.map(o => o.notes))
   const maxDeals = Math.max(1, ...owners.map(o => o.activeDeals))
 
-  const exportCSV = () => {
-    const headers = ['Operador','Llamadas','Notas','Eventos activos']
-    const rows = owners.map(o => [o.name, o.calls, o.notes, o.activeDeals])
-    const csv = [headers, ...rows].map(r => r.join(',')).join('\n')
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `bepharma-reporte-${days}d.csv`
-    a.click()
-    URL.revokeObjectURL(url)
+  const PERIOD_LABEL = PERIODS.find(p => p.days === days)?.label || `Últimos ${days} días`
+
+  const handleExportActivity = async () => {
+    setExporting(true)
+    try {
+      const blob = await reports.exportActivity({
+        owners,
+        byStage: chartsData?.byStage || [],
+        byMonth: chartsData?.byMonth || [],
+        period: days,
+        filtroResumen: `Periodo: ${PERIOD_LABEL}`,
+      })
+      downloadBlob(blob, `BePharma_Actividad_${days}d_${new Date().toISOString().slice(0, 10)}.xlsx`)
+    } catch (e) {
+      addToast('No se pudo generar el Excel: ' + (e.response?.data?.error || e.message), 'error')
+    } finally {
+      setExporting(false)
+    }
+  }
+
+  const handleExportBp = async () => {
+    setExporting(true)
+    try {
+      const blob = await reports.exportBpSummary({ bpData, filtroResumen: '' })
+      downloadBlob(blob, `BePharma_Resumen_${new Date().toISOString().slice(0, 10)}.xlsx`)
+    } catch (e) {
+      addToast('No se pudo generar el Excel: ' + (e.response?.data?.error || e.message), 'error')
+    } finally {
+      setExporting(false)
+    }
   }
 
   const goToDeals = (ownerId) => {
@@ -400,8 +434,15 @@ export default function ReportsPage() {
                     </button>
                   ))}
                 </div>
-                <button className="btn btn-ghost btn-sm" onClick={exportCSV}>Exportar CSV</button>
+                <button className="btn btn-ghost btn-sm" onClick={handleExportActivity} disabled={exporting} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                  <FileSpreadsheet size={13} /> {exporting ? 'Generando…' : 'Exportar a Excel'}
+                </button>
               </>
+            )}
+            {tab === 'bepharma' && (
+              <button className="btn btn-ghost btn-sm" onClick={handleExportBp} disabled={exporting || !bpData} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                <FileSpreadsheet size={13} /> {exporting ? 'Generando…' : 'Exportar a Excel'}
+              </button>
             )}
           </div>
         }

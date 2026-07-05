@@ -48,6 +48,7 @@ export const hubspot = {
   // + evento activo + resumen de filtros. Devuelve el blob para descargar.
   exportCompanies: (body) => api.post('/hubspot/companies/export', body, { responseType: 'blob' }).then(r => r.data),
   exportContacts:  (body) => api.post('/hubspot/contacts/export',  body, { responseType: 'blob' }).then(r => r.data),
+  exportDeals:     (body) => api.post('/hubspot/deals/export',     body, { responseType: 'blob' }).then(r => r.data),
 
   createNote:      (objectType, objectId, body, noteType = 'NOTE') =>
     api.post('/hubspot/notes', { objectType, objectId, body, noteType }).then(r => r.data),
@@ -126,4 +127,6 @@ export const reports = {
   getCalls:     (ownerId, days = 30) => api.get(`/reports/calls?ownerId=${ownerId}&days=${days}`).then(r => r.data),
   getNotes:     (ownerId, days = 30) => api.get(`/reports/notes?ownerId=${ownerId}&days=${days}`).then(r => r.data),
   getBpSummary: ()                   => api.get('/reports/bp-summary').then(r => r.data),
+  exportActivity:  (body) => api.post('/reports/activity/export',    body, { responseType: 'blob' }).then(r => r.data),
+  exportBpSummary: (body) => api.post('/reports/bp-summary/export',  body, { responseType: 'blob' }).then(r => r.data),
 }

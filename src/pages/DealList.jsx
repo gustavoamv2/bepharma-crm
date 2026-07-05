@@ -1,14 +1,27 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { AlertTriangle, Calendar, Flag, BarChart2 } from 'lucide-react'
+import { AlertTriangle, Calendar, Flag, BarChart2, FileSpreadsheet } from 'lucide-react'
 import { hubspot, invalidateDashboard } from '../hooks/useApi'
 import { useAuth } from '../contexts/AuthContext'
+import { useToast } from '../hooks/useToast'
 import Topbar from '../components/Topbar'
 import { DonutChart } from '../components/Charts'
 import { COUNTRIES } from '../constants/countries'
 
 const ACTIVE_EVENT = 'BEPH-2026-09'
+
+// Descarga un blob en el navegador con el nombre de archivo dado
+function downloadBlob(blob, filename) {
+  const url = window.URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  window.URL.revokeObjectURL(url)
+}
 
 // Filtro por bp_estado_prospeccion (propiedad custom BePharma)
 const ESTADO_OPTIONS = [
@@ -121,6 +134,8 @@ export default function DealList() {
   const qc = useQueryClient()
   const location = useLocation()
   const { user } = useAuth()
+  const { addToast } = useToast()
+  const [exporting, setExporting] = useState(false)
   const [viewMode, setViewMode] = useState(() => sessionStorage.getItem('bp_view_mode') || '')
   useEffect(() => {
     const handler = () => setViewMode(sessionStorage.getItem('bp_view_mode') || '')
@@ -196,9 +211,33 @@ export default function DealList() {
   const goNext = () => { setHistory(h => [...h, after]); setAfter(nextAfter) }
   const goPrev = () => { const h = [...history]; setAfter(h.pop() || null); setHistory(h) }
 
+  const filtroResumenParts = []
+  if (search) filtroResumenParts.push(`Búsqueda: "${search}"`)
+  if (estado) filtroResumenParts.push(`Estado: ${ESTADO_LABELS[estado] || estado}`)
+  if (alerta) filtroResumenParts.push(`Alerta: ${ALERTA_OPTIONS.find(o => o.value === alerta)?.label || alerta}`)
+  if (ownerFilter) filtroResumenParts.push(`Operador: ${OWNER_NAMES[ownerFilter] || ownerFilter}`)
+  if (countryFilter) filtroResumenParts.push(`País: ${countryFilter}`)
+  const filtroResumen = filtroResumenParts.join('; ')
+
+  const handleExport = async () => {
+    setExporting(true)
+    try {
+      const blob = await hubspot.exportDeals({ filters: buildFilters(), filtroResumen })
+      downloadBlob(blob, `BePharma_Eventos_${ACTIVE_EVENT}_${new Date().toISOString().slice(0, 10)}.xlsx`)
+    } catch (e) {
+      addToast('No se pudo generar el Excel: ' + (e.response?.data?.error || e.message), 'error')
+    } finally {
+      setExporting(false)
+    }
+  }
+
   return (
     <>
-      <Topbar title={isSupervisor ? 'Todos los eventos' : 'Mis eventos'} />
+      <Topbar title={isSupervisor ? 'Todos los eventos' : 'Mis eventos'} action={
+        <button className="btn btn-ghost btn-sm" onClick={handleExport} disabled={exporting} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+          <FileSpreadsheet size={13} /> {exporting ? 'Generando…' : 'Exportar a Excel'}
+        </button>
+      } />
 
       <div className="content">
         {/* Gráficos: Estado de la empresa + Alertas levantadas — clic filtra el listado */}
