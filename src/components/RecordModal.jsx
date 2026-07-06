@@ -215,7 +215,9 @@ const DEAL_FIELDS = [
 const COMPANY_FIELDS = [
   { key: 'name',     label: 'Nombre de la empresa', required: true, type: 'company-name-search' },
   { key: 'domain',   label: 'Dominio web',           type: 'text', placeholder: 'empresa.com' },
-  { key: 'phone',    label: 'Teléfono',              type: 'text' },
+  { key: 'phone',    label: 'Teléfono 1',            type: 'text' },
+  { key: 'bp_telefonos_adicionales', label: 'Teléfono 2', type: 'text' },
+  { key: 'bp_telefono_3',            label: 'Teléfono 3', type: 'text' },
   // Requerido: sin país, la empresa no cae en la zona de NINGÚN operador
   // (el listado de Empresas filtra por country IN [países del operador] —
   // ver applyCountryFilter en api/auth.js) y solo la vería un supervisor.
@@ -308,7 +310,9 @@ const CONTACT_FIELDS = [
   { key: 'firstname', label: 'Nombre',    required: true, type: 'text' },
   { key: 'lastname',  label: 'Apellido',  type: 'text' },
   { key: 'email',     label: 'Email',     type: 'email' },
-  { key: 'phone',     label: 'Teléfono',  type: 'text' },
+  { key: 'phone',     label: 'Teléfono 1 (fijo)', type: 'text' },
+  { key: 'mobilephone', label: 'Teléfono 2 (móvil)', type: 'text' },
+  { key: 'bp_telefono_3', label: 'Teléfono 3', type: 'text' },
   { key: 'jobtitle',  label: 'Cargo',     type: 'text' },
   { key: 'company',   label: 'Empresa',   type: 'company-search' },
   { key: 'hs_linkedin_url', label: 'LinkedIn URL', type: 'text', placeholder: 'https://linkedin.com/in/...' },

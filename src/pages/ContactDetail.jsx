@@ -95,7 +95,9 @@ export default function ContactDetail() {
               <div className="card-body">
                 <div className="props-grid">
                   <Prop label="Email" value={p.email || null} />
-                  <Prop label="Teléfono" value={p.phone} />
+                  <Prop label="Teléfono 1" value={p.phone} />
+                  <Prop label="Teléfono 2 (móvil)" value={p.mobilephone} />
+                  <Prop label="Teléfono 3" value={p.bp_telefono_3} />
                   <Prop label="Cargo" value={p.jobtitle} />
                   <Prop label="Empresa" value={p.company} />
                   <Prop label="Creado" value={safeFmt(p.createdate)} />

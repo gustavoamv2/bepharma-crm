@@ -169,7 +169,9 @@ export default function CompanyDetail() {
               <div className="card-body">
                 <div className="props-grid">
                   <Prop label="Dominio" value={p.domain} />
-                  <Prop label="Teléfono" value={p.phone} />
+                  <Prop label="Teléfono 1" value={p.phone} />
+                  <Prop label="Teléfono 2" value={p.bp_telefonos_adicionales} />
+                  <Prop label="Teléfono 3" value={p.bp_telefono_3} />
                   <Prop label="Ciudad" value={p.city} />
                   <Prop label="País" value={p.country} />
                   <Prop label="Industria" value={p.industry} />
