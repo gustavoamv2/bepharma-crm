@@ -203,8 +203,85 @@ async function buildMultiSectionWorkbook({ sheetName, title, eventoActivo, filtr
   return workbook
 }
 
+// Agrega UNA hoja de datos crudos a un workbook ya existente — usado por
+// buildBackupWorkbook para meter una pestaña por tipo de dato (Empresas,
+// Contactos, Deals, Usuarios…) en vez de una sola tabla o secciones apiladas.
+// Mismo encabezado visual (logo + título + generado) que el resto de
+// reportes, pero sin "evento activo" ni "filtros" — un backup no está
+// scopeado a un evento ni a una vista filtrada, es todo el dato.
+function addDataSheet(workbook, { sheetName, generadoPor, generatedAt, columns, rows }) {
+  const sheet = workbook.addWorksheet(sheetName.slice(0, 31), {
+    views: [{ state: 'frozen', ySplit: 5 }],
+  })
+  const lastCol = colLetter(Math.max(columns.length, 3))
+
+  if (fs.existsSync(LOGO_PATH)) {
+    try {
+      const logoId = workbook.addImage({ filename: LOGO_PATH, extension: 'png' })
+      sheet.addImage(logoId, { tl: { col: 0, row: 0 }, ext: { width: 78, height: 91 } })
+    } catch { /* logo opcional, seguir sin el */ }
+  }
+
+  sheet.mergeCells(`C1:${lastCol}1`)
+  sheet.getCell('C1').value = `BePharma CRM — Copia de seguridad: ${sheetName}`
+  sheet.getCell('C1').font = { bold: true, size: 14, color: { argb: 'FF172B4D' } }
+
+  sheet.mergeCells(`C2:${lastCol}2`)
+  const generadoLine = `Generado: ${new Date(generatedAt || Date.now()).toLocaleString('es-MX', { dateStyle: 'long', timeStyle: 'short' })}`
+    + (generadoPor ? ` · por ${generadoPor}` : '')
+  sheet.getCell('C2').value = generadoLine
+  sheet.getCell('C2').font = { size: 10, color: { argb: 'FF6B778C' } }
+
+  sheet.getRow(1).height = 26
+  sheet.getRow(2).height = 18
+  sheet.getRow(3).height = 6
+
+  const headerRow = sheet.getRow(5)
+  columns.forEach((col, i) => {
+    const cell = headerRow.getCell(i + 1)
+    cell.value = col.header
+    cell.fill = HEADER_FILL
+    cell.font = HEADER_FONT
+    cell.alignment = { vertical: 'middle', horizontal: 'left' }
+  })
+  headerRow.height = 20
+  headerRow.commit()
+
+  columns.forEach((col, i) => {
+    sheet.getColumn(i + 1).width = col.width || 18
+  })
+
+  rows.forEach(rowData => {
+    const values = columns.map(col => rowData[col.key] ?? '')
+    sheet.addRow(values)
+  })
+
+  for (let r = 6; r <= 5 + rows.length; r++) {
+    if ((r - 6) % 2 === 1) {
+      sheet.getRow(r).eachCell({ includeEmpty: true }, cell => { cell.fill = ZEBRA_FILL })
+    }
+  }
+
+  const totalRow = sheet.addRow([`Total: ${rows.length} registro${rows.length === 1 ? '' : 's'}`])
+  totalRow.getCell(1).font = { bold: true, italic: true, size: 10, color: { argb: 'FF6B778C' } }
+
+  return sheet
+}
+
+// Copia de seguridad completa — un workbook con una hoja por tipo de dato.
+// sheets: [{ sheetName, columns: [{header,key,width}], rows: [{...}] }]
+async function buildBackupWorkbook({ generadoPor, generatedAt, sheets }) {
+  const workbook = new ExcelJS.Workbook()
+  workbook.creator = 'BePharma CRM'
+  workbook.created = new Date()
+
+  sheets.forEach(s => addDataSheet(workbook, { ...s, generadoPor, generatedAt }))
+
+  return workbook
+}
+
 async function workbookToBuffer(workbook) {
   return workbook.xlsx.writeBuffer()
 }
 
-module.exports = { buildReportWorkbook, buildMultiSectionWorkbook, workbookToBuffer }
+module.exports = { buildReportWorkbook, buildMultiSectionWorkbook, buildBackupWorkbook, workbookToBuffer }

@@ -113,6 +113,12 @@ export const admin = {
   getIntegrations: ()                               => api.get('/admin/integrations').then(r => r.data),
   recomputeAutoStages: ()                            => api.post('/admin/recompute-auto-stages').then(r => r.data),
   getEmailStatus:  ()                               => api.get('/admin/email-status').then(r => r.data),
+
+  // Copia de seguridad completa (Empresas/Contactos/Deals + usuarios/firmas/
+  // plantillas) — devuelve el blob para descargar. format: 'xlsx' | 'json'.
+  // Además de esta descarga manual, un cron semanal (ver vercel.json) envía
+  // la misma copia por correo a cada supervisor automáticamente.
+  downloadBackup:  (format = 'xlsx')                => api.get('/admin/backup', { params: { format }, responseType: 'blob' }).then(r => r.data),
 }
 
 // ── Email ─────────────────────────────────────────────────────────────────────

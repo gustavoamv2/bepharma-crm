@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom'
-import { LayoutDashboard, Briefcase, Building2, Users, Search, LogOut, Settings, Kanban, BarChart2, KeyRound } from 'lucide-react'
+import { LayoutDashboard, Briefcase, Building2, Users, Search, LogOut, Settings, Kanban, BarChart2, KeyRound, HelpCircle } from 'lucide-react'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { ToastProvider } from './hooks/useToast'
 import { hubspot } from './hooks/useApi'
@@ -18,6 +18,7 @@ import ResetPasswordPage from './pages/ResetPasswordPage'
 import AdminPage from './pages/AdminPage'
 import KanbanPage from './pages/KanbanPage'
 import ReportsPage from './pages/ReportsPage'
+import HelpPage from './pages/HelpPage'
 import GlobalSearch from './components/GlobalSearch'
 import ChangePasswordModal from './components/ChangePasswordModal'
 
@@ -127,6 +128,9 @@ function AppContent() {
           <NavLink to="/search" className={({ isActive }) => isActive ? 'active' : ''}>
             <Search size={15} /> Buscar contactos
           </NavLink>
+          <NavLink to="/ayuda" className={({ isActive }) => isActive ? 'active' : ''}>
+            <HelpCircle size={15} /> Ayuda / Guía de uso
+          </NavLink>
 
           {isSupervisor && (
             <>
@@ -179,6 +183,7 @@ function AppContent() {
           <Route path="/contacts"      element={<ContactList />} />
           <Route path="/contacts/:id"  element={<ContactDetail />} />
           <Route path="/search"        element={<SearchPage />} />
+          <Route path="/ayuda"         element={<HelpPage />} />
           <Route path="/reports"       element={<ReportsPage />} />
           <Route path="/admin"         element={<AdminPage />} />
           <Route path="*"             element={<Dashboard />} />

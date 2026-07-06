@@ -18,6 +18,7 @@ const { loadUsers, saveUsers } = require('./usersStore')
 const { getSignature, saveSignature, kvEnabled } = require('./signatureStore')
 const { getTemplates: getEmailTemplates, saveTemplates: saveEmailTemplates, kvEnabled: templatesKvEnabled } = require('./emailTemplatesStore')
 const { buildReportWorkbook, buildMultiSectionWorkbook, workbookToBuffer } = require('./services/excelExport.service')
+const { buildFullBackupData, buildFullBackupWorkbook } = require('./services/backup.service')
 
 const app = express()
 
@@ -1487,6 +1488,116 @@ app.post('/api/admin/recompute-auto-stages', requireAuth, async (req, res) => {
       || 'Error desconocido al recalcular etapas'
     console.error('[recompute-auto-stages]', d || e.message)
     res.status(e.response?.status || 500).json({ error: msg })
+  }
+})
+
+// ──────────────────────────────────────────────────────────────────────────────
+// BACKUP — copia de seguridad completa del sistema (Empresas/Contactos/Deals
+// de HubSpot + configuración propia del CRM: usuarios, firmas, plantillas).
+// Ver api/services/backup.service.js para el detalle de qué se incluye
+// (deliberadamente sin contraseñas ni EMAIL_PASS).
+// ──────────────────────────────────────────────────────────────────────────────
+
+// Descarga on-demand desde el panel de Admin — solo supervisores.
+// ?format=xlsx (default) → un .xlsx con una hoja por tipo de dato
+// ?format=json           → el JSON crudo (mejor insumo para un futuro restore)
+app.get('/api/admin/backup', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  try {
+    const format = req.query.format === 'json' ? 'json' : 'xlsx'
+    const data = await buildFullBackupData()
+
+    if (format === 'json') {
+      res.setHeader('Content-Type', 'application/json')
+      res.setHeader('Content-Disposition', `attachment; filename="BePharma_Backup_${Date.now()}.json"`)
+      return res.send(JSON.stringify(data, null, 2))
+    }
+
+    const buffer = await buildFullBackupWorkbook(data, req.user?.username)
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    res.setHeader('Content-Disposition', `attachment; filename="BePharma_Backup_${Date.now()}.xlsx"`)
+    res.send(Buffer.from(buffer))
+  } catch (e) {
+    console.error('[admin/backup] Error:', e.response?.data || e.message)
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
+
+// Backup automático semanal — disparado por Vercel Cron (ver vercel.json).
+// No usa requireAuth (no hay un usuario logueado disparándolo): se protege
+// con un secreto propio que Vercel Cron manda como
+// header "Authorization: Bearer <CRON_SECRET>".
+// Arma el .xlsx y lo envía por correo a cada usuario con role="supervisor"
+// en users.json, usando el mismo orden de envío (Resend → SMTP) que ya usa
+// el composer de email, con el remitente/destinatario propio de cada
+// supervisor (EMAIL_USER_<USERNAME>) — así no depende de un buzón genérico
+// del sistema que nadie más revisa.
+app.get('/api/cron/backup', async (req, res) => {
+  const expected = process.env.CRON_SECRET
+  if (!expected) {
+    console.error('[cron/backup] CRON_SECRET no configurado — rechazando por seguridad')
+    return res.status(500).json({ error: 'CRON_SECRET no configurado' })
+  }
+  const auth = req.headers['authorization'] || ''
+  if (auth !== `Bearer ${expected}`) {
+    return res.status(401).json({ error: 'No autorizado' })
+  }
+
+  try {
+    const users = loadUsers()
+    const supervisors = Object.entries(users).filter(([, u]) => u.role === 'supervisor')
+    if (!supervisors.length) {
+      console.warn('[cron/backup] No hay usuarios con role=supervisor — nada que enviar')
+      return res.json({ success: true, sent: 0, warning: 'Sin supervisores configurados' })
+    }
+
+    const data = await buildFullBackupData()
+    const buffer = await buildFullBackupWorkbook(data, 'Backup automático semanal')
+    const filename = `BePharma_Backup_${new Date().toISOString().slice(0, 10)}.xlsx`
+    const contentBase64 = Buffer.from(buffer).toString('base64')
+    const subject = `BePharma CRM — Copia de seguridad semanal (${new Date().toLocaleDateString('es-MX')})`
+    const html = `
+      <p>Copia de seguridad automática del CRM de BePharma.</p>
+      <p>${data.counts.companies} empresas · ${data.counts.contacts} contactos · ${data.counts.deals} eventos · ${data.counts.users} usuarios.</p>
+      <p>Adjunto en este correo (.xlsx).</p>
+    `
+
+    const results = []
+    for (const [username] of supervisors) {
+      const to = getUserEmail(username)
+      if (!to) {
+        console.warn(`[cron/backup] "${username}" es supervisor pero no tiene EMAIL_USER_${username.toUpperCase()} configurado — se omite`)
+        results.push({ username, sent: false, reason: 'sin EMAIL_USER_* configurado' })
+        continue
+      }
+      try {
+        if (process.env.RESEND_API_KEY) {
+          await axios.post('https://api.resend.com/emails', {
+            from: `BePharma CRM <${to}>`,
+            to: [to],
+            subject,
+            html,
+            attachments: [{ filename, content: contentBase64 }],
+          }, { headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` } })
+        } else {
+          const mailer = getUserMailer(username)
+          if (!mailer) throw new Error(`sin EMAIL_PASS_${username.toUpperCase()} configurado (modo SMTP)`)
+          await mailer.sendMail({
+            from: to, to, subject, html,
+            attachments: [{ filename, content: contentBase64, encoding: 'base64' }],
+          })
+        }
+        results.push({ username, sent: true })
+      } catch (mailErr) {
+        console.error(`[cron/backup] Error enviando a "${username}":`, mailErr.response?.data || mailErr.message)
+        results.push({ username, sent: false, reason: mailErr.message })
+      }
+    }
+
+    res.json({ success: true, sent: results.filter(r => r.sent).length, results })
+  } catch (e) {
+    console.error('[cron/backup] Error:', e.response?.data || e.message)
+    res.status(500).json({ error: e.response?.data || e.message })
   }
 })
 

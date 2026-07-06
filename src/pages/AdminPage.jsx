@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
-import { Settings, Phone, User, Check, AlertTriangle, Mail, Activity, RefreshCw } from 'lucide-react'
+import { Settings, Phone, User, Check, AlertTriangle, Mail, Activity, RefreshCw, Database, Download } from 'lucide-react'
 import { admin } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useToast } from '../hooks/useToast'
@@ -31,6 +31,70 @@ const KNOWN_EMAILS = {
   gracie:  'worldwide@bepharma.org',
   carlos:  'information@bepharma.org',
   sara:    'global@bepharma.org',
+}
+
+// Descarga un blob en el navegador con el nombre de archivo dado (mismo
+// patrón que usan los exports de CompanyList/ContactList/DealList)
+function downloadBlob(blob, filename) {
+  const url = window.URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  window.URL.revokeObjectURL(url)
+}
+
+function BackupSection() {
+  const { addToast } = useToast()
+  const [downloading, setDownloading] = useState(null) // 'xlsx' | 'json' | null
+
+  const handleDownload = async (format) => {
+    setDownloading(format)
+    try {
+      const blob = await admin.downloadBackup(format)
+      const date = new Date().toISOString().slice(0, 10)
+      downloadBlob(blob, `BePharma_Backup_${date}.${format}`)
+    } catch (e) {
+      addToast('No se pudo generar la copia de seguridad: ' + (e.response?.data?.error || e.message), 'error')
+    } finally {
+      setDownloading(null)
+    }
+  }
+
+  return (
+    <div className="card" style={{ marginBottom: 24 }}>
+      <div className="card-header">
+        <h2 style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Database size={15} style={{ color: '#0052cc' }} /> Copia de seguridad
+        </h2>
+      </div>
+      <div className="card-body">
+        <p style={{ fontSize: 12, color: '#6b778c', marginBottom: 14 }}>
+          Incluye Empresas, Contactos y Eventos (deals) de HubSpot, más la configuración propia
+          del CRM que no vive en HubSpot: usuarios, roles, países asignados, extensiones SIP,
+          firmas y plantillas de email. No incluye contraseñas.
+        </p>
+        <div style={{ display: 'flex', gap: 10, marginBottom: 14 }}>
+          <button className="btn btn-primary btn-sm" onClick={() => handleDownload('xlsx')} disabled={downloading !== null}
+            style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <Download size={12} /> {downloading === 'xlsx' ? 'Generando…' : 'Descargar Excel (.xlsx)'}
+          </button>
+          <button className="btn btn-ghost btn-sm" onClick={() => handleDownload('json')} disabled={downloading !== null}
+            style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <Download size={12} /> {downloading === 'json' ? 'Generando…' : 'Descargar JSON'}
+          </button>
+        </div>
+        <div style={{ background: '#e3f2fd', borderRadius: 6, padding: '10px 14px', fontSize: 12, color: '#0d47a1' }}>
+          Además de esta descarga manual, una tarea automática (Vercel Cron) genera esta misma
+          copia todos los <strong>lunes a las 08:00 UTC</strong> y la envía por correo a cada
+          usuario con rol de supervisor, al correo configurado en «Configuración de Correo por
+          Usuario» más abajo.
+        </div>
+      </div>
+    </div>
+  )
 }
 
 function IntegrationStatus() {
@@ -198,6 +262,9 @@ export default function AdminPage() {
     <>
       <Topbar title="Administracion" />
       <div className="content">
+
+        {/* Copia de seguridad — solo supervisores */}
+        {isSupervisor && <BackupSection />}
 
         {/* Estado de integraciones — solo supervisores */}
         {isSupervisor && <IntegrationStatus />}
