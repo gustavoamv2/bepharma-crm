@@ -3251,30 +3251,47 @@ app.post('/api/webhooks/zadarma-call-end', requireWebhookToken, async (req, res)
 // (base64, sin el prefijo "whsec_"). El header svix-signature puede traer
 // varias firmas separadas por espacio, cada una "v1,<base64>" — basta con que
 // una coincida. Requiere el rawBody exacto (ver "verify" en express.json()).
+// Devuelve { ok, reason } en vez de solo boolean para poder diagnosticar en los
+// logs de Vercel sin necesidad de otra vuelta completa de correo real→respuesta.
 function verifySvixSignature(rawBody, headers, secret) {
-  if (!secret || !rawBody) return false
+  if (!secret) return { ok: false, reason: 'sin RESEND_WEBHOOK_SECRET configurado' }
+  if (!rawBody || !rawBody.length) return { ok: false, reason: 'rawBody vacío (revisar verify() de express.json)' }
+
   const svixId = headers['svix-id']
   const svixTimestamp = headers['svix-timestamp']
   const svixSignature = headers['svix-signature']
-  if (!svixId || !svixTimestamp || !svixSignature) return false
+  if (!svixId || !svixTimestamp || !svixSignature) {
+    return { ok: false, reason: `faltan headers svix (id=${!!svixId}, timestamp=${!!svixTimestamp}, signature=${!!svixSignature})` }
+  }
 
   // Rechaza timestamps de más de 5 min (mitiga replay attacks)
   const tsSeconds = Number(svixTimestamp)
-  if (!Number.isFinite(tsSeconds) || Math.abs(Date.now() / 1000 - tsSeconds) > 300) return false
+  if (!Number.isFinite(tsSeconds)) return { ok: false, reason: 'svix-timestamp no es numérico' }
+  const skewSec = Math.abs(Date.now() / 1000 - tsSeconds)
+  if (skewSec > 300) return { ok: false, reason: `timestamp fuera de rango (skew=${Math.round(skewSec)}s)` }
 
+  const bodyStr = Buffer.isBuffer(rawBody) ? rawBody.toString('utf8') : String(rawBody)
   const secretBytes = Buffer.from(secret.replace(/^whsec_/, ''), 'base64')
-  const signedContent = `${svixId}.${svixTimestamp}.${rawBody}`
+  const signedContent = `${svixId}.${svixTimestamp}.${bodyStr}`
   const expected = crypto.createHmac('sha256', secretBytes).update(signedContent).digest('base64')
 
-  return svixSignature.split(' ').some(part => {
+  const matched = svixSignature.split(' ').some(part => {
     const sig = part.split(',')[1]
     if (!sig) return false
     try {
-      return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))
+      return crypto.timingSafeEqual(Buffer.from(sig, 'base64'), Buffer.from(expected, 'base64'))
     } catch {
       return false // longitudes distintas → nunca coincide, pero no debe tirar la request
     }
   })
+
+  if (!matched) {
+    return {
+      ok: false,
+      reason: `firma no coincide (secretBytes.length=${secretBytes.length}, esperado[0:8]=${expected.slice(0, 8)}, recibido="${svixSignature.slice(0, 20)}...")`
+    }
+  }
+  return { ok: true, reason: null }
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -3288,8 +3305,11 @@ function verifySvixSignature(rawBody, headers, secret) {
 // ──────────────────────────────────────────────────────────────────────────────
 app.post('/api/webhooks/resend-inbound', async (req, res) => {
   try {
-    if (!verifySvixSignature(req.rawBody, req.headers, process.env.RESEND_WEBHOOK_SECRET)) {
-      console.warn('[webhook/resend-inbound] firma inválida — rechazado')
+    const verification = verifySvixSignature(req.rawBody, req.headers, process.env.RESEND_WEBHOOK_SECRET)
+    if (!verification.ok) {
+      // Log detallado (sin exponer el secreto) para diagnosticar en Vercel sin
+      // depender de otra prueba real de correo→respuesta.
+      console.warn(`[webhook/resend-inbound] firma inválida — rechazado. Motivo: ${verification.reason}`)
       return res.status(401).json({ error: 'invalid_signature' })
     }
 
@@ -3345,11 +3365,38 @@ app.post('/api/webhooks/resend-inbound', async (req, res) => {
       return res.json({ ok: true, skipped: 'sin deal ni contacto asociable' })
     }
 
+    // Best-effort: resolver el email real del operador dueño del deal para que
+    // el "to" mostrado en HubSpot sea legible (yesenia@bepharma.org) en vez de
+    // la dirección técnica de recepción (deal-<id>@...resend.app)
+    let toDisplayEmail = toMatch || ''
+    if (dealId) {
+      try {
+        const dealR = await hs.get(`/crm/v3/objects/deals/${dealId}`, { params: { properties: 'hubspot_owner_id' } })
+        const ownerId = dealR.data?.properties?.hubspot_owner_id
+        if (ownerId) {
+          const ownerR = await hs.get(`/crm/v3/owners/${ownerId}`)
+          if (ownerR.data?.email) toDisplayEmail = ownerR.data.email
+        }
+      } catch (e) {
+        console.warn('[webhook/resend-inbound] fallo resolviendo email del owner del deal:', e.message)
+      }
+    }
+
     // Mismos IDs de tipo de asociación HUBSPOT_DEFINED que ya usa /api/email/send
     const assocTypeIdMap = { contacts: 198, deals: 210 }
     const associations = []
     if (contactId) associations.push({ to: { id: Number(contactId) }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: assocTypeIdMap.contacts }] })
     if (dealId) associations.push({ to: { id: Number(dealId) }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: assocTypeIdMap.deals }] })
+
+    // hs_email_from_email / hs_email_to_email NO se pueden setear directo —
+    // HubSpot las deriva de hs_email_headers (JSON string con from/to/cc/bcc).
+    // Ver: community.hubspot.com "Problem to set property hs_email_headers"
+    const emailHeaders = {
+      from: { email: fromAddress || '' },
+      to: [{ email: toDisplayEmail || '' }],
+      cc: [],
+      bcc: [],
+    }
 
     const emailPayload = {
       properties: {
@@ -3359,7 +3406,7 @@ app.post('/api/webhooks/resend-inbound', async (req, res) => {
         hs_email_subject: subject || '(sin asunto)',
         hs_email_text: bodyText,
         hs_email_html: bodyHtml,
-        hs_email_from_email: fromAddress || '',
+        hs_email_headers: JSON.stringify(emailHeaders),
       },
       ...(associations.length ? { associations } : {}),
     }
