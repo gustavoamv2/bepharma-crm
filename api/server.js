@@ -3402,7 +3402,11 @@ app.post('/api/webhooks/resend-inbound', async (req, res) => {
       properties: {
         hs_timestamp: new Date().toISOString(),
         hs_email_direction: 'INCOMING_EMAIL',
-        hs_email_status: 'RECEIVED',
+        // hs_email_status solo admite [BOUNCED, FAILED, SCHEDULED, SENDING,
+        // SENT, DRAFT] — no existe "RECEIVED". Para un entrante, SENT es la
+        // opción correcta (el cliente sí lo envió); hs_email_direction ya
+        // indica que es entrante.
+        hs_email_status: 'SENT',
         hs_email_subject: subject || '(sin asunto)',
         hs_email_text: bodyText,
         hs_email_html: bodyHtml,
