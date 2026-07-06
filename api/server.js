@@ -2158,7 +2158,7 @@ async function getMsGraphToken() {
   return r.data.access_token
 }
 
-async function sendViaGraph(fromEmail, senderName, to, subject, bodyHtml, attachments = [], cc = []) {
+async function sendViaGraph(fromEmail, senderName, to, subject, bodyHtml, attachments = [], cc = [], bcc = []) {
   const token = await getMsGraphToken()
   if (!token) throw new Error('Azure no configurado (AZURE_TENANT_ID / CLIENT_ID / CLIENT_SECRET)')
 
@@ -2174,6 +2174,9 @@ async function sendViaGraph(fromEmail, senderName, to, subject, bodyHtml, attach
   }
   if (cc.length) {
     message.ccRecipients = cc.map(addr => ({ emailAddress: { address: addr } }))
+  }
+  if (bcc.length) {
+    message.bccRecipients = bcc.map(addr => ({ emailAddress: { address: addr } }))
   }
   if (attachments.length) {
     message.attachments = attachments.map(a => ({
@@ -2308,6 +2311,17 @@ async function uploadFileToHubSpot(filename, contentType, base64) {
 // Enviar email + registrar en HubSpot como engagement
 const ATTACHMENTS_MAX_TOTAL_B64 = 3_500_000 // ~2.6MB reales — deja margen bajo el límite de 4mb del body
 
+// Dirección BCC de HubSpot (Configuración → Objects → Activities → Email Log &
+// Track → Manual Logging → BCC Address). Agregarla en BCC a cada correo saliente
+// hace que HubSpot reconozca el envío como "logueado" (mismo efecto que si
+// hubiera salido de un inbox conectado con el Sales add-in) — requisito para
+// que las respuestas del cliente se registren automáticamente en el deal/contacto.
+// Sin esto, aunque el operador tenga su Outlook conectado a HubSpot, las
+// respuestas no se loguean porque HubSpot no reconoce el correo original como
+// "enviado por un canal rastreado". Ver:
+// knowledge.hubspot.com/connected-email/log-email-replies-in-the-crm
+const HUBSPOT_BCC_ADDRESS = process.env.HUBSPOT_BCC_ADDRESS || '51580878@bcc.hubspot.com'
+
 app.post('/api/email/send', requireAuth, async (req, res) => {
   try {
     const { to, cc, subject, body, bodyHtml: bodyHtmlIn, contactId, dealId, companyId, signatureHtml, attachments } = req.body
@@ -2345,6 +2359,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
         from: `${fromName} <${fromEmail}>`,
         to: toList,
         ...(ccList.length ? { cc: ccList } : {}),
+        bcc: [HUBSPOT_BCC_ADDRESS],
         subject,
         html: bodyHtml,
         ...(validAttachments.length ? {
@@ -2357,7 +2372,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
       // ── Modo Microsoft Graph ──────────────────────────────────────────────
       const emailUser = getUserEmail(req.user.username)
       if (!emailUser) return res.status(400).json({ error: 'no_config' })
-      await sendViaGraph(emailUser, req.user.name, toList, subject, bodyHtml, validAttachments, ccList)
+      await sendViaGraph(emailUser, req.user.name, toList, subject, bodyHtml, validAttachments, ccList, [HUBSPOT_BCC_ADDRESS])
     } else {
       // ── Fallback: SMTP ────────────────────────────────────────────────────
       const emailUser = getUserEmail(req.user.username)
@@ -2368,6 +2383,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
         from: `${req.user.name} <${emailUser}>`,
         to: toList.join(', '), subject,
         ...(ccList.length ? { cc: ccList.join(', ') } : {}),
+        bcc: HUBSPOT_BCC_ADDRESS,
         text: bodyText,
         html: bodyHtml,
         ...(validAttachments.length ? {
