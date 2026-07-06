@@ -749,7 +749,7 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
             {fields.map(f => (
               <div key={f.key} style={{ gridColumn: (f.type === 'textarea' || f.type === 'company-search' || f.type === 'company-name-search' || f.type === 'checkbox') ? '1 / -1' : 'auto' }}>
                 {f.type !== 'checkbox' && (
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#6b778c', marginBottom: 5 }}>
+                  <label htmlFor={`bp-field-${f.key}`} style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#6b778c', marginBottom: 5 }}>
                     {f.label}{f.required && <span style={{ color: '#de350b' }}> *</span>}
                   </label>
                 )}
@@ -813,6 +813,8 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
                 ) : f.type === 'select' ? (
                   <>
                     <select
+                      id={`bp-field-${f.key}`}
+                      name={f.key}
                       value={form[f.key] || ''}
                       onChange={e => set(f.key, e.target.value)}
                       style={inputStyle(errors[f.key])}
@@ -826,6 +828,9 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
                   </>
                 ) : f.type === 'textarea' ? (
                   <textarea
+                    id={`bp-field-${f.key}`}
+                    name={f.key}
+                    autoComplete="off"
                     value={form[f.key] || ''}
                     onChange={e => set(f.key, e.target.value)}
                     rows={3}
@@ -834,6 +839,15 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
                   />
                 ) : (
                   <input
+                    id={`bp-field-${f.key}`}
+                    name={f.key}
+                    // Autocomplete OFF + name único por campo: sin esto, algunos
+                    // navegadores (Chrome) autocompletaban el mismo valor
+                    // guardado en los 3 inputs de teléfono/email al no poder
+                    // distinguirlos (mismo type="email"/"tel" sin name/id) —
+                    // reportado en Empresas: Email 1/2/3 y Teléfono 1/2/3
+                    // terminaban guardando el mismo valor tras editar.
+                    autoComplete="off"
                     type={f.type || 'text'}
                     value={form[f.key] || ''}
                     onChange={e => set(f.key, e.target.value)}
