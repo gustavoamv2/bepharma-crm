@@ -30,7 +30,13 @@ app.use(cors({
 }))
 // 4mb: deja margen bajo el límite de ~4.5mb de Vercel para el body de la función
 // serverless (necesario para adjuntos de email codificados en base64)
-app.use(express.json({ limit: '4mb' }))
+// "verify" guarda el body crudo (rawBody) sin tocar el resto de las rutas —
+// lo necesita el webhook de Resend Inbound para validar la firma Svix, que es
+// sensible a cualquier diferencia de bytes entre el JSON parseado y el original.
+app.use(express.json({
+  limit: '4mb',
+  verify: (req, _res, buf) => { req.rawBody = buf }
+}))
 
 // Request ID minimo para trazabilidad en logs
 app.use((req, _res, next) => {
@@ -2158,7 +2164,7 @@ async function getMsGraphToken() {
   return r.data.access_token
 }
 
-async function sendViaGraph(fromEmail, senderName, to, subject, bodyHtml, attachments = [], cc = [], bcc = []) {
+async function sendViaGraph(fromEmail, senderName, to, subject, bodyHtml, attachments = [], cc = [], bcc = [], replyTo = null) {
   const token = await getMsGraphToken()
   if (!token) throw new Error('Azure no configurado (AZURE_TENANT_ID / CLIENT_ID / CLIENT_SECRET)')
 
@@ -2177,6 +2183,9 @@ async function sendViaGraph(fromEmail, senderName, to, subject, bodyHtml, attach
   }
   if (bcc.length) {
     message.bccRecipients = bcc.map(addr => ({ emailAddress: { address: addr } }))
+  }
+  if (replyTo) {
+    message.replyTo = [{ emailAddress: { address: replyTo } }]
   }
   if (attachments.length) {
     message.attachments = attachments.map(a => ({
@@ -2313,14 +2322,23 @@ const ATTACHMENTS_MAX_TOTAL_B64 = 3_500_000 // ~2.6MB reales — deja margen baj
 
 // Dirección BCC de HubSpot (Configuración → Objects → Activities → Email Log &
 // Track → Manual Logging → BCC Address). Agregarla en BCC a cada correo saliente
-// hace que HubSpot reconozca el envío como "logueado" (mismo efecto que si
-// hubiera salido de un inbox conectado con el Sales add-in) — requisito para
-// que las respuestas del cliente se registren automáticamente en el deal/contacto.
-// Sin esto, aunque el operador tenga su Outlook conectado a HubSpot, las
-// respuestas no se loguean porque HubSpot no reconoce el correo original como
-// "enviado por un canal rastreado". Ver:
-// knowledge.hubspot.com/connected-email/log-email-replies-in-the-crm
+// hace que HubSpot registre el envío con from/to correctos (en vez del engagement
+// "a mano" que ya hacíamos). OJO: probado en producción — esto por sí solo NO
+// activa el reply-logging automático de HubSpot, porque ese requiere que el
+// correo se haya mandado "a través del CRM" o del Sales add-in con el checkbox
+// Log (ver knowledge.hubspot.com/connected-email/log-email-replies-in-the-crm) —
+// algo que no existe como API pública, así que un envío por Resend/Graph nunca
+// va a calificar. Por eso se agregó además la captura propia de respuestas más
+// abajo (RESEND_INBOUND_DOMAIN + /api/webhooks/resend-inbound).
 const HUBSPOT_BCC_ADDRESS = process.env.HUBSPOT_BCC_ADDRESS || '51580878@bcc.hubspot.com'
+
+// Dominio de recepción de Resend Inbound (Resend → Domains → Inbound, o el
+// subdominio *.resend.app que te asignen). Si está configurado, el "Reply-To"
+// de cada correo saliente apunta a `deal-<dealId>@<dominio>` para que, cuando
+// el cliente responda, Resend reenvíe el mensaje a nuestro webhook
+// /api/webhooks/resend-inbound y ahí lo asociemos al deal correcto en HubSpot.
+// Si no está seteado, el envío funciona igual que antes (sin captura de respuesta).
+const RESEND_INBOUND_DOMAIN = process.env.RESEND_INBOUND_DOMAIN || null
 
 app.post('/api/email/send', requireAuth, async (req, res) => {
   try {
@@ -2350,6 +2368,16 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
 
     const bodyHtml = rawBodyHtml + (signatureHtml ? `<br><br>${signatureHtml}` : '')
 
+    // Si hay dominio de recepción configurado y sabemos a qué deal (o, en su
+    // defecto, contacto) pertenece este correo, el Reply-To apunta a nuestro
+    // buzón receptor para poder capturar la respuesta en /api/webhooks/resend-inbound.
+    // El cliente sigue viendo el remitente real (fromEmail) — solo cambia a
+    // dónde llega técnicamente su respuesta.
+    const replyToTarget = dealId ? `deal-${dealId}` : (contactId ? `contact-${contactId}` : null)
+    const replyToAddress = (RESEND_INBOUND_DOMAIN && replyToTarget)
+      ? `${replyToTarget}@${RESEND_INBOUND_DOMAIN}`
+      : null
+
     if (process.env.RESEND_API_KEY) {
       // ── Modo Resend API ───────────────────────────────────────────────────
       // EMAIL_USER_* por operador; si no existe, usa RESEND_FROM como fallback
@@ -2359,6 +2387,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
         from: `${fromName} <${fromEmail}>`,
         to: toList,
         ...(ccList.length ? { cc: ccList } : {}),
+        ...(replyToAddress ? { reply_to: [replyToAddress] } : {}),
         bcc: [HUBSPOT_BCC_ADDRESS],
         subject,
         html: bodyHtml,
@@ -2372,7 +2401,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
       // ── Modo Microsoft Graph ──────────────────────────────────────────────
       const emailUser = getUserEmail(req.user.username)
       if (!emailUser) return res.status(400).json({ error: 'no_config' })
-      await sendViaGraph(emailUser, req.user.name, toList, subject, bodyHtml, validAttachments, ccList, [HUBSPOT_BCC_ADDRESS])
+      await sendViaGraph(emailUser, req.user.name, toList, subject, bodyHtml, validAttachments, ccList, [HUBSPOT_BCC_ADDRESS], replyToAddress)
     } else {
       // ── Fallback: SMTP ────────────────────────────────────────────────────
       const emailUser = getUserEmail(req.user.username)
@@ -2383,6 +2412,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
         from: `${req.user.name} <${emailUser}>`,
         to: toList.join(', '), subject,
         ...(ccList.length ? { cc: ccList.join(', ') } : {}),
+        ...(replyToAddress ? { replyTo: replyToAddress } : {}),
         bcc: HUBSPOT_BCC_ADDRESS,
         text: bodyText,
         html: bodyHtml,
@@ -3212,6 +3242,134 @@ app.post('/api/webhooks/zadarma-call-end', requireWebhookToken, async (req, res)
     res.json({ success: true, callEngId, contactId, dealId })
   } catch (e) {
     console.error('[webhook/zadarma] error:', e.message)
+    res.status(500).json({ error: e.message })
+  }
+})
+
+// ── Verificación de firma Svix (esquema que usa Resend para firmar webhooks) ──
+// HMAC-SHA256 sobre "{svix-id}.{svix-timestamp}.{rawBody}" con el secreto
+// (base64, sin el prefijo "whsec_"). El header svix-signature puede traer
+// varias firmas separadas por espacio, cada una "v1,<base64>" — basta con que
+// una coincida. Requiere el rawBody exacto (ver "verify" en express.json()).
+function verifySvixSignature(rawBody, headers, secret) {
+  if (!secret || !rawBody) return false
+  const svixId = headers['svix-id']
+  const svixTimestamp = headers['svix-timestamp']
+  const svixSignature = headers['svix-signature']
+  if (!svixId || !svixTimestamp || !svixSignature) return false
+
+  // Rechaza timestamps de más de 5 min (mitiga replay attacks)
+  const tsSeconds = Number(svixTimestamp)
+  if (!Number.isFinite(tsSeconds) || Math.abs(Date.now() / 1000 - tsSeconds) > 300) return false
+
+  const secretBytes = Buffer.from(secret.replace(/^whsec_/, ''), 'base64')
+  const signedContent = `${svixId}.${svixTimestamp}.${rawBody}`
+  const expected = crypto.createHmac('sha256', secretBytes).update(signedContent).digest('base64')
+
+  return svixSignature.split(' ').some(part => {
+    const sig = part.split(',')[1]
+    if (!sig) return false
+    try {
+      return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))
+    } catch {
+      return false // longitudes distintas → nunca coincide, pero no debe tirar la request
+    }
+  })
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+// WEBHOOK RESEND INBOUND — captura respuestas de clientes → HubSpot (sin requireAuth)
+// Requiere en Vercel: RESEND_WEBHOOK_SECRET (Resend → Webhooks → tu endpoint →
+// Signing secret) y RESEND_INBOUND_DOMAIN (Resend → Domains → Inbound, o el
+// *.resend.app que te asignen). El Reply-To de cada correo saliente (ver
+// /api/email/send) apunta a deal-<id>@RESEND_INBOUND_DOMAIN o
+// contact-<id>@RESEND_INBOUND_DOMAIN, así que la respuesta llega aquí con el
+// deal/contacto ya identificado en el "to" — sin necesidad de adivinar el hilo.
+// ──────────────────────────────────────────────────────────────────────────────
+app.post('/api/webhooks/resend-inbound', async (req, res) => {
+  try {
+    if (!verifySvixSignature(req.rawBody, req.headers, process.env.RESEND_WEBHOOK_SECRET)) {
+      console.warn('[webhook/resend-inbound] firma inválida — rechazado')
+      return res.status(401).json({ error: 'invalid_signature' })
+    }
+
+    const event = req.body
+    if (event?.type !== 'email.received') {
+      return res.json({ ok: true, skipped: 'evento no es email.received' })
+    }
+
+    const { email_id: emailId, from: fromAddress, to: toAddresses, subject } = event.data || {}
+
+    // El "to" trae la dirección deal-<id>@... / contact-<id>@... que armamos
+    // al enviar (ver replyToAddress en /api/email/send)
+    const toMatch = (toAddresses || []).map(String).find(addr => /^(deal|contact)-\d+@/i.test(addr))
+    const parsed = toMatch ? toMatch.match(/^(deal|contact)-(\d+)@/i) : null
+    if (!parsed) {
+      console.warn(`[webhook/resend-inbound] no se identificó deal/contact en "to": ${JSON.stringify(toAddresses)}`)
+      return res.json({ ok: true, skipped: 'sin deal/contact identificado en to' })
+    }
+    const [, targetType, targetId] = parsed
+    const dealId = targetType === 'deal' ? targetId : null
+    let contactId = targetType === 'contact' ? targetId : null
+
+    // El webhook solo trae metadata — el cuerpo hay que pedirlo aparte
+    let bodyText = ''
+    let bodyHtml = ''
+    try {
+      const detailR = await axios.get(`https://api.resend.com/emails/receiving/${emailId}`, {
+        headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` }
+      })
+      bodyText = detailR.data?.text || ''
+      bodyHtml = detailR.data?.html || ''
+    } catch (detailErr) {
+      console.warn('[webhook/resend-inbound] fallo al pedir el cuerpo del correo:', detailErr.response?.data || detailErr.message)
+    }
+
+    // Si el reply-to solo traía dealId, intentar resolver también el contacto
+    // por el email real del remitente (mejora la asociación, no es obligatorio)
+    if (!contactId && fromAddress) {
+      try {
+        const searchR = await hs.post('/crm/v3/objects/contacts/search', {
+          filterGroups: [{ filters: [{ propertyName: 'email', operator: 'EQ', value: fromAddress }] }],
+          properties: ['email'],
+          limit: 1,
+        })
+        if (searchR.data.results?.length) contactId = searchR.data.results[0].id
+      } catch (e) {
+        console.warn('[webhook/resend-inbound] fallo buscando contacto por email:', e.message)
+      }
+    }
+
+    if (!dealId && !contactId) {
+      console.warn(`[webhook/resend-inbound] respuesta de ${fromAddress} sin deal ni contacto asociable — no se loguea`)
+      return res.json({ ok: true, skipped: 'sin deal ni contacto asociable' })
+    }
+
+    // Mismos IDs de tipo de asociación HUBSPOT_DEFINED que ya usa /api/email/send
+    const assocTypeIdMap = { contacts: 198, deals: 210 }
+    const associations = []
+    if (contactId) associations.push({ to: { id: Number(contactId) }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: assocTypeIdMap.contacts }] })
+    if (dealId) associations.push({ to: { id: Number(dealId) }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: assocTypeIdMap.deals }] })
+
+    const emailPayload = {
+      properties: {
+        hs_timestamp: new Date().toISOString(),
+        hs_email_direction: 'INCOMING_EMAIL',
+        hs_email_status: 'RECEIVED',
+        hs_email_subject: subject || '(sin asunto)',
+        hs_email_text: bodyText,
+        hs_email_html: bodyHtml,
+        hs_email_from_email: fromAddress || '',
+      },
+      ...(associations.length ? { associations } : {}),
+    }
+
+    const createR = await hs.post('/crm/v3/objects/emails', emailPayload)
+
+    console.log(`[webhook/resend-inbound] respuesta logueada: ${createR.data.id} | from=${fromAddress} | deal=${dealId || '-'} | contact=${contactId || '-'}`)
+    res.json({ ok: true, engagementId: createR.data.id, dealId, contactId })
+  } catch (e) {
+    console.error('[webhook/resend-inbound] error:', e.response?.data || e.message)
     res.status(500).json({ error: e.message })
   }
 })
