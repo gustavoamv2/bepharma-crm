@@ -21,18 +21,6 @@ const ROLE_BADGE = {
   operator:   { label: 'Operador',   bg: '#deebff', color: '#0052cc' },
 }
 
-// Direcciones @bepharma.org reales de cada usuario (mismas usadas en HubSpot
-// como owner) — se usan para prellenar el campo de correo y que sea más
-// difícil equivocarse de dirección al configurar EMAIL_USER_* por operador.
-const KNOWN_EMAILS = {
-  roberto: 'rmartinez@bepharma.org',
-  yesenia: 'yesenia@bepharma.org',
-  angel:   'international@bepharma.org',
-  gracie:  'worldwide@bepharma.org',
-  carlos:  'information@bepharma.org',
-  sara:    'global@bepharma.org',
-}
-
 // Descarga un blob en el navegador con el nombre de archivo dado (mismo
 // patrón que usan los exports de CompanyList/ContactList/DealList)
 function downloadBlob(blob, filename) {
@@ -173,13 +161,11 @@ export default function AdminPage() {
   const { addToast } = useToast()
   const qc = useQueryClient()
   const [editingUser, setEditingUser] = useState(null)
-  const [emailForm, setEmailForm] = useState({})   // { username: { user, pass } }
   const [sipValue, setSipValue] = useState('')
   const [editingPaises, setEditingPaises] = useState(null)
   const [paisesValue, setPaisesValue] = useState([])
   const [paisesFilter, setPaisesFilter] = useState('')
   const [saving, setSaving] = useState(false)
-  const [showEmailCmd, setShowEmailCmd] = useState(null)
   const [recomputing, setRecomputing] = useState(false)
   const [recomputeResult, setRecomputeResult] = useState(null)
 
@@ -234,8 +220,6 @@ export default function AdminPage() {
     )
   }
 
-  const setEmailField = (username, field, value) =>
-    setEmailForm(f => ({ ...f, [username]: { ...(f[username] || {}), [field]: value } }))
 
   const runRecomputeAutoStages = async () => {
     setRecomputing(true)
@@ -499,76 +483,29 @@ export default function AdminPage() {
             <span style={{ fontSize: 11, color: '#6b778c' }}>Define de qué buzón sale cada correo enviado desde el CRM</span>
           </div>
           <div className="card-body">
-            <p style={{ fontSize: 12, color: '#6b778c', marginBottom: 14 }}>
-              Cada usuario debe tener su propio <code>EMAIL_USER_&#123;usuario&#125;</code> en Vercel — si no lo tiene, sus correos salen por el remitente por defecto (badge amarillo abajo) en vez de su propia dirección.
-              Con Resend (modo actual) <strong>no hace falta contraseña</strong>, solo el correo. Copia el comando generado y ejecútalo en PowerShell desde la carpeta <code>bepharma-crm</code>.
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {visibleUsers.map(u => {
-                const f = emailForm[u.username] || {}
-                const isOpen = showEmailCmd === u.username
-                const emailValue = f.user ?? KNOWN_EMAILS[u.username] ?? 'CORREO@empresa.com'
-                const cmd = `echo "${emailValue}" | vercel env add EMAIL_USER_${u.username.toUpperCase()} production --force`
-                  + (f.pass ? `\necho "${f.pass}" | vercel env add EMAIL_PASS_${u.username.toUpperCase()} production --force` : '')
                 const st = emailStatusByUser[u.username]
                 return (
-                  <div key={u.username} style={{ border: '1px solid #e2e8f0', borderRadius: 8, padding: 12 }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr 1fr auto', gap: 10, alignItems: 'center' }}>
-                      <div>
-                        <div style={{ fontWeight: 600, fontSize: 13 }}>{u.name}</div>
-                        <div style={{ fontSize: 11, color: '#6b778c' }}>@{u.username}</div>
-                        {st && (
-                          <div style={{
-                            marginTop: 4, fontSize: 10, fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 3,
-                            padding: '1px 6px', borderRadius: 10,
-                            background: st.configured ? '#e3fcef' : '#fff3cd',
-                            color: st.configured ? '#006644' : '#8a6914',
-                          }}>
-                            {st.configured ? <Check size={9} /> : <AlertTriangle size={9} />}
-                            {st.configured ? st.emailUser : 'Sin EMAIL_USER_* — envía por el remitente por defecto'}
-                          </div>
-                        )}
-                      </div>
-                      <input
-                        type="email"
-                        placeholder="correo@empresa.com"
-                        value={f.user ?? KNOWN_EMAILS[u.username] ?? ''}
-                        onChange={e => setEmailField(u.username, 'user', e.target.value)}
-                        style={{ padding: '6px 8px', border: '1px solid #dfe1e6', borderRadius: 5, fontSize: 13 }}
-                      />
-                      <input
-                        type="password"
-                        placeholder="Solo si usas SMTP/Graph — Resend no la necesita"
-                        value={f.pass || ''}
-                        onChange={e => setEmailField(u.username, 'pass', e.target.value)}
-                        style={{ padding: '6px 8px', border: '1px solid #dfe1e6', borderRadius: 5, fontSize: 13 }}
-                      />
-                      <button
-                        className="btn btn-primary btn-sm"
-                        onClick={() => setShowEmailCmd(isOpen ? null : u.username)}
-                      >
-                        {isOpen ? 'Ocultar' : 'Ver comando'}
-                      </button>
+                  <div key={u.username} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px solid #e2e8f0', borderRadius: 8, padding: '10px 14px' }}>
+                    <div>
+                      <div style={{ fontWeight: 600, fontSize: 13 }}>{u.name}</div>
+                      <div style={{ fontSize: 11, color: '#6b778c' }}>@{u.username}</div>
                     </div>
-                    {isOpen && (
-                      <div style={{ marginTop: 10, background: '#0d1e2e', borderRadius: 6, padding: '10px 14px' }}>
-                        <div style={{ fontSize: 11, color: '#90caf9', marginBottom: 6 }}>Ejecuta en PowerShell (carpeta bepharma-crm):</div>
-                        <pre style={{ color: '#66bb6a', fontSize: 12, margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{cmd}</pre>
-                        <button
-                          className="btn btn-ghost btn-sm"
-                          style={{ marginTop: 8, color: '#90caf9' }}
-                          onClick={() => { navigator.clipboard.writeText(cmd.replace(/\\n/g, '\n')); addToast('Copiado', 'success') }}
-                        >
-                          📋 Copiar comandos
-                        </button>
+                    {st && (
+                      <div style={{
+                        fontSize: 11, fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 4,
+                        padding: '3px 8px', borderRadius: 10,
+                        background: st.configured ? '#e3fcef' : '#fff3cd',
+                        color: st.configured ? '#006644' : '#8a6914',
+                      }}>
+                        {st.configured ? <Check size={11} /> : <AlertTriangle size={11} />}
+                        {st.configured ? st.emailUser : 'Sin EMAIL_USER_* — envía por el remitente por defecto'}
                       </div>
                     )}
                   </div>
                 )
               })}
-            </div>
-            <div style={{ marginTop: 16, background: '#e3f2fd', borderRadius: 6, padding: '10px 14px', fontSize: 12, color: '#0d47a1' }}>
-              <strong>Después de ejecutar los comandos</strong>, corre <code>.\DEPLOY.ps1</code> para que el nuevo deploy tome las variables.
             </div>
           </div>
         </div>
