@@ -218,6 +218,9 @@ const COMPANY_FIELDS = [
   { key: 'phone',    label: 'Teléfono 1',            type: 'text' },
   { key: 'bp_telefonos_adicionales', label: 'Teléfono 2', type: 'text' },
   { key: 'bp_telefono_3',            label: 'Teléfono 3', type: 'text' },
+  { key: 'bp_email_empresa', label: 'Email 1', type: 'email' },
+  { key: 'bp_email_2',       label: 'Email 2', type: 'email' },
+  { key: 'bp_email_3',       label: 'Email 3', type: 'email' },
   // Requerido: sin país, la empresa no cae en la zona de NINGÚN operador
   // (el listado de Empresas filtra por country IN [países del operador] —
   // ver applyCountryFilter en api/auth.js) y solo la vería un supervisor.
@@ -309,7 +312,9 @@ const COMPANY_FIELDS = [
 const CONTACT_FIELDS = [
   { key: 'firstname', label: 'Nombre',    required: true, type: 'text' },
   { key: 'lastname',  label: 'Apellido',  type: 'text' },
-  { key: 'email',     label: 'Email',     type: 'email' },
+  { key: 'email',     label: 'Email 1',   type: 'email' },
+  { key: 'bp_email_2', label: 'Email 2',  type: 'email' },
+  { key: 'bp_email_3', label: 'Email 3',  type: 'email' },
   { key: 'phone',     label: 'Teléfono 1 (fijo)', type: 'text' },
   { key: 'mobilephone', label: 'Teléfono 2 (móvil)', type: 'text' },
   { key: 'bp_telefono_3', label: 'Teléfono 3', type: 'text' },
