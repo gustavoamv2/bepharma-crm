@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   HelpCircle, LayoutDashboard, Briefcase, Building2, Kanban, Users, Search,
   Phone, BarChart2, Settings, Info, Ban, Mail as MailIcon, MessageCircle,
@@ -531,7 +531,17 @@ const ALL_SECTIONS = [
 
 export default function HelpPage() {
   const { user } = useAuth()
-  const isSupervisor = user?.role === 'supervisor'
+  // Respeta bp_view_mode: si un supervisor esta simulando "vista operador"
+  // (toggle del Dashboard, o su defaultView de login como Yesenia), la guía
+  // debe mostrarse igual que a un operador real — igual patrón que
+  // App.jsx/DealDetail.jsx/DealList.jsx/KanbanPage.jsx.
+  const [viewMode, setViewMode] = useState(() => sessionStorage.getItem('bp_view_mode') || '')
+  useEffect(() => {
+    const handler = () => setViewMode(sessionStorage.getItem('bp_view_mode') || '')
+    window.addEventListener('bpViewModeChange', handler)
+    return () => window.removeEventListener('bpViewModeChange', handler)
+  }, [])
+  const isSupervisor = user?.role === 'supervisor' && (viewMode !== 'operator' || user?.canToggleView === false)
   const roleKey = isSupervisor ? 'supervisor' : 'operator'
   const sections = ALL_SECTIONS.filter(s => s.roles.includes(roleKey))
   const [active, setActive] = useState('intro')
