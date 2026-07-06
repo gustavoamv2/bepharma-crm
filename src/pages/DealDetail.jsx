@@ -50,6 +50,37 @@ function Prop({ label, value }) {
   )
 }
 
+// Empresa: Teléfono 1 = "phone", Teléfono 2 = "bp_telefonos_adicionales" (reusa
+// propiedad ya existente), Teléfono 3 = "bp_telefono_3". Emails: Email 1 =
+// "bp_email_empresa", Email 2/3 = "bp_email_2"/"bp_email_3".
+const COMPANY_PHONE_FIELDS = [
+  { key: 'phone', label: 'Teléfono 1' },
+  { key: 'bp_telefonos_adicionales', label: 'Teléfono 2' },
+  { key: 'bp_telefono_3', label: 'Teléfono 3' },
+]
+const COMPANY_EMAIL_FIELDS = [
+  { key: 'bp_email_empresa', label: 'Email 1' },
+  { key: 'bp_email_2', label: 'Email 2' },
+  { key: 'bp_email_3', label: 'Email 3' },
+]
+// Contacto: Teléfono 1 = "phone", Teléfono 2 = "mobilephone" (estándar de
+// HubSpot), Teléfono 3 = "bp_telefono_3". Emails: Email 1 = "email" (estándar),
+// Email 2/3 = "bp_email_2"/"bp_email_3".
+const CONTACT_PHONE_FIELDS = [
+  { key: 'phone', label: 'Teléfono 1' },
+  { key: 'mobilephone', label: 'Teléfono 2 (móvil)' },
+  { key: 'bp_telefono_3', label: 'Teléfono 3' },
+]
+const CONTACT_EMAIL_FIELDS = [
+  { key: 'email', label: 'Email 1' },
+  { key: 'bp_email_2', label: 'Email 2' },
+  { key: 'bp_email_3', label: 'Email 3' },
+]
+const phoneFieldsFor = (c) => (c.isCompany ? COMPANY_PHONE_FIELDS : CONTACT_PHONE_FIELDS)
+const emailFieldsFor = (c) => (c.isCompany ? COMPANY_EMAIL_FIELDS : CONTACT_EMAIL_FIELDS)
+const phonesOf = (c) => phoneFieldsFor(c).map(f => ({ label: f.label, value: c.properties?.[f.key] })).filter(x => x.value)
+const emailsOf = (c) => emailFieldsFor(c).map(f => ({ label: f.label, value: c.properties?.[f.key] })).filter(x => x.value)
+
 const ALERTA_CYCLE = { '': 'alerta_amarilla', alerta_amarilla: 'alerta_roja', alerta_roja: '' }
 const ALERTA_COLORS = { alerta_roja: '#b91c1c', alerta_amarilla: '#b45309' }
 
@@ -102,10 +133,13 @@ export default function DealDetail() {
     setDefaultContactId(contactId)
   }
 
-  // Número elegido manualmente para el Click-to-Call (al hacer click en el
-  // teléfono de un contacto en la lista) — separado del "predeterminado" de
-  // la estrella, que solo afecta el email. No persiste entre visitas.
-  const [callSelectedId, setCallSelectedId] = useState(null)
+  // Teléfono elegido manualmente para el Click-to-Call (al hacer click en
+  // alguno de los hasta 3 teléfonos de un contacto/empresa en la lista) —
+  // separado del "predeterminado" de la estrella, que solo afecta el email.
+  // Guarda el número exacto (no solo el id) porque ahora cada contacto/empresa
+  // puede tener más de un teléfono clickeable. No persiste entre visitas.
+  const [callSelectedPhone, setCallSelectedPhone] = useState(null)
+  const [callSelectedName, setCallSelectedName]   = useState(null)
 
   const { data: deal, isLoading, error } = useQuery(['deal', id], () => hubspot.getDeal(id))
   const { data: engData, isLoading: loadingEng } = useQuery(
@@ -123,20 +157,22 @@ export default function DealDetail() {
   const hasParticipated = companies.some(c => c.properties?.bp_participo_eventos === 'true' || c.properties?.bp_participo_eventos === true)
   const portalId = '51580878'
 
-  // Si la empresa vinculada tiene teléfono y/o email propios, se suma como un
+  // Si la empresa vinculada tiene algún teléfono/email propio (hasta 3 cada
+  // uno, más el contacto principal registrado en su ficha), se suma como un
   // "contacto" más — mismo tratamiento que un contacto real para Click-to-Call
   // y para el composer de email, cubriendo el caso en que aún no hay contactos
-  // individuales cargados pero sí el dato general de la empresa.
+  // individuales cargados pero sí el dato general de la empresa. Se conservan
+  // TODAS las propiedades originales (no solo phone/email) para que
+  // phonesOf/emailsOf puedan leer los 3 teléfonos y 3 emails de la empresa.
   const companyContacts = companies
-    .filter(co => co.properties?.phone || co.properties?.email)
+    .filter(co => COMPANY_PHONE_FIELDS.some(f => co.properties?.[f.key]) || COMPANY_EMAIL_FIELDS.some(f => co.properties?.[f.key]))
     .map(co => ({
       id: `company-${co.id}`,
       isCompany: true,
       properties: {
+        ...co.properties,
         firstname: co.properties?.name || `Empresa #${co.id}`,
         lastname: '',
-        phone: co.properties?.phone || '',
-        email: co.properties?.email || '',
         jobtitle: 'Teléfono/email de la empresa',
       },
     }))
@@ -145,30 +181,50 @@ export default function DealDetail() {
   // Determinar contacto activo (predeterminado o primero) — usado para email
   const activeContact = contacts.find(c => c.id === defaultContactId) || contacts[0] || null
 
-  // Contacto elegido para el Click-to-Call: el que se clickeó manualmente
-  // (callSelectedId) tiene prioridad; si no hay selección, usa el mismo
-  // que el email (predeterminado o primero con teléfono)
-  const callContact = contacts.find(c => c.id === callSelectedId)
-    || activeContact
-    || contacts.find(c => c.properties?.phone)
+  // Teléfono para el Click-to-Call: el que se clickeó manualmente
+  // (callSelectedPhone) tiene prioridad; si no hay selección, usa el primer
+  // teléfono disponible del contacto predeterminado (o el primero que tenga
+  // algún teléfono entre sus hasta 3 registrados).
+  const fallbackCallSource = contacts.find(c => c.id === defaultContactId && phonesOf(c).length > 0)
+    || contacts.find(c => phonesOf(c).length > 0)
     || null
-  const activePhone = callContact?.properties?.phone || ''
-  const activeContactName = callContact
-    ? [callContact.properties?.firstname, callContact.properties?.lastname].filter(Boolean).join(' ') || `Contacto #${callContact.id}`
+  const fallbackPhone = fallbackCallSource ? phonesOf(fallbackCallSource)[0].value : ''
+  const fallbackName = fallbackCallSource
+    ? [fallbackCallSource.properties?.firstname, fallbackCallSource.properties?.lastname].filter(Boolean).join(' ') || `Contacto #${fallbackCallSource.id}`
     : p.dealname
+  const activePhone = callSelectedPhone || fallbackPhone
+  const activeContactName = callSelectedName || fallbackName
 
-  // El módulo de llamada solo tiene sentido si hay al menos un contacto (o la empresa) con teléfono
-  const hasCallableContact = contacts.some(c => c.properties?.phone)
+  // El módulo de llamada solo tiene sentido si hay al menos un teléfono
+  // (de un contacto o de la empresa, entre los hasta 3 de cada uno)
+  const hasCallableContact = contacts.some(c => phonesOf(c).length > 0)
 
-  // Opciones de email para el composer (contactos + empresa, sin duplicar)
-  const emailOptions = contacts
-    .filter(c => c.properties?.email)
-    .map(c => ({
-      label: c.isCompany
-        ? c.properties.firstname
-        : [c.properties.firstname, c.properties.lastname].filter(Boolean).join(' ') || `Contacto #${c.id}`,
-      email: c.properties.email,
-    }))
+  // Opciones de email para el composer — TODOS los correos registrados,
+  // tanto de los contactos (hasta 3 c/u) como de la empresa (hasta 3 + el
+  // contacto principal), sin duplicar direcciones repetidas.
+  const emailOptions = []
+  const seenEmails = new Set()
+  contacts.forEach(c => {
+    const baseName = c.isCompany
+      ? c.properties.firstname
+      : [c.properties.firstname, c.properties.lastname].filter(Boolean).join(' ') || `Contacto #${c.id}`
+    emailsOf(c).forEach(({ label, value }) => {
+      const key = value.toLowerCase()
+      if (seenEmails.has(key)) return
+      seenEmails.add(key)
+      emailOptions.push({ label: `${baseName} (${label})`, email: value })
+    })
+  })
+  companies.forEach(co => {
+    const email = co.properties?.bp_email_contacto_principal
+    if (!email || seenEmails.has(email.toLowerCase())) return
+    seenEmails.add(email.toLowerCase())
+    const who = co.properties?.bp_contacto_principal_texto || 'Contacto principal'
+    emailOptions.push({ label: `${who} (contacto principal de ${co.properties?.name || 'la empresa'})`, email })
+  })
+  // "Para" arranca solo con el correo del contacto predeterminado (o el
+  // primero disponible) — los demás quedan como chips en el composer para
+  // que el operador los agregue a mano si los necesita.
   const defaultEmail = emailOptions[0]?.email || ''
 
   return (
@@ -253,19 +309,47 @@ export default function DealDetail() {
             {companies.length > 0 && (
               <div className="card" style={hasParticipated ? { borderLeft: '4px solid #38b2ac' } : undefined}>
                 <div className="card-header"><h2>Empresa vinculada</h2></div>
-                <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {companies.map(c => {
-                    const participated = c.properties?.bp_participo_eventos === 'true' || c.properties?.bp_participo_eventos === true
+                    const cp = c.properties || {}
+                    const participated = cp.bp_participo_eventos === 'true' || cp.bp_participo_eventos === true
+                    const companyPhones = COMPANY_PHONE_FIELDS.map(f => ({ label: f.label, value: cp[f.key] })).filter(x => x.value)
+                    const companyEmails = COMPANY_EMAIL_FIELDS.map(f => ({ label: f.label, value: cp[f.key] })).filter(x => x.value)
+                    const principal = cp.bp_contacto_principal_texto || cp.bp_cargo_contacto_principal || cp.bp_email_contacto_principal || cp.bp_telefono_contacto_principal
                     return (
-                      <button key={c.id} className="btn btn-ghost" style={{ justifyContent: 'flex-start', gap: 8 }}
-                        onClick={() => nav(`/companies/${c.id}`)}>
-                        {c.properties?.name || `Empresa #${c.id}`}
-                        {participated && (
-                          <span style={{ fontSize: 10, fontWeight: 700, color: '#0f766e', background: '#ccfbf1', padding: '1px 6px', borderRadius: 10 }}>
-                            📅 PARTICIPÓ ANTES
-                          </span>
+                      <div key={c.id}>
+                        <button className="btn btn-ghost" style={{ justifyContent: 'flex-start', gap: 8 }}
+                          onClick={() => nav(`/companies/${c.id}`)}>
+                          {cp.name || `Empresa #${c.id}`}
+                          {participated && (
+                            <span style={{ fontSize: 10, fontWeight: 700, color: '#0f766e', background: '#ccfbf1', padding: '1px 6px', borderRadius: 10 }}>
+                              📅 PARTICIPÓ ANTES
+                            </span>
+                          )}
+                        </button>
+                        {(companyPhones.length > 0 || companyEmails.length > 0 || principal) && (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 4, paddingLeft: 12, fontSize: 12, color: '#374151' }}>
+                            {companyPhones.map(ph => (
+                              <span key={ph.label} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                                <Phone size={11} color="#6b778c" /> {ph.label}: {ph.value}
+                              </span>
+                            ))}
+                            {companyEmails.map(em => (
+                              <span key={em.label} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                                <Mail size={11} color="#6b778c" /> {em.label}: {em.value}
+                              </span>
+                            ))}
+                            {principal && (
+                              <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                                <User size={11} color="#6b778c" /> Contacto principal: {cp.bp_contacto_principal_texto || '—'}
+                                {cp.bp_cargo_contacto_principal && ` · ${cp.bp_cargo_contacto_principal}`}
+                                {cp.bp_telefono_contacto_principal && ` · ${cp.bp_telefono_contacto_principal}`}
+                                {cp.bp_email_contacto_principal && ` · ${cp.bp_email_contacto_principal}`}
+                              </span>
+                            )}
+                          </div>
                         )}
-                      </button>
+                      </div>
                     )
                   })}
                 </div>
@@ -325,29 +409,36 @@ export default function DealDetail() {
                             {cp.jobtitle && <span style={{ fontSize: 11, color: '#6b778c' }}>{cp.jobtitle}</span>}
                           </div>
                           <div style={{ display: 'flex', gap: 16, marginTop: 6, flexWrap: 'wrap' }}>
-                            {cp.phone && (
-                              <button
-                                type="button"
-                                title="Usar este número en Click-to-Call"
-                                onClick={() => {
-                                  setCallSelectedId(c.id)
-                                  toast(`Número de ${name} cargado en Click-to-Call`, 'success')
-                                }}
-                                style={{
-                                  fontSize: 12, display: 'flex', alignItems: 'center', gap: 4,
-                                  background: 'none', border: 'none', cursor: 'pointer', padding: 0,
-                                  color: callSelectedId === c.id ? '#0052cc' : '#374151',
-                                  fontWeight: callSelectedId === c.id ? 600 : 400,
-                                }}
-                              >
-                                <Phone size={11} color={callSelectedId === c.id ? '#0052cc' : '#6b778c'} />{cp.phone}
-                              </button>
-                            )}
-                            {cp.email && (
-                              <span style={{ fontSize: 12, color: '#374151', display: 'flex', alignItems: 'center', gap: 4 }}>
-                                <Mail size={11} color="#6b778c" />{cp.email}
+                            {phonesOf(c).map(ph => {
+                              const isSelected = callSelectedPhone === ph.value
+                              return (
+                                <button
+                                  key={ph.label}
+                                  type="button"
+                                  title={`Usar ${ph.label} en Click-to-Call`}
+                                  onClick={() => {
+                                    setCallSelectedPhone(ph.value)
+                                    setCallSelectedName(name)
+                                    toast(`${ph.label} de ${name} cargado en Click-to-Call`, 'success')
+                                  }}
+                                  style={{
+                                    fontSize: 12, display: 'flex', alignItems: 'center', gap: 4,
+                                    background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+                                    color: isSelected ? '#0052cc' : '#374151',
+                                    fontWeight: isSelected ? 600 : 400,
+                                  }}
+                                >
+                                  <Phone size={11} color={isSelected ? '#0052cc' : '#6b778c'} />{ph.value}
+                                  <span style={{ fontSize: 10, color: '#94a3b8' }}>({ph.label})</span>
+                                </button>
+                              )
+                            })}
+                            {emailsOf(c).map(em => (
+                              <span key={em.label} style={{ fontSize: 12, color: '#374151', display: 'flex', alignItems: 'center', gap: 4 }}>
+                                <Mail size={11} color="#6b778c" />{em.value}
+                                <span style={{ fontSize: 10, color: '#94a3b8' }}>({em.label})</span>
                               </span>
-                            )}
+                            ))}
                           </div>
                         </div>
                       </div>

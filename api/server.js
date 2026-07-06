@@ -302,7 +302,16 @@ app.get('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
       try {
         const cr = await hs.post('/crm/v3/objects/companies/batch/read', {
           inputs: uniqueCompanyIds.map(id => ({ id })),
-          properties: ['name', 'domain', 'phone', 'email', 'bp_participo_eventos'],
+          properties: [
+            'name', 'domain', 'bp_participo_eventos',
+            // Teléfonos de la empresa (1/2/3)
+            'phone', 'bp_telefonos_adicionales', 'bp_telefono_3',
+            // Emails de la empresa (1/2/3)
+            'bp_email_empresa', 'bp_email_2', 'bp_email_3',
+            // Datos del contacto principal registrados en la ficha de Empresa
+            'bp_contacto_principal_texto', 'bp_cargo_contacto_principal',
+            'bp_email_contacto_principal', 'bp_telefono_contacto_principal',
+          ],
         })
         const byId = Object.fromEntries((cr.data.results || []).map(c => [c.id, c]))
         deal.associations.companies.results = uniqueCompanyIds.map(id => byId[id]).filter(Boolean)
@@ -336,7 +345,13 @@ app.get('/api/hubspot/deals/:id', requireAuth, async (req, res) => {
       try {
         const cr = await hs.post('/crm/v3/objects/contacts/batch/read', {
           inputs: uniqueContactIds.map(id => ({ id })),
-          properties: ['firstname', 'lastname', 'email', 'phone', 'jobtitle'],
+          properties: [
+            'firstname', 'lastname', 'jobtitle',
+            // Teléfonos del contacto (1/2/3)
+            'phone', 'mobilephone', 'bp_telefono_3',
+            // Emails del contacto (1/2/3)
+            'email', 'bp_email_2', 'bp_email_3',
+          ],
         })
         const byId = Object.fromEntries((cr.data.results || []).map(c => [c.id, c]))
         deal.associations.contacts.results = uniqueContactIds.map(id => byId[id]).filter(Boolean)
