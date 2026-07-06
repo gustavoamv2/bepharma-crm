@@ -841,14 +841,18 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
                   <input
                     id={`bp-field-${f.key}`}
                     name={f.key}
-                    // Autocomplete OFF + name único por campo: sin esto, algunos
-                    // navegadores (Chrome) autocompletaban el mismo valor
-                    // guardado en los 3 inputs de teléfono/email al no poder
-                    // distinguirlos (mismo type="email"/"tel" sin name/id) —
-                    // reportado en Empresas: Email 1/2/3 y Teléfono 1/2/3
+                    // name/id único + autoComplete con token NO estándar (no
+                    // "off"): Chrome ignora autocomplete="off" en campos que
+                    // reconoce como email/teléfono por su type="email"/"tel"
+                    // y rellena los 3 con el mismo valor guardado — pasar un
+                    // token propio (no "on"/"off"/reconocido) sí lo respeta.
+                    // También se usa type="text" en vez de "email" para que
+                    // Chrome no lo clasifique como campo de login/autofill.
+                    // Reportado en Empresas: Email 1/2/3 y Teléfono 1/2/3
                     // terminaban guardando el mismo valor tras editar.
-                    autoComplete="off"
-                    type={f.type || 'text'}
+                    autoComplete={`bp-no-autofill-${f.key}`}
+                    type={f.type === 'email' ? 'text' : (f.type || 'text')}
+                    inputMode={f.type === 'email' ? 'email' : undefined}
                     value={form[f.key] || ''}
                     onChange={e => set(f.key, e.target.value)}
                     style={inputStyle(errors[f.key])}
