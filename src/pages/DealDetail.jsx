@@ -329,11 +329,30 @@ export default function DealDetail() {
                         </button>
                         {(companyPhones.length > 0 || companyEmails.length > 0 || principal) && (
                           <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 4, paddingLeft: 12, fontSize: 12, color: '#374151' }}>
-                            {companyPhones.map(ph => (
-                              <span key={ph.label} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                                <Phone size={11} color="#6b778c" /> {ph.label}: {ph.value}
-                              </span>
-                            ))}
+                            {companyPhones.map(ph => {
+                              const isSelected = callSelectedPhone === ph.value
+                              return (
+                                <button
+                                  key={ph.label}
+                                  type="button"
+                                  title={`Usar ${ph.label} en Click-to-Call`}
+                                  onClick={() => {
+                                    setCallSelectedPhone(ph.value)
+                                    setCallSelectedName(cp.name || `Empresa #${c.id}`)
+                                    toast(`${ph.label} de ${cp.name || 'la empresa'} cargado en Click-to-Call`, 'success')
+                                  }}
+                                  style={{
+                                    display: 'flex', alignItems: 'center', gap: 4,
+                                    background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+                                    fontSize: 12, textAlign: 'left',
+                                    color: isSelected ? '#0052cc' : '#374151',
+                                    fontWeight: isSelected ? 600 : 400,
+                                  }}
+                                >
+                                  <Phone size={11} color={isSelected ? '#0052cc' : '#6b778c'} /> {ph.label}: {ph.value}
+                                </button>
+                              )
+                            })}
                             {companyEmails.map(em => (
                               <span key={em.label} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                                 <Mail size={11} color="#6b778c" /> {em.label}: {em.value}
