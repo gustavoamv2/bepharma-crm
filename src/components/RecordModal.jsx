@@ -577,13 +577,22 @@ export default function RecordModal({ type, record, onClose, onSaved, companyId 
 
     setSaving(true)
 
-    // Limpia valores vacíos; excluye campos especiales
+    // Limpia valores vacíos; excluye campos especiales.
+    // OJO: al EDITAR sí se envían los campos vacíos (como '') para que
+    // HubSpot los borre — antes se omitían silenciosamente y un campo que el
+    // operador vaciaba a propósito (ej. corregir un Email 2/Teléfono 3 mal
+    // cargado) se quedaba con el valor viejo para siempre, aunque el toast
+    // dijera "actualizado" (el resto de los campos sí se guardaban bien).
+    // Al CREAR sí se siguen omitiendo — no hay nada que "borrar" todavía.
     const props = {}
     fields.forEach(f => {
       if (f.type === 'company-search') return // handled separately
       const val = form[f.key]
-      if (val !== '' && val !== null && val !== undefined) {
+      const isEmpty = val === '' || val === null || val === undefined
+      if (!isEmpty) {
         props[f.key] = (f.type === 'number' || f.type === 'checkbox') ? String(val) : val
+      } else if (isEdit) {
+        props[f.key] = ''
       }
     })
     // Para contactos: incluir company name, _companyId y asignar owner al usuario actual
