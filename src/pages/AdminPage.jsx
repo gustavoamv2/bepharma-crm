@@ -98,6 +98,7 @@ function IntegrationStatus() {
     zadarma:      'Zadarma API',
     apollo:       'Apollo.io',
     rocketreach:  'RocketReach',
+    anthropic:    'Claude (resumen IA llamadas)',
     email:        'Email SMTP',
     webhookToken: 'Webhook Token',
   }

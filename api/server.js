@@ -3069,6 +3069,14 @@ app.get('/api/admin/integrations', requireAuth, async (req, res) => {
     ? { ok: true, label: 'API Key configurada' }
     : { ok: false, label: 'API Key no configurada' }
 
+  // Anthropic (Claude) — usado para el resumen IA de llamadas Zadarma
+  // (webhook /api/webhooks/zadarma-call-end, solo si ANTHROPIC_API_KEY
+  // esta seteada en el entorno de Vercel; es independiente de la API key
+  // que usan los escenarios de Make, que va hardcodeada en cada escenario)
+  results.anthropic = process.env.ANTHROPIC_API_KEY
+    ? { ok: true, label: 'API Key configurada' }
+    : { ok: false, label: 'API Key no configurada — el resumen IA de llamadas Zadarma no se generara' }
+
   // Email SMTP
   const emailUsers = ['roberto', 'yesenia', 'angel', 'gracie', 'carlos', 'sara']
     .filter(u => process.env[`EMAIL_USER_${u.toUpperCase()}`])
