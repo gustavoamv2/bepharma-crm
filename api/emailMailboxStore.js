@@ -62,7 +62,6 @@ async function upsertMessage(message) {
 }
 function canSeeMessage(user, msg) {
   if (!user) return false
-  if (user.role === 'supervisor') return true
   return String(msg.ownerId || '') === String(user.ownerId || '') || String(msg.ownerUsername || '').toLowerCase() === String(user.username || '').toLowerCase()
 }
 async function listMessages(user, opts = {}) {
@@ -85,6 +84,43 @@ async function getThread(user, threadId) {
   const messages = (store.messages || []).filter(m => String(m.threadId || '') === String(threadId) && canSeeMessage(user, m)).sort((a, b) => new Date(a.createdAt || 0) - new Date(b.createdAt || 0))
   return { threadId, messages, total: messages.length, persisted: kvEnabled() }
 }
+async function patchThread(user, threadId, patch = {}) {
+  const store = await readStore()
+  const now = new Date().toISOString()
+  let changed = 0
+  for (const msg of (store.messages || [])) {
+    if (String(msg.threadId || '') === String(threadId) && canSeeMessage(user, msg)) {
+      Object.assign(msg, patch, { updatedAt: now })
+      if (patch.folder === 'archived') msg.archived = true
+      if (patch.folder && patch.folder !== 'archived') msg.archived = false
+      if (patch.readAt) msg.read = true
+      msg.threadId = computeThreadId(msg)
+      changed += 1
+    }
+  }
+  if (!changed) return 0
+  await writeStore(store)
+  return changed
+}
+async function deleteMessage(user, id) {
+  const store = await readStore()
+  const idx = (store.messages || []).findIndex(m => String(m.id) === String(id))
+  if (idx < 0) return null
+  if (!canSeeMessage(user, store.messages[idx])) return false
+  const [removed] = store.messages.splice(idx, 1)
+  await writeStore(store)
+  return removed
+}
+async function deleteThread(user, threadId) {
+  const store = await readStore()
+  const before = (store.messages || []).length
+  store.messages = (store.messages || []).filter(m => !(String(m.threadId || '') === String(threadId) && canSeeMessage(user, m)))
+  const deleted = before - store.messages.length
+  if (!deleted) return 0
+  await writeStore(store)
+  return deleted
+}
+
 async function patchMessage(user, id, patch = {}) {
   const store = await readStore()
   const idx = (store.messages || []).findIndex(m => String(m.id) === String(id))
@@ -98,5 +134,5 @@ async function patchMessage(user, id, patch = {}) {
   await writeStore(store)
   return store.messages[idx]
 }
-module.exports = { kvEnabled, upsertMessage, listMessages, getThread, patchMessage, normalizeEmail, normalizeSubject, computeThreadId }
+module.exports = { kvEnabled, upsertMessage, listMessages, getThread, patchMessage, patchThread, deleteMessage, deleteThread, normalizeEmail, normalizeSubject, computeThreadId }
 

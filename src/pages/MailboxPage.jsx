@@ -1,7 +1,7 @@
-﻿import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { Link } from 'react-router-dom'
-import { Archive, Inbox, Mail, MailOpen, RefreshCw, Reply, Search, Send, Unlink } from 'lucide-react'
+import { Archive, Inbox, Link2, Mail, MailOpen, RefreshCw, Reply, Search, Send, Trash2, Unlink } from 'lucide-react'
 import Topbar from '../components/Topbar'
 import EmailComposer from '../components/EmailComposer'
 import { mailbox } from '../hooks/useApi'
@@ -77,6 +77,50 @@ export default function MailboxPage() {
       qc.invalidateQueries('mailbox')
     } catch (e) {
       toast('No se pudo actualizar el mensaje: ' + (e.response?.data?.error || e.message), 'error')
+    }
+  }
+
+  const deleteSelectedMessage = async () => {
+    if (!selectedMessage) return
+    if (!window.confirm('¿Borrar este mensaje del buzón?')) return
+    try {
+      await mailbox.deleteMessage(selectedMessage.id)
+      toast('Mensaje borrado', 'success')
+      setSelected(null)
+      qc.invalidateQueries('mailbox')
+      qc.invalidateQueries('mailbox-thread')
+    } catch (e) {
+      toast('No se pudo borrar el mensaje: ' + (e.response?.data?.error || e.message), 'error')
+    }
+  }
+
+  const deleteCurrentThread = async () => {
+    if (!selectedMessage?.threadId) return
+    if (!window.confirm('¿Borrar todo este hilo del buzón?')) return
+    try {
+      await mailbox.deleteThread(selectedMessage.threadId)
+      toast('Hilo borrado', 'success')
+      setSelected(null)
+      qc.invalidateQueries('mailbox')
+      qc.invalidateQueries('mailbox-thread')
+    } catch (e) {
+      toast('No se pudo borrar el hilo: ' + (e.response?.data?.error || e.message), 'error')
+    }
+  }
+
+  const linkCurrentThreadToDeal = async () => {
+    if (!selectedMessage?.threadId) return
+    const dealId = window.prompt('Pega el ID del deal de HubSpot para vincular este hilo')
+    if (!dealId?.trim()) return
+    try {
+      await mailbox.linkThreadToDeal(selectedMessage.threadId, dealId.trim())
+      toast('Hilo vinculado al deal', 'success')
+      setSelected(null)
+      setFolder('all')
+      qc.invalidateQueries('mailbox')
+      qc.invalidateQueries('mailbox-thread')
+    } catch (e) {
+      toast('No se pudo vincular el hilo: ' + (e.response?.data?.error || e.message), 'error')
     }
   }
 
@@ -156,9 +200,21 @@ export default function MailboxPage() {
                   <div className="mailbox-meta">Hilo: {threadMessages.length} mensaje(s)</div>
                 </div>
                 <div className="mailbox-actions">
-                  {selectedMessage.dealId && <Link className="btn btn-secondary" to={`/deals/${selectedMessage.dealId}`}>Abrir deal</Link>}
+                  {selectedMessage.dealId ? (
+                    <Link className="btn btn-secondary" to={`/deals/${selectedMessage.dealId}`}>Abrir deal</Link>
+                  ) : (
+                    <button className="btn btn-secondary" onClick={linkCurrentThreadToDeal}>
+                      <Link2 size={15} /> Vincular deal
+                    </button>
+                  )}
                   <button className="btn btn-secondary" onClick={() => archive(selectedMessage, selectedMessage.folder !== 'archived')}>
                     <Archive size={15} /> {selectedMessage.folder === 'archived' ? 'Restaurar' : 'Archivar'}
+                  </button>
+                  <button className="btn btn-secondary" onClick={deleteSelectedMessage}>
+                    <Trash2 size={15} /> Borrar mensaje
+                  </button>
+                  <button className="btn btn-secondary" onClick={deleteCurrentThread}>
+                    <Trash2 size={15} /> Borrar hilo
                   </button>
                   <button className="btn btn-primary" onClick={() => setReplying(true)} disabled={!replyTo}>
                     <Reply size={15} /> Responder

@@ -17,7 +17,7 @@ const { errorHandler } = require('./middleware/errorHandler')
 const { loadUsers, saveUsers } = require('./usersStore')
 const { getSignature, saveSignature, kvEnabled } = require('./signatureStore')
 const { getTemplates: getEmailTemplates, saveTemplates: saveEmailTemplates, kvEnabled: templatesKvEnabled } = require('./emailTemplatesStore')
-const { upsertMessage: upsertMailboxMessage, listMessages: listMailboxMessages, getThread: getMailboxThread, patchMessage: patchMailboxMessage, normalizeSubject: normalizeMailboxSubject } = require('./emailMailboxStore')
+const { upsertMessage: upsertMailboxMessage, listMessages: listMailboxMessages, getThread: getMailboxThread, patchMessage: patchMailboxMessage, patchThread: patchMailboxThread, deleteMessage: deleteMailboxMessage, deleteThread: deleteMailboxThread, normalizeSubject: normalizeMailboxSubject } = require('./emailMailboxStore')
 const { buildReportWorkbook, buildMultiSectionWorkbook, workbookToBuffer } = require('./services/excelExport.service')
 const { buildFullBackupData, buildFullBackupWorkbook } = require('./services/backup.service')
 
@@ -2332,6 +2332,14 @@ async function fetchReceivedEmailBody(emailId) {
   }
 }
 
+async function mailboxDealPatch(dealId) {
+  const r = await hs.get(`/crm/v3/objects/deals/${dealId}`, { params: { properties: 'dealname,hubspot_owner_id' } })
+  return {
+    dealId: String(dealId),
+    dealName: r.data?.properties?.dealname || '',
+  }
+}
+
 function mailboxOwnerFromDealId(dealId) {
   return hs.get(`/crm/v3/objects/deals/${dealId}`, { params: { properties: 'dealname,hubspot_owner_id' } })
     .then(r => {
@@ -2391,6 +2399,55 @@ app.patch('/api/mailbox/messages/:id', requireAuth, async (req, res) => {
     res.json({ message: msg })
   } catch (e) {
     res.status(500).json({ error: e.message })
+  }
+})
+
+
+app.delete('/api/mailbox/messages/:id', requireAuth, async (req, res) => {
+  try {
+    const deleted = await deleteMailboxMessage(req.user, req.params.id)
+    if (deleted === false) return res.status(403).json({ error: 'No autorizado' })
+    if (!deleted) return res.status(404).json({ error: 'Mensaje no encontrado' })
+    res.json({ success: true, deleted })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+app.delete('/api/mailbox/threads/:threadId', requireAuth, async (req, res) => {
+  try {
+    const deleted = await deleteMailboxThread(req.user, req.params.threadId)
+    if (!deleted) return res.status(404).json({ error: 'Hilo no encontrado' })
+    res.json({ success: true, deleted })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+app.post('/api/mailbox/messages/:id/link-deal', requireAuth, async (req, res) => {
+  try {
+    const { dealId } = req.body || {}
+    if (!dealId) return res.status(400).json({ error: 'Falta dealId' })
+    const dealPatch = await mailboxDealPatch(dealId)
+    const msg = await patchMailboxMessage(req.user, req.params.id, dealPatch)
+    if (msg === false) return res.status(403).json({ error: 'No autorizado' })
+    if (!msg) return res.status(404).json({ error: 'Mensaje no encontrado' })
+    res.json({ success: true, message: msg })
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data?.message || e.message })
+  }
+})
+
+app.post('/api/mailbox/threads/:threadId/link-deal', requireAuth, async (req, res) => {
+  try {
+    const { dealId } = req.body || {}
+    if (!dealId) return res.status(400).json({ error: 'Falta dealId' })
+    const dealPatch = await mailboxDealPatch(dealId)
+    const updated = await patchMailboxThread(req.user, req.params.threadId, dealPatch)
+    if (!updated) return res.status(404).json({ error: 'Hilo no encontrado' })
+    res.json({ success: true, updated, deal: dealPatch })
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data?.message || e.message })
   }
 })
 

@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 
 const api = axios.create({ baseURL: '/api' })
 
@@ -128,6 +128,10 @@ export const mailbox = {
   list:   (params) => api.get('/mailbox/messages', { params }).then(r => r.data),
   thread: (threadId) => api.get(`/mailbox/threads/${encodeURIComponent(threadId)}`).then(r => r.data),
   patch:  (id, patch) => api.patch(`/mailbox/messages/${id}`, patch).then(r => r.data),
+  deleteMessage: (id) => api.delete(`/mailbox/messages/${id}`).then(r => r.data),
+  deleteThread:  (threadId) => api.delete(`/mailbox/threads/${encodeURIComponent(threadId)}`).then(r => r.data),
+  linkMessageToDeal: (id, dealId) => api.post(`/mailbox/messages/${id}/link-deal`, { dealId }).then(r => r.data),
+  linkThreadToDeal:  (threadId, dealId) => api.post(`/mailbox/threads/${encodeURIComponent(threadId)}/link-deal`, { dealId }).then(r => r.data),
   sync:   () => api.post('/mailbox/sync-resend').then(r => r.data),
 }
 export const emailApi = {
