@@ -25,6 +25,8 @@ const fmt = (value) => {
 }
 
 const emailText = (value) => Array.isArray(value) ? value.join(', ') : (value || '--')
+const escapeHtml = (value = '') => String(value || '').replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]))
+const plainFromHtml = (html = '') => String(html || '').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
 
 export default function MailboxPage() {
   const qc = useQueryClient()
@@ -82,6 +84,19 @@ export default function MailboxPage() {
   const replyTo = latestInbound?.from || ''
   const replySubject = selectedMessage?.subject?.toLowerCase().startsWith('re:') ? selectedMessage.subject : `Re: ${selectedMessage?.subject || ''}`
   const replyReferences = [latestInbound?.references, latestInbound?.messageId].filter(Boolean).join(' ')
+  const replyInitialBodyHtml = useMemo(() => {
+    if (!selectedMessage) return ''
+    const quoted = threadMessages.map(message => {
+      const sender = message.direction === 'outbound' ? emailText(message.to) : message.from
+      const when = fmt(message.createdAt)
+      const content = message.html || '<div style="white-space:pre-wrap">' + escapeHtml(message.text || message.preview || '') + '</div>'
+      return '<div style="margin:12px 0 0;padding-left:12px;border-left:3px solid #d0d7de;color:#475569">' +
+        '<div style="font-size:12px;color:#64748b;margin-bottom:6px"><strong>' + escapeHtml(sender) + '</strong> - ' + escapeHtml(when) + '</div>' +
+        '<div>' + content + '</div>' +
+        '</div>'
+    }).join('')
+    return '<p><br></p><p><br></p><div style="font-size:12px;color:#64748b;margin:10px 0">----- Mensaje original -----</div>' + quoted
+  }, [selectedMessage, threadMessages])
 
   return (
     <>
@@ -181,6 +196,7 @@ export default function MailboxPage() {
           threadId={selectedMessage.threadId}
           inReplyToMessageId={latestInbound?.messageId || latestInbound?.providerMessageId || latestInbound?.resendEmailId}
           references={replyReferences}
+          initialBodyHtml={replyInitialBodyHtml}
           onClose={() => setReplying(false)}
           onSent={() => { setReplying(false); qc.invalidateQueries('mailbox') }}
         />

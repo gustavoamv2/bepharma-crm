@@ -76,7 +76,7 @@ function ToolbarButton({ onMouseDown, title, children }) {
   )
 }
 
-export default function EmailComposer({ defaultTo = '', defaultSubject = '', emailOptions = [], contactId, dealId, companyId, threadId, inReplyToMessageId, references, onClose, onSent }) {
+export default function EmailComposer({ defaultTo = '', defaultSubject = '', emailOptions = [], contactId, dealId, companyId, threadId, inReplyToMessageId, references, initialBodyHtml = '', onClose, onSent }) {
   const { addToast: toast } = useToast()
   const [to, setTo] = useState(defaultTo || emailOptions[0]?.email || '')
   const [cc, setCc] = useState('')
@@ -95,6 +95,14 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
   const [attachments, setAttachments] = useState([]) // [{ id, filename, contentType, sizeBytes, base64 }]
   const fileInputRef = useRef(null)
   const bodyRef = useRef(null)
+  const initialBodyAppliedRef = useRef(false)
+
+  useEffect(() => {
+    if (!initialBodyAppliedRef.current && initialBodyHtml && bodyRef.current) {
+      bodyRef.current.innerHTML = initialBodyHtml
+      initialBodyAppliedRef.current = true
+    }
+  }, [initialBodyHtml])
 
   useEffect(() => {
     axios.get('/api/email/verify', {
@@ -444,7 +452,7 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
                     background: '#f4f5f7', borderRadius: 6, padding: '5px 10px', fontSize: 12,
                   }}>
                     <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginRight: 8 }}>
-                      ðŸ“Ž {a.filename} <span style={{ color: '#94a3b8' }}>({humanSize(a.sizeBytes)})</span>
+                      📎 {a.filename} <span style={{ color: '#94a3b8' }}>({humanSize(a.sizeBytes)})</span>
                     </span>
                     <button onClick={() => removeAttachment(a.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6b778c', padding: 2, flexShrink: 0 }}>
                       <X size={13} />
