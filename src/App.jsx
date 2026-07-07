@@ -70,13 +70,13 @@ function AppContent() {
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a1929' }}>
-        <div style={{ color: '#4fc3f7', fontSize: 14 }}>Cargandoâ€¦</div>
+        <div style={{ color: '#4fc3f7', fontSize: 14 }}>Cargando...</div>
       </div>
     )
   }
 
   if (!user) {
-    // Rutas publicas (sin sesion): login + recuperar/restablecer contraseÃ±a.
+    // Rutas publicas (sin sesion): login + recuperar/restablecer contraseña.
     // Cualquier otra ruta cae en LoginPage.
     return (
       <Routes>
@@ -87,7 +87,7 @@ function AppContent() {
     )
   }
 
-  // Supervisor actuando como operador â†’ menÃº de operador
+  // Supervisor actuando como operador â†’ menú de operador
   // (si canToggleView es false, el usuario nunca puede pasar a vista operador)
   const isSupervisor = user.role === 'supervisor' && (viewMode !== 'operator' || user.canToggleView === false)
 
@@ -133,7 +133,7 @@ function AppContent() {
             <Search size={15} /> Buscar contactos
           </NavLink>
           <NavLink to="/ayuda" className={({ isActive }) => isActive ? 'active' : ''}>
-            <HelpCircle size={15} /> Ayuda / GuÃ­a de uso
+            <HelpCircle size={15} /> Ayuda / Guía de uso
           </NavLink>
 
           {isSupervisor && (
@@ -143,7 +143,7 @@ function AppContent() {
                 <BarChart2 size={15} /> Reportes
               </NavLink>
               <NavLink to="/admin" className={({ isActive }) => isActive ? 'active' : ''}>
-                <Settings size={15} /> AdministraciÃ³n
+                <Settings size={15} /> Administración
               </NavLink>
             </>
           )}
@@ -161,11 +161,11 @@ function AppContent() {
                 : 'Operador'}
             </div>
           </div>
-          <button onClick={() => setShowChangePassword(true)} title="Cambiar contraseÃ±a"
+          <button onClick={() => setShowChangePassword(true)} title="Cambiar contraseña"
             style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#546e7a', padding: 4, borderRadius: 4 }}>
             <KeyRound size={15} />
           </button>
-          <button onClick={logout} title="Cerrar sesiÃ³n"
+          <button onClick={logout} title="Cerrar sesión"
             style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#546e7a', padding: 4, borderRadius: 4 }}>
             <LogOut size={15} />
           </button>
@@ -212,3 +212,4 @@ export default function App() {
     </BrowserRouter>
   )
 }
+

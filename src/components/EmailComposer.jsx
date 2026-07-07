@@ -29,8 +29,8 @@ const modal = {
   maxHeight: '90vh',
 }
 
-// Mantenerse bajo el lÃ­mite de ~2.5MB combinados que valida el backend
-// (que a su vez deja margen bajo el lÃ­mite de 4mb del body de la funciÃ³n serverless)
+// Mantenerse bajo el límite de ~2.5MB combinados que valida el backend
+// (que a su vez deja margen bajo el límite de 4mb del body de la función serverless)
 const ATTACH_MAX_TOTAL_BYTES = 2.4 * 1024 * 1024
 
 const FONTS = [
@@ -40,6 +40,8 @@ const FONTS = [
   { label: 'Courier New', value: '"Courier New", monospace' },
   { label: 'Verdana', value: 'Verdana, sans-serif' },
 ]
+
+const normalizeSignatureHtml = (html = '') => String(html || '').replace(/\bTelefono\b/g, 'Teléfono')
 
 const humanSize = (bytes) => {
   if (bytes < 1024) return `${bytes} B`
@@ -108,15 +110,15 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
       })
 
     axios.get('/api/email/signature')
-      .then(r => setSignatureHtml(r.data?.html || ''))
-      .catch(() => { /* sin firma configurada â€” no bloquea el composer */ })
+      .then(r => setSignatureHtml(normalizeSignatureHtml(r.data?.html || '')))
+      .catch(() => { /* sin firma configurada — no bloquea el composer */ })
 
     axios.get('/api/email/templates')
       .then(r => setTemplates(r.data?.templates || []))
-      .catch(() => { /* sin plantillas â€” no bloquea el composer */ })
+      .catch(() => { /* sin plantillas — no bloquea el composer */ })
   }, [])
 
-  // Destinatarios seleccionados a partir del texto "Para" (permite mÃ¡s de
+  // Destinatarios seleccionados a partir del texto "Para" (permite más de
   // un correo precargado a la vez, separados por coma)
   const toEmails = to.split(',').map(s => s.trim()).filter(Boolean)
   const toggleToEmail = (email) => {
@@ -177,7 +179,7 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
     let runningTotal = totalAttachBytes
     for (const file of files) {
       if (runningTotal + file.size > ATTACH_MAX_TOTAL_BYTES) {
-        toast(`"${file.name}" no cabe â€” mÃ¡x. ${humanSize(ATTACH_MAX_TOTAL_BYTES)} combinados entre todos los adjuntos`, 'error')
+        toast(`"${file.name}" no cabe — máx. ${humanSize(ATTACH_MAX_TOTAL_BYTES)} combinados entre todos los adjuntos`, 'error')
         continue
       }
       try {
@@ -265,15 +267,15 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
             {smtpError === 'no_config' ? (
               <>Tu correo no esta configurado. Pide al administrador que configure tus credenciales en <strong>Admin &gt; Usuarios &gt; Email</strong>.</>
             ) : (
-              <>Microsoft 365 rechazo la conexion SMTP: <strong>{smtpError || 'verifica SMTP AUTH y credenciales'}</strong></>
+              <>Microsoft 365 rechazó la conexión SMTP: <strong>{smtpError || 'verifica SMTP AUTH y credenciales'}</strong></>
             )}
           </div>
         )}
 
         <div style={{ flex: 1, overflow: 'auto', padding: 18, display: 'flex', flexDirection: 'column', gap: 10 }}>
 
-          {/* Chips de selecciÃ³n rÃ¡pida de email â€” clic para agregar/quitar,
-              permite seleccionar mÃ¡s de un destinatario precargado a la vez */}
+          {/* Chips de selección rápida de email — clic para agregar/quitar,
+              permite seleccionar más de un destinatario precargado a la vez */}
           {emailOptions.length > 1 && (
             <div style={{ paddingBottom: 10, borderBottom: '1px solid #e2e8f0' }}>
               <div style={{ fontSize: 11, color: '#6b778c', fontWeight: 600, marginBottom: 6 }}>
@@ -295,7 +297,7 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
                         fontWeight: active ? 600 : 400,
                       }}
                     >
-                      {active ? 'âœ“ ' : ''}{opt.label} â€” {opt.email}
+                      {active ? '✓ ' : ''}{opt.label} — {opt.email}
                     </button>
                   )
                 })}
@@ -311,7 +313,7 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
               onChange={e => applyTemplate(e.target.value)}
               style={{ fontSize: 12, border: '1px solid #dfe1e6', borderRadius: 5, padding: '4px 6px', background: '#fff' }}
             >
-              <option value="">â€” Ninguna â€”</option>
+              <option value="">— Ninguna —</option>
               {templates.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
             <button type="button" className="btn btn-ghost btn-sm" onClick={saveAsTemplate}>
@@ -370,7 +372,7 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
             />
           </div>
 
-          {/* â”€â”€ Barra de herramientas de formato â”€â”€ */}
+          {/* ── Barra de herramientas de formato ── */}
           <div style={{
             display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap',
             padding: '4px 0', borderBottom: '1px solid #e2e8f0',
@@ -397,8 +399,8 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
 
             <div style={{ width: 1, height: 18, background: '#e2e8f0', margin: '0 4px' }} />
 
-            <ToolbarButton title="ViÃ±etas" onMouseDown={() => exec('insertUnorderedList')}><List size={14} /></ToolbarButton>
-            <ToolbarButton title="NumeraciÃ³n" onMouseDown={() => exec('insertOrderedList')}><ListOrdered size={14} /></ToolbarButton>
+            <ToolbarButton title="Viñetas" onMouseDown={() => exec('insertUnorderedList')}><List size={14} /></ToolbarButton>
+            <ToolbarButton title="Numeración" onMouseDown={() => exec('insertOrderedList')}><ListOrdered size={14} /></ToolbarButton>
           </div>
 
           <div
@@ -418,7 +420,7 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
             }}
           />
 
-          {/* â”€â”€ Adjuntos â”€â”€ */}
+          {/* ── Adjuntos ── */}
           <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <button
@@ -453,10 +455,10 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
             )}
           </div>
 
-          {/* â”€â”€ Firma â”€â”€ */}
+          {/* ── Firma ── */}
           <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: signatureHtml ? 6 : 0 }}>
-              <span style={{ fontSize: 11, color: '#6b778c', fontWeight: 600 }}>Firma (se agrega automÃ¡ticamente)</span>
+              <span style={{ fontSize: 11, color: '#6b778c', fontWeight: 600 }}>Firma (se agrega automáticamente)</span>
               <button
                 type="button"
                 className="btn btn-ghost btn-sm"
@@ -505,5 +507,8 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
     </div>
   )
 }
+
+
+
 
 
