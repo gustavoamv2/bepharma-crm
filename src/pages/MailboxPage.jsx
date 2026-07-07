@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { Link } from 'react-router-dom'
-import { Archive, Inbox, Link2, Mail, MailOpen, RefreshCw, Reply, Search, Send, Trash2, Unlink } from 'lucide-react'
+import { Archive, Inbox, Link2, Mail, MailOpen, RefreshCw, Reply, Search, Send, Trash2, Unlink, X } from 'lucide-react'
 import Topbar from '../components/Topbar'
 import EmailComposer from '../components/EmailComposer'
-import { mailbox } from '../hooks/useApi'
+import { ACTIVE_EVENT } from '../components/RecordModal'
+import { hubspot, mailbox } from '../hooks/useApi'
 import { useToast } from '../hooks/useToast'
 
 const folders = [
@@ -27,6 +28,7 @@ const fmt = (value) => {
 const emailText = (value) => Array.isArray(value) ? value.join(', ') : (value || '--')
 const escapeHtml = (value = '') => String(value || '').replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]))
 const plainFromHtml = (html = '') => String(html || '').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+const estadoLabel = (value) => ({ nueva: 'Nueva', en_depuracion: 'En depuracion', en_enriquecimiento: 'En enriquecimiento', confirmada: 'Confirmada', no_participa: 'No participa' }[value] || value || '--')
 
 export default function MailboxPage() {
   const qc = useQueryClient()
@@ -36,6 +38,8 @@ export default function MailboxPage() {
   const [selected, setSelected] = useState(null)
   const [replying, setReplying] = useState(false)
   const [composing, setComposing] = useState(false)
+  const [linkingDeal, setLinkingDeal] = useState(false)
+  const [dealSearch, setDealSearch] = useState('')
 
   const params = useMemo(() => ({ folder, q: q.trim() || undefined, limit: 120 }), [folder, q])
   const messagesQuery = useQuery(['mailbox', params], () => mailbox.list(params), { keepPreviousData: true })
@@ -48,6 +52,21 @@ export default function MailboxPage() {
     { enabled: Boolean(selectedMessage?.threadId) }
   )
   const threadMessages = threadQuery.data?.messages?.length ? threadQuery.data.messages : (selectedMessage ? [selectedMessage] : [])
+
+  const dealSelectorQuery = useQuery(
+    ['mailbox-deal-selector', dealSearch],
+    () => {
+      const filters = [{ propertyName: 'bp_evento_codigo', operator: 'EQ', value: ACTIVE_EVENT }]
+      if (dealSearch.trim()) filters.push({ propertyName: 'dealname', operator: 'CONTAINS_TOKEN', value: dealSearch.trim() })
+      return hubspot.searchDeals({
+        filters,
+        sorts: [{ propertyName: 'dealname', direction: 'ASCENDING' }],
+        limit: 50,
+      })
+    },
+    { enabled: linkingDeal, keepPreviousData: true }
+  )
+  const selectableDeals = dealSelectorQuery.data?.results || []
 
   const sync = async () => {
     try {
@@ -80,13 +99,13 @@ export default function MailboxPage() {
     }
   }
 
-  const deleteSelectedMessage = async () => {
-    if (!selectedMessage) return
-    if (!window.confirm('¿Borrar este mensaje del buzón?')) return
+  const deleteMessage = async (message) => {
+    if (!message) return
+    if (!window.confirm('Borrar solo este mensaje del hilo?')) return
     try {
-      await mailbox.deleteMessage(selectedMessage.id)
+      await mailbox.deleteMessage(message.id)
       toast('Mensaje borrado', 'success')
-      setSelected(null)
+      if (selected?.id === message.id) setSelected(null)
       qc.invalidateQueries('mailbox')
       qc.invalidateQueries('mailbox-thread')
     } catch (e) {
@@ -96,7 +115,7 @@ export default function MailboxPage() {
 
   const deleteCurrentThread = async () => {
     if (!selectedMessage?.threadId) return
-    if (!window.confirm('¿Borrar todo este hilo del buzón?')) return
+    if (!window.confirm('Borrar todo este hilo del buzon? Esta accion elimina todos los mensajes del hilo.')) return
     try {
       await mailbox.deleteThread(selectedMessage.threadId)
       toast('Hilo borrado', 'success')
@@ -108,13 +127,18 @@ export default function MailboxPage() {
     }
   }
 
-  const linkCurrentThreadToDeal = async () => {
+  const openDealSelector = () => {
     if (!selectedMessage?.threadId) return
-    const dealId = window.prompt('Pega el ID del deal de HubSpot para vincular este hilo')
-    if (!dealId?.trim()) return
+    setDealSearch('')
+    setLinkingDeal(true)
+  }
+
+  const linkCurrentThreadToDeal = async (deal) => {
+    if (!selectedMessage?.threadId || !deal?.id) return
     try {
-      await mailbox.linkThreadToDeal(selectedMessage.threadId, dealId.trim())
+      await mailbox.linkThreadToDeal(selectedMessage.threadId, deal.id)
       toast('Hilo vinculado al deal', 'success')
+      setLinkingDeal(false)
       setSelected(null)
       setFolder('all')
       qc.invalidateQueries('mailbox')
@@ -203,15 +227,12 @@ export default function MailboxPage() {
                   {selectedMessage.dealId ? (
                     <Link className="btn btn-secondary" to={`/deals/${selectedMessage.dealId}`}>Abrir deal</Link>
                   ) : (
-                    <button className="btn btn-secondary" onClick={linkCurrentThreadToDeal}>
+                    <button className="btn btn-secondary" onClick={openDealSelector}>
                       <Link2 size={15} /> Vincular deal
                     </button>
                   )}
                   <button className="btn btn-secondary" onClick={() => archive(selectedMessage, selectedMessage.folder !== 'archived')}>
                     <Archive size={15} /> {selectedMessage.folder === 'archived' ? 'Restaurar' : 'Archivar'}
-                  </button>
-                  <button className="btn btn-secondary" onClick={deleteSelectedMessage}>
-                    <Trash2 size={15} /> Borrar mensaje
                   </button>
                   <button className="btn btn-secondary" onClick={deleteCurrentThread}>
                     <Trash2 size={15} /> Borrar hilo
@@ -225,7 +246,15 @@ export default function MailboxPage() {
               <div className="mailbox-thread">
                 {threadMessages.map(message => (
                   <article key={message.id} className={`mailbox-message ${message.direction}`}>
-                    <div className="mailbox-message-head"><strong>{message.direction === 'outbound' ? 'Enviado' : 'Recibido'}</strong><span>{fmt(message.createdAt)}</span></div>
+                    <div className="mailbox-message-head">
+                      <strong>{message.direction === 'outbound' ? 'Enviado' : 'Recibido'}</strong>
+                      <div className="mailbox-message-head-actions">
+                        <span>{fmt(message.createdAt)}</span>
+                        <button type="button" className="mailbox-message-delete" onClick={() => deleteMessage(message)} title="Borrar solo este mensaje">
+                          <Trash2 size={13} /> Borrar
+                        </button>
+                      </div>
+                    </div>
                     <div className="mailbox-meta">{message.direction === 'outbound' ? `Para: ${emailText(message.to)}` : `De: ${message.from}`}</div>
                     {message.html ? <div className="mailbox-body" dangerouslySetInnerHTML={{ __html: message.html }} /> : <div className="mailbox-body plain">{message.text || message.preview || ''}</div>}
                   </article>
@@ -235,6 +264,43 @@ export default function MailboxPage() {
           )}
         </section>
       </div>
+
+
+      {linkingDeal && selectedMessage && (
+        <div className="mailbox-deal-modal-overlay" onClick={e => e.target === e.currentTarget && setLinkingDeal(false)}>
+          <div className="mailbox-deal-modal">
+            <div className="mailbox-deal-modal-head">
+              <div>
+                <h2>Vincular correo a Mis eventos</h2>
+                <p>Selecciona el deal ya creado para asociar este hilo completo.</p>
+              </div>
+              <button type="button" className="mailbox-deal-modal-close" onClick={() => setLinkingDeal(false)} title="Cerrar">
+                <X size={16} />
+              </button>
+            </div>
+            <div className="mailbox-search mailbox-deal-search">
+              <Search size={15} />
+              <input value={dealSearch} onChange={e => setDealSearch(e.target.value)} placeholder="Buscar en Mis eventos" autoFocus />
+            </div>
+            <div className="mailbox-deal-list">
+              {dealSelectorQuery.isLoading && <div className="mailbox-empty">Cargando eventos...</div>}
+              {!dealSelectorQuery.isLoading && !selectableDeals.length && <div className="mailbox-empty">No se encontraron eventos</div>}
+              {selectableDeals.map(deal => {
+                const p = deal.properties || {}
+                return (
+                  <button key={deal.id} type="button" className="mailbox-deal-option" onClick={() => linkCurrentThreadToDeal(deal)}>
+                    <div>
+                      <strong>{p.dealname || '(sin nombre)'}</strong>
+                      <span>{p.bp_zona || '--'} · {p.bp_evento_paises || '--'} · {estadoLabel(p.bp_estado_prospeccion)}</span>
+                    </div>
+                    <Link2 size={15} />
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      )}
 
       {composing && (
         <EmailComposer

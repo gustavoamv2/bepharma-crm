@@ -1,4 +1,4 @@
-﻿*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --bg: #f6f8fb;
@@ -797,9 +797,25 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
 .mailbox-message.outbound { background: #f8fbff; }
 .mailbox-message-head { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: #334155; margin-bottom: 5px; }
 .mailbox-message-head span { color: #64748b; }
+.mailbox-message-head-actions { display: flex; align-items: center; gap: 8px; }
+.mailbox-message-delete { display: inline-flex; align-items: center; gap: 4px; border: 0; background: transparent; color: #64748b; font-size: 12px; cursor: pointer; padding: 2px 4px; border-radius: 4px; }
+.mailbox-message-delete:hover { background: #fee2e2; color: #b91c1c; }
 .mailbox-body { margin-top: 12px; font-size: 13px; line-height: 1.55; color: #1e293b; overflow-wrap: anywhere; }
 .mailbox-body img { max-width: 100%; height: auto; }
 .mailbox-body.plain { white-space: pre-wrap; }
+.mailbox-deal-modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, .55); z-index: 1200; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.mailbox-deal-modal { width: min(760px, 100%); max-height: min(720px, 92vh); background: #fff; border-radius: 8px; box-shadow: 0 24px 70px rgba(15, 23, 42, .35); display: flex; flex-direction: column; overflow: hidden; }
+.mailbox-deal-modal-head { padding: 16px 18px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+.mailbox-deal-modal-head h2 { margin: 0; font-size: 18px; color: #0f172a; }
+.mailbox-deal-modal-head p { margin: 4px 0 0; color: #64748b; font-size: 13px; }
+.mailbox-deal-modal-close { border: 0; background: #f1f5f9; color: #475569; width: 30px; height: 30px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.mailbox-deal-modal-close:hover { background: #e2e8f0; color: #0f172a; }
+.mailbox-deal-search { margin: 14px 16px 8px; }
+.mailbox-deal-list { padding: 8px 16px 16px; overflow: auto; display: flex; flex-direction: column; gap: 8px; }
+.mailbox-deal-option { width: 100%; border: 1px solid #e2e8f0; background: #fff; border-radius: 8px; padding: 11px 12px; display: flex; justify-content: space-between; gap: 12px; align-items: center; cursor: pointer; text-align: left; }
+.mailbox-deal-option:hover { border-color: #0052cc; background: #f8fbff; }
+.mailbox-deal-option strong { display: block; color: #0f172a; font-size: 13px; margin-bottom: 4px; }
+.mailbox-deal-option span { color: #64748b; font-size: 12px; }
 .mailbox-empty { color: #64748b; font-size: 13px; padding: 18px; text-align: center; }
 .reader-empty { margin: auto; }
 @media (max-width: 1100px) {
