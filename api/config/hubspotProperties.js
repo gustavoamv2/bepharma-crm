@@ -93,6 +93,10 @@ const COMPANY_QUALITY_FILTERS = {
       { propertyName: 'num_associated_deals', operator: 'EQ', value: '0' },
     ],
   },
+  participoAntes: {
+    label: 'Participó antes',
+    orFilters: [{ propertyName: 'bp_participo_eventos', operator: 'EQ', value: 'true' }],
+  },
 }
 
 const CONTACT_PROPERTIES = [

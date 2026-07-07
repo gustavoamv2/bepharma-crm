@@ -29,11 +29,12 @@ const STAGE_LABELS = {
 // (api/config/hubspotProperties.js) — se repite acá solo el label, el
 // criterio de filtro real vive únicamente en el servidor.
 const QUALITY_LABELS = {
-  sinContacto:  'Sin contacto',
-  sinTelefono:  'Sin teléfono',
-  sinPaginaWeb: 'Sin página web',
-  sinCorreo:    'Sin correo',
-  sinEventos:   'Sin eventos',
+  sinContacto:    'Sin contacto',
+  sinTelefono:    'Sin teléfono',
+  sinPaginaWeb:   'Sin página web',
+  sinCorreo:      'Sin correo',
+  sinEventos:     'Sin eventos',
+  participoAntes: 'Participó antes',
 }
 const QUALITY_COLOR = '#de350b'
 
