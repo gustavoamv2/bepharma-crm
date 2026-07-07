@@ -1,4 +1,4 @@
-require('dotenv').config()
+﻿require('dotenv').config()
 const env = require('./config/env')   // valida vars criticas; falla si faltan
 
 const express = require('express')
@@ -2303,6 +2303,15 @@ function findUserByOwnerId(ownerId) {
   const users = loadUsers()
   return Object.entries(users).find(([, u]) => String(u.ownerId || '') === String(ownerId || ''))
 }
+function mailboxKeyForUsername(username) {
+  return String(username || 'user').toLowerCase().replace(/[^a-z0-9._-]/g, '-')
+}
+function findUserByMailboxKey(key) {
+  const normalized = String(key || '').toLowerCase()
+  const users = loadUsers()
+  return Object.entries(users).find(([username]) => mailboxKeyForUsername(username) === normalized)
+}
+
 function mailboxOwnerFromDealId(dealId) {
   return hs.get(`/crm/v3/objects/deals/${dealId}`, { params: { properties: 'dealname,hubspot_owner_id' } })
     .then(r => {
@@ -2359,12 +2368,14 @@ app.post('/api/mailbox/sync-resend', requireAuth, async (req, res) => {
     let saved = 0
     for (const item of received.slice(0, 50)) {
       const toList = Array.isArray(item.to) ? item.to : []
-      const toMatch = toList.map(String).find(addr => /^(deal|contact)-\d+@/i.test(addr))
-      const parsed = toMatch ? toMatch.match(/^(deal|contact)-(\d+)@/i) : null
-      const targetType = parsed?.[1]
+      const toMatch = toList.map(String).find(addr => /^(deal|contact)-\d+@|^mailbox-[^@]+@/i.test(addr))
+      const parsed = toMatch ? toMatch.match(/^(?:(deal|contact)-(\d+)|mailbox-([^@]+))@/i) : null
+      const targetType = parsed?.[1] || (parsed?.[3] ? 'mailbox' : null)
       const targetId = parsed?.[2]
+      const mailboxKey = parsed?.[3]
+      const mailboxUser = mailboxKey ? findUserByMailboxKey(mailboxKey) : null
       const dealId = targetType === 'deal' ? targetId : null
-      const ownerInfo = dealId ? await mailboxOwnerFromDealId(dealId) : {}
+      const ownerInfo = dealId ? await mailboxOwnerFromDealId(dealId) : (mailboxUser ? { ownerUsername: mailboxUser[0], ownerName: mailboxUser[1]?.name || '', ownerId: mailboxUser[1]?.ownerId || '' } : {})
       await upsertMailboxMessage({
         id: `resend_in_${item.id}`,
         resendEmailId: item.id,
@@ -2472,7 +2483,8 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
     // buzón receptor para poder capturar la respuesta en /api/webhooks/resend-inbound.
     // El cliente sigue viendo el remitente real (fromEmail) — solo cambia a
     // dónde llega técnicamente su respuesta.
-    const replyToTarget = dealId ? `deal-${dealId}` : (contactId ? `contact-${contactId}` : null)
+    const mailboxReplyTarget = `mailbox-${mailboxKeyForUsername(req.user.username)}`
+    const replyToTarget = dealId ? `deal-${dealId}` : (contactId ? `contact-${contactId}` : mailboxReplyTarget)
     const replyToAddress = (RESEND_INBOUND_DOMAIN && replyToTarget)
       ? `${replyToTarget}@${RESEND_INBOUND_DOMAIN}`
       : null
@@ -2609,7 +2621,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
         dealId,
         contactId,
         companyId,
-        threadId,
+        threadId: threadId || (!dealId && !contactId && replyToAddress ? ('mailbox:' + String(replyToAddress).toLowerCase() + ':subject:' + normalizeMailboxSubject(subject)) : undefined),
         inReplyToMessageId: inReplyToMessageId || '',
         references: references || '',
         ...ownerInfo,
@@ -3455,13 +3467,16 @@ app.post('/api/webhooks/resend-inbound', async (req, res) => {
 
     // El "to" trae la dirección deal-<id>@... / contact-<id>@... que armamos
     // al enviar (ver replyToAddress en /api/email/send)
-    const toMatch = (toAddresses || []).map(String).find(addr => /^(deal|contact)-\d+@/i.test(addr))
-    const parsed = toMatch ? toMatch.match(/^(deal|contact)-(\d+)@/i) : null
+    const toMatch = (toAddresses || []).map(String).find(addr => /^(deal|contact)-\d+@|^mailbox-[^@]+@/i.test(addr))
+    const parsed = toMatch ? toMatch.match(/^(?:(deal|contact)-(\d+)|mailbox-([^@]+))@/i) : null
     if (!parsed) {
-      console.warn(`[webhook/resend-inbound] no se identificó deal/contact en "to": ${JSON.stringify(toAddresses)}`)
-      return res.json({ ok: true, skipped: 'sin deal/contact identificado en to' })
+      console.warn(`[webhook/resend-inbound] no se identifico destino CRM en "to": ${JSON.stringify(toAddresses)}`)
+      return res.json({ ok: true, skipped: 'sin destino CRM identificado en to' })
     }
-    const [, targetType, targetId] = parsed
+    const targetType = parsed[1] || (parsed[3] ? 'mailbox' : null)
+    const targetId = parsed[2]
+    const mailboxKey = parsed[3]
+    const mailboxUser = mailboxKey ? findUserByMailboxKey(mailboxKey) : null
     const dealId = targetType === 'deal' ? targetId : null
     let contactId = targetType === 'contact' ? targetId : null
 
@@ -3493,15 +3508,18 @@ app.post('/api/webhooks/resend-inbound', async (req, res) => {
       }
     }
 
-    if (!dealId && !contactId) {
-      console.warn(`[webhook/resend-inbound] respuesta de ${fromAddress} sin deal ni contacto asociable — no se loguea`)
-      return res.json({ ok: true, skipped: 'sin deal ni contacto asociable' })
+    if (!dealId && !contactId && !mailboxUser) {
+      console.warn(`[webhook/resend-inbound] respuesta de ${fromAddress} sin deal, contacto ni mailbox asociable - no se loguea`)
+      return res.json({ ok: true, skipped: 'sin deal/contact/mailbox asociable' })
     }
 
     // Best-effort: resolver el email real del operador dueño del deal para que
     // el "to" mostrado en HubSpot sea legible (yesenia@bepharma.org) en vez de
     // la dirección técnica de recepción (deal-<id>@...resend.app)
     let toDisplayEmail = toMatch || ''
+    if (mailboxUser) {
+      toDisplayEmail = getUserEmail(mailboxUser[0]) || toDisplayEmail
+    }
     if (dealId) {
       try {
         const dealR = await hs.get(`/crm/v3/objects/deals/${dealId}`, { params: { properties: 'hubspot_owner_id' } })
@@ -3551,7 +3569,7 @@ app.post('/api/webhooks/resend-inbound', async (req, res) => {
     const createR = await hs.post('/crm/v3/objects/emails', emailPayload)
 
     try {
-      const ownerInfo = dealId ? await mailboxOwnerFromDealId(dealId) : {}
+      const ownerInfo = dealId ? await mailboxOwnerFromDealId(dealId) : (mailboxUser ? { ownerUsername: mailboxUser[0], ownerName: mailboxUser[1]?.name || '', ownerId: mailboxUser[1]?.ownerId || '' } : {})
       await upsertMailboxMessage({
         id: `resend_in_${emailId}`,
         resendEmailId: emailId,
@@ -3616,6 +3634,8 @@ if (!process.env.VERCEL) {
   app.listen(PORT, () => console.log(`BePharma API server → http://localhost:${PORT}`))
 }
 module.exports = app
+
+
 
 
 
