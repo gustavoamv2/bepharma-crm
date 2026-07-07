@@ -180,20 +180,112 @@ const {
   getCompanyIdsForContact,
 } = require('./services/autoStage.service')
 
+async function searchDealsWithCompanyParticipation({ filterGroups, sorts, limit = 50, after, properties, companyParticipatedBefore }) {
+  const mode = companyParticipatedBefore === 'yes' || companyParticipatedBefore === 'no' ? companyParticipatedBefore : ''
+  if (!mode) {
+    if (Number(limit || 50) <= 100) {
+      const r = await hs.post('/crm/v3/objects/deals/search', {
+        filterGroups,
+        sorts,
+        limit,
+        after,
+        properties: properties || DEAL_PROPERTIES,
+      })
+      return r.data
+    }
+    const allDeals = []
+    let cursor
+    const max = Number(limit || 4000)
+    for (let page = 0; page < 40 && allDeals.length < max; page++) {
+      const r = await hs.post('/crm/v3/objects/deals/search', {
+        filterGroups,
+        sorts,
+        limit: Math.min(100, max - allDeals.length),
+        after: cursor,
+        properties: properties || DEAL_PROPERTIES,
+      })
+      allDeals.push(...(r.data.results || []))
+      cursor = r.data.paging?.next?.after
+      if (!cursor) break
+    }
+    return { total: allDeals.length, results: allDeals }
+  }
+
+  const allDeals = []
+  let cursor
+  for (let page = 0; page < 40; page++) {
+    const r = await hs.post('/crm/v3/objects/deals/search', {
+      filterGroups,
+      sorts,
+      limit: 100,
+      after: cursor,
+      properties: properties || DEAL_PROPERTIES,
+    })
+    allDeals.push(...(r.data.results || []))
+    cursor = r.data.paging?.next?.after
+    if (!cursor) break
+  }
+
+  const chunk = (arr, size) => Array.from({ length: Math.ceil(arr.length / size) }, (_, i) => arr.slice(i * size, i * size + size))
+  const dealCompanyIds = new Map()
+  const dealIds = allDeals.map(d => String(d.id))
+
+  for (const ids of chunk(dealIds, 100)) {
+    const ar = await hs.post('/crm/v4/associations/deals/companies/batch/read', {
+      inputs: ids.map(id => ({ id }))
+    })
+    for (const row of (ar.data.results || [])) {
+      const fromId = String(row.from?.id || row.fromId || '')
+      const toIds = (row.to || row.results || [])
+        .map(t => String(t.toObjectId || t.id || t.to?.id || ''))
+        .filter(Boolean)
+      if (fromId) dealCompanyIds.set(fromId, toIds)
+    }
+  }
+
+  const companyIds = [...new Set([...dealCompanyIds.values()].flat())]
+  const participatedCompanies = new Set()
+  for (const ids of chunk(companyIds, 100)) {
+    const cr = await hs.post('/crm/v3/objects/companies/batch/read', {
+      inputs: ids.map(id => ({ id })),
+      properties: ['bp_participo_eventos'],
+    })
+    for (const company of (cr.data.results || [])) {
+      const value = company.properties?.bp_participo_eventos
+      if (value === true || value === 'true') participatedCompanies.add(String(company.id))
+    }
+  }
+
+  const filtered = allDeals.filter(deal => {
+    const ids = dealCompanyIds.get(String(deal.id)) || []
+    const hasParticipated = ids.some(id => participatedCompanies.has(String(id)))
+    return mode === 'yes' ? hasParticipated : !hasParticipated
+  })
+  const offset = Number(after || 0) || 0
+  const page = filtered.slice(offset, offset + Number(limit || 50))
+  const nextOffset = offset + Number(limit || 50)
+  return {
+    total: filtered.length,
+    results: page,
+    ...(nextOffset < filtered.length ? { paging: { next: { after: String(nextOffset) } } } : {}),
+  }
+}
+
 // Deals – búsqueda con filtros BePharma
 app.post('/api/hubspot/deals/search', requireAuth, async (req, res) => {
   try {
-    const { filters = [], sorts = [], limit = 50, after, properties } = req.body
+    const { filters = [], sorts = [], limit = 50, after, properties, companyParticipatedBefore } = req.body
     let filterGroups = applyOwnerFilter(req, filters.length ? [{ filters }] : [])
     filterGroups = applyCountryFilter(req, filterGroups, 'bp_evento_paises')
-    const r = await hs.post('/crm/v3/objects/deals/search', {
+    const data = await searchDealsWithCompanyParticipation({
       filterGroups,
       sorts,
       limit,
       after,
-      properties: properties || DEAL_PROPERTIES,
+      properties,
+      companyParticipatedBefore,
     })
-    res.json(r.data)
+    res.json(data)
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
   }
@@ -227,27 +319,18 @@ const DEAL_EXPORT_COLUMNS = [
 // BePharma + evento activo + resumen de filtros.
 app.post('/api/hubspot/deals/export', requireAuth, async (req, res) => {
   try {
-    const { filters = [], filtroResumen } = req.body
+    const { filters = [], filtroResumen, companyParticipatedBefore } = req.body
     let filterGroups = applyOwnerFilter(req, filters.length ? [{ filters }] : [])
     filterGroups = applyCountryFilter(req, filterGroups, 'bp_evento_paises')
 
-    const MAX_PAGES = 40 // hasta 4000 eventos (100 x 40)
-    const sleep = (ms) => new Promise(r => setTimeout(r, ms))
-    const allDeals = []
-    let after
-    for (let page = 0; page < MAX_PAGES; page++) {
-      if (page > 0) await sleep(260)
-      const r = await hs.post('/crm/v3/objects/deals/search', {
-        filterGroups,
-        sorts: [{ propertyName: 'bp_ultima_actividad_operador', direction: 'DESCENDING' }],
-        limit: 100,
-        after,
-        properties: DEAL_PROPERTIES,
-      })
-      allDeals.push(...(r.data.results || []))
-      after = r.data.paging?.next?.after
-      if (!after) break
-    }
+    const allDealsData = await searchDealsWithCompanyParticipation({
+      filterGroups,
+      sorts: [{ propertyName: 'bp_ultima_actividad_operador', direction: 'DESCENDING' }],
+      limit: 4000,
+      properties: DEAL_PROPERTIES,
+      companyParticipatedBefore,
+    })
+    const allDeals = allDealsData.results || []
 
     const fmtDate = (v) => {
       if (!v) return ''
