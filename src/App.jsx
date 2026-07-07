@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom'
-import { LayoutDashboard, Briefcase, Building2, Users, Search, LogOut, Settings, Kanban, BarChart2, KeyRound, HelpCircle } from 'lucide-react'
+import { LayoutDashboard, Briefcase, Building2, Users, Search, LogOut, Settings, Kanban, BarChart2, KeyRound, HelpCircle, Mail } from 'lucide-react'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { ToastProvider } from './hooks/useToast'
 import { hubspot } from './hooks/useApi'
@@ -19,6 +19,7 @@ import AdminPage from './pages/AdminPage'
 import KanbanPage from './pages/KanbanPage'
 import ReportsPage from './pages/ReportsPage'
 import HelpPage from './pages/HelpPage'
+import MailboxPage from './pages/MailboxPage'
 import GlobalSearch from './components/GlobalSearch'
 import ChangePasswordModal from './components/ChangePasswordModal'
 
@@ -56,7 +57,7 @@ function AppContent() {
   const notifCount = useNotifCount()
   const [showChangePassword, setShowChangePassword] = useState(false)
 
-  // Vista de operador reactiva — se sincroniza con el toggle del Dashboard
+  // Vista de operador reactiva â€” se sincroniza con el toggle del Dashboard
   const [viewMode, setViewMode] = useState(
     () => sessionStorage.getItem('bp_view_mode') || ''
   )
@@ -69,13 +70,13 @@ function AppContent() {
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a1929' }}>
-        <div style={{ color: '#4fc3f7', fontSize: 14 }}>Cargando…</div>
+        <div style={{ color: '#4fc3f7', fontSize: 14 }}>Cargandoâ€¦</div>
       </div>
     )
   }
 
   if (!user) {
-    // Rutas publicas (sin sesion): login + recuperar/restablecer contraseña.
+    // Rutas publicas (sin sesion): login + recuperar/restablecer contraseÃ±a.
     // Cualquier otra ruta cae en LoginPage.
     return (
       <Routes>
@@ -86,7 +87,7 @@ function AppContent() {
     )
   }
 
-  // Supervisor actuando como operador → menú de operador
+  // Supervisor actuando como operador â†’ menÃº de operador
   // (si canToggleView es false, el usuario nunca puede pasar a vista operador)
   const isSupervisor = user.role === 'supervisor' && (viewMode !== 'operator' || user.canToggleView === false)
 
@@ -123,13 +124,16 @@ function AppContent() {
             <Users size={15} />
             {isSupervisor ? 'Contactos' : 'Mis contactos'}
           </NavLink>
+          <NavLink to="/mailbox" className={({ isActive }) => isActive ? 'active' : ''}>
+            <Mail size={15} /> Buzon
+          </NavLink>
 
           <div className="sidebar-section">Herramientas</div>
           <NavLink to="/search" className={({ isActive }) => isActive ? 'active' : ''}>
             <Search size={15} /> Buscar contactos
           </NavLink>
           <NavLink to="/ayuda" className={({ isActive }) => isActive ? 'active' : ''}>
-            <HelpCircle size={15} /> Ayuda / Guía de uso
+            <HelpCircle size={15} /> Ayuda / GuÃ­a de uso
           </NavLink>
 
           {isSupervisor && (
@@ -139,7 +143,7 @@ function AppContent() {
                 <BarChart2 size={15} /> Reportes
               </NavLink>
               <NavLink to="/admin" className={({ isActive }) => isActive ? 'active' : ''}>
-                <Settings size={15} /> Administración
+                <Settings size={15} /> AdministraciÃ³n
               </NavLink>
             </>
           )}
@@ -157,11 +161,11 @@ function AppContent() {
                 : 'Operador'}
             </div>
           </div>
-          <button onClick={() => setShowChangePassword(true)} title="Cambiar contraseña"
+          <button onClick={() => setShowChangePassword(true)} title="Cambiar contraseÃ±a"
             style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#546e7a', padding: 4, borderRadius: 4 }}>
             <KeyRound size={15} />
           </button>
-          <button onClick={logout} title="Cerrar sesión"
+          <button onClick={logout} title="Cerrar sesiÃ³n"
             style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#546e7a', padding: 4, borderRadius: 4 }}>
             <LogOut size={15} />
           </button>
@@ -182,6 +186,7 @@ function AppContent() {
           <Route path="/kanban"        element={<KanbanPage />} />
           <Route path="/contacts"      element={<ContactList />} />
           <Route path="/contacts/:id"  element={<ContactDetail />} />
+          <Route path="/mailbox"      element={<MailboxPage />} />
           <Route path="/search"        element={<SearchPage />} />
           <Route path="/ayuda"         element={<HelpPage />} />
           <Route path="/reports"       element={<ReportsPage />} />

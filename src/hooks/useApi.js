@@ -1,4 +1,4 @@
-import axios from 'axios'
+﻿import axios from 'axios'
 
 const api = axios.create({ baseURL: '/api' })
 
@@ -11,7 +11,7 @@ api.interceptors.request.use(config => {
   return config
 })
 
-// ── HubSpot ───────────────────────────────────────────────────────────────────
+// â”€â”€ HubSpot â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const hubspot = {
   metrics:     () => api.get('/hubspot/metrics').then(r => r.data),
   charts:      (params) => api.get('/hubspot/charts', { params }).then(r => r.data),
@@ -43,8 +43,8 @@ export const hubspot = {
   getCompanyQualityMetrics: (params) => api.get('/hubspot/companies/quality-metrics', { params }).then(r => r.data),
   getContactQualityMetrics: (params) => api.get('/hubspot/contacts/quality-metrics', { params }).then(r => r.data),
 
-  // Exportar a Excel — el backend pagina TODOS los resultados que cumplen
-  // los filtros (no solo la página visible) y arma el .xlsx con logo BePharma
+  // Exportar a Excel â€” el backend pagina TODOS los resultados que cumplen
+  // los filtros (no solo la pÃ¡gina visible) y arma el .xlsx con logo BePharma
   // + evento activo + resumen de filtros. Devuelve el blob para descargar.
   exportCompanies: (body) => api.post('/hubspot/companies/export', body, { responseType: 'blob' }).then(r => r.data),
   exportContacts:  (body) => api.post('/hubspot/contacts/export',  body, { responseType: 'blob' }).then(r => r.data),
@@ -59,9 +59,9 @@ export const hubspot = {
 
 // Invalida las queries que alimentan el Dashboard (metrics/charts/deals-alertas).
 // HubSpot tarda unos segundos en reflejar un property update en su Search API
-// (índice con consistencia eventual), por eso una sola invalidación inmediata
-// puede traer datos todavía viejos si el usuario navega muy rápido. Por eso
-// invalidamos ya mismo y de nuevo un par de segundos después.
+// (Ã­ndice con consistencia eventual), por eso una sola invalidaciÃ³n inmediata
+// puede traer datos todavÃ­a viejos si el usuario navega muy rÃ¡pido. Por eso
+// invalidamos ya mismo y de nuevo un par de segundos despuÃ©s.
 export function invalidateDashboard(qc) {
   const run = () => {
     qc.invalidateQueries('metrics')
@@ -72,39 +72,39 @@ export function invalidateDashboard(qc) {
   setTimeout(run, 3000)
 }
 
-// ── Pipeline Kanban ───────────────────────────────────────────────────────────
+// â”€â”€ Pipeline Kanban â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const pipeline = {
   getDeals:    ()            => api.get('/pipeline/deals').then(r => r.data),
   updateStage: (id, stage)   => api.patch(`/pipeline/deals/${id}/stage`, { stage }).then(r => r.data),
 }
 
-// ── Zadarma ───────────────────────────────────────────────────────────────────
+// â”€â”€ Zadarma â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const zadarma = {
   call:     (from, to) => api.post('/zadarma/call', { from, to }).then(r => r.data),
   getCalls: (params)   => api.get('/zadarma/calls', { params }).then(r => r.data),
   getSip:   ()         => api.get('/zadarma/sip').then(r => r.data),
 }
 
-// ── Apollo ────────────────────────────────────────────────────────────────────
+// â”€â”€ Apollo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const apollo = {
   searchPeople: (body) => api.post('/apollo/people/search', body).then(r => r.data),
   enrich:       (body) => api.post('/apollo/enrich', body).then(r => r.data),
 }
 
-// ── RocketReach ───────────────────────────────────────────────────────────────
+// â”€â”€ RocketReach â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const rocketreach = {
   search: (body) => api.post('/rocketreach/search', body).then(r => r.data),
   lookup: (body) => api.post('/rocketreach/lookup', body).then(r => r.data),
 }
 
-// ── Auth (recuperar / cambiar contraseña) ────────────────────────────────────
+// â”€â”€ Auth (recuperar / cambiar contraseÃ±a) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const authApi = {
   forgotPassword:  (username)                    => api.post('/auth/forgot-password', { username }).then(r => r.data),
   resetPassword:   (token, newPassword)          => api.post('/auth/reset-password', { token, newPassword }).then(r => r.data),
   changePassword:  (currentPassword, newPassword) => api.post('/auth/change-password', { currentPassword, newPassword }).then(r => r.data),
 }
 
-// ── Admin ─────────────────────────────────────────────────────────────────────
+// â”€â”€ Admin â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const admin = {
   getUsers:        ()                               => api.get('/admin/users').then(r => r.data),
   updateSip:       (username, sipExtension)         => api.patch(`/admin/users/${username}/sip`, { sipExtension }).then(r => r.data),
@@ -115,19 +115,27 @@ export const admin = {
   getEmailStatus:  ()                               => api.get('/admin/email-status').then(r => r.data),
 
   // Copia de seguridad completa (Empresas/Contactos/Deals + usuarios/firmas/
-  // plantillas) — devuelve el blob para descargar. format: 'xlsx' | 'json'.
-  // Además de esta descarga manual, un cron semanal (ver vercel.json) envía
-  // la misma copia por correo a cada supervisor automáticamente.
+  // plantillas) â€” devuelve el blob para descargar. format: 'xlsx' | 'json'.
+  // AdemÃ¡s de esta descarga manual, un cron semanal (ver vercel.json) envÃ­a
+  // la misma copia por correo a cada supervisor automÃ¡ticamente.
   downloadBackup:  (format = 'xlsx')                => api.get('/admin/backup', { params: { format }, responseType: 'blob' }).then(r => r.data),
 }
 
-// ── Email ─────────────────────────────────────────────────────────────────────
+// â”€â”€ Email â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+// Mailbox Resend / HubSpot
+export const mailbox = {
+  list:   (params) => api.get('/mailbox/messages', { params }).then(r => r.data),
+  thread: (threadId) => api.get(`/mailbox/threads/${encodeURIComponent(threadId)}`).then(r => r.data),
+  patch:  (id, patch) => api.patch(`/mailbox/messages/${id}`, patch).then(r => r.data),
+  sync:   () => api.post('/mailbox/sync-resend').then(r => r.data),
+}
 export const emailApi = {
   verify:    ()                         => api.get('/email/verify').then(r => r.data),
   saveConfig:(emailUser, emailPass)     => api.patch('/email/config', { emailUser, emailPass }).then(r => r.data),
 }
 
-// ── Reports ───────────────────────────────────────────────────────────────────
+// â”€â”€ Reports â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const reports = {
   getActivity:  (days = 30)         => api.get(`/reports/activity?days=${days}`).then(r => r.data),
   getCalls:     (ownerId, days = 30) => api.get(`/reports/calls?ownerId=${ownerId}&days=${days}`).then(r => r.data),
@@ -136,3 +144,4 @@ export const reports = {
   exportActivity:  (body) => api.post('/reports/activity/export',    body, { responseType: 'blob' }).then(r => r.data),
   exportBpSummary: (body) => api.post('/reports/bp-summary/export',  body, { responseType: 'blob' }).then(r => r.data),
 }
+

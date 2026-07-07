@@ -1,4 +1,4 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+﻿*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --bg: #f6f8fb;
@@ -193,7 +193,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #c1c7d0; border-radius: 3px; }
 
-/* ── KANBAN ────────────────────────────────────────────────────────────────── */
+/* â”€â”€ KANBAN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .kanban-wrapper {
   display: flex;
   gap: 14px;
@@ -339,7 +339,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
 }
 @keyframes shimmer { 0% { background-position: 200% 0 } 100% { background-position: -200% 0 } }
 
-/* ── ACTIVITY BAR ──────────────────────────────────────────────────────────── */
+/* â”€â”€ ACTIVITY BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .activity-bar {
   position: sticky;
   bottom: 0;
@@ -391,7 +391,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
 .abar-feedback.success { background: #e3fcef; color: #006644; }
 .abar-feedback.error { background: #ffebe6; color: #bf2600; }
 
-/* ── GLOBAL SEARCH ─────────────────────────────────────────────────────────── */
+/* â”€â”€ GLOBAL SEARCH â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .gsearch-overlay {
   position: fixed;
   inset: 0;
@@ -481,7 +481,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
   font-family: monospace;
 }
 
-/* ── NOTIFICATION BADGE ────────────────────────────────────────────────────── */
+/* â”€â”€ NOTIFICATION BADGE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .notif-badge {
   display: inline-flex;
   align-items: center;
@@ -499,7 +499,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
 }
 .sidebar-nav a .notif-badge { margin-left: auto; }
 
-/* ── REPORTS ───────────────────────────────────────────────────────────────── */
+/* â”€â”€ REPORTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .reports-period-selector {
   display: flex;
   gap: 6px;
@@ -557,7 +557,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
 }
 .owner-stat .stat-label { color: var(--text-muted); }
 
-/* ── KANBAN DE EVENTOS (kev-*) ───────────────────────────────────────────── */
+/* â”€â”€ KANBAN DE EVENTOS (kev-*) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .kev-board {
   display: flex;
   gap: 12px;
@@ -744,3 +744,65 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
 }
 .btn-secondary:hover { background: #e2e8f0; }
 .owner-stat .stat-val { font-weight: 700; font-size: 14px; color: var(--text); }
+
+/* Mailbox */
+.mailbox-page {
+  display: grid;
+  grid-template-columns: 180px minmax(280px, 380px) minmax(0, 1fr);
+  gap: 14px;
+  height: calc(100vh - 86px);
+  overflow: hidden;
+}
+.mailbox-folders, .mailbox-list-panel, .mailbox-reader {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  min-height: 0;
+}
+.mailbox-folders { padding: 10px; display: flex; flex-direction: column; gap: 4px; }
+.mailbox-folders button {
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 9px 10px;
+  border-radius: 6px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #344563;
+  cursor: pointer;
+  font-weight: 600;
+}
+.mailbox-folders button.active, .mailbox-folders button:hover { background: #eef6ff; color: #0052cc; }
+.mailbox-list-panel { display: flex; flex-direction: column; overflow: hidden; }
+.mailbox-search { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; }
+.mailbox-search input { border: 0; outline: 0; flex: 1; font-size: 13px; }
+.mailbox-list { overflow: auto; min-height: 0; }
+.mailbox-row { width: 100%; border: 0; border-bottom: 1px solid #edf2f7; background: #fff; padding: 10px 12px; display: flex; gap: 10px; text-align: left; cursor: pointer; }
+.mailbox-row:hover, .mailbox-row.active { background: #f6faff; }
+.mailbox-row.unread .mailbox-row-subject, .mailbox-row.unread strong { font-weight: 800; }
+.mailbox-row-icon { color: #64748b; padding-top: 2px; }
+.mailbox-row-main { min-width: 0; flex: 1; }
+.mailbox-row-top { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: #334155; }
+.mailbox-row-top span { color: #64748b; white-space: nowrap; }
+.mailbox-row-subject { font-size: 13px; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 3px; }
+.mailbox-row-preview { font-size: 12px; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 3px; }
+.mailbox-reader { display: flex; flex-direction: column; overflow: hidden; }
+.mailbox-reader-head { padding: 16px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.mailbox-reader-head h2 { margin: 0 0 6px; font-size: 19px; color: #0f172a; }
+.mailbox-meta { font-size: 12px; color: #64748b; margin-top: 3px; }
+.mailbox-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.mailbox-thread { overflow: auto; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.mailbox-message { border: 1px solid #e2e8f0; border-radius: 8px; padding: 13px; background: #fff; }
+.mailbox-message.outbound { background: #f8fbff; }
+.mailbox-message-head { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: #334155; margin-bottom: 5px; }
+.mailbox-message-head span { color: #64748b; }
+.mailbox-body { margin-top: 12px; font-size: 13px; line-height: 1.55; color: #1e293b; overflow-wrap: anywhere; }
+.mailbox-body img { max-width: 100%; height: auto; }
+.mailbox-body.plain { white-space: pre-wrap; }
+.mailbox-empty { color: #64748b; font-size: 13px; padding: 18px; text-align: center; }
+.reader-empty { margin: auto; }
+@media (max-width: 1100px) {
+  .mailbox-page { grid-template-columns: 150px minmax(260px, 1fr); }
+  .mailbox-reader { grid-column: 1 / -1; min-height: 460px; }
+}

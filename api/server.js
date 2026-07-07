@@ -17,6 +17,7 @@ const { errorHandler } = require('./middleware/errorHandler')
 const { loadUsers, saveUsers } = require('./usersStore')
 const { getSignature, saveSignature, kvEnabled } = require('./signatureStore')
 const { getTemplates: getEmailTemplates, saveTemplates: saveEmailTemplates, kvEnabled: templatesKvEnabled } = require('./emailTemplatesStore')
+const { upsertMessage: upsertMailboxMessage, listMessages: listMailboxMessages, getThread: getMailboxThread, patchMessage: patchMailboxMessage, normalizeSubject: normalizeMailboxSubject } = require('./emailMailboxStore')
 const { buildReportWorkbook, buildMultiSectionWorkbook, workbookToBuffer } = require('./services/excelExport.service')
 const { buildFullBackupData, buildFullBackupWorkbook } = require('./services/backup.service')
 
@@ -2293,6 +2294,101 @@ app.put('/api/email/templates', requireAuth, async (req, res) => {
   }
 })
 
+
+// Mailbox interno - bandeja tipo Outlook alimentada por Resend + envios del CRM
+function stripEmailHtml(html) {
+  return String(html || '').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+}
+function findUserByOwnerId(ownerId) {
+  const users = loadUsers()
+  return Object.entries(users).find(([, u]) => String(u.ownerId || '') === String(ownerId || ''))
+}
+function mailboxOwnerFromDealId(dealId) {
+  return hs.get(`/crm/v3/objects/deals/${dealId}`, { params: { properties: 'dealname,hubspot_owner_id' } })
+    .then(r => {
+      const ownerId = r.data?.properties?.hubspot_owner_id || ''
+      const found = findUserByOwnerId(ownerId)
+      return {
+        ownerId,
+        ownerUsername: found?.[0] || '',
+        ownerName: found?.[1]?.name || '',
+        dealName: r.data?.properties?.dealname || '',
+      }
+    })
+    .catch(() => ({ ownerId: '', ownerUsername: '', ownerName: '', dealName: '' }))
+}
+
+app.get('/api/mailbox/messages', requireAuth, async (req, res) => {
+  try {
+    const data = await listMailboxMessages(req.user, req.query)
+    res.json(data)
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+app.get('/api/mailbox/threads/:threadId', requireAuth, async (req, res) => {
+  try {
+    const data = await getMailboxThread(req.user, req.params.threadId)
+    res.json(data)
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+app.patch('/api/mailbox/messages/:id', requireAuth, async (req, res) => {
+  try {
+    const allowed = ['read', 'readAt', 'archived', 'folder', 'dealId', 'contactId', 'companyId', 'dealName', 'companyName', 'ownerId', 'ownerUsername', 'ownerName']
+    const patch = Object.fromEntries(Object.entries(req.body || {}).filter(([k]) => allowed.includes(k)))
+    const msg = await patchMailboxMessage(req.user, req.params.id, patch)
+    if (msg === false) return res.status(403).json({ error: 'No autorizado' })
+    if (!msg) return res.status(404).json({ error: 'Mensaje no encontrado' })
+    res.json({ message: msg })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
+
+app.post('/api/mailbox/sync-resend', requireAuth, async (req, res) => {
+  if (!process.env.RESEND_API_KEY) return res.status(400).json({ error: 'RESEND_API_KEY no configurado' })
+  try {
+    const r = await axios.get('https://api.resend.com/emails/receiving', {
+      headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` },
+    })
+    const received = r.data?.data || []
+    let saved = 0
+    for (const item of received.slice(0, 50)) {
+      const toList = Array.isArray(item.to) ? item.to : []
+      const toMatch = toList.map(String).find(addr => /^(deal|contact)-\d+@/i.test(addr))
+      const parsed = toMatch ? toMatch.match(/^(deal|contact)-(\d+)@/i) : null
+      const targetType = parsed?.[1]
+      const targetId = parsed?.[2]
+      const dealId = targetType === 'deal' ? targetId : null
+      const ownerInfo = dealId ? await mailboxOwnerFromDealId(dealId) : {}
+      await upsertMailboxMessage({
+        id: `resend_in_${item.id}`,
+        resendEmailId: item.id,
+        provider: 'resend',
+        direction: 'inbound',
+        folder: 'inbox',
+        subject: item.subject || '(sin asunto)',
+        from: item.from || '',
+        to: toList,
+        cc: item.cc || [],
+        messageId: item.message_id || '',
+        createdAt: item.created_at || new Date().toISOString(),
+        preview: 'Sincronizado desde Resend. El cuerpo completo se guarda cuando entra por webhook.',
+        dealId,
+        contactId: targetType === 'contact' ? targetId : null,
+        ...ownerInfo,
+      })
+      saved += 1
+    }
+    res.json({ success: true, saved, total: received.length })
+  } catch (e) {
+    res.status(e.response?.status || 500).json({ error: e.response?.data || e.message })
+  }
+})
 // Admin: lista de usuarios con estado de email configurado
 app.get('/api/admin/email-status', requireAuth, async (req, res) => {
   if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
@@ -2342,7 +2438,7 @@ const RESEND_INBOUND_DOMAIN = process.env.RESEND_INBOUND_DOMAIN || null
 
 app.post('/api/email/send', requireAuth, async (req, res) => {
   try {
-    const { to, cc, subject, body, bodyHtml: bodyHtmlIn, contactId, dealId, companyId, signatureHtml, attachments } = req.body
+    const { to, cc, subject, body, bodyHtml: bodyHtmlIn, contactId, dealId, companyId, signatureHtml, attachments, threadId, inReplyToMessageId, references } = req.body
 
     // Compat: el composer nuevo manda "bodyHtml" (ya formateado desde el editor
     // enriquecido); el flujo viejo mandaba "body" en texto plano con \n.
@@ -2367,6 +2463,9 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
     }
 
     const bodyHtml = rawBodyHtml + (signatureHtml ? `<br><br>${signatureHtml}` : '')
+    const threadHeaders = inReplyToMessageId ? { 'In-Reply-To': inReplyToMessageId, ...(references ? { References: references } : {}) } : null
+    let providerMessageId = null
+    let provider = process.env.RESEND_API_KEY ? 'resend' : (process.env.AZURE_TENANT_ID && process.env.AZURE_CLIENT_ID && process.env.AZURE_CLIENT_SECRET ? 'graph' : 'smtp')
 
     // Si hay dominio de recepción configurado y sabemos a qué deal (o, en su
     // defecto, contacto) pertenece este correo, el Reply-To apunta a nuestro
@@ -2383,11 +2482,12 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
       // EMAIL_USER_* por operador; si no existe, usa RESEND_FROM como fallback
       const fromEmail = getUserEmail(req.user.username) || process.env.RESEND_FROM || 'onboarding@resend.dev'
       const fromName  = req.user.name || 'BePharma'
-      await axios.post('https://api.resend.com/emails', {
+      const resendSendR = await axios.post('https://api.resend.com/emails', {
         from: `${fromName} <${fromEmail}>`,
         to: toList,
         ...(ccList.length ? { cc: ccList } : {}),
         ...(replyToAddress ? { reply_to: [replyToAddress] } : {}),
+        ...(threadHeaders ? { headers: threadHeaders } : {}),
         bcc: [HUBSPOT_BCC_ADDRESS],
         subject,
         html: bodyHtml,
@@ -2397,6 +2497,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
       }, {
         headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` }
       })
+      providerMessageId = resendSendR.data?.id || null
     } else if (process.env.AZURE_TENANT_ID && process.env.AZURE_CLIENT_ID && process.env.AZURE_CLIENT_SECRET) {
       // ── Modo Microsoft Graph ──────────────────────────────────────────────
       const emailUser = getUserEmail(req.user.username)
@@ -2413,6 +2514,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
         to: toList.join(', '), subject,
         ...(ccList.length ? { cc: ccList.join(', ') } : {}),
         ...(replyToAddress ? { replyTo: replyToAddress } : {}),
+        ...(threadHeaders ? { headers: threadHeaders } : {}),
         bcc: HUBSPOT_BCC_ADDRESS,
         text: bodyText,
         html: bodyHtml,
@@ -2483,6 +2585,37 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
     } catch (hsErr) {
       hubspotLogError = hsErr.response?.data?.message || hsErr.message
       console.warn('HubSpot email log error:', hsErr.response?.data || hsErr.message)
+    }
+
+    try {
+      const ownerInfo = dealId ? await mailboxOwnerFromDealId(dealId) : {}
+      await upsertMailboxMessage({
+        id: providerMessageId ? `sent_${providerMessageId}` : `sent_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`,
+        provider,
+        providerMessageId,
+        direction: 'outbound',
+        folder: 'sent',
+        subject,
+        from: emailUser,
+        to: toList,
+        cc: ccList,
+        html: bodyHtml,
+        text: bodyText,
+        preview: bodyText.slice(0, 260),
+        createdAt: new Date().toISOString(),
+        ownerId: req.user.ownerId,
+        ownerUsername: req.user.username,
+        ownerName: req.user.name,
+        dealId,
+        contactId,
+        companyId,
+        threadId,
+        inReplyToMessageId: inReplyToMessageId || '',
+        references: references || '',
+        ...ownerInfo,
+      })
+    } catch (mailboxErr) {
+      console.warn('[mailbox] no se pudo guardar enviado:', mailboxErr.message)
     }
 
     res.json({
@@ -3417,6 +3550,33 @@ app.post('/api/webhooks/resend-inbound', async (req, res) => {
 
     const createR = await hs.post('/crm/v3/objects/emails', emailPayload)
 
+    try {
+      const ownerInfo = dealId ? await mailboxOwnerFromDealId(dealId) : {}
+      await upsertMailboxMessage({
+        id: `resend_in_${emailId}`,
+        resendEmailId: emailId,
+        provider: 'resend',
+        direction: 'inbound',
+        folder: 'inbox',
+        subject: subject || '(sin asunto)',
+        from: fromAddress || '',
+        to: toAddresses || [],
+        html: bodyHtml,
+        text: bodyText,
+        preview: (bodyText || stripEmailHtml(bodyHtml)).slice(0, 260),
+        messageId: event.data?.message_id || '',
+        createdAt: event.data?.created_at || new Date().toISOString(),
+        dealId,
+        contactId,
+        threadId: dealId ? `deal:${dealId}:subject:${normalizeMailboxSubject(subject || '(sin asunto)')}` : undefined,
+        hubspotEmailId: createR.data.id,
+        ...ownerInfo,
+      })
+      console.log('[mailbox] respuesta entrante guardada')
+    } catch (mailboxErr) {
+      console.warn('[mailbox] no se pudo guardar entrante:', mailboxErr.message)
+    }
+
     console.log(`[webhook/resend-inbound] respuesta logueada: ${createR.data.id} | from=${fromAddress} | deal=${dealId || '-'} | contact=${contactId || '-'}`)
     res.json({ ok: true, engagementId: createR.data.id, dealId, contactId })
   } catch (e) {
@@ -3456,3 +3616,7 @@ if (!process.env.VERCEL) {
   app.listen(PORT, () => console.log(`BePharma API server → http://localhost:${PORT}`))
 }
 module.exports = app
+
+
+
+
