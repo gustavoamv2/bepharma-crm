@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {
   HelpCircle, LayoutDashboard, Briefcase, Building2, Kanban, Users, Search,
-  Phone, BarChart2, Settings, Info, Ban, Mail as MailIcon, MessageCircle,
+  Phone, BarChart2, Settings, Info, Ban, Mail as MailIcon, MessageCircle, Inbox,
 } from 'lucide-react'
 import Topbar from '../components/Topbar'
 import { useAuth } from '../contexts/AuthContext'
@@ -338,6 +338,71 @@ function SectionContactos() {
   )
 }
 
+function SectionBuzon() {
+  return (
+    <>
+      <Card title="Qué es el Buzón" icon={Inbox}>
+        <p>
+          El Buzón es el correo integrado del CRM: recibe y guarda las respuestas que llegan a los
+          correos enviados desde la ficha de un Evento, sin necesidad de entrar a Outlook ni a
+          HubSpot. Cada correo enviado o recibido queda organizado en hilos (conversación completa
+          por asunto), igual que en Gmail u Outlook.
+        </p>
+        <Tip tone="info">
+          Cuando respondes o envías desde el Buzón, y el correo está vinculado a un Evento, ese
+          intercambio también queda visible en la pestaña <strong>Actividades</strong> de ese Evento
+          — es el mismo historial, visto desde dos lugares distintos.
+        </Tip>
+      </Card>
+
+      <Card title="Carpetas del Buzón" icon={Inbox}>
+        <FieldTable rows={[
+          ['Entrada', 'Correos recibidos, ordenados del más reciente al más antiguo.'],
+          ['Enviados', 'Correos que enviaste desde el redactor de email de un Evento o desde "Nuevo correo".'],
+          ['Sin vincular', 'Correos recibidos que el sistema no pudo asociar automáticamente a ningún Evento — normalmente porque llegaron a la bandeja general y no a la dirección de respuesta de un Evento en particular. Hay que vincularlos manualmente (ver abajo) para que aparezcan en el Evento correcto.'],
+          ['Archivados', 'Correos que sacaste de la vista principal sin borrarlos.'],
+          ['Todo', 'Todos los correos, de cualquier carpeta.'],
+        ]} />
+        <Tip tone="warn">
+          Un correo en "Sin vincular" no está perdido — sigue guardado, solo que todavía no se sabe a
+          qué Evento pertenece. Mientras no lo vincules, no aparecerá en la ficha de ningún Evento.
+        </Tip>
+      </Card>
+
+      <Card title="Leer y responder" icon={MailIcon}>
+        <FieldTable rows={[
+          ['Buscar', 'Por asunto, remitente o empresa, arriba de la lista.'],
+          ['Abrir un correo', 'Clic en cualquier fila — se marca como leído y se abre el hilo completo a la derecha.'],
+          ['Responder', 'Cita automáticamente el mensaje anterior; se envía y queda registrado igual que un correo nuevo.'],
+          ['Nuevo correo', 'Botón arriba a la derecha — redacta un correo suelto, no ligado a un hilo existente.'],
+          ['Sincronizar', 'Fuerza una revisión inmediata por si algún correo reciente todavía no apareció solo.'],
+        ]} />
+      </Card>
+
+      <Card title="Vincular un correo a un Evento" icon={Info}>
+        <p>
+          Desde la carpeta <strong>Sin vincular</strong>, abre el correo y presiona
+          <strong> "Vincular deal"</strong>. Se abre un buscador con los Eventos del evento BePharma
+          activo — elige el correcto y confirma.
+        </p>
+        <FieldTable rows={[
+          ['Qué se vincula', 'Todo el hilo completo (no solo el mensaje abierto), incluyendo los correos que lleguen después con el mismo asunto.'],
+          ['Dónde se ve después', 'El correo pasa a mostrar el botón "Abrir deal" en vez de "Vincular deal", y aparece en la pestaña Actividades de ese Evento.'],
+          ['Si el evento no aparece en el buscador', 'El selector solo muestra Eventos del evento BePharma activo actualmente — si el Evento que buscas pertenece a un ciclo anterior o no existe todavía, créalo primero desde la Empresa correspondiente.'],
+        ]} />
+      </Card>
+
+      <Card title="Archivar y borrar" icon={Ban}>
+        <FieldTable rows={[
+          ['Archivar / Restaurar', 'Mueve el hilo hacia o desde "Archivados" — no borra nada, solo lo saca de la vista principal.'],
+          ['Borrar mensaje', 'Elimina un único correo dentro del hilo (botón "Borrar" junto a cada mensaje).'],
+          ['Borrar hilo', 'Elimina la conversación completa del Buzón. No se puede deshacer.'],
+        ]} />
+      </Card>
+    </>
+  )
+}
+
 function SectionBuscar() {
   return (
     <Card title="Buscar contactos (Apollo.io / RocketReach)" icon={Search}>
@@ -494,6 +559,7 @@ function SectionFAQ({ isSupervisor }) {
     ['El Kanban dice "más de 500 registros", ¿qué hago?', 'Es solo un límite visual de esa vista. Usa el listado ("Mis eventos" / "Todos los eventos") con los filtros de estado/país/operador para ver o trabajar el resto.'],
     ['¿Cómo cambio mi contraseña?', 'Icono de llave 🔑 junto a tu nombre, abajo del menú lateral.'],
     ['¿Cuál es el atajo para buscar rápido en todo el CRM?', 'Ctrl+K desde cualquier pantalla — busca a la vez en Eventos, Contactos y Empresas.'],
+    ['Un correo me llegó a "Sin vincular" en el Buzón, ¿qué hago?', 'Ábrelo y presiona "Vincular deal" para asociarlo al Evento correspondiente — recién ahí aparecerá también en la pestaña Actividades de ese Evento.'],
     ...(isSupervisor ? [
       ['¿Cómo veo el CRM igual que lo ve un operador?', 'Desde el Dashboard hay un toggle de "vista operador" — te muestra el menú y los permisos exactos de un operador, sin perder tu rol real.'],
       ['¿Dónde configuro las extensiones SIP y los países de cada operador?', 'En Administración → "Extensiones SIP" y "Países asignados por operador".'],
@@ -522,6 +588,7 @@ const ALL_SECTIONS = [
   { id: 'empresas',      label: 'Empresas',              icon: Building2,     roles: ['operator', 'supervisor'], Comp: SectionEmpresas },
   { id: 'kanban',        label: 'Pipeline de Eventos',   icon: Kanban,        roles: ['operator', 'supervisor'], Comp: SectionKanban },
   { id: 'contactos',     label: 'Contactos',             icon: Users,         roles: ['operator', 'supervisor'], Comp: SectionContactos },
+  { id: 'buzon',         label: 'Buzón',                 icon: Inbox,         roles: ['operator', 'supervisor'], Comp: SectionBuzon },
   { id: 'buscar',        label: 'Buscar contactos',      icon: Search,        roles: ['operator', 'supervisor'], Comp: SectionBuscar },
   { id: 'comunicacion',  label: 'Comunicación',          icon: Phone,         roles: ['operator', 'supervisor'], Comp: SectionComunicacion },
   { id: 'reportes',      label: 'Reportes',              icon: BarChart2,     roles: ['supervisor'],             Comp: SectionReportes },
