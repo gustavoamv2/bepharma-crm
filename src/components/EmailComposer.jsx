@@ -424,7 +424,12 @@ export default function EmailComposer({ defaultTo = '', defaultSubject = '', ema
               lineHeight: 1.6,
               color: '#172b4d',
               minHeight: 180,
-              padding: '4px 0',
+              maxHeight: 300,
+              overflowY: 'auto',
+              border: '1px solid #e2e8f0',
+              borderRadius: 8,
+              padding: '10px 12px',
+              background: '#fff',
             }}
           />
 

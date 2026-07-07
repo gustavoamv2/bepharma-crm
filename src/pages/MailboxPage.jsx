@@ -89,7 +89,8 @@ export default function MailboxPage() {
     const quoted = threadMessages.map(message => {
       const sender = message.direction === 'outbound' ? emailText(message.to) : message.from
       const when = fmt(message.createdAt)
-      const content = message.html || '<div style="white-space:pre-wrap">' + escapeHtml(message.text || message.preview || '') + '</div>'
+      const quotedText = message.text || plainFromHtml(message.html) || message.preview || ''
+      const content = '<div style="white-space:pre-wrap">' + escapeHtml(quotedText) + '</div>'
       return '<div style="margin:12px 0 0;padding-left:12px;border-left:3px solid #d0d7de;color:#475569">' +
         '<div style="font-size:12px;color:#64748b;margin-bottom:6px"><strong>' + escapeHtml(sender) + '</strong> - ' + escapeHtml(when) + '</div>' +
         '<div>' + content + '</div>' +
