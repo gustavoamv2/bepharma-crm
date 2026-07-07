@@ -2312,6 +2312,26 @@ function findUserByMailboxKey(key) {
   return Object.entries(users).find(([username]) => mailboxKeyForUsername(username) === normalized)
 }
 
+async function fetchReceivedEmailBody(emailId) {
+  if (!emailId || !process.env.RESEND_API_KEY) return { html: '', text: '', attachments: [], messageId: '' }
+  try {
+    const detailR = await axios.get(`https://api.resend.com/emails/receiving/${emailId}`, {
+      headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` },
+      params: { html_format: 'data_uri' },
+    })
+    const data = detailR.data?.data || detailR.data || {}
+    return {
+      html: data.html || data.html_body || data.body?.html || '',
+      text: data.text || data.text_body || data.body?.text || '',
+      attachments: data.attachments || [],
+      messageId: data.message_id || '',
+    }
+  } catch (err) {
+    console.warn('[mailbox] fallo al pedir detalle Resend:', err.response?.data || err.message)
+    return { html: '', text: '', attachments: [], messageId: '', error: err.response?.data || err.message }
+  }
+}
+
 function mailboxOwnerFromDealId(dealId) {
   return hs.get(`/crm/v3/objects/deals/${dealId}`, { params: { properties: 'dealname,hubspot_owner_id' } })
     .then(r => {
@@ -2339,6 +2359,22 @@ app.get('/api/mailbox/messages', requireAuth, async (req, res) => {
 app.get('/api/mailbox/threads/:threadId', requireAuth, async (req, res) => {
   try {
     const data = await getMailboxThread(req.user, req.params.threadId)
+    for (const msg of data.messages || []) {
+      if (msg.resendEmailId && !msg.html && !msg.text) {
+        const detail = await fetchReceivedEmailBody(msg.resendEmailId)
+        if (detail.html || detail.text) {
+          const patch = {
+            html: detail.html,
+            text: detail.text,
+            preview: (detail.text || stripEmailHtml(detail.html)).slice(0, 260),
+            messageId: msg.messageId || detail.messageId || '',
+            attachments: detail.attachments || [],
+          }
+          const updated = await patchMailboxMessage(req.user, msg.id, patch)
+          if (updated) Object.assign(msg, updated)
+        }
+      }
+    }
     res.json(data)
   } catch (e) {
     res.status(500).json({ error: e.message })
@@ -2347,7 +2383,7 @@ app.get('/api/mailbox/threads/:threadId', requireAuth, async (req, res) => {
 
 app.patch('/api/mailbox/messages/:id', requireAuth, async (req, res) => {
   try {
-    const allowed = ['read', 'readAt', 'archived', 'folder', 'dealId', 'contactId', 'companyId', 'dealName', 'companyName', 'ownerId', 'ownerUsername', 'ownerName']
+    const allowed = ['read', 'readAt', 'archived', 'folder', 'dealId', 'contactId', 'companyId', 'dealName', 'companyName', 'ownerId', 'ownerUsername', 'ownerName', 'html', 'text', 'preview', 'messageId', 'attachments']
     const patch = Object.fromEntries(Object.entries(req.body || {}).filter(([k]) => allowed.includes(k)))
     const msg = await patchMailboxMessage(req.user, req.params.id, patch)
     if (msg === false) return res.status(403).json({ error: 'No autorizado' })
@@ -2388,7 +2424,7 @@ app.post('/api/mailbox/sync-resend', requireAuth, async (req, res) => {
         cc: item.cc || [],
         messageId: item.message_id || '',
         createdAt: item.created_at || new Date().toISOString(),
-        preview: 'Sincronizado desde Resend. El cuerpo completo se guarda cuando entra por webhook.',
+        preview: 'Sincronizado desde Resend. Abre el hilo para cargar el cuerpo completo.',
         dealId,
         contactId: targetType === 'contact' ? targetId : null,
         ...ownerInfo,
@@ -3484,11 +3520,9 @@ app.post('/api/webhooks/resend-inbound', async (req, res) => {
     let bodyText = ''
     let bodyHtml = ''
     try {
-      const detailR = await axios.get(`https://api.resend.com/emails/receiving/${emailId}`, {
-        headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` }
-      })
-      bodyText = detailR.data?.text || ''
-      bodyHtml = detailR.data?.html || ''
+      const detail = await fetchReceivedEmailBody(emailId)
+      bodyText = detail.text || ''
+      bodyHtml = detail.html || ''
     } catch (detailErr) {
       console.warn('[webhook/resend-inbound] fallo al pedir el cuerpo del correo:', detailErr.response?.data || detailErr.message)
     }
@@ -3634,6 +3668,7 @@ if (!process.env.VERCEL) {
   app.listen(PORT, () => console.log(`BePharma API server → http://localhost:${PORT}`))
 }
 module.exports = app
+
 
 
 
