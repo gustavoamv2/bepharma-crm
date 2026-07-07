@@ -2355,6 +2355,59 @@ function mailboxOwnerFromDealId(dealId) {
     .catch(() => ({ ownerId: '', ownerUsername: '', ownerName: '', dealName: '' }))
 }
 
+// Al "vincular" un mensaje del buzon interno a un deal, no basta con marcar
+// el campo dealId en el store (bp_email_mailbox): la pestaña Actividades del
+// deal (DealDetail.jsx -> /api/hubspot/engagements/deals/:id) lee SOLO las
+// asociaciones reales de HubSpot (/crm/v3/objects/deals/:id/associations/emails),
+// nunca el store interno. Sin este paso el mensaje queda "vinculado" en el
+// buzon pero invisible en el deal.
+//   - Si el mensaje ya tiene hubspotEmailId (fue logueado por el webhook de
+//     Resend en /api/webhooks/resend-inbound) solo le agregamos la asociacion
+//     al deal.
+//   - Si NO tiene hubspotEmailId (p.ej. mensajes traidos por el boton
+//     "Sincronizar" /api/mailbox/sync-resend, que solo escriben el store
+//     interno y nunca crearon un engagement en HubSpot) lo creamos de cero,
+//     asociado al deal desde el principio.
+const MAILBOX_ASSOC_TYPE_ID = { deals: 210, contacts: 198 }
+async function ensureMailboxMessageInHubspotDeal(msg, dealId) {
+  if (msg.hubspotEmailId) {
+    try {
+      await hs.put(`/crm/v3/objects/emails/${msg.hubspotEmailId}/associations/deals/${dealId}/${MAILBOX_ASSOC_TYPE_ID.deals}`)
+      return { hubspotEmailId: msg.hubspotEmailId }
+    } catch (err) {
+      console.warn(`[mailbox] fallo asociando email ${msg.hubspotEmailId} al deal ${dealId}:`, err.response?.data?.message || err.message)
+      return {}
+    }
+  }
+  try {
+    const toList = (Array.isArray(msg.to) ? msg.to : [msg.to]).filter(Boolean)
+    const associations = [{ to: { id: Number(dealId) }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: MAILBOX_ASSOC_TYPE_ID.deals }] }]
+    if (msg.contactId) associations.push({ to: { id: Number(msg.contactId) }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: MAILBOX_ASSOC_TYPE_ID.contacts }] })
+    const emailPayload = {
+      properties: {
+        hs_timestamp: msg.createdAt || new Date().toISOString(),
+        hs_email_direction: msg.direction === 'outbound' ? 'EMAIL' : 'INCOMING_EMAIL',
+        hs_email_status: 'SENT',
+        hs_email_subject: msg.subject || '(sin asunto)',
+        hs_email_text: msg.text || stripEmailHtml(msg.html) || '',
+        hs_email_html: msg.html || '',
+        hs_email_headers: JSON.stringify({
+          from: { email: msg.from || '' },
+          to: toList.map(email => ({ email })),
+          cc: [],
+          bcc: [],
+        }),
+      },
+      associations,
+    }
+    const createR = await hs.post('/crm/v3/objects/emails', emailPayload)
+    return { hubspotEmailId: createR.data.id }
+  } catch (err) {
+    console.warn(`[mailbox] fallo creando engagement de email para el deal ${dealId}:`, err.response?.data?.message || err.message)
+    return {}
+  }
+}
+
 app.get('/api/mailbox/messages', requireAuth, async (req, res) => {
   try {
     const data = await listMailboxMessages(req.user, req.query)
@@ -2432,7 +2485,12 @@ app.post('/api/mailbox/messages/:id/link-deal', requireAuth, async (req, res) =>
     const msg = await patchMailboxMessage(req.user, req.params.id, dealPatch)
     if (msg === false) return res.status(403).json({ error: 'No autorizado' })
     if (!msg) return res.status(404).json({ error: 'Mensaje no encontrado' })
-    res.json({ success: true, message: msg })
+    const hsResult = await ensureMailboxMessageInHubspotDeal(msg, dealId)
+    if (hsResult.hubspotEmailId && hsResult.hubspotEmailId !== msg.hubspotEmailId) {
+      await patchMailboxMessage(req.user, msg.id, { hubspotEmailId: hsResult.hubspotEmailId })
+      msg.hubspotEmailId = hsResult.hubspotEmailId
+    }
+    res.json({ success: true, message: msg, syncedToHubspot: !!hsResult.hubspotEmailId })
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data?.message || e.message })
   }
@@ -2443,9 +2501,17 @@ app.post('/api/mailbox/threads/:threadId/link-deal', requireAuth, async (req, re
     const { dealId } = req.body || {}
     if (!dealId) return res.status(400).json({ error: 'Falta dealId' })
     const dealPatch = await mailboxDealPatch(dealId)
-    const updated = await patchMailboxThread(req.user, req.params.threadId, dealPatch)
-    if (!updated) return res.status(404).json({ error: 'Hilo no encontrado' })
-    res.json({ success: true, updated, deal: dealPatch })
+    const updatedMessages = await patchMailboxThread(req.user, req.params.threadId, dealPatch)
+    if (!updatedMessages.length) return res.status(404).json({ error: 'Hilo no encontrado' })
+    let synced = 0
+    for (const msg of updatedMessages) {
+      const hsResult = await ensureMailboxMessageInHubspotDeal(msg, dealId)
+      if (hsResult.hubspotEmailId && hsResult.hubspotEmailId !== msg.hubspotEmailId) {
+        await patchMailboxMessage(req.user, msg.id, { hubspotEmailId: hsResult.hubspotEmailId })
+      }
+      if (hsResult.hubspotEmailId) synced += 1
+    }
+    res.json({ success: true, updated: updatedMessages.length, synced, deal: dealPatch })
   } catch (e) {
     res.status(e.response?.status || 500).json({ error: e.response?.data?.message || e.message })
   }

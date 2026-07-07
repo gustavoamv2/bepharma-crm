@@ -87,7 +87,7 @@ async function getThread(user, threadId) {
 async function patchThread(user, threadId, patch = {}) {
   const store = await readStore()
   const now = new Date().toISOString()
-  let changed = 0
+  const updated = []
   for (const msg of (store.messages || [])) {
     if (String(msg.threadId || '') === String(threadId) && canSeeMessage(user, msg)) {
       Object.assign(msg, patch, { updatedAt: now })
@@ -95,12 +95,12 @@ async function patchThread(user, threadId, patch = {}) {
       if (patch.folder && patch.folder !== 'archived') msg.archived = false
       if (patch.readAt) msg.read = true
       msg.threadId = computeThreadId(msg)
-      changed += 1
+      updated.push(msg)
     }
   }
-  if (!changed) return 0
+  if (!updated.length) return []
   await writeStore(store)
-  return changed
+  return updated
 }
 async function deleteMessage(user, id) {
   const store = await readStore()
