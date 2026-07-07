@@ -1361,7 +1361,7 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
   // desde el 05-jul-2026 (antes se excluían "para no dejar una sola barra
   // tras un clic", pero eso hacía que elegir un estado/alerta pareciera no
   // hacer nada en su propio gráfico — reportado como bug por Gustavo).
-  const { search, ownerFilter, estado, alerta, countryFilter, extraFilters } = req.query
+  const { search, ownerFilter, estado, alerta, countryFilter, extraFilters, companyParticipatedBefore } = req.query
   const commonExtra = []
   if (search)        commonExtra.push({ propertyName: 'dealname',         operator: 'CONTAINS_TOKEN', value: search })
   if (ownerFilter)   commonExtra.push({ propertyName: 'hubspot_owner_id', operator: 'EQ',             value: ownerFilter })
@@ -1394,10 +1394,13 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
   )
   const safe = async (filters, extra = []) => {
     try {
-      const r = await hs.post('/crm/v3/objects/deals/search', {
-        filterGroups: fg(filters, extra), limit: 1, properties: ['dealname'],
+      const data = await searchDealsWithCompanyParticipation({
+        filterGroups: fg(filters, extra),
+        limit: 1,
+        properties: ['dealname'],
+        companyParticipatedBefore,
       })
-      return r.data.total || 0
+      return data.total || 0
     } catch { return 0 }
   }
   // Pequeña pausa entre queries para no exceder el rate limit de HubSpot (4 req/s)

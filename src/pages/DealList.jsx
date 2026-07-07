@@ -27,7 +27,7 @@ function downloadBlob(blob, filename) {
 const ESTADO_OPTIONS = [
   { value: '', label: 'Todos los estados' },
   { value: 'nueva',            label: 'Nueva' },
-  { value: 'en_depuracion',   label: 'En DepuraciÃ³n' },
+  { value: 'en_depuracion',   label: 'En Depuración' },
   { value: 'en_enriquecimiento', label: 'En Enriquecimiento' },
   { value: 'contacto_enviado', label: 'Por Contactar' },
   { value: 'en_seguimiento',  label: 'En Seguimiento' },
@@ -42,7 +42,7 @@ const ALERTA_OPTIONS = [
   { value: 'alerta_amarilla', label: 'Alerta amarilla' },
 ]
 
-// Colores para los grÃ¡ficos "Estado de la empresa" / "Alertas levantadas"
+// Colores para los gráficos "Estado de la empresa" / "Alertas levantadas"
 const STAGE_CHART_COLORS = {
   nueva:              '#2563eb',
   en_depuracion:      '#d97706',
@@ -69,7 +69,7 @@ const OWNER_NAMES = {
 
 const ESTADO_LABELS = {
   nueva:            'Nueva',
-  en_depuracion:   'En DepuraciÃ³n',
+  en_depuracion:   'En Depuración',
   en_enriquecimiento: 'En Enriquecimiento',
   contacto_enviado: 'Por Contactar',
   en_seguimiento:  'En Seguimiento',
@@ -78,10 +78,10 @@ const ESTADO_LABELS = {
 }
 
 function formatBpDate(val) {
-  if (!val) return 'â€”'
+  if (!val) return '--'
   const n = Number(val)
   const d = isNaN(n) || n < 1e10 ? new Date(val) : new Date(n)
-  if (isNaN(d.getTime())) return 'â€”'
+  if (isNaN(d.getTime())) return '--'
   return d.toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: '2-digit' })
 }
 
@@ -90,7 +90,7 @@ const ALERTA_COLORS = {
   alerta_amarilla:'#b45309',
 }
 
-// Ciclo: sin alerta â†’ amarilla â†’ roja â†’ sin alerta
+// Ciclo: sin alerta -> amarilla -> roja -> sin alerta
 const ALERTA_CYCLE = { '': 'alerta_amarilla', alerta_amarilla: 'alerta_roja', alerta_roja: '' }
 
 function AlertToggle({ dealId, current, onUpdated }) {
@@ -150,13 +150,13 @@ export default function DealList() {
   const [estado, setEstado] = useState('')
   const [alerta, setAlerta] = useState('')
   const [ownerFilter, setOwnerFilter] = useState('')
-  const [countryFilter, setCountryFilter] = useState('') // valor en espaÃ±ol, igual que se guarda bp_evento_paises
+  const [countryFilter, setCountryFilter] = useState('') // valor en español, igual que se guarda bp_evento_paises
   const [participoAntes, setParticipoAntes] = useState('')
   const [after, setAfter] = useState(null)
   const [history, setHistory] = useState([])
 
-  // En vista de operador, el filtro de paÃ­s solo debe listar los paÃ­ses que
-  // ese operador tiene configurados (user.bp_paises) â€” igual que en Empresas.
+  // En vista de operador, el filtro de país solo debe listar los países que
+  // ese operador tiene configurados (user.bp_paises) -- igual que en Empresas.
   const availableCountries = (!isSupervisor && user?.bp_paises?.length)
     ? COUNTRIES.filter(c => user.bp_paises.includes(c.label))
     : COUNTRIES
@@ -191,11 +191,11 @@ export default function DealList() {
     { keepPreviousData: true }
   )
 
-  // Las grÃ¡ficas reflejan TODOS los filtros activos del listado (bÃºsqueda,
-  // estado, alerta, operador, paÃ­s, el filtro rÃ¡pido que llega por navegaciÃ³n
-  // desde el Dashboard) â€” incluyendo la propia dimensiÃ³n graficada (ver
+  // Las gráficas reflejan TODOS los filtros activos del listado (búsqueda,
+  // estado, alerta, operador, país, el filtro rápido que llega por navegación
+  // desde el Dashboard) -- incluyendo la propia dimensión graficada (ver
   // /api/hubspot/charts, cambio 05-jul-2026: antes "Estado de la empresa" no
-  // se filtraba a sÃ­ mismo por `estado` y parecÃ­a no reaccionar al filtro).
+  // se filtraba a sí mismo por `estado` y parecÃ­a no reaccionar al filtro).
   const { data: chartsData } = useQuery(
     ['charts', user?.username, viewMode, search, estado, alerta, ownerFilter, countryFilter, participoAntes, preFilter],
     () => hubspot.charts({
@@ -204,6 +204,7 @@ export default function DealList() {
       alerta: alerta || undefined,
       ownerFilter: ownerFilter || undefined,
       countryFilter: countryFilter || undefined,
+      companyParticipatedBefore: participoAntes || undefined,
       extraFilters: (preFilter && !estado) ? JSON.stringify(preFilter.filters || []) : undefined,
     }),
     { staleTime: 60_000, keepPreviousData: true }
@@ -216,11 +217,12 @@ export default function DealList() {
   const goPrev = () => { const h = [...history]; setAfter(h.pop() || null); setHistory(h) }
 
   const filtroResumenParts = []
-  if (search) filtroResumenParts.push(`BÃºsqueda: "${search}"`)
+  if (search) filtroResumenParts.push(`Búsqueda: "${search}"`)
   if (estado) filtroResumenParts.push(`Estado: ${ESTADO_LABELS[estado] || estado}`)
   if (alerta) filtroResumenParts.push(`Alerta: ${ALERTA_OPTIONS.find(o => o.value === alerta)?.label || alerta}`)
   if (ownerFilter) filtroResumenParts.push(`Operador: ${OWNER_NAMES[ownerFilter] || ownerFilter}`)
-  if (countryFilter) filtroResumenParts.push(`PaÃ­s: ${countryFilter}`)
+  if (countryFilter) filtroResumenParts.push(`País: ${countryFilter}`)
+  if (participoAntes) filtroResumenParts.push(`Participó antes: ${participoAntes === 'yes' ? 'Sí' : 'No'}`)
   const filtroResumen = filtroResumenParts.join('; ')
 
   const handleExport = async () => {
@@ -239,12 +241,12 @@ export default function DealList() {
     <>
       <Topbar title={isSupervisor ? 'Todos los eventos' : 'Mis eventos'} action={
         <button className="btn btn-ghost btn-sm" onClick={handleExport} disabled={exporting} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-          <FileSpreadsheet size={13} /> {exporting ? 'Generandoâ€¦' : 'Exportar a Excel'}
+          <FileSpreadsheet size={13} /> {exporting ? 'Generando...' : 'Exportar a Excel'}
         </button>
       } />
 
       <div className="content">
-        {/* GrÃ¡ficos: Estado de la empresa + Alertas levantadas â€” clic filtra el listado */}
+        {/* Gráficos: Estado de la empresa + Alertas levantadas -- clic filtra el listado */}
         {chartsData && (
           <div className="card" style={{ marginBottom: 14 }}>
             <div className="card-header">
@@ -298,15 +300,15 @@ export default function DealList() {
             </select>
           )}
           <select value={countryFilter} onChange={e => { setCountryFilter(e.target.value); resetPage() }}>
-            <option value="">Todos los paÃ­ses</option>
+            <option value="">Todos los países</option>
             {availableCountries.map(c => (
               <option key={c.label} value={c.label}>{c.label}</option>
             ))}
           </select>
           <select value={participoAntes} onChange={e => { setParticipoAntes(e.target.value); resetPage() }}>
-            <option value="">ParticipÃ³ antes: todos</option>
-            <option value="yes">ParticipÃ³ antes: sÃ­</option>
-            <option value="no">ParticipÃ³ antes: no</option>
+            <option value="">Participó antes: todos</option>
+            <option value="yes">Participó antes: sí</option>
+            <option value="no">Participó antes: no</option>
           </select>
           {preFilter && (
             <button className="btn btn-ghost btn-sm" onClick={() => nav('/deals', { state: null })}>
@@ -331,10 +333,10 @@ export default function DealList() {
                       <th>Evento</th>
                       <th>Owner</th>
                       <th>Zona</th>
-                      <th>PaÃ­s</th>
+                      <th>País</th>
                       <th>Estado</th>
-                      <th>Proximo contacto</th>
-                      <th>Ult. actividad</th>
+                      <th>Próximo contacto</th>
+                      <th>Última actividad</th>
                       <th>Alerta</th>
                       {isSupervisor && <th style={{ width: 36 }}></th>}
                     </tr>
@@ -347,10 +349,10 @@ export default function DealList() {
                       return (
                         <tr key={d.id} className="clickable" onClick={() => nav(`/deals/${d.id}`)}>
                           <td style={{ fontWeight: 500 }}>{p.dealname || '(sin nombre)'}</td>
-                          <td style={{ fontSize: 12 }}>{OWNER_NAMES[p.hubspot_owner_id] || 'â€”'}</td>
-                          <td style={{ fontSize: 12 }}>{p.bp_zona || 'â€”'}</td>
-                          <td style={{ fontSize: 12 }}>{p.bp_evento_paises || 'â€”'}</td>
-                          <td style={{ fontSize: 12 }}>{ESTADO_LABELS[p.bp_estado_prospeccion] || p.bp_estado_prospeccion || 'â€”'}</td>
+                          <td style={{ fontSize: 12 }}>{OWNER_NAMES[p.hubspot_owner_id] || '--'}</td>
+                          <td style={{ fontSize: 12 }}>{p.bp_zona || '--'}</td>
+                          <td style={{ fontSize: 12 }}>{p.bp_evento_paises || '--'}</td>
+                          <td style={{ fontSize: 12 }}>{ESTADO_LABELS[p.bp_estado_prospeccion] || p.bp_estado_prospeccion || '--'}</td>
                           <td style={{ fontSize: 12, color: isOverdue ? 'var(--danger)' : undefined }}>
                             {isOverdue && <Calendar size={11} style={{ marginRight: 3, verticalAlign: 'middle' }} />}
                             {formatBpDate(p.bp_proximo_contacto)}
@@ -384,7 +386,7 @@ export default function DealList() {
               </div>
               <div className="pagination">
                 <div className="pagination-info">
-                  Total: {data?.total ?? '?'} Â· mostrando {deals.length}
+                  Total: {data?.total ?? '?'} · mostrando {deals.length}
                 </div>
                 <div className="pagination-btns">
                   <button className="btn btn-ghost btn-sm" onClick={goPrev} disabled={history.length === 0}>Anterior</button>

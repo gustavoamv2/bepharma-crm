@@ -136,6 +136,7 @@ export default function Dashboard() {
   const [alerta, setAlerta] = useState('')
   const [ownerFilter, setOwnerFilter] = useState('')
   const [countryFilter, setCountryFilter] = useState('')
+  const [participoAntes, setParticipoAntes] = useState('')
   const [exporting, setExporting] = useState(false)
   const toggleEstado = (key) => {
     setEstadoFilters(prev => prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key])
@@ -154,12 +155,13 @@ export default function Dashboard() {
   )
 
   const { data: chartsData } = useQuery(
-    ['charts', user?.username, viewAsOperator, estadoFilters.join(','), alerta, ownerFilter, countryFilter],
+    ['charts', user?.username, viewAsOperator, estadoFilters.join(','), alerta, ownerFilter, countryFilter, participoAntes],
     () => hubspot.charts({
       estado: estadoFilters.length ? estadoFilters.join(',') : undefined,
       alerta: alerta || undefined,
       ownerFilter: ownerFilter || undefined,
       countryFilter: countryFilter || undefined,
+      companyParticipatedBefore: participoAntes || undefined,
     }),
     { refetchInterval: 10 * 60 * 1000 }
   )
@@ -181,12 +183,13 @@ export default function Dashboard() {
   if (alerta) filtroResumenParts.push(`Alerta: ${ALERTA_OPTIONS.find(o => o.value === alerta)?.label || alerta}`)
   if (ownerFilter) filtroResumenParts.push(`Operador: ${OWNER_NAMES[ownerFilter] || ownerFilter}`)
   if (countryFilter) filtroResumenParts.push(`País: ${countryFilter}`)
+  if (participoAntes) filtroResumenParts.push(`Participó antes: ${participoAntes === 'yes' ? 'Sí' : 'No'}`)
   const filtroResumen = filtroResumenParts.join('; ')
 
   const handleExport = async () => {
     setExporting(true)
     try {
-      const blob = await hubspot.exportDeals({ filters: buildDashboardFilters(), filtroResumen })
+      const blob = await hubspot.exportDeals({ filters: buildDashboardFilters(), filtroResumen, companyParticipatedBefore: participoAntes || undefined })
       downloadBlob(blob, `BePharma_Eventos_${ACTIVE_EVENT}_${new Date().toISOString().slice(0, 10)}.xlsx`)
     } catch (e) {
       addToast('No se pudo generar el Excel: ' + (e.response?.data?.error || e.message), 'error')
@@ -236,12 +239,12 @@ export default function Dashboard() {
   // total real de HubSpot (no el .length de la lista, que esta topada a 25)
   const alertsTotal = alertsData?.total ?? alertDeals.length
 
-  // ── Metricas cards usando propiedades BePharma ────────────────────────────
+  // ── Métricas cards usando propiedades BePharma ────────────────────────────
   const metricCards = [
     {
       key: 'sinActividad72h',
       label: 'Sin actividad +72h',
-      sublabel: 'Ultima actividad hace mas de 3 dias',
+      sublabel: 'Última actividad hace más de 3 días',
       icon: AlertTriangle, cls: 'metric-danger',
       filter: { filters: [
         { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
@@ -253,7 +256,7 @@ export default function Dashboard() {
     {
       key: 'callbacksVencidos',
       label: isSupervisor ? 'Callbacks vencidos' : 'Mis callbacks vencidos',
-      sublabel: 'Fecha de proximo contacto vencida',
+      sublabel: 'Fecha de próximo contacto vencida',
       icon: PhoneCall, cls: 'metric-danger',
       filter: { filters: [
         { propertyName: 'bp_evento_codigo', operator: 'EQ', value: 'BEPH-2026-09' },
@@ -264,7 +267,7 @@ export default function Dashboard() {
     },
     {
       key: 'sinProximoContacto',
-      label: 'Sin proximo contacto',
+      label: 'Sin próximo contacto',
       sublabel: 'Sin fecha de seguimiento agendada',
       icon: Calendar, cls: 'metric-warning',
       filter: { filters: [
@@ -444,6 +447,12 @@ export default function Dashboard() {
                 {availableCountries.map(c => (
                   <option key={c.label} value={c.label}>{c.label}</option>
                 ))}
+              </select>
+              <select value={participoAntes} onChange={e => setParticipoAntes(e.target.value)}
+                style={{ fontSize: 12, padding: '6px 8px', borderRadius: 6, border: '1px solid #dfe1e6', color: '#42526e' }}>
+                <option value="">Participó antes: todos</option>
+                <option value="yes">Participó antes: sí</option>
+                <option value="no">Participó antes: no</option>
               </select>
             </div>
 
