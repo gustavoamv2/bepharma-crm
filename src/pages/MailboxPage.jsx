@@ -33,6 +33,7 @@ export default function MailboxPage() {
   const [q, setQ] = useState('')
   const [selected, setSelected] = useState(null)
   const [replying, setReplying] = useState(false)
+  const [composing, setComposing] = useState(false)
 
   const params = useMemo(() => ({ folder, q: q.trim() || undefined, limit: 120 }), [folder, q])
   const messagesQuery = useQuery(['mailbox', params], () => mailbox.list(params), { keepPreviousData: true })
@@ -85,9 +86,14 @@ export default function MailboxPage() {
   return (
     <>
       <Topbar title="Buzon" action={
-        <button className="btn btn-primary" onClick={sync} disabled={messagesQuery.isFetching}>
-          <RefreshCw size={15} /> Sincronizar
-        </button>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <button className="btn btn-primary" onClick={() => setComposing(true)}>
+            <Send size={15} /> Nuevo correo
+          </button>
+          <button className="btn btn-secondary" onClick={sync} disabled={messagesQuery.isFetching}>
+            <RefreshCw size={15} /> Sincronizar
+          </button>
+        </div>
       } />
       <div className="content mailbox-page">
         <aside className="mailbox-folders">
@@ -158,6 +164,13 @@ export default function MailboxPage() {
         </section>
       </div>
 
+      {composing && (
+        <EmailComposer
+          onClose={() => setComposing(false)}
+          onSent={() => { setComposing(false); setFolder('sent'); qc.invalidateQueries('mailbox') }}
+        />
+      )}
+
       {replying && selectedMessage && (
         <EmailComposer
           defaultTo={replyTo}
@@ -175,3 +188,5 @@ export default function MailboxPage() {
     </>
   )
 }
+
+
