@@ -80,7 +80,7 @@ export const pipeline = {
 
 // â”€â”€ Zadarma â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const zadarma = {
-  call:     (from, to) => api.post('/zadarma/call', { from, to }).then(r => r.data),
+  call:     (from, to, context = {}) => api.post('/zadarma/call', { from, to, ...context }).then(r => r.data),
   getCalls: (params)   => api.get('/zadarma/calls', { params }).then(r => r.data),
   getSip:   ()         => api.get('/zadarma/sip').then(r => r.data),
 }

@@ -1963,6 +1963,8 @@ app.post('/api/zadarma/call', requireAuth, async (req, res) => {
     const from = cleanZadarmaFrom(req.body.from)
     const to = cleanZadarmaPhone(req.body.to)
     const predicted = Number(req.body.predicted || 0)
+    const objectType = req.body.objectType
+    const objectId = req.body.objectId
 
     if (!from) return res.status(400).json({ error: 'Tu usuario no tiene extension SIP/PBX configurada.' })
     if (!/^\d{3,20}$/.test(from)) return res.status(400).json({ error: 'La extension SIP/PBX no es valida.', details: `Valor recibido: ${req.body.from || ''}` })
@@ -2003,6 +2005,52 @@ app.post('/api/zadarma/call', requireAuth, async (req, res) => {
       })
     }
 
+    let callEngagement = null
+    let callLogError = null
+    const assocTypeIdMap = { deals: 206, contacts: 194, companies: 182 }
+    const assocTypeId = objectType && objectId ? assocTypeIdMap[objectType] : null
+
+    if (assocTypeId) {
+      try {
+        const callPayload = {
+          properties: {
+            hs_call_body: [
+              'Click-to-call iniciado desde BePharma CRM',
+              `Extension: ${from}`,
+              `Destino: ${to}`,
+              'Resultado final pendiente de Zadarma.',
+            ].join('\n'),
+            hs_call_duration: '0',
+            hs_call_status: 'COMPLETED',
+            hs_call_direction: 'OUTBOUND',
+            hs_timestamp: new Date().toISOString(),
+            hs_call_to_number: to,
+            hs_call_title: 'Click-to-call enviado',
+          },
+          associations: [{
+            to: { id: objectId },
+            types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: assocTypeId }]
+          }]
+        }
+        if (/^\d+$/.test(String(req.user.ownerId || ''))) callPayload.properties.hubspot_owner_id = req.user.ownerId
+        const callR = await hs.post('/crm/v3/objects/calls', callPayload)
+        callEngagement = { id: callR.data.id }
+
+        if (objectType === 'deals') {
+          const today = new Date().toISOString().slice(0, 10)
+          await hs.patch(`/crm/v3/objects/deals/${objectId}`, {
+            properties: {
+              bp_ultima_actividad_operador: today,
+              bp_ultimo_canal: 'llamada',
+            }
+          }).catch(e => console.warn('[zadarma/call] deal activity update warning:', e.response?.data || e.message))
+        }
+      } catch (logErr) {
+        callLogError = logErr.response?.data || logErr.message
+        console.warn('[zadarma/call] HubSpot call log warning:', callLogError)
+      }
+    }
+
     res.json({
       ok: true,
       status: data?.status || 'success',
@@ -2011,6 +2059,8 @@ app.post('/api/zadarma/call', requireAuth, async (req, res) => {
       to,
       zadarma: data,
       extensionStatus,
+      callEngagement,
+      callLogError,
     })
   } catch (e) {
     const payload = zadarmaErrorPayload(e, 'No se pudo iniciar la llamada')

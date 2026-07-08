@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Phone, Clock } from 'lucide-react'
-import { useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { hubspot, zadarma } from '../hooks/useApi'
 import { useToast } from '../hooks/useToast'
 import { useAuth } from '../contexts/AuthContext'
@@ -23,6 +23,7 @@ function cleanPreview(value) {
 export default function CallWidget({ phone, contactName, objectType, objectId, onActivityLogged }) {
   const { addToast: toast } = useToast()
   const { user } = useAuth()
+  const qc = useQueryClient()
   const [to, setTo] = useState(phone || '')
   const [calling, setCalling] = useState(false)
   const [callStatus, setCallStatus] = useState('')
@@ -67,10 +68,13 @@ export default function CallWidget({ phone, contactName, objectType, objectId, o
     setCallStatus('')
 
     try {
-      const result = await zadarma.call(from, to)
-      const message = result?.message || `Solicitud enviada a la extension ${from}. Contesta para conectar con ${contactName || to}.`
+      const result = await zadarma.call(from, to, { objectType, objectId })
+      const warning = result?.callLogError ? ` Registro CRM pendiente: ${toErrorText(result.callLogError)}` : ''
+      const message = (result?.message || `Solicitud enviada a la extension ${from}. Contesta para conectar con ${contactName || to}.`) + warning
       setCallStatus(message)
-      toast(message, 'success')
+      toast(message, result?.callLogError ? 'default' : 'success')
+      qc.invalidateQueries(activityQueryKey)
+      onActivityLogged?.()
     } catch (e) {
       const data = e.response?.data
       const msg = [toErrorText(data?.error), toErrorText(data?.details)]
