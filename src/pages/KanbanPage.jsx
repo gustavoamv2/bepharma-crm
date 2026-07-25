@@ -11,6 +11,7 @@ import {
 } from '@dnd-kit/core'
 import { useQuery, useQueryClient } from 'react-query'
 import { pipeline, hubspot, invalidateDashboard } from '../hooks/useApi'
+import { useOwnerNames, useOwners } from '../hooks/useTeam'
 import Topbar from '../components/Topbar'
 import { useAuth } from '../contexts/AuthContext'
 import { Building2, User, MapPin, AlertTriangle, Calendar, ArrowRight } from 'lucide-react'
@@ -27,15 +28,6 @@ const STAGES = [
 ]
 
 const TERMINAL_STAGES = ['confirmada', 'no_participa']
-
-const OWNER_NAMES = {
-  '93615311': 'Roberto',
-  '93621022': 'Yesenia',
-  '93771980': 'Angel',
-  '93771979': 'Gracie',
-  '93771981': 'Carlos',
-  '73112880': 'Sara',
-}
 
 const ALERT_COLORS = {
   alerta_roja:    '#b91c1c',
@@ -60,9 +52,10 @@ function shortZona(zona) {
 
 function EventCard({ deal, overlay = false }) {
   const nav = useNavigate()
+  const ownerNames = useOwnerNames()
   const p = deal.properties
   const alert = p.bp_estado_alerta
-  const owner = OWNER_NAMES[p.hubspot_owner_id] || ''
+  const owner = ownerNames[p.hubspot_owner_id] || ''
   const zona = shortZona(p.bp_zona)
   const ownerLabel = [owner, zona].filter(Boolean).join(' · ')
   const proximo = formatDate(p.bp_proximo_contacto)
@@ -192,6 +185,7 @@ function ConfirmDialog({ message, onConfirm, onCancel }) {
 
 export default function KanbanPage() {
   const { user } = useAuth()
+  const owners = useOwners()
   const [deals, setDeals] = useState([])
   const [truncated, setTruncated] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -337,8 +331,10 @@ export default function KanbanPage() {
             style={{ padding: '6px 10px', fontSize: 13, borderRadius: 6, border: '1px solid #d8e0ea', background: '#fff' }}
           >
             <option value="">Todos los operadores</option>
-            {Object.entries(OWNER_NAMES).map(([id, name]) => (
-              <option key={id} value={id}>{name}</option>
+            {owners.map(o => (
+              <option key={o.ownerId} value={o.ownerId}>
+                {o.name}{o.disabled ? ' (inactivo)' : ''}
+              </option>
             ))}
           </select>
         )}

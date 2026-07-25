@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { ExternalLink, Mail, Pencil, Flag, Star, Phone, User, Paperclip, Download, Building2, ListChecks } from 'lucide-react'
 import { hubspot, invalidateDashboard } from '../hooks/useApi'
+import { useOwnerNames } from '../hooks/useTeam'
 import { useAuth } from '../contexts/AuthContext'
 import { useToast } from '../hooks/useToast'
 import Topbar from '../components/Topbar'
@@ -20,14 +21,6 @@ const safeFmt = (v) => {
   const d = new Date(isNaN(Number(v)) ? v : Number(v))
   return isNaN(d) ? '—' : format(d, 'dd MMMM yyyy', { locale: es })
 }
-const OWNER_NAMES = {
-  '93615311': 'Roberto',
-  '93621022': 'Yesenia',
-  '93771980': 'Angel',
-  '93771979': 'Gracie',
-  '93771981': 'Carlos',
-  '73112880': 'Sara',
-}
 
 // bp_estado_prospeccion es donde vive el estado real del deal en esta app
 // (el dealstage estandar de HubSpot no se usa — ver DealStageBadge.jsx)
@@ -39,6 +32,29 @@ const ESTADO_PROSPECCION_LABELS = {
   en_seguimiento:     'En Seguimiento',
   confirmada:         'Confirmada',
   no_participa:       'No Participa',
+}
+
+function stripHtml(value) {
+  return String(value || '').replace(/<[^>]+>/g, '')
+}
+
+function ActivityText({ body }) {
+  const text = stripHtml(body).slice(0, 1000)
+  const parts = []
+  const re = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g
+  let last = 0
+  let match
+  while ((match = re.exec(text))) {
+    if (match.index > last) parts.push(text.slice(last, match.index))
+    parts.push(
+      <a key={match.index} href={match[2]} target="_blank" rel="noopener" style={{ color: '#0052cc', textDecoration: 'none', fontWeight: 600 }}>
+        {match[1]}
+      </a>
+    )
+    last = match.index + match[0].length
+  }
+  if (last < text.length) parts.push(text.slice(last))
+  return <div className="act-text">{parts.map((part, idx) => typeof part === 'string' ? <React.Fragment key={idx}>{part}</React.Fragment> : part)}</div>
 }
 
 function Prop({ label, value }) {
@@ -111,6 +127,7 @@ export default function DealDetail() {
   const nav = useNavigate()
   const qc = useQueryClient()
   const { user } = useAuth()
+  const ownerNames = useOwnerNames()
   const { addToast: toast } = useToast()
   // Respeta bp_view_mode: si un supervisor esta simulando "vista operador"
   // (toggle del Dashboard), debe ver la ficha exactamente igual que un
@@ -293,7 +310,7 @@ export default function DealDetail() {
                 {tab === 'info' && (
                   <div className="props-grid">
                     <Prop label="Fecha de Creación" value={safeFmt(p.createdate)} />
-                    <Prop label="Propietario" value={OWNER_NAMES[p.hubspot_owner_id] || '—'} />
+                    <Prop label="Propietario" value={ownerNames[p.hubspot_owner_id] || '—'} />
                     <Prop label="Última Modificación" value={safeFmt(p.hs_lastmodifieddate)} />
                     <Prop label="Estado de la Empresa" value={ESTADO_PROSPECCION_LABELS[p.bp_estado_prospeccion] || p.bp_estado_prospeccion} />
                     <Prop label="Siguiente Paso" value={p.hs_next_step} />
@@ -573,9 +590,7 @@ function ActivityFeed({ items, loading, contacts = [] }) {
                 </div>
               )}
               {item.title && <div className="act-text" style={{ fontWeight: 500 }}>{item.title}</div>}
-              {item.body && (
-                <div className="act-text">{item.body.replace(/<[^>]+>/g, '').slice(0, 300)}</div>
-              )}
+              {item.body && <ActivityText body={item.body} />}
               {item.durationMs && (
                 <div className="act-meta">Duración: {Math.round(Number(item.durationMs) / 1000)}s</div>
               )}

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const { loadUsers, saveUsers } = require('./usersStore')
+const { loadUsersPersistent, saveUsersPersistent } = require('./usersStore')
 const { JWT_SECRET, JWT_TTL } = require('./config/env')
 const { labelsToEnglish } = require('./config/countries')
 
@@ -11,9 +11,10 @@ const MIN_PASSWORD_LENGTH = 8
 
 // ── Login ────────────────────────────────────────────────────────────────────
 async function login(username, password) {
-  const users = loadUsers()
+  const users = await loadUsersPersistent()
   const user = users[username.toLowerCase()]
   if (!user) throw new Error('Usuario no encontrado')
+  if (user.disabled) throw new Error('Usuario deshabilitado')
 
   const ok = await bcrypt.compare(password, user.password)
   if (!ok) throw new Error('Contraseña incorrecta')
@@ -52,8 +53,8 @@ function validatePasswordStrength(newPassword) {
 // Genera el token de un solo uso para el link de "recuperar contraseña".
 // Lanza si el username no existe -- el caller (route) decide si responde
 // generico para no filtrar qué usuarios existen.
-function generateResetToken(username) {
-  const users = loadUsers()
+async function generateResetToken(username) {
+  const users = await loadUsersPersistent()
   const user = users[username.toLowerCase()]
   if (!user) throw new Error('Usuario no encontrado')
 
@@ -77,7 +78,7 @@ async function resetPasswordWithToken(token, newPassword) {
   }
   if (decoded.purpose !== 'reset') throw new Error('Token inválido')
 
-  const users = loadUsers()
+  const users = await loadUsersPersistent()
   const user = users[decoded.username]
   if (!user) throw new Error('Usuario no encontrado')
   if (pwVersion(user.password) !== decoded.pwv) {
@@ -85,7 +86,7 @@ async function resetPasswordWithToken(token, newPassword) {
   }
 
   user.password = await bcrypt.hash(newPassword, 10)
-  saveUsers(users)
+  await saveUsersPersistent(users)
   return { username: decoded.username }
 }
 
@@ -93,7 +94,7 @@ async function resetPasswordWithToken(token, newPassword) {
 async function changePassword(username, currentPassword, newPassword) {
   validatePasswordStrength(newPassword)
 
-  const users = loadUsers()
+  const users = await loadUsersPersistent()
   const user = users[username.toLowerCase()]
   if (!user) throw new Error('Usuario no encontrado')
 
@@ -101,8 +102,133 @@ async function changePassword(username, currentPassword, newPassword) {
   if (!ok) throw new Error('La contraseña actual no es correcta')
 
   user.password = await bcrypt.hash(newPassword, 10)
-  saveUsers(users)
+  await saveUsersPersistent(users)
   return { username: username.toLowerCase() }
+}
+
+// ── Gestión de usuarios (Admin) ──────────────────────────────────────────────
+// El alta/edición vive aquí y no en las rutas porque necesita el mismo bcrypt y
+// las mismas reglas de contraseña que login()/changePassword().
+const USERNAME_RE = /^[a-z0-9._-]{3,20}$/
+const ROLES = ['supervisor', 'operator']
+
+function normalizeUsername(username) {
+  return String(username || '').trim().toLowerCase()
+}
+
+function validatePaises(bp_paises) {
+  if (bp_paises === undefined) return []
+  if (!Array.isArray(bp_paises) || !bp_paises.every(p => typeof p === 'string')) {
+    throw new Error('bp_paises debe ser un array de strings')
+  }
+  return bp_paises
+}
+
+// Vista "segura" de un usuario para las respuestas del API: nunca sale el hash
+// de la contraseña ni las credenciales SMTP.
+function publicUser(username, u) {
+  return {
+    username,
+    name: u.name,
+    role: u.role,
+    ownerId: u.ownerId,
+    sipExtension: u.sipExtension || '',
+    bp_paises: Array.isArray(u.bp_paises) ? u.bp_paises : [],
+    emailUser: u.emailUser || '',
+    disabled: !!u.disabled,
+  }
+}
+
+// La contraseña inicial la define el supervisor al dar de alta y se la comunica
+// al usuario, que puede cambiarla después con changePassword().
+async function createUser({ username, name, role, ownerId, sipExtension, bp_paises, password }) {
+  const uname = normalizeUsername(username)
+  if (!USERNAME_RE.test(uname)) {
+    throw new Error('El usuario debe tener entre 3 y 20 caracteres: minúsculas, números, punto, guion o guion bajo')
+  }
+  if (!String(name || '').trim()) throw new Error('El nombre es obligatorio')
+  if (!ROLES.includes(role)) throw new Error('Rol inválido')
+  validatePasswordStrength(password)
+  const paises = validatePaises(bp_paises)
+
+  const users = await loadUsersPersistent()
+  if (users[uname]) throw new Error('Ya existe un usuario con ese nombre de usuario')
+
+  users[uname] = {
+    name: String(name).trim(),
+    role,
+    ownerId: String(ownerId || '').trim(),
+    bp_paises: paises,
+    sipExtension: String(sipExtension || '').trim(),
+    password: await bcrypt.hash(password, 10),
+    emailUser: '',
+    emailPass: '',
+  }
+  await saveUsersPersistent(users)
+  return publicUser(uname, users[uname])
+}
+
+// Solo datos básicos. El username es inmutable: es la clave de las variables
+// EMAIL_USER_<USERNAME> del .env y de todo lo ya guardado bajo ese nombre.
+// La contraseña y el estado activo/inactivo tienen sus propias funciones.
+async function updateUser(username, patch = {}) {
+  const uname = normalizeUsername(username)
+  const users = await loadUsersPersistent()
+  const user = users[uname]
+  if (!user) throw new Error('Usuario no encontrado')
+
+  if (patch.name !== undefined) {
+    if (!String(patch.name).trim()) throw new Error('El nombre es obligatorio')
+    user.name = String(patch.name).trim()
+  }
+  if (patch.role !== undefined) {
+    if (!ROLES.includes(patch.role)) throw new Error('Rol inválido')
+    user.role = patch.role
+  }
+  if (patch.ownerId !== undefined) user.ownerId = String(patch.ownerId || '').trim()
+  if (patch.sipExtension !== undefined) user.sipExtension = String(patch.sipExtension || '').trim()
+  if (patch.bp_paises !== undefined) user.bp_paises = validatePaises(patch.bp_paises)
+
+  await saveUsersPersistent(users)
+  return publicUser(uname, user)
+}
+
+// Activa/desactiva el acceso al sistema. login() ya respeta el flag, pero un
+// token ya emitido sigue siendo válido hasta que expira (JWT_TTL, 8h):
+// desactivar impide volver a entrar, no cierra la sesión que esté abierta.
+// No se borran usuarios — desactivar preserva la trazabilidad del ownerId de
+// HubSpot en los registros históricos.
+async function setUserDisabled(username, disabled) {
+  const uname = normalizeUsername(username)
+  const users = await loadUsersPersistent()
+  const user = users[uname]
+  if (!user) throw new Error('Usuario no encontrado')
+
+  // Nunca dejar el sistema sin nadie que pueda administrarlo.
+  if (disabled && user.role === 'supervisor') {
+    const otrosActivos = Object.entries(users)
+      .filter(([n, u]) => n !== uname && u.role === 'supervisor' && !u.disabled)
+    if (otrosActivos.length === 0) throw new Error('No puedes desactivar al último supervisor activo')
+  }
+
+  user.disabled = !!disabled
+  await saveUsersPersistent(users)
+  return publicUser(uname, user)
+}
+
+// Reset hecho por un supervisor: no pide la contraseña actual (a diferencia de
+// changePassword). Invalida cualquier link de "olvidé mi contraseña" pendiente,
+// porque el pwv del token deja de coincidir con el hash nuevo.
+async function adminSetPassword(username, newPassword) {
+  validatePasswordStrength(newPassword)
+  const uname = normalizeUsername(username)
+  const users = await loadUsersPersistent()
+  const user = users[uname]
+  if (!user) throw new Error('Usuario no encontrado')
+
+  user.password = await bcrypt.hash(newPassword, 10)
+  await saveUsersPersistent(users)
+  return { username: uname }
 }
 
 // ── Middleware ────────────────────────────────────────────────────────────────
@@ -190,4 +316,8 @@ module.exports = {
   generateResetToken,
   resetPasswordWithToken,
   changePassword,
+  createUser,
+  updateUser,
+  setUserDisabled,
+  adminSetPassword,
 }

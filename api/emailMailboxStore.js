@@ -1,4 +1,4 @@
-﻿const fs = require('fs')
+const fs = require('fs')
 const axios = require('axios')
 
 const KV_URL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL
@@ -21,7 +21,7 @@ async function readStore() {
 
 async function writeStore(data) {
   const clean = {
-    messages: (data.messages || []).sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)).slice(0, MAX_MESSAGES),
+    messages: (data.messages || []).map(sanitizeMessagePayload).sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)).slice(0, MAX_MESSAGES),
     updatedAt: new Date().toISOString(),
   }
   if (kvEnabled()) {
@@ -49,11 +49,35 @@ function computeThreadId(message) {
   const mailbox = normalizeEmail((message.to || [])[0] || message.from || 'unlinked')
   return `mailbox:${mailbox}:subject:${normalizeSubject(message.subject)}`
 }
+
+function sanitizeAttachments(attachments) {
+  if (!Array.isArray(attachments)) return []
+  return attachments.map((a) => {
+    const clean = {
+      filename: a.filename || a.name || 'adjunto',
+      contentType: a.contentType || a.content_type || a.mimeType || '',
+      sizeBytes: Number(a.sizeBytes || a.size || a.content_length || 0) || 0,
+      contentId: a.contentId || a.content_id || '',
+      hubspotFileId: a.hubspotFileId || a.fileId || '',
+      hubspotUrl: a.hubspotUrl || a.url || '',
+      uploadStatus: a.uploadStatus || (a.hubspotFileId || a.fileId ? 'uploaded' : 'metadata_only'),
+    }
+    return Object.fromEntries(Object.entries(clean).filter(([, v]) => v !== '' && v !== 0 && v !== null && v !== undefined))
+  })
+}
+
+function sanitizeMessagePayload(message = {}) {
+  const clean = { ...message }
+  if ('attachments' in clean) clean.attachments = sanitizeAttachments(clean.attachments)
+  return clean
+}
+
 async function upsertMessage(message) {
   const store = await readStore()
   const now = new Date().toISOString()
   const id = message.id || message.resendEmailId || message.providerMessageId || `mail_${Date.now()}_${Math.random().toString(16).slice(2)}`
-  const normalized = { ...message, id, threadId: computeThreadId(message), folder: message.folder || (message.direction === 'outbound' ? 'sent' : 'inbox'), read: message.read ?? message.direction === 'outbound', readAt: message.readAt || (message.direction === 'outbound' ? now : ''), archived: !!message.archived || message.folder === 'archived', createdAt: message.createdAt || now, updatedAt: now }
+  const safeMessage = sanitizeMessagePayload(message)
+  const normalized = { ...safeMessage, id, threadId: computeThreadId(safeMessage), folder: safeMessage.folder || (safeMessage.direction === 'outbound' ? 'sent' : 'inbox'), read: safeMessage.read ?? safeMessage.direction === 'outbound', readAt: safeMessage.readAt || (safeMessage.direction === 'outbound' ? now : ''), archived: !!safeMessage.archived || safeMessage.folder === 'archived', createdAt: safeMessage.createdAt || now, updatedAt: now }
   const idx = store.messages.findIndex(m => m.id === id || (normalized.resendEmailId && m.resendEmailId === normalized.resendEmailId))
   if (idx >= 0) store.messages[idx] = { ...store.messages[idx], ...normalized, updatedAt: now }
   else store.messages.push(normalized)
@@ -90,7 +114,7 @@ async function patchThread(user, threadId, patch = {}) {
   const updated = []
   for (const msg of (store.messages || [])) {
     if (String(msg.threadId || '') === String(threadId) && canSeeMessage(user, msg)) {
-      Object.assign(msg, patch, { updatedAt: now })
+      Object.assign(msg, sanitizeMessagePayload(patch), { updatedAt: now })
       if (patch.folder === 'archived') msg.archived = true
       if (patch.folder && patch.folder !== 'archived') msg.archived = false
       if (patch.readAt) msg.read = true
@@ -126,7 +150,7 @@ async function patchMessage(user, id, patch = {}) {
   const idx = (store.messages || []).findIndex(m => String(m.id) === String(id))
   if (idx < 0) return null
   if (!canSeeMessage(user, store.messages[idx])) return false
-  store.messages[idx] = { ...store.messages[idx], ...patch, updatedAt: new Date().toISOString() }
+  store.messages[idx] = { ...store.messages[idx], ...sanitizeMessagePayload(patch), updatedAt: new Date().toISOString() }
   if (patch.folder === 'archived') store.messages[idx].archived = true
   if (patch.folder && patch.folder !== 'archived') store.messages[idx].archived = false
   if (patch.readAt) store.messages[idx].read = true
@@ -134,5 +158,4 @@ async function patchMessage(user, id, patch = {}) {
   await writeStore(store)
   return store.messages[idx]
 }
-module.exports = { kvEnabled, upsertMessage, listMessages, getThread, patchMessage, patchThread, deleteMessage, deleteThread, normalizeEmail, normalizeSubject, computeThreadId }
-
+module.exports = { kvEnabled, upsertMessage, listMessages, getThread, patchMessage, patchThread, deleteMessage, deleteThread, normalizeEmail, normalizeSubject, computeThreadId, sanitizeAttachments }

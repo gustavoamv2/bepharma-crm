@@ -1,4 +1,4 @@
-﻿require('dotenv').config()
+require('dotenv').config()
 const env = require('./config/env')   // valida vars criticas; falla si faltan
 
 const express = require('express')
@@ -11,13 +11,13 @@ const nodemailer = require('nodemailer')
 const fs = require('fs')
 const path = require('path')
 const FormData = require('form-data')
-const { login, requireAuth, applyOwnerFilter, applyCountryFilter, addFilterToGroups, generateResetToken, resetPasswordWithToken, changePassword } = require('./auth')
+const { login, requireAuth, applyOwnerFilter, applyCountryFilter, addFilterToGroups, generateResetToken, resetPasswordWithToken, changePassword, createUser, updateUser, setUserDisabled, adminSetPassword } = require('./auth')
 const { requireWebhookToken } = require('./middleware/webhookAuth')
 const { errorHandler } = require('./middleware/errorHandler')
-const { loadUsers, saveUsers } = require('./usersStore')
+const { loadUsers, loadUsersPersistent, saveUsersPersistent } = require('./usersStore')
 const { getSignature, saveSignature, kvEnabled } = require('./signatureStore')
 const { getTemplates: getEmailTemplates, saveTemplates: saveEmailTemplates, kvEnabled: templatesKvEnabled } = require('./emailTemplatesStore')
-const { upsertMessage: upsertMailboxMessage, listMessages: listMailboxMessages, getThread: getMailboxThread, patchMessage: patchMailboxMessage, patchThread: patchMailboxThread, deleteMessage: deleteMailboxMessage, deleteThread: deleteMailboxThread, normalizeSubject: normalizeMailboxSubject } = require('./emailMailboxStore')
+const { upsertMessage: upsertMailboxMessage, listMessages: listMailboxMessages, getThread: getMailboxThread, patchMessage: patchMailboxMessage, patchThread: patchMailboxThread, deleteMessage: deleteMailboxMessage, deleteThread: deleteMailboxThread, normalizeSubject: normalizeMailboxSubject, sanitizeAttachments: sanitizeMailboxAttachments } = require('./emailMailboxStore')
 const { buildReportWorkbook, buildMultiSectionWorkbook, workbookToBuffer } = require('./services/excelExport.service')
 const { buildFullBackupData, buildFullBackupWorkbook } = require('./services/backup.service')
 
@@ -111,7 +111,7 @@ app.post('/api/auth/forgot-password', forgotPasswordLimiter, async (req, res) =>
   if (!username) return res.status(400).json({ error: 'Falta el usuario' })
 
   try {
-    const { token, user } = generateResetToken(username)
+    const { token, user } = await generateResetToken(username)
     const to = getUserEmail(username)
     const mailer = getUserMailer(username)
     if (!to || !mailer) {
@@ -297,9 +297,25 @@ const DEAL_ESTADO_LABELS_XLS = {
   contacto_enviado: 'Por Contactar', en_seguimiento: 'En Seguimiento',
   confirmada: 'Confirmada', no_participa: 'No Participa',
 }
-const DEAL_OWNER_NAMES_XLS = {
-  '93615311': 'Roberto', '93621022': 'Yesenia', '93771980': 'Angel',
-  '93771979': 'Gracie', '93771981': 'Carlos', '73112880': 'Sara',
+// Mapa ownerId → nombre, construido desde el store de usuarios en vez de una
+// lista fija: así un usuario dado de alta desde Administración aparece solo.
+// Incluye a los desactivados a propósito — sus registros históricos deben
+// seguir mostrando el nombre, no el ownerId crudo.
+// Devuelve una LISTA, no un objeto indexado por ownerId: como los ownerId son
+// cadenas numéricas, un objeto los reordena solo (JS ordena las claves tipo
+// entero de forma ascendente) y las filas de los reportes saldrían ordenadas
+// por id en vez de en el orden del equipo.
+async function ownerList() {
+  const users = await loadUsersPersistent()
+  return Object.values(users)
+    .filter(u => u.ownerId)
+    .map(u => ({ ownerId: u.ownerId, name: u.name, role: u.role, disabled: !!u.disabled }))
+}
+
+// Solo para resolver un id a un nombre, donde el orden es irrelevante.
+async function ownerNameMap() {
+  const list = await ownerList()
+  return Object.fromEntries(list.map(o => [o.ownerId, o.name]))
 }
 const DEAL_EXPORT_COLUMNS = [
   { header: 'Evento',              key: 'evento',       width: 34 },
@@ -339,11 +355,12 @@ app.post('/api/hubspot/deals/export', requireAuth, async (req, res) => {
       return isNaN(d.getTime()) ? '' : d.toLocaleDateString('es-MX')
     }
 
+    const ownerNames = await ownerNameMap()
     const rows = allDeals.map(d => {
       const p = d.properties || {}
       return {
         evento: p.dealname || '(sin nombre)',
-        owner: DEAL_OWNER_NAMES_XLS[p.hubspot_owner_id] || '',
+        owner: ownerNames[p.hubspot_owner_id] || '',
         zona: p.bp_zona || '',
         pais: p.bp_evento_paises || '',
         estado: DEAL_ESTADO_LABELS_XLS[p.bp_estado_prospeccion] || p.bp_estado_prospeccion || '',
@@ -1462,9 +1479,27 @@ app.get('/api/hubspot/charts', requireAuth, async (req, res) => {
   })
 })
 
+// Equipo – lista mínima (nombre, rol, owner) de los usuarios, visible para
+// cualquier usuario autenticado. La usan los selectores de asignación (ej.
+// crear tarea) y todo lo que resuelve un ownerId a un nombre — casos que
+// necesitan ver a los demás aunque quien pregunte sea un operador, a
+// diferencia de /api/admin/users, que a un operador solo le devuelve su propio
+// perfil. No expone extensiones, correos ni contraseñas.
+//
+// Incluye a los desactivados con disabled:true en vez de omitirlos, porque sus
+// registros históricos deben seguir mostrando el nombre. Quien ofrezca asignar
+// trabajo debe filtrarlos (lo hace CreateTaskModal, y lo revalida el servidor
+// en POST /api/hubspot/tasks).
+app.get('/api/team', requireAuth, async (req, res) => {
+  const users = await loadUsersPersistent()
+  res.json(Object.entries(users).map(([username, u]) => ({
+    username, name: u.name, role: u.role, ownerId: u.ownerId, disabled: !!u.disabled,
+  })))
+})
+
 // Admin – lista usuarios con config Zadarma
 app.get('/api/admin/users', requireAuth, async (req, res) => {
-  const users = loadUsers()
+  const users = await loadUsersPersistent()
   const isSupervisor = req.user.role === 'supervisor'
   const all = Object.entries(users).map(([username, u]) => ({
     username,
@@ -1473,7 +1508,8 @@ app.get('/api/admin/users', requireAuth, async (req, res) => {
     ownerId: u.ownerId,
     sipExtension: u.sipExtension || '',
     bp_paises: Array.isArray(u.bp_paises) ? u.bp_paises : [],
-    emailUser: u.emailUser || ''
+    emailUser: u.emailUser || '',
+    disabled: !!u.disabled
   }))
   // Operadores solo ven su propio perfil
   const safe = isSupervisor ? all : all.filter(u => u.username === req.user.username)
@@ -1484,10 +1520,10 @@ app.get('/api/admin/users', requireAuth, async (req, res) => {
 app.patch('/api/admin/users/:username/sip', requireAuth, async (req, res) => {
   if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
   try {
-    const users = loadUsers()
+    const users = await loadUsersPersistent()
     if (!users[req.params.username]) return res.status(404).json({ error: 'Usuario no encontrado' })
     users[req.params.username].sipExtension = req.body.sipExtension || ''
-    saveUsers(users)
+    await saveUsersPersistent(users)
     res.json({ success: true })
   } catch (e) {
     res.status(500).json({ error: e.message })
@@ -1498,17 +1534,69 @@ app.patch('/api/admin/users/:username/sip', requireAuth, async (req, res) => {
 app.patch('/api/admin/users/:username/paises', requireAuth, async (req, res) => {
   if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
   try {
-    const users = loadUsers()
+    const users = await loadUsersPersistent()
     if (!users[req.params.username]) return res.status(404).json({ error: 'Usuario no encontrado' })
     const paises = req.body.bp_paises
     if (!Array.isArray(paises) || !paises.every(p => typeof p === 'string')) {
       return res.status(400).json({ error: 'bp_paises debe ser un array de strings' })
     }
     users[req.params.username].bp_paises = paises
-    saveUsers(users)
+    await saveUsersPersistent(users)
     res.json({ success: true })
   } catch (e) {
     res.status(500).json({ error: e.message })
+  }
+})
+
+// Los errores de createUser/updateUser/setUserDisabled/adminSetPassword son de
+// validación (mensajes pensados para mostrarse tal cual en el panel), salvo el
+// usuario inexistente que corresponde a un 404.
+function userAdminError(res, e) {
+  return res.status(e.message === 'Usuario no encontrado' ? 404 : 400).json({ error: e.message })
+}
+
+// Admin – alta de usuario. La contraseña inicial la define el supervisor.
+app.post('/api/admin/users', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  try {
+    res.status(201).json(await createUser(req.body))
+  } catch (e) {
+    userAdminError(res, e)
+  }
+})
+
+// Admin – editar datos básicos (nombre, rol, owner de HubSpot, extensión, países)
+app.patch('/api/admin/users/:username', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  try {
+    res.json(await updateUser(req.params.username, req.body))
+  } catch (e) {
+    userAdminError(res, e)
+  }
+})
+
+// Admin – activar/desactivar el acceso al sistema
+app.patch('/api/admin/users/:username/status', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  const target = String(req.params.username || '').toLowerCase()
+  if (req.body.disabled && target === req.user.username) {
+    return res.status(400).json({ error: 'No puedes desactivar tu propio usuario' })
+  }
+  try {
+    res.json(await setUserDisabled(target, req.body.disabled))
+  } catch (e) {
+    userAdminError(res, e)
+  }
+})
+
+// Admin – asignar contraseña a un usuario (alta o reset, sin pedir la actual)
+app.post('/api/admin/users/:username/password', requireAuth, async (req, res) => {
+  if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
+  try {
+    await adminSetPassword(req.params.username, req.body.newPassword)
+    res.json({ success: true })
+  } catch (e) {
+    userAdminError(res, e)
   }
 })
 
@@ -2018,10 +2106,11 @@ app.post('/api/zadarma/call', requireAuth, async (req, res) => {
               'Click-to-call iniciado desde BePharma CRM',
               `Extension: ${from}`,
               `Destino: ${to}`,
-              'Resultado final pendiente de Zadarma.',
+              'Llamada enviada al softphone del operador.',
+              'El cierre real de Zadarma se registrara automaticamente si el webhook recibe el evento final.',
             ].join('\n'),
             hs_call_duration: '0',
-            hs_call_status: 'COMPLETED',
+            hs_call_status: 'IN_PROGRESS',
             hs_call_direction: 'OUTBOUND',
             hs_timestamp: new Date().toISOString(),
             hs_call_to_number: to,
@@ -2533,6 +2622,7 @@ async function ensureMailboxMessageInHubspotDeal(msg, dealId) {
           cc: [],
           bcc: [],
         }),
+        ...((msg.attachments || []).some(a => a.hubspotFileId || a.fileId) ? { hs_attachment_ids: (msg.attachments || []).map(a => a.hubspotFileId || a.fileId).filter(Boolean).join(';') } : {}),
       },
       associations,
     }
@@ -2565,7 +2655,7 @@ app.get('/api/mailbox/threads/:threadId', requireAuth, async (req, res) => {
             text: detail.text,
             preview: (detail.text || stripEmailHtml(detail.html)).slice(0, 260),
             messageId: msg.messageId || detail.messageId || '',
-            attachments: detail.attachments || [],
+            attachments: (await uploadAttachmentsToHubSpotFiles(detail.attachments || [])).metadata,
           }
           const updated = await patchMailboxMessage(req.user, msg.id, patch)
           if (updated) Object.assign(msg, updated)
@@ -2698,7 +2788,7 @@ app.post('/api/mailbox/sync-resend', requireAuth, async (req, res) => {
 // Admin: lista de usuarios con estado de email configurado
 app.get('/api/admin/email-status', requireAuth, async (req, res) => {
   if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
-  const users = loadUsers()
+  const users = await loadUsersPersistent()
   const status = Object.keys(users).map(username => ({
     username,
     name: users[username].name,
@@ -2719,6 +2809,49 @@ async function uploadFileToHubSpot(filename, contentType, base64) {
   return r.data.id
 }
 
+function attachmentFilename(att) {
+  return att.filename || att.name || 'adjunto'
+}
+
+function extractAttachmentBase64(att = {}) {
+  let raw = att.content || att.content_base64 || att.base64 || att.data || att.body || ''
+  if (Buffer.isBuffer(raw)) return raw.toString('base64')
+  raw = String(raw || '').trim()
+  if (!raw) return ''
+  const comma = raw.indexOf(',')
+  if (/^data:/i.test(raw) && comma >= 0) return raw.slice(comma + 1).replace(/\s/g, '')
+  if (/^https?:\/\//i.test(raw)) return ''
+  return raw.replace(/\s/g, '')
+}
+
+function attachmentMetadata(att = {}, extra = {}) {
+  return sanitizeMailboxAttachments([{ ...att, filename: attachmentFilename(att), ...extra }])[0]
+}
+
+async function uploadAttachmentsToHubSpotFiles(attachments = []) {
+  const metadata = []
+  const fileIds = []
+  const failed = []
+  for (const att of Array.isArray(attachments) ? attachments : []) {
+    const base64 = extractAttachmentBase64(att)
+    const filename = attachmentFilename(att)
+    const contentType = att.contentType || att.content_type || att.mimeType || 'application/octet-stream'
+    if (!base64) {
+      metadata.push(attachmentMetadata(att, { uploadStatus: 'metadata_only' }))
+      continue
+    }
+    try {
+      const fileId = await uploadFileToHubSpot(filename, contentType, base64)
+      fileIds.push(fileId)
+      metadata.push(attachmentMetadata(att, { hubspotFileId: fileId, uploadStatus: 'uploaded' }))
+    } catch (err) {
+      console.warn('[email] fallo al subir adjunto a HubSpot Files:', filename, err.response?.data?.message || err.message)
+      failed.push(filename)
+      metadata.push(attachmentMetadata(att, { uploadStatus: 'failed' }))
+    }
+  }
+  return { metadata, fileIds, failed }
+}
 // Enviar email + registrar en HubSpot como engagement
 const ATTACHMENTS_MAX_TOTAL_B64 = 3_500_000 // ~2.6MB reales — deja margen bajo el límite de 4mb del body
 
@@ -2839,19 +2972,15 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
 
     // Subir adjuntos a la Files API de HubSpot (best-effort — si uno falla, se
     // omite y sigue con los demás; nunca bloquea el registro del email en sí).
-    const uploadedFileIds = []
-    const failedUploads = []
-    if (validAttachments.length) {
-      const results = await Promise.all(validAttachments.map(a =>
-        uploadFileToHubSpot(a.filename, a.contentType, a.content)
-          .then(fileId => ({ ok: true, fileId }))
-          .catch(err => {
-            console.warn(`[email/send] fallo al subir adjunto "${a.filename}" a HubSpot Files:`, err.response?.data?.message || err.message)
-            return { ok: false, filename: a.filename }
-          })
-      ))
-      results.forEach(r => r.ok ? uploadedFileIds.push(r.fileId) : failedUploads.push(r.filename))
-    }
+    const uploadedAttachments = await uploadAttachmentsToHubSpotFiles(validAttachments.map(a => ({
+      filename: a.filename,
+      contentType: a.contentType,
+      content: a.content,
+      sizeBytes: Math.ceil((a.content?.length || 0) * 3 / 4),
+    })))
+    const uploadedFileIds = uploadedAttachments.fileIds
+    const failedUploads = uploadedAttachments.failed
+    const mailboxAttachmentMetadata = uploadedAttachments.metadata
 
     // Registrar como engagement en HubSpot (API v3 — /engagements/v1 esta deprecada
     // por HubSpot y ya no asocia correctamente al deal, aunque no devuelva error)
@@ -2868,10 +2997,10 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
       // (no existe una propiedad hs_email_* confirmada para CC en la API v3, así
       // que se deja como referencia de texto en vez de arriesgar un campo inválido)
       const ccNote = ccList.length ? `\n\nCC: ${ccList.join(', ')}` : ''
-      const attachmentNote = (validAttachments.length
-        ? `\n\n📎 Adjuntos: ${validAttachments.map(a => a.filename).join(', ')}` +
-          (failedUploads.length ? ` (no se pudieron adjuntar en HubSpot: ${failedUploads.join(', ')})` : '')
-        : '') + ccNote
+      const failedAttachmentNote = failedUploads.length
+        ? `\n\nAdjuntos no subidos a HubSpot: ${failedUploads.join(', ')}`
+        : ''
+      const attachmentNote = failedAttachmentNote + ccNote
 
       const emailPayload = {
         properties: {
@@ -2910,6 +3039,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
         text: bodyText,
         preview: bodyText.slice(0, 260),
         createdAt: new Date().toISOString(),
+        ...ownerInfo,
         ownerId: req.user.ownerId,
         ownerUsername: req.user.username,
         ownerName: req.user.name,
@@ -2919,7 +3049,7 @@ app.post('/api/email/send', requireAuth, async (req, res) => {
         threadId: threadId || (!dealId && !contactId && replyToAddress ? ('mailbox:' + String(replyToAddress).toLowerCase() + ':subject:' + normalizeMailboxSubject(subject)) : undefined),
         inReplyToMessageId: inReplyToMessageId || '',
         references: references || '',
-        ...ownerInfo,
+        attachments: mailboxAttachmentMetadata,
       })
     } catch (mailboxErr) {
       console.warn('[mailbox] no se pudo guardar enviado:', mailboxErr.message)
@@ -3050,7 +3180,11 @@ app.post('/api/hubspot/tasks', requireAuth, async (req, res) => {
     //   - Operador: puede asignar la tarea a sí mismo o a un supervisor.
     //   - Supervisor: puede asignar a sí mismo o a cualquier operador.
     // Cualquier otro destino (o uno inválido) cae de vuelta al propio owner.
-    const allUsers = Object.values(loadUsers())
+    // Se lee del store persistente (no de loadUsers(), que solo ve el JSON del
+    // bundle): si no, un usuario creado desde Admin no existiria para esta
+    // validacion en Vercel y su tarea terminaria asignada a quien la creo.
+    // Los usuarios desactivados no son destino valido.
+    const allUsers = Object.values(await loadUsersPersistent()).filter(u => !u.disabled)
     const supervisorIds = allUsers.filter(u => u.role === 'supervisor').map(u => u.ownerId)
     const operatorIds = allUsers.filter(u => u.role === 'operator').map(u => u.ownerId)
     const allowedTargets = req.user.role === 'supervisor'
@@ -3097,7 +3231,7 @@ app.post('/api/hubspot/tasks', requireAuth, async (req, res) => {
 app.get('/api/reports/bp-summary', requireAuth, async (req, res) => {
   if (req.user.role !== 'supervisor') return res.status(403).json({ error: 'Solo supervisores' })
 
-  const OWNER_IDS = ['93615311', '93621022', '93771980', '93771979', '93771981', '73112880']
+  const OWNER_IDS = (await ownerList()).map(o => o.ownerId)
   const nowMs = Date.now()
   const minus72hMs = nowMs - 72 * 60 * 60 * 1000
   const startOfMonthMs = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime()
@@ -3237,15 +3371,8 @@ app.get('/api/reports/activity', requireAuth, async (req, res) => {
   try {
     const days = parseInt(req.query.days || '30')
     const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString()
-    const OWNERS = {
-      '93615311': 'Roberto',
-      '93621022': 'Yesenia',
-      '93771980': 'Angel',
-      '93771979': 'Gracie',
-      '93771981': 'Carlos',
-      '73112880': 'Sara'
-    }
-    const ownerIds = Object.keys(OWNERS)
+    const OWNERS = await ownerList()
+    const ownerIds = OWNERS.map(o => o.ownerId)
 
     const countEngByOwner = async (engType) => {
       const filters = [
@@ -3299,12 +3426,16 @@ app.get('/api/reports/activity', requireAuth, async (req, res) => {
       countDealsByOwner()
     ])
 
-    const owners = ownerIds.map(ownerId => ({
-      ownerId,
-      name: OWNERS[ownerId],
-      calls: callsByOwner[ownerId] || 0,
-      notes: notesByOwner[ownerId] || 0,
-      activeDeals: dealsByOwner[ownerId] || 0
+    const owners = OWNERS.map(o => ({
+      ownerId: o.ownerId,
+      name: o.name,
+      // El rol viaja en la respuesta para que el frontend no tenga que deducirlo
+      // de una lista fija de ownerIds de supervisores.
+      role: o.role,
+      disabled: o.disabled,
+      calls: callsByOwner[o.ownerId] || 0,
+      notes: notesByOwner[o.ownerId] || 0,
+      activeDeals: dealsByOwner[o.ownerId] || 0
     }))
 
     res.json({ owners, period: days })
@@ -3402,8 +3533,9 @@ app.post('/api/reports/bp-summary/export', requireAuth, async (req, res) => {
       confirmada: 'Confirmada', no_participa: 'No Participa',
     }
 
+    const ownerNames = await ownerNameMap()
     const ownerTable = (perOwner) => Object.entries(perOwner).map(([ownerId, total]) => ({
-      name: DEAL_OWNER_NAMES_XLS[ownerId] || ownerId, total,
+      name: ownerNames[ownerId] || ownerId, total,
     }))
 
     const sections = [
@@ -3621,6 +3753,50 @@ app.post('/api/webhooks/zadarma-call-end', requireWebhookToken, async (req, res)
       }
     }
 
+    // ── Buscar llamada preliminar creada por Click-to-Call ───────────────────
+    // Al iniciar una llamada desde un deal dejamos un CALL IN_PROGRESS ya asociado
+    // al deal. Cuando llega el cierre de Zadarma, actualizamos ese mismo registro
+    // para conservar la asociación aunque el telefono no matchee con un contacto.
+    let existingCallId = null
+    let existingDealId = null
+    if (prospectPhone && hubspotOwnerId) {
+      try {
+        const prospectDigits = String(prospectPhone).replace(/\D/g, '')
+        const since = new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString()
+        const pendingCalls = await hs.post('/crm/v3/objects/calls/search', {
+          filterGroups: [{
+            filters: [
+              { propertyName: 'hs_call_title', operator: 'EQ', value: 'Click-to-call enviado' },
+              { propertyName: 'hs_call_status', operator: 'EQ', value: 'IN_PROGRESS' },
+              { propertyName: 'hubspot_owner_id', operator: 'EQ', value: hubspotOwnerId },
+              { propertyName: 'hs_timestamp', operator: 'GTE', value: since },
+            ]
+          }],
+          properties: ['hs_call_to_number', 'hs_timestamp'],
+          sorts: [{ propertyName: 'hs_timestamp', direction: 'DESCENDING' }],
+          limit: 20,
+        })
+        const match = (pendingCalls.data.results || []).find(c => {
+          const callDigits = String(c.properties?.hs_call_to_number || '').replace(/\D/g, '')
+          return callDigits && prospectDigits && (callDigits.endsWith(prospectDigits.slice(-10)) || prospectDigits.endsWith(callDigits.slice(-10)))
+        })
+        if (match) {
+          existingCallId = match.id
+          try {
+            const dealAssoc = await hs.get(`/crm/v3/objects/calls/${existingCallId}/associations/deals`)
+            existingDealId = dealAssoc.data.results?.[0]?.id || null
+            if (!dealId && existingDealId) dealId = existingDealId
+          } catch { /* ignore */ }
+          try {
+            const contactAssoc = await hs.get(`/crm/v3/objects/calls/${existingCallId}/associations/contacts`)
+            if (!contactId) contactId = contactAssoc.data.results?.[0]?.id || null
+          } catch { /* ignore */ }
+        }
+      } catch (e) {
+        console.warn('[webhook] Pending click-to-call lookup error:', e.response?.data || e.message)
+      }
+    }
+
     // ── Construir texto del engagement ──────────────────────────────────────
     const durMin = Math.floor(Number(duration || 0) / 60)
     const durSec = Number(duration || 0) % 60
@@ -3675,8 +3851,13 @@ app.post('/api/webhooks/zadarma-call-end', requireWebhookToken, async (req, res)
     if (hubspotOwnerId) callProps.hubspot_owner_id = hubspotOwnerId
     if (record) callProps.hs_call_recording_url = record
 
-    const callR = await hs.post('/crm/v3/objects/calls', { properties: callProps })
-    const callEngId = callR.data.id
+    let callEngId = existingCallId
+    if (existingCallId) {
+      await hs.patch(`/crm/v3/objects/calls/${existingCallId}`, { properties: callProps })
+    } else {
+      const callR = await hs.post('/crm/v3/objects/calls', { properties: callProps })
+      callEngId = callR.data.id
+    }
 
     // ── Asociar el engagement al contacto y negocio encontrados ────────────
     if (contactId) {
@@ -3684,10 +3865,20 @@ app.post('/api/webhooks/zadarma-call-end', requireWebhookToken, async (req, res)
     }
     if (dealId) {
       try { await hs.put(`/crm/v3/objects/calls/${callEngId}/associations/deals/${dealId}/call_to_deal`) } catch {}
+      try {
+        await hs.patch(`/crm/v3/objects/deals/${dealId}`, {
+          properties: {
+            bp_ultima_actividad_operador: new Date().toISOString().slice(0, 10),
+            bp_ultimo_canal: 'llamada',
+          }
+        })
+      } catch (dealUpdateErr) {
+        console.warn('[webhook] Deal activity update warning:', dealUpdateErr.response?.data || dealUpdateErr.message)
+      }
     }
 
-    console.log(`[webhook/zadarma] Call logged: ${callEngId} | sip=${sip} | status=${status} | duration=${duration}s | contact=${contactId || 'none'}`)
-    res.json({ success: true, callEngId, contactId, dealId })
+    console.log(`[webhook/zadarma] Call logged: ${callEngId} | existing=${existingCallId ? 'yes' : 'no'} | deal=${dealId || 'none'} | sip=${sip} | status=${status} | duration=${duration}s | contact=${contactId || 'none'}`)
+    res.json({ success: true, callEngId, updatedExisting: !!existingCallId, contactId, dealId })
   } catch (e) {
     console.error('[webhook/zadarma] error:', e.message)
     res.status(500).json({ error: e.message })
@@ -3786,10 +3977,15 @@ app.post('/api/webhooks/resend-inbound', async (req, res) => {
     // El webhook solo trae metadata — el cuerpo hay que pedirlo aparte
     let bodyText = ''
     let bodyHtml = ''
+    let inboundAttachmentMetadata = []
+    let inboundAttachmentFileIds = []
     try {
       const detail = await fetchReceivedEmailBody(emailId)
       bodyText = detail.text || ''
       bodyHtml = detail.html || ''
+      const uploadedInbound = await uploadAttachmentsToHubSpotFiles(detail.attachments || [])
+      inboundAttachmentMetadata = uploadedInbound.metadata
+      inboundAttachmentFileIds = uploadedInbound.fileIds
     } catch (detailErr) {
       console.warn('[webhook/resend-inbound] fallo al pedir el cuerpo del correo:', detailErr.response?.data || detailErr.message)
     }
@@ -3863,6 +4059,7 @@ app.post('/api/webhooks/resend-inbound', async (req, res) => {
         hs_email_text: bodyText,
         hs_email_html: bodyHtml,
         hs_email_headers: JSON.stringify(emailHeaders),
+        ...(inboundAttachmentFileIds.length ? { hs_attachment_ids: inboundAttachmentFileIds.join(';') } : {}),
       },
       ...(associations.length ? { associations } : {}),
     }
@@ -3889,6 +4086,7 @@ app.post('/api/webhooks/resend-inbound', async (req, res) => {
         contactId,
         threadId: dealId ? `deal:${dealId}:subject:${normalizeMailboxSubject(subject || '(sin asunto)')}` : undefined,
         hubspotEmailId: createR.data.id,
+        attachments: inboundAttachmentMetadata,
         ...ownerInfo,
       })
       console.log('[mailbox] respuesta entrante guardada')

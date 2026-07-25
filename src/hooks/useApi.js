@@ -97,6 +97,13 @@ export const rocketreach = {
   lookup: (body) => api.post('/rocketreach/lookup', body).then(r => r.data),
 }
 
+// Equipo: usuarios activos (nombre, rol, ownerId) para los selectores de
+// asignacion. Cualquier usuario autenticado puede leerla; admin.getUsers()
+// no sirve para esto porque a un operador solo le devuelve su propio perfil.
+export const team = {
+  list: () => api.get('/team').then(r => r.data),
+}
+
 // â”€â”€ Auth (recuperar / cambiar contraseÃ±a) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const authApi = {
   forgotPassword:  (username)                    => api.post('/auth/forgot-password', { username }).then(r => r.data),
@@ -113,6 +120,13 @@ export const admin = {
   getIntegrations: ()                               => api.get('/admin/integrations').then(r => r.data),
   recomputeAutoStages: ()                            => api.post('/admin/recompute-auto-stages').then(r => r.data),
   getEmailStatus:  ()                               => api.get('/admin/email-status').then(r => r.data),
+
+  // Gestion de usuarios (solo supervisores). No hay borrado: se desactiva el
+  // acceso con setUserStatus para no perder la trazabilidad del ownerId.
+  createUser:      (payload)                        => api.post('/admin/users', payload).then(r => r.data),
+  updateUser:      (username, patch)                => api.patch(`/admin/users/${username}`, patch).then(r => r.data),
+  setUserStatus:   (username, disabled)             => api.patch(`/admin/users/${username}/status`, { disabled }).then(r => r.data),
+  setUserPassword: (username, newPassword)          => api.post(`/admin/users/${username}/password`, { newPassword }).then(r => r.data),
 
   // Copia de seguridad completa (Empresas/Contactos/Deals + usuarios/firmas/
   // plantillas) â€” devuelve el blob para descargar. format: 'xlsx' | 'json'.

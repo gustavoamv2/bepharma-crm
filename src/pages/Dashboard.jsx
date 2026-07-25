@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { AlertTriangle, TrendingUp, Calendar, PhoneCall, CheckSquare, Users, BarChart2, Eye, FileSpreadsheet, X } from 'lucide-react'
 import { hubspot, admin } from '../hooks/useApi'
+import { useOwnerNames, useOwners } from '../hooks/useTeam'
 import Topbar from '../components/Topbar'
 import { useAuth } from '../contexts/AuthContext'
 import { useToast } from '../hooks/useToast'
@@ -56,17 +57,6 @@ const STAGE_LABELS_SHORT = {
 
 const ACTIVE_EVENT = 'BEPH-2026-09'
 
-// Mapa ownerId → nombre de operador (mismo mapeo que DealList.jsx), usado en
-// las tablas de Alertas y Tareas pendientes de la vista supervisor.
-const OWNER_NAMES = {
-  '93615311': 'Roberto',
-  '93621022': 'Yesenia',
-  '93771980': 'Angel',
-  '93771979': 'Gracie',
-  '93771981': 'Carlos',
-  '73112880': 'Sara',
-}
-
 const ESTADO_LABELS = {
   nueva:            'Nueva',
   en_depuracion:   'En Depuración',
@@ -108,6 +98,8 @@ export default function Dashboard() {
   const { user } = useAuth()
   const qc = useQueryClient()
   const { addToast } = useToast()
+  const ownerNames = useOwnerNames()
+  const owners = useOwners()
 
   // Toggle supervisor/operador para usuarios con rol supervisor (Yesenia, Roberto)
   const [viewAsOperator, setViewAsOperator] = useState(
@@ -181,7 +173,7 @@ export default function Dashboard() {
   const filtroResumenParts = []
   if (estadoFilters.length) filtroResumenParts.push(`Estado: ${estadoFilters.map(k => ESTADO_LABELS[k] || k).join(' o ')}`)
   if (alerta) filtroResumenParts.push(`Alerta: ${ALERTA_OPTIONS.find(o => o.value === alerta)?.label || alerta}`)
-  if (ownerFilter) filtroResumenParts.push(`Operador: ${OWNER_NAMES[ownerFilter] || ownerFilter}`)
+  if (ownerFilter) filtroResumenParts.push(`Operador: ${ownerNames[ownerFilter] || ownerFilter}`)
   if (countryFilter) filtroResumenParts.push(`País: ${countryFilter}`)
   if (participoAntes) filtroResumenParts.push(`Participó antes: ${participoAntes === 'yes' ? 'Sí' : 'No'}`)
   const filtroResumen = filtroResumenParts.join('; ')
@@ -436,8 +428,10 @@ export default function Dashboard() {
                 <select value={ownerFilter} onChange={e => setOwnerFilter(e.target.value)}
                   style={{ fontSize: 12, padding: '6px 8px', borderRadius: 6, border: '1px solid #dfe1e6', color: '#42526e' }}>
                   <option value="">Todos los operadores</option>
-                  {Object.entries(OWNER_NAMES).map(([id, name]) => (
-                    <option key={id} value={id}>{name}</option>
+                  {owners.map(o => (
+                    <option key={o.ownerId} value={o.ownerId}>
+                      {o.name}{o.disabled ? ' (inactivo)' : ''}
+                    </option>
                   ))}
                 </select>
               )}
@@ -588,7 +582,7 @@ export default function Dashboard() {
                           {STAGE_LABELS[p.bp_estado_prospeccion] || p.bp_estado_prospeccion || '—'}
                         </td>
                         <td style={{ fontSize: 12, color: 'var(--text-muted)' }}>
-                          {OWNER_NAMES[p.hubspot_owner_id] || '—'}
+                          {ownerNames[p.hubspot_owner_id] || '—'}
                         </td>
                       </tr>
                     )

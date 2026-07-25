@@ -1,21 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { X } from 'lucide-react'
 import { hubspot } from '../hooks/useApi'
+import { useTeam } from '../hooks/useTeam'
 import { useToast } from '../hooks/useToast'
 import { useAuth } from '../contexts/AuthContext'
-
-// Reglas de asignación (ver también la validación server-side en
-// POST /api/hubspot/tasks):
-//   - Operador: puede asignar la tarea a sí mismo o a un supervisor.
-//   - Supervisor: puede asignar a sí mismo o a cualquier operador.
-const TEAM = [
-  { name: 'Angel',                 ownerId: '93771980', role: 'operator' },
-  { name: 'Gracie',                ownerId: '93771979', role: 'operator' },
-  { name: 'Carlos',                ownerId: '93771981', role: 'operator' },
-  { name: 'Sara',                  ownerId: '73112880', role: 'operator' },
-  { name: 'Yesenia (supervisora)', ownerId: '93621022', role: 'supervisor' },
-  { name: 'Roberto (supervisor)',  ownerId: '93615311', role: 'supervisor' },
-]
 
 const PRIORITIES = [
   { value: 'HIGH',   label: '🔴 Alta' },
@@ -41,24 +29,48 @@ export default function CreateTaskModal({
   const { addToast } = useToast()
   const { user } = useAuth()
   const isSupervisor = user?.role === 'supervisor'
-  // Operador: a sí mismo + supervisores. Supervisor: a cualquier operador
-  // (no incluye supervisores, ni siquiera a sí mismo, por regla de negocio).
-  const assignableTeam = isSupervisor
-    ? TEAM.filter(m => m.role === 'operator')
-    : TEAM.filter(m => m.ownerId === user?.ownerId || m.role === 'supervisor')
-  const initialAssignee = (defaultAssignee && assignableTeam.some(m => m.ownerId === defaultAssignee))
-    ? defaultAssignee
-    : (assignableTeam[0]?.ownerId || '')
+
+  // El equipo sale del backend, no de una lista fija: así los usuarios dados de
+  // alta desde Administración aparecen aquí solos.
+  const team = useTeam()
+
+  // Reglas de asignación (ver también la validación server-side en
+  // POST /api/hubspot/tasks):
+  //   - Operador: puede asignar la tarea a sí mismo o a un supervisor.
+  //   - Supervisor: puede asignar a cualquier operador (no a supervisores, ni
+  //     siquiera a sí mismo, por regla de negocio).
+  const assignableTeam = useMemo(() => {
+    // Un usuario desactivado no recibe trabajo nuevo, y sin owner de HubSpot no
+    // puede ser destinatario de una tarea de HubSpot.
+    const todos = team.filter(m => m.ownerId && !m.disabled)
+    return isSupervisor
+      ? todos.filter(m => m.role === 'operator')
+      : todos.filter(m => m.ownerId === user?.ownerId || m.role === 'supervisor')
+  }, [team, isSupervisor, user?.ownerId])
 
   const [loading, setLoading] = useState(false)
   const [form, setForm] = useState({
     subject: '',
     body: '',
-    assignedOwnerId: initialAssignee,
+    assignedOwnerId: '',
     priority: 'MEDIUM',
     taskType: 'CALL',
     dueDate: '',
   })
+
+  // El equipo llega por red, así que el destinatario inicial se fija cuando
+  // carga (y solo si el que hay no es válido, para no pisar lo que el usuario
+  // ya haya elegido).
+  useEffect(() => {
+    if (assignableTeam.length === 0) return
+    setForm(f => {
+      if (f.assignedOwnerId && assignableTeam.some(m => m.ownerId === f.assignedOwnerId)) return f
+      const inicial = (defaultAssignee && assignableTeam.some(m => m.ownerId === defaultAssignee))
+        ? defaultAssignee
+        : assignableTeam[0].ownerId
+      return { ...f, assignedOwnerId: inicial }
+    })
+  }, [assignableTeam, defaultAssignee])
 
   // Escape para cerrar
   useEffect(() => {
@@ -150,8 +162,11 @@ export default function CreateTaskModal({
             <div className="form-group" style={{ margin: 0 }}>
               <label>Asignar a</label>
               <select value={form.assignedOwnerId} onChange={e => set('assignedOwnerId', e.target.value)}>
+                {assignableTeam.length === 0 && <option value="">Cargando equipo…</option>}
                 {assignableTeam.map(m => (
-                  <option key={m.ownerId} value={m.ownerId}>{m.name}</option>
+                  <option key={m.ownerId} value={m.ownerId}>
+                    {m.name}{m.role === 'supervisor' ? ' (supervisor)' : ''}
+                  </option>
                 ))}
               </select>
             </div>

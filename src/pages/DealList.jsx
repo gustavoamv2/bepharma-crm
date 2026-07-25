@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { AlertTriangle, Calendar, Flag, BarChart2, FileSpreadsheet } from 'lucide-react'
 import { hubspot, invalidateDashboard } from '../hooks/useApi'
+import { useOwnerNames, useOwners } from '../hooks/useTeam'
 import { useAuth } from '../contexts/AuthContext'
 import { useToast } from '../hooks/useToast'
 import Topbar from '../components/Topbar'
@@ -56,15 +57,6 @@ const ALERTA_CHART_COLORS = {
   sin_alerta:      '#94a3b8',
   alerta_amarilla: '#b45309',
   alerta_roja:     '#b91c1c',
-}
-
-const OWNER_NAMES = {
-  '93615311': 'Roberto',
-  '93621022': 'Yesenia',
-  '93771980': 'Angel',
-  '93771979': 'Gracie',
-  '93771981': 'Carlos',
-  '73112880': 'Sara',
 }
 
 const ESTADO_LABELS = {
@@ -135,6 +127,8 @@ export default function DealList() {
   const location = useLocation()
   const { user } = useAuth()
   const { addToast } = useToast()
+  const ownerNames = useOwnerNames()
+  const owners = useOwners()
   const [exporting, setExporting] = useState(false)
   const [viewMode, setViewMode] = useState(() => sessionStorage.getItem('bp_view_mode') || '')
   useEffect(() => {
@@ -220,7 +214,7 @@ export default function DealList() {
   if (search) filtroResumenParts.push(`Búsqueda: "${search}"`)
   if (estado) filtroResumenParts.push(`Estado: ${ESTADO_LABELS[estado] || estado}`)
   if (alerta) filtroResumenParts.push(`Alerta: ${ALERTA_OPTIONS.find(o => o.value === alerta)?.label || alerta}`)
-  if (ownerFilter) filtroResumenParts.push(`Operador: ${OWNER_NAMES[ownerFilter] || ownerFilter}`)
+  if (ownerFilter) filtroResumenParts.push(`Operador: ${ownerNames[ownerFilter] || ownerFilter}`)
   if (countryFilter) filtroResumenParts.push(`País: ${countryFilter}`)
   if (participoAntes) filtroResumenParts.push(`Participó antes: ${participoAntes === 'yes' ? 'Sí' : 'No'}`)
   const filtroResumen = filtroResumenParts.join('; ')
@@ -294,8 +288,10 @@ export default function DealList() {
           {isSupervisor && (
             <select value={ownerFilter} onChange={e => { setOwnerFilter(e.target.value); resetPage() }}>
               <option value="">Todos los operadores</option>
-              {Object.entries(OWNER_NAMES).map(([id, name]) => (
-                <option key={id} value={id}>{name}</option>
+              {owners.map(o => (
+                <option key={o.ownerId} value={o.ownerId}>
+                  {o.name}{o.disabled ? ' (inactivo)' : ''}
+                </option>
               ))}
             </select>
           )}
@@ -349,7 +345,7 @@ export default function DealList() {
                       return (
                         <tr key={d.id} className="clickable" onClick={() => nav(`/deals/${d.id}`)}>
                           <td style={{ fontWeight: 500 }}>{p.dealname || '(sin nombre)'}</td>
-                          <td style={{ fontSize: 12 }}>{OWNER_NAMES[p.hubspot_owner_id] || '--'}</td>
+                          <td style={{ fontSize: 12 }}>{ownerNames[p.hubspot_owner_id] || '--'}</td>
                           <td style={{ fontSize: 12 }}>{p.bp_zona || '--'}</td>
                           <td style={{ fontSize: 12 }}>{p.bp_evento_paises || '--'}</td>
                           <td style={{ fontSize: 12 }}>{ESTADO_LABELS[p.bp_estado_prospeccion] || p.bp_estado_prospeccion || '--'}</td>

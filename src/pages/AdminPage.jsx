@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
-import { Settings, Phone, User, Check, AlertTriangle, Mail, Activity, RefreshCw, Database, Download } from 'lucide-react'
-import { admin } from '../hooks/useApi'
+import { Settings, Phone, User, Check, AlertTriangle, Mail, Activity, RefreshCw, Database, Download, Users, UserPlus, KeyRound, Ban, X } from 'lucide-react'
+import { admin, hubspot } from '../hooks/useApi'
 import Topbar from '../components/Topbar'
 import { useToast } from '../hooks/useToast'
 import { useAuth } from '../contexts/AuthContext'
@@ -32,6 +32,52 @@ function downloadBlob(blob, filename) {
   a.click()
   a.remove()
   window.URL.revokeObjectURL(url)
+}
+
+// Selector de países con buscador — lo usan la tabla de «Países asignados por
+// Operador» y el alta/edición de usuarios.
+function CountryPicker({ value, onChange, width = 320, autoFocus = false }) {
+  const [filter, setFilter] = useState('')
+
+  const toggle = (label) => {
+    onChange(value.includes(label) ? value.filter(p => p !== label) : [...value, label])
+  }
+
+  return (
+    <div style={{ border: '1px solid #4fc3f7', borderRadius: 6, padding: 8, width }}>
+      <input
+        value={filter}
+        onChange={e => setFilter(e.target.value)}
+        placeholder="Buscar país…"
+        style={{ width: '100%', padding: '4px 8px', border: '1px solid #dfe1e6', borderRadius: 4, fontSize: 12, marginBottom: 6 }}
+        autoFocus={autoFocus}
+      />
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginBottom: 6, minHeight: 20 }}>
+        {value.length === 0 ? (
+          <span style={{ fontSize: 11, color: '#9e9e9e' }}>Sin países seleccionados</span>
+        ) : value.map(p => (
+          <span key={p} style={{ background: '#e3f2fd', color: '#0052cc', borderRadius: 10, padding: '2px 8px', fontSize: 11, display: 'flex', alignItems: 'center', gap: 4 }}>
+            {p}
+            <span style={{ cursor: 'pointer', fontWeight: 700 }} onClick={() => toggle(p)}>×</span>
+          </span>
+        ))}
+      </div>
+      <div style={{ maxHeight: 160, overflowY: 'auto', border: '1px solid #eef2f6', borderRadius: 4 }}>
+        {COUNTRIES
+          .filter(c => c.label.toLowerCase().includes(filter.toLowerCase()))
+          .map(c => (
+            <label key={c.label} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 8px', fontSize: 12, cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={value.includes(c.label)}
+                onChange={() => toggle(c.label)}
+              />
+              {c.label}
+            </label>
+          ))}
+      </div>
+    </div>
+  )
 }
 
 function BackupSection() {
@@ -157,6 +203,388 @@ function IntegrationStatus() {
   )
 }
 
+// Shell de modal — mismo patrón visual que CreateTaskModal (overlay oscuro,
+// click fuera y Escape para cerrar).
+function Modal({ title, subtitle, onClose, width = 560, children, footer }) {
+  useEffect(() => {
+    const handler = (e) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [onClose])
+
+  return (
+    <div
+      style={{
+        position: 'fixed', inset: 0, background: 'rgba(0,0,0,.5)',
+        zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16,
+      }}
+      onClick={e => { if (e.target === e.currentTarget) onClose() }}
+    >
+      <div style={{
+        background: '#fff', borderRadius: 12, width, maxWidth: '100%', maxHeight: '90vh',
+        display: 'flex', flexDirection: 'column', boxShadow: '0 24px 64px rgba(0,0,0,.25)', overflow: 'hidden',
+      }}>
+        <div style={{ background: '#0a1929', padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div>
+            <div style={{ color: '#fff', fontWeight: 700, fontSize: 15 }}>{title}</div>
+            {subtitle && <div style={{ color: '#78909c', fontSize: 12, marginTop: 2 }}>{subtitle}</div>}
+          </div>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#78909c', cursor: 'pointer', padding: 4 }}>
+            <X size={18} />
+          </button>
+        </div>
+        <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14, overflowY: 'auto' }}>
+          {children}
+        </div>
+        <div style={{ padding: '12px 20px', borderTop: '1px solid #e2e8f0', display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+          {footer}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const MIN_PASSWORD_LENGTH = 8   // mismo mínimo que valida el backend (api/auth.js)
+
+const EMPTY_USER_FORM = {
+  username: '', name: '', role: 'operator', ownerId: '',
+  sipExtension: '', bp_paises: [], password: '', password2: '',
+}
+
+// Alta y edición comparten formulario. Al editar no se tocan ni el username
+// (es la clave del usuario, inmutable en el backend) ni la contraseña (tiene
+// su propio modal).
+function UserFormModal({ user, onClose }) {
+  const { addToast } = useToast()
+  const qc = useQueryClient()
+  const isNew = !user
+  const [saving, setSaving] = useState(false)
+  const [form, setForm] = useState(() => isNew ? EMPTY_USER_FORM : {
+    ...EMPTY_USER_FORM,
+    username: user.username,
+    name: user.name || '',
+    role: user.role || 'operator',
+    ownerId: user.ownerId || '',
+    sipExtension: user.sipExtension || '',
+    bp_paises: user.bp_paises || [],
+  })
+
+  // Owners de HubSpot, para elegir el ownerId de una lista en vez de copiarlo
+  // a mano desde HubSpot.
+  const { data: ownersData } = useQuery('hubspot-owners', hubspot.getOwners, { staleTime: 5 * 60_000 })
+  const owners = ownersData?.results || []
+  const ownerFueraDeLista = form.ownerId && !owners.some(o => String(o.id) === String(form.ownerId))
+
+  const set = (field, val) => setForm(f => ({ ...f, [field]: val }))
+
+  const puedeGuardar = form.name.trim() && (!isNew || (
+    form.username.trim() && form.password.length >= MIN_PASSWORD_LENGTH
+  ))
+
+  const submit = async () => {
+    if (isNew && form.password !== form.password2) {
+      return addToast('Las contraseñas no coinciden', 'error')
+    }
+    setSaving(true)
+    try {
+      if (isNew) {
+        await admin.createUser({
+          username: form.username, name: form.name, role: form.role,
+          ownerId: form.ownerId, sipExtension: form.sipExtension,
+          bp_paises: form.bp_paises, password: form.password,
+        })
+      } else {
+        await admin.updateUser(user.username, {
+          name: form.name, role: form.role, ownerId: form.ownerId,
+          sipExtension: form.sipExtension, bp_paises: form.bp_paises,
+        })
+      }
+      qc.invalidateQueries('admin-users')
+      addToast(isNew ? 'Usuario creado' : 'Usuario actualizado', 'success')
+      onClose()
+    } catch (e) {
+      addToast(e.response?.data?.error || 'No se pudo guardar el usuario', 'error')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <Modal
+      title={isNew ? 'Nuevo usuario' : `Editar ${user.name}`}
+      subtitle={isNew ? 'La contraseña la defines tú y se la comunicas al usuario' : `@${user.username} · el nombre de usuario no se puede cambiar`}
+      onClose={onClose}
+      footer={<>
+        <button className="btn btn-ghost btn-sm" onClick={onClose}>Cancelar</button>
+        <button className="btn btn-primary btn-sm" onClick={submit} disabled={saving || !puedeGuardar}>
+          <Check size={12} /> {saving ? 'Guardando…' : (isNew ? 'Crear usuario' : 'Guardar cambios')}
+        </button>
+      </>}
+    >
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        {isNew && (
+          <div className="form-group" style={{ margin: 0 }}>
+            <label>Usuario *</label>
+            <input
+              type="text"
+              placeholder="ej: maria"
+              value={form.username}
+              onChange={e => set('username', e.target.value.toLowerCase())}
+              autoFocus
+            />
+            <div style={{ fontSize: 10, color: '#6b778c', marginTop: 2 }}>
+              3–20 caracteres: minúsculas, números, punto, guion o guion bajo
+            </div>
+          </div>
+        )}
+        <div className="form-group" style={{ margin: 0, gridColumn: isNew ? 'auto' : '1 / -1' }}>
+          <label>Nombre completo *</label>
+          <input
+            type="text"
+            placeholder="ej: María Pérez"
+            value={form.name}
+            onChange={e => set('name', e.target.value)}
+            autoFocus={!isNew}
+          />
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div className="form-group" style={{ margin: 0 }}>
+          <label>Rol</label>
+          <select value={form.role} onChange={e => set('role', e.target.value)}>
+            <option value="operator">Operador</option>
+            <option value="supervisor">Supervisor</option>
+          </select>
+        </div>
+        <div className="form-group" style={{ margin: 0 }}>
+          <label>Extensión SIP</label>
+          <input
+            type="text"
+            placeholder="ej: 106"
+            value={form.sipExtension}
+            onChange={e => set('sipExtension', e.target.value)}
+          />
+        </div>
+      </div>
+
+      <div className="form-group" style={{ margin: 0 }}>
+        <label>Propietario en HubSpot</label>
+        <select value={form.ownerId} onChange={e => set('ownerId', e.target.value)}>
+          <option value="">— Sin asignar —</option>
+          {ownerFueraDeLista && <option value={form.ownerId}>{form.ownerId} (actual)</option>}
+          {owners.map(o => (
+            <option key={o.id} value={o.id}>
+              {[o.firstName, o.lastName].filter(Boolean).join(' ') || o.email} · {o.id}
+            </option>
+          ))}
+        </select>
+        <div style={{ fontSize: 10, color: '#6b778c', marginTop: 2 }}>
+          Determina qué registros ve el operador como "suyos". Sin owner, los filtros por propietario no devuelven nada.
+        </div>
+      </div>
+
+      <div className="form-group" style={{ margin: 0 }}>
+        <label>Países con acceso</label>
+        <CountryPicker value={form.bp_paises} onChange={v => set('bp_paises', v)} width="100%" />
+        <div style={{ fontSize: 10, color: '#6b778c', marginTop: 4 }}>
+          Sin países asignados, el operador no queda restringido por país (ve todo lo de su propietario).
+        </div>
+      </div>
+
+      {isNew && (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          <div className="form-group" style={{ margin: 0 }}>
+            <label>Contraseña *</label>
+            <input type="password" value={form.password} onChange={e => set('password', e.target.value)} />
+            <div style={{ fontSize: 10, color: '#6b778c', marginTop: 2 }}>Mínimo {MIN_PASSWORD_LENGTH} caracteres</div>
+          </div>
+          <div className="form-group" style={{ margin: 0 }}>
+            <label>Repetir contraseña *</label>
+            <input type="password" value={form.password2} onChange={e => set('password2', e.target.value)} />
+          </div>
+        </div>
+      )}
+    </Modal>
+  )
+}
+
+function PasswordModal({ user, onClose }) {
+  const { addToast } = useToast()
+  const [pwd, setPwd] = useState('')
+  const [pwd2, setPwd2] = useState('')
+  const [saving, setSaving] = useState(false)
+
+  const submit = async () => {
+    if (pwd !== pwd2) return addToast('Las contraseñas no coinciden', 'error')
+    setSaving(true)
+    try {
+      await admin.setUserPassword(user.username, pwd)
+      addToast(`Contraseña actualizada para ${user.name}`, 'success')
+      onClose()
+    } catch (e) {
+      addToast(e.response?.data?.error || 'No se pudo cambiar la contraseña', 'error')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <Modal
+      title="Asignar contraseña"
+      subtitle={`${user.name} · @${user.username}`}
+      onClose={onClose}
+      width={420}
+      footer={<>
+        <button className="btn btn-ghost btn-sm" onClick={onClose}>Cancelar</button>
+        <button className="btn btn-primary btn-sm" onClick={submit} disabled={saving || pwd.length < MIN_PASSWORD_LENGTH}>
+          <Check size={12} /> {saving ? 'Guardando…' : 'Asignar contraseña'}
+        </button>
+      </>}
+    >
+      <div className="form-group" style={{ margin: 0 }}>
+        <label>Nueva contraseña</label>
+        <input type="password" value={pwd} onChange={e => setPwd(e.target.value)} autoFocus />
+        <div style={{ fontSize: 10, color: '#6b778c', marginTop: 2 }}>Mínimo {MIN_PASSWORD_LENGTH} caracteres</div>
+      </div>
+      <div className="form-group" style={{ margin: 0 }}>
+        <label>Repetir contraseña</label>
+        <input type="password" value={pwd2} onChange={e => setPwd2(e.target.value)} />
+      </div>
+      <div style={{ background: '#fff3cd', borderRadius: 6, padding: '8px 12px', fontSize: 11, color: '#8a6914' }}>
+        El usuario podrá cambiarla después desde el icono de llave en la barra lateral.
+      </div>
+    </Modal>
+  )
+}
+
+// Alta, edición y activación/desactivación de usuarios — solo supervisores.
+function UsersSection() {
+  const { user: currentUser } = useAuth()
+  const { addToast } = useToast()
+  const qc = useQueryClient()
+  const { data: users, isLoading } = useQuery('admin-users', admin.getUsers)
+  const [creating, setCreating] = useState(false)
+  const [editingUser, setEditingUser] = useState(null)
+  const [pwdUser, setPwdUser] = useState(null)
+  const [toggling, setToggling] = useState(null)
+
+  const toggleStatus = async (u) => {
+    const desactivar = !u.disabled
+    if (desactivar && !window.confirm(`¿Desactivar el acceso de ${u.name}? No podrá volver a iniciar sesión.`)) return
+    setToggling(u.username)
+    try {
+      await admin.setUserStatus(u.username, desactivar)
+      qc.invalidateQueries('admin-users')
+      addToast(desactivar ? 'Acceso desactivado' : 'Acceso activado', 'success')
+    } catch (e) {
+      addToast(e.response?.data?.error || 'No se pudo cambiar el estado', 'error')
+    } finally {
+      setToggling(null)
+    }
+  }
+
+  return (
+    <div className="card" style={{ marginBottom: 24 }}>
+      <div className="card-header">
+        <h2 style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Users size={15} style={{ color: '#ab47bc' }} /> Gestión de usuarios
+        </h2>
+        <button className="btn btn-primary btn-sm" onClick={() => setCreating(true)}
+          style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <UserPlus size={12} /> Nuevo usuario
+        </button>
+      </div>
+      <div className="card-body" style={{ paddingBottom: 0 }}>
+        <p style={{ fontSize: 12, color: '#6b778c', marginTop: -4, marginBottom: 12 }}>
+          Da de alta usuarios, define su rol, su propietario de HubSpot, los países a los que
+          tienen acceso y si pueden entrar al sistema. Los usuarios no se borran: se desactivan,
+          para no perder el histórico asociado a su propietario de HubSpot. Desactivar impide
+          iniciar sesión de nuevo, pero una sesión ya abierta sigue activa hasta que expira (8 h).
+        </p>
+      </div>
+      {isLoading ? (
+        <div className="loading">Cargando usuarios…</div>
+      ) : (
+        <div className="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>HubSpot Owner ID</th>
+                <th>Ext.</th>
+                <th>Países</th>
+                <th>Estado</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {(users || []).map(u => {
+                const badge = ROLE_BADGE[u.role]
+                const esYo = u.username === currentUser?.username
+                return (
+                  <tr key={u.username} style={{ opacity: u.disabled ? 0.6 : 1 }}>
+                    <td>
+                      <div style={{ fontWeight: 600 }}>{u.name}</div>
+                      <div style={{ fontSize: 11, color: '#6b778c' }}>@{u.username}</div>
+                    </td>
+                    <td>
+                      <span style={{ background: badge?.bg, color: badge?.color, padding: '2px 8px', borderRadius: 12, fontSize: 11, fontWeight: 600 }}>
+                        {badge?.label || u.role}
+                      </span>
+                    </td>
+                    <td style={{ fontFamily: 'monospace', fontSize: 12, color: '#546e7a' }}>{u.ownerId || '—'}</td>
+                    <td style={{ fontWeight: 600, color: u.sipExtension ? '#4fc3f7' : '#6b778c' }}>{u.sipExtension || '—'}</td>
+                    <td style={{ fontSize: 12, color: '#546e7a' }}>
+                      {(u.bp_paises || []).length === 0
+                        ? <span style={{ color: '#6b778c' }}>Sin restricción</span>
+                        : `${u.bp_paises.length} país${u.bp_paises.length === 1 ? '' : 'es'}`}
+                    </td>
+                    <td>
+                      <span style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 5,
+                        padding: '2px 10px', borderRadius: 12, fontSize: 11, fontWeight: 700,
+                        background: u.disabled ? '#ffebe6' : '#e3fcef',
+                        color: u.disabled ? '#de350b' : '#006644',
+                      }}>
+                        {u.disabled ? <Ban size={10} /> : <Check size={10} />}
+                        {u.disabled ? 'Inactivo' : 'Activo'}
+                      </span>
+                    </td>
+                    <td>
+                      <div style={{ display: 'flex', gap: 6 }}>
+                        <button className="btn btn-ghost btn-sm" onClick={() => setEditingUser(u)}>Editar</button>
+                        <button className="btn btn-ghost btn-sm" onClick={() => setPwdUser(u)}
+                          style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                          <KeyRound size={12} /> Contraseña
+                        </button>
+                        <button
+                          className="btn btn-ghost btn-sm"
+                          onClick={() => toggleStatus(u)}
+                          disabled={toggling === u.username || (esYo && !u.disabled)}
+                          title={esYo && !u.disabled ? 'No puedes desactivar tu propio usuario' : ''}
+                          style={{ color: u.disabled ? '#006644' : '#de350b' }}
+                        >
+                          {toggling === u.username ? '…' : (u.disabled ? 'Activar' : 'Desactivar')}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {creating && <UserFormModal onClose={() => setCreating(false)} />}
+      {editingUser && <UserFormModal user={editingUser} onClose={() => setEditingUser(null)} />}
+      {pwdUser && <PasswordModal user={pwdUser} onClose={() => setPwdUser(null)} />}
+    </div>
+  )
+}
+
 export default function AdminPage() {
   const { user } = useAuth()
   const { addToast } = useToast()
@@ -165,7 +593,6 @@ export default function AdminPage() {
   const [sipValue, setSipValue] = useState('')
   const [editingPaises, setEditingPaises] = useState(null)
   const [paisesValue, setPaisesValue] = useState([])
-  const [paisesFilter, setPaisesFilter] = useState('')
   const [saving, setSaving] = useState(false)
   const [recomputing, setRecomputing] = useState(false)
   const [recomputeResult, setRecomputeResult] = useState(null)
@@ -215,13 +642,6 @@ export default function AdminPage() {
     }
   }
 
-  const togglePais = (label) => {
-    setPaisesValue(prev =>
-      prev.includes(label) ? prev.filter(p => p !== label) : [...prev, label]
-    )
-  }
-
-
   const runRecomputeAutoStages = async () => {
     setRecomputing(true)
     setRecomputeResult(null)
@@ -247,6 +667,9 @@ export default function AdminPage() {
     <>
       <Topbar title="Administracion" />
       <div className="content">
+
+        {/* Gestión de usuarios — solo supervisores */}
+        {isSupervisor && <UsersSection />}
 
         {/* Copia de seguridad — solo supervisores */}
         {isSupervisor && <BackupSection />}
@@ -407,39 +830,7 @@ export default function AdminPage() {
                         </td>
                         <td style={{ maxWidth: 420 }}>
                           {isEditing ? (
-                            <div style={{ border: '1px solid #4fc3f7', borderRadius: 6, padding: 8, width: 320 }}>
-                              <input
-                                value={paisesFilter}
-                                onChange={e => setPaisesFilter(e.target.value)}
-                                placeholder="Buscar país…"
-                                style={{ width: '100%', padding: '4px 8px', border: '1px solid #dfe1e6', borderRadius: 4, fontSize: 12, marginBottom: 6 }}
-                                autoFocus
-                              />
-                              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginBottom: 6, minHeight: 20 }}>
-                                {paisesValue.length === 0 ? (
-                                  <span style={{ fontSize: 11, color: '#9e9e9e' }}>Sin países seleccionados</span>
-                                ) : paisesValue.map(p => (
-                                  <span key={p} style={{ background: '#e3f2fd', color: '#0052cc', borderRadius: 10, padding: '2px 8px', fontSize: 11, display: 'flex', alignItems: 'center', gap: 4 }}>
-                                    {p}
-                                    <span style={{ cursor: 'pointer', fontWeight: 700 }} onClick={() => togglePais(p)}>×</span>
-                                  </span>
-                                ))}
-                              </div>
-                              <div style={{ maxHeight: 160, overflowY: 'auto', border: '1px solid #eef2f6', borderRadius: 4 }}>
-                                {COUNTRIES
-                                  .filter(c => c.label.toLowerCase().includes(paisesFilter.toLowerCase()))
-                                  .map(c => (
-                                    <label key={c.label} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 8px', fontSize: 12, cursor: 'pointer' }}>
-                                      <input
-                                        type="checkbox"
-                                        checked={paisesValue.includes(c.label)}
-                                        onChange={() => togglePais(c.label)}
-                                      />
-                                      {c.label}
-                                    </label>
-                                  ))}
-                              </div>
-                            </div>
+                            <CountryPicker value={paisesValue} onChange={setPaisesValue} autoFocus />
                           ) : (
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
                               {(u.bp_paises || []).length === 0 ? (

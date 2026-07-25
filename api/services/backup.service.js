@@ -17,7 +17,7 @@
 
 const { hs } = require('../repositories/hubspot.repository')
 const { COMPANY_PROPERTIES, CONTACT_PROPERTIES, DEAL_PROPERTIES } = require('../config/hubspotProperties')
-const { loadUsers } = require('../usersStore')
+const { loadUsersPersistent } = require('../usersStore')
 const { getSignature } = require('../signatureStore')
 const { getTemplates } = require('../emailTemplatesStore')
 const { buildBackupWorkbook, workbookToBuffer } = require('./excelExport.service')
@@ -65,7 +65,7 @@ async function buildFullBackupData() {
     fetchAll('deals', DEAL_PROPERTIES),
   ])
 
-  const users = loadUsers()
+  const users = await loadUsersPersistent()
   const safeUsers = sanitizeUsers(users)
 
   const signatures = {}

@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { X, Phone, FileText, Play, BarChart2, AlertTriangle, Calendar, CheckSquare, Users, FileSpreadsheet } from 'lucide-react'
 import { reports, hubspot } from '../hooks/useApi'
+import { useOwners } from '../hooks/useTeam'
 import Topbar from '../components/Topbar'
 import { useAuth } from '../contexts/AuthContext'
 import { useToast } from '../hooks/useToast'
@@ -20,17 +21,6 @@ function downloadBlob(blob, filename) {
   a.remove()
   window.URL.revokeObjectURL(url)
 }
-
-const OWNER_NAMES = {
-  '93615311': 'Roberto',
-  '93621022': 'Yesenia',
-  '93771980': 'Angel',
-  '93771979': 'Gracie',
-  '93771981': 'Carlos',
-  '73112880': 'Sara',
-}
-
-const OWNER_IDS = ['93615311', '93621022', '93771980', '93771979', '93771981', '73112880']
 
 const OWNER_COLORS = [
   '#4fc3f7','#81c784','#ffb74d','#f48fb1','#ce93d8','#90caf9'
@@ -61,7 +51,7 @@ const CALL_STATUS_LABEL = {
   QUEUED:    { text: 'En cola',       color: '#6b778c' },
   FAILED:    { text: 'Fallida',       color: '#de350b' },
   RINGING:   { text: 'Timbrando',     color: '#ff8b00' },
-  IN_PROGRESS: { text: 'En curso',    color: '#0052cc' },
+  IN_PROGRESS: { text: 'Enviada',     color: '#0052cc' },
 }
 
 // Limpia HTML y filtra mensajes internos de Zadarma/sistema
@@ -240,7 +230,8 @@ function NotesModal({ owner, days, onClose }) {
 
 // ── Tabla comparativa por operador con una metrica ─────────────────────────────
 function OwnerTable({ title, icon: Icon, iconColor, data, onClick, nav, filterFn }) {
-  const max = Math.max(1, ...OWNER_IDS.map(id => data?.[id] || 0))
+  const owners = useOwners()
+  const max = Math.max(1, ...owners.map(o => data?.[o.ownerId] || 0))
   return (
     <div className="card">
       <div className="card-header">
@@ -259,7 +250,8 @@ function OwnerTable({ title, icon: Icon, iconColor, data, onClick, nav, filterFn
             </tr>
           </thead>
           <tbody>
-            {OWNER_IDS.map((id, i) => {
+            {owners.map((o, i) => {
+              const id = o.ownerId
               const count = data?.[id] || 0
               return (
                 <tr key={id}
@@ -268,8 +260,10 @@ function OwnerTable({ title, icon: Icon, iconColor, data, onClick, nav, filterFn
                 >
                   <td>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <Avatar name={OWNER_NAMES[id]} color={OWNER_COLORS[i % OWNER_COLORS.length]} />
-                      <span style={{ fontWeight: 600, fontSize: 13 }}>{OWNER_NAMES[id]}</span>
+                      <Avatar name={o.name} color={OWNER_COLORS[i % OWNER_COLORS.length]} />
+                      <span style={{ fontWeight: 600, fontSize: 13 }}>
+                        {o.name}{o.disabled ? ' (inactivo)' : ''}
+                      </span>
                     </div>
                   </td>
                   <td style={{ textAlign: 'right', fontWeight: 700, color: count > 0 ? iconColor || '#0052cc' : '#6b778c' }}>
@@ -469,7 +463,7 @@ export default function ReportsPage() {
                       <div>
                         <div style={{ fontWeight: 700, fontSize: 14 }}>{owner.name}</div>
                         <div style={{ fontSize: 11, color: '#6b778c' }}>
-                          {['93615311', '93621022'].includes(owner.ownerId) ? 'Supervisor' : 'Operador'}
+                          {owner.role === 'supervisor' ? 'Supervisor' : 'Operador'}{owner.disabled ? ' · inactivo' : ''}
                         </div>
                       </div>
                     </div>
